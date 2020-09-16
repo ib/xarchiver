@@ -463,17 +463,23 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	gtk_widget_set_sensitive(dialog_data->update, archive->can_update[0]);
 	gtk_widget_set_sensitive(dialog_data->fresh, archive->can_freshen[0]);
 
-	if (!*gtk_entry_get_text(GTK_ENTRY(dialog_data->destination_path_entry)))
+	if (!archive->destination_path)
 	{
 		archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
-		if (archive_dir == NULL)
+
+		if (!archive_dir || !*archive_dir)
 		{
-			gchar *archive_dir_utf8 = g_filename_display_name(archive->path[0]);
+			gchar *archive_dir_utf8;
+
+			g_free(archive_dir);
+			archive_dir_utf8 = g_filename_display_name(archive->path[0]);
 			archive_dir = xa_remove_level_from_path(archive_dir_utf8);
 			g_free(archive_dir_utf8);
 		}
-		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
+
+		archive->destination_path = g_strdup(archive_dir);
 	}
+	gtk_entry_set_text(GTK_ENTRY(dialog_data->destination_path_entry), archive->destination_path);
 	g_free(archive_dir);
 
 	gtk_entry_set_text(GTK_ENTRY(dialog_data->password_entry), archive->password ? archive->password : "");
@@ -501,7 +507,9 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			break;
 
 			case GTK_RESPONSE_OK:
-			destination_path = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(dialog_data->destination_path_entry)), -1, NULL, NULL, NULL);
+			g_free(archive->destination_path);
+			archive->destination_path = g_strdup(gtk_entry_get_text(GTK_ENTRY(dialog_data->destination_path_entry)));
+			destination_path = g_filename_from_utf8(archive->destination_path, -1, NULL, NULL, NULL);
 			g_free(archive->extraction_dir);
 			archive->extraction_dir = xa_escape_bad_chars(destination_path, ESCAPES);
 
