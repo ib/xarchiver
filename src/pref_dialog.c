@@ -503,7 +503,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 
 	config_dir = g_strconcat (g_get_home_dir(),"/.config",NULL);
 	if (g_file_test(config_dir, G_FILE_TEST_EXISTS) == FALSE)
-		g_mkdir_with_parents(config_dir,0600);
+		g_mkdir_with_parents(config_dir,0700);
 
 	xarchiver_config_dir = g_strconcat(config_dir, "/", PACKAGE, NULL);
 	g_free (config_dir);
