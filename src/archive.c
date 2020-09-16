@@ -499,9 +499,16 @@ gboolean xa_create_working_directory (XArchive *archive)
 		return TRUE;
 
 	value = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_temp_dir));
-	value_local = g_filename_from_utf8(value, -1, NULL, NULL, NULL);
-	tmp_dir = g_strconcat(value_local, "/xa-XXXXXX", NULL);
-	g_free(value_local);
+
+	if (value && *value)
+	{
+		value_local = g_filename_from_utf8(value, -1, NULL, NULL, NULL);
+		tmp_dir = g_strconcat(value_local, "/xa-XXXXXX", NULL);
+		g_free(value_local);
+	}
+	else
+		tmp_dir = g_strdup("");
+
 	g_free(value);
 
 	if (!g_mkdtemp(tmp_dir))
