@@ -433,8 +433,6 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selected,XArchive *archive)
 {
-	gchar *archive_dir = NULL;
-
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry))&& prefs_window->extract_dialog[0] != -1)
 		gtk_window_set_default_size (GTK_WINDOW(dialog_data->dialog1),prefs_window->extract_dialog[0],prefs_window->extract_dialog[1]);
 	else
@@ -465,7 +463,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 
 	if (!archive->destination_path)
 	{
-		archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
+		gchar *archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
 
 		if (!archive_dir || !*archive_dir)
 		{
@@ -478,10 +476,9 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		}
 
 		archive->destination_path = g_strdup(archive_dir);
+		g_free(archive_dir);
 	}
 	gtk_entry_set_text(GTK_ENTRY(dialog_data->destination_path_entry), archive->destination_path);
-	g_free(archive_dir);
-
 	gtk_entry_set_text(GTK_ENTRY(dialog_data->password_entry), archive->password ? archive->password : "");
 
 	gtk_widget_set_sensitive(label_password, archive->has_password);
