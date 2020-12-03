@@ -665,7 +665,7 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "rar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rar");
 
-		if (!standard || (rar_version == 5))
+		if (!standard || (rar_version >= 5))
 		{
 			archiver[type].type = g_slist_append(archiver[type].type, "rar5");
 			archiver[type].glob = g_slist_append(archiver[type].glob, " .rar");

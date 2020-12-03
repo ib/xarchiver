@@ -32,6 +32,7 @@ static gboolean header_line, data_line, fname_line, last_line;
 void xa_rar_check_version (gchar *path)
 {
 	gchar *output, *id;
+	gchar version;
 
 	g_spawn_command_line_sync(path, &output, NULL, NULL, NULL);
 
@@ -41,7 +42,12 @@ void xa_rar_check_version (gchar *path)
 		id = strstr(output, "\nUNRAR ");
 
 	if (id)
-		rar_version = (*(strchr(id, ' ') + 1) == '5' ? 5 : 4);
+	{
+		version = *(strchr(id, ' ') + 1);
+
+		if (version > '1' && version <= '9')
+			rar_version = version - '0';
+	}
 
 	g_free(output);
 }
@@ -482,7 +488,7 @@ void xa_rar_list (XArchive *archive)
 	archive->files = 0;
 
 
-	if (rar_version == 5)
+	if (rar_version >= 5)
 	{
 		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 		const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Occupancy"), _("Date"), _("Time"), _("Attributes"), _("Checksum")};
@@ -569,7 +575,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
 
-	if (rar_version == 5)
+	if (rar_version >= 5)
 	{
 		if (archive->tag == 5)
 			version_switch = " -ma5";
