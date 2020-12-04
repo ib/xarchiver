@@ -3,17 +3,18 @@
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License,or
+ *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program; if not,write to the Free Software
- *  Foundation,Inc.,59 Temple Street #330,Boston,MA 02111-1307,USA.
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1301 USA.
  */
 
 #include "config.h"
@@ -1729,20 +1730,19 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 			"website","https://wiki.github.com/ib/xarchiver",
 			"license","Copyright \xC2\xA9 " COPYRIGHT_YEAR " " COPYRIGHT_HOLDER " - Colossus <colossus73@gmail.com>\n"
 			          "Copyright \xC2\xA9 " MAINTAINER_YEAR " " MAINTAINER "\n\n"
-					"This is free software; you can redistribute it and/or\n"
-					"modify it under the terms of the GNU Library General Public License as\n"
-					"published by the Free Software Foundation; either version 2 of the\n"
-					"License,or (at your option) any later version.\n"
+					"This program is free software; you can redistribute it and/or modify it\n"
+					"under the terms of the GNU General Public License as published by the\n"
+					"Free Software Foundation; either version 2 of the License, or (at your option)\n"
+					"any later version.\n"
 					"\n"
-					"This software is distributed in the hope that it will be useful,\n"
-					"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-					"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
-					"Library General Public License for more details.\n"
+					"This program is distributed in the hope that it will be useful, but WITHOUT\n"
+					"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY\n"
+					"or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public\n"
+					"License for more details.\n"
 					"\n"
-					"You should have received a copy of the GNU Library General Public\n"
-					"License along with the Gnome Library; see the file COPYING.LIB.  If not,\n"
-					"write to the Free Software Foundation,Inc.,59 Temple Place - Suite 330,\n"
-					"Boston,MA 02111-1307,USA.\n",
+					"You should have received a copy of the GNU General Public License\n"
+					"along with this program; if not, write to the Free Software Foundation, Inc.,\n"
+					"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.",
 		      NULL);
 	}
 	gtk_dialog_run ( GTK_DIALOG(about));
