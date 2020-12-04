@@ -26,6 +26,7 @@
 #define COPYRIGHT_YEAR "2005-2014"
 #define COPYRIGHT_HOLDER "Giuseppe Torelli"
 #define MAINTAINER "Ingo Brückl"
+#define MAINTAINER_YEAR "2015"
 
 extern GtkWidget *xa_main_window;
 
