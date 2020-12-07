@@ -13127,7 +13127,7 @@ fi
 
 
 
-xgversion="`xgettext --version | head -1 | grep -o '[0-9.]\+$'`"
+xgversion="`xgettext --version | head -1 | grep -Eo '[0-9.]+$'`"
 if test x"$xgversion" \< x"0.16"; then :
   as_fn_error $? "GNU gettext tools must be at least version 0.16" "$LINENO" 5
 fi
