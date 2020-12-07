@@ -88,7 +88,7 @@ dnl ********************
 dnl *** i18n support ***
 dnl ********************
 IT_PROG_INTLTOOL([0.40.0], [no-xml])
-xgversion="`xgettext --version | head -1 | grep -Eo '[[0-9.]]\+$'`"
+xgversion="`xgettext --version | head -1 | grep -Eo '[[0-9.]]+$'`"
 AS_IF([test x"$xgversion" \< x"0.16"], AC_MSG_ERROR([GNU gettext tools must be at least version 0.16]))
 GETTEXT_PACKAGE=m4_default([], [AC_PACKAGE_NAME])
 AC_SUBST([GETTEXT_PACKAGE])
