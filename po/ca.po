@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -307,6 +307,12 @@ msgstr "No s’ha pogut obrir el fitxer «%s»:"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "No es pot obrir el fitxer «%s»:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "No s’ha pogut obrir l’arxiu «%s»:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1544,9 +1550,6 @@ msgstr "|Mida\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "S’està convertint el fitxer a un auto-extraible"
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "No s’ha pogut obrir l’arxiu «%s»:"
 
 #~ msgid "Command line output"
 #~ msgstr "Sortida de la línea d’ordres"

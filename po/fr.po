@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
-"PO-Revision-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
+"PO-Revision-Date: 2020-12-08 11:32+0100\n"
 "Last-Translator: Jean Philippe Eimer <phil@jpmr.org>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
 "Language: fr\n"
@@ -301,6 +301,10 @@ msgstr "Échec de l'ouverture du fichier \"%s\" :"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Échec de l'ouverture du fichier %s :"
+
+#: ../src/main.c
+msgid "Can't open the archive!\n"
+msgstr "Impossible d'ouvrir l'archive !\n"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1359,5 +1363,3 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Taille\n"
 
-#~ msgid "Date and Time"
-#~ msgstr "Date et Heure"

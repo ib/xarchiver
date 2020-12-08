@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -307,6 +307,12 @@ msgstr "فائل \"%s\" نہیں کھولی جاسکتی:"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "فائل %s نہیں کھولی جاسکتی:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "محفوظہ \"%s\" نہیں کھولا جاسکتا:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1595,9 +1601,6 @@ msgstr "|حجم\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "محفوظہ کو self-extracting میں بدلا جارہا ہے، انتظار فرمائیں..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "محفوظہ \"%s\" نہیں کھولا جاسکتا:"
 
 #~ msgid "Command line output"
 #~ msgstr "کمانڈ لائن ما حاصل"

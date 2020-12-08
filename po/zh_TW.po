@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -305,6 +305,12 @@ msgstr "無法開啟檔案 %s："
 #, c-format
 msgid "Can't open file %s:"
 msgstr "無法開啟檔案 %s："
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "無法開啟封存檔「%s」:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1578,9 +1584,6 @@ msgstr "|大小\n"
 #, fuzzy
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "轉換封存檔為自解封存檔, 請稍候..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "無法開啟封存檔「%s」:"
 
 #~ msgid "Command line output"
 #~ msgstr "命令列輸出"

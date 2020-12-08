@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2011-01-22 11:38+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: Polish <>\n"
@@ -311,6 +311,12 @@ msgstr "Nie można otworzyć pliku \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Nie można otworzyć pliku %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't recompress the archive:"
+msgid "Can't open the archive!\n"
+msgstr "Nie mogę ponownie skompresować archiwum:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1901,9 +1907,6 @@ msgstr "|Rozmiar\n"
 
 #~ msgid "An error occurred while recompressing the tar archive!"
 #~ msgstr "Wystąpił błąd podczas ponownej kompresji archiwum tar!"
-
-#~ msgid "Can't recompress the archive:"
-#~ msgstr "Nie mogę ponownie skompresować archiwum:"
 
 #~ msgid "Can't decompress the archive:"
 #~ msgstr "Nie mogę zdekompresować archiwum:"

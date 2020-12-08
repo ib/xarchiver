@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2018-03-24 15:42+0100\n"
 "Last-Translator: Asier Iturralde Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: Euskara <librezale@librezale.eus>\n"
@@ -298,6 +298,12 @@ msgstr "Ezin da \"%s\" fitxategia ireki:"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Ezin da %s fitxategia ireki:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't add files to the archive:"
+msgid "Can't open the archive!\n"
+msgstr "Ezin dira fitxategiak artxibora gehitu:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"

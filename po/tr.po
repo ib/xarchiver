@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -302,6 +302,12 @@ msgstr "\"%s\" dosyası açılamıyor:"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "%s dosyası açılamıyor:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "\"%s\" arşivi açılamıyor:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1569,9 +1575,6 @@ msgstr "|Boyut\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Arşivi kendi kendine açılan arşive dönüştürüyor, lütfen bekleyin..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "\"%s\" arşivi açılamıyor:"
 
 #~ msgid "Command line output"
 #~ msgstr "Komut satırı çıktısı"

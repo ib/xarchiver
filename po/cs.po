@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2009-10-16 19:47+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -311,6 +311,12 @@ msgstr "Nelze otevřít soubor \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Nelze otevřít soubor %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "Nelze otevřít archiv \"%s\":"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1564,9 +1570,6 @@ msgstr "|Velikost\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Konvertuji archiv na samorozbalitelný, prosím čekejte..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "Nelze otevřít archiv \"%s\":"
 
 #~ msgid "Command line output"
 #~ msgstr "Výstup příkazové řádky"

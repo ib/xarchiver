@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2019-02-26 03:12+0300\n"
 "Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -324,6 +324,12 @@ msgstr "Не могу да отворим „%s“ датотеку: "
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Не могу да отворим „%s“ датотеку: "
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't add files to the archive:"
+msgid "Can't open the archive!\n"
+msgstr "Не могу да додам датотеке у архиву: "
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"

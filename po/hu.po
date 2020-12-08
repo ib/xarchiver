@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2017-01-23 23:58+0100\n"
 "Last-Translator: Páder Rezső <rezso@rezso.net>\n"
 "Language-Team: Hungarian\n"
@@ -309,6 +309,12 @@ msgstr "Nem nyitható meg a fájl („%s”):"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Nem nyitható meg a fájl (%s):"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't add files to the archive:"
+msgid "Can't open the archive!\n"
+msgstr "A fájlok nem adhatók az archívumhoz:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"

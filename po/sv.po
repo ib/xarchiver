@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2009-12-16 18:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -305,6 +305,12 @@ msgstr "Kan inte öppna filen \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Kan inte öppna filen %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "Kan inte öppna arkivet \"%s\":"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1559,9 +1565,6 @@ msgstr "|Storlek\n"
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr ""
 #~ "Konverterar arkivet till att vara självextraherande, var god vänta..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "Kan inte öppna arkivet \"%s\":"
 
 #~ msgid "Command line output"
 #~ msgstr "Kommandoradsutskrift"

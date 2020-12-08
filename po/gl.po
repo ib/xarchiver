@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2010-11-02 18:09+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -309,6 +309,11 @@ msgstr "Non se puido abrir o ficheiro \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Non se puido abrir o ficheiro %s:"
+
+#: ../src/main.c
+#, fuzzy
+msgid "Can't open the archive!\n"
+msgstr "Non se puido abrir o ficheiro"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1539,10 +1544,6 @@ msgstr "|Tamaño\n"
 #, fuzzy
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Engadindo ficheiros ó arquivo, agarde..."
-
-#, fuzzy
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "Non se puido abrir o ficheiro"
 
 #, fuzzy
 #~ msgid "Command line output"

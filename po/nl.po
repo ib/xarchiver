@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -306,6 +306,12 @@ msgstr "Kan bestand \"%s\" niet openen:"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Kan bestand %s niet openen:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "Kan archief \"%s\" niet openen:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1564,9 +1570,6 @@ msgstr "|Grootte\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Archief zelf-uitpakkend maken, even wachten a.u.b..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "Kan archief \"%s\" niet openen:"
 
 #~ msgid "Command line output"
 #~ msgstr "Uitvoer van opdrachtregel"

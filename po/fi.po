@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2010-10-23 14:01+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <None>\n"
@@ -302,6 +302,12 @@ msgstr "Tiedostoa \"%s\" ei voi avata:"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Tiedostoa \"%s\" ei voi avata:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't add files to the archive:"
+msgid "Can't open the archive!\n"
+msgstr "Ei voi lisätä tiedostoja arkistoon:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"

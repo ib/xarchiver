@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -311,6 +311,12 @@ msgstr "Nevar atvērt failu \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Nevar atvērt failu %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "Nevaru atvērt arhīvu \"%s\":"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1542,9 +1548,6 @@ msgstr "|Izmērs\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Konvertēju arhīvu uz pašizpletes arhīvu, lūdzu uzgaidiet..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "Nevaru atvērt arhīvu \"%s\":"
 
 #~ msgid "Command line output"
 #~ msgstr "Komandu rindas izvads"

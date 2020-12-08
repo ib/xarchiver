@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -300,6 +300,12 @@ msgstr "Tak dapat membuka berkas \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Tak dapat membuka berkas %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "Tak dapat membuka arsip \"%s\":"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1544,9 +1550,6 @@ msgstr "|Ukuran\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Mengonversi arsip ke ekstrak-sendiri, silakan tunggu..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "Tak dapat membuka arsip \"%s\":"
 
 #~ msgid "Command line output"
 #~ msgstr "Keluaran baris perintah"

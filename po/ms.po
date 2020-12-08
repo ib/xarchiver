@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2019-02-26 03:11+0300\n"
 "Last-Translator: abuyop <abuyop@gmail.com>\n"
 "Language-Team: Malay (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -321,6 +321,12 @@ msgstr "Tidak dapat buka fail \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Tidak dapat buka fail %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't add files to the archive:"
+msgid "Can't open the archive!\n"
+msgstr "Tidak dapat tambah fail ke arkib:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -292,6 +292,12 @@ msgstr ""
 #, c-format
 msgid "Can't open file %s:"
 msgstr ""
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Create a new archive"
+msgid "Can't open the archive!\n"
+msgstr "ఒక కొత్త సంగ్రహాన్ని సృష్టించు"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"

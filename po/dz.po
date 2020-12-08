@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchivr\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2006-11-23 12:28+0530\n"
 "Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -314,6 +314,12 @@ msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་མི་བཏུབ \"%s\
 #, fuzzy, c-format
 msgid "Can't open file %s:"
 msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་མི་བཏུབ \"%s\":"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "ཡིག་མཛོད་ \"%s\"འདི་ཁ་ཕྱེ་མི་བཏུབ:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1549,9 +1555,6 @@ msgstr "|ཚད།\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "ཡིག་མཛོད་འདི་  རང་-ཕྱིར་འདོན་འབད་དོ་ལུ་གཞི་བསྒྱུར་འབད་དོ་  བསྒུག་གནང་..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "ཡིག་མཛོད་ \"%s\"འདི་ཁ་ཕྱེ་མི་བཏུབ:"
 
 #~ msgid "Command line output"
 #~ msgstr "གྲལ་ཐིག་ཨའུཊི་པུཊི་བརྡ་བཀོད་འབད།"

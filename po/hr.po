@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2011-05-19 22:12+0200\n"
 "Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian\n"
@@ -305,6 +305,12 @@ msgstr "Ne mogu otvoriti datoteku \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Ne mogu otvoriti datoteku %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't add files to the archive:"
+msgid "Can't open the archive!\n"
+msgstr "Ne mogu dodati datoteke u arhivu"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"

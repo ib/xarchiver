@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2019-02-26 03:13+0300\n"
 "Last-Translator: Nudjaree <poonim_p@hotmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -318,6 +318,12 @@ msgstr "ไม่สามารถเปิดแฟ้ม \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "ไม่สามารถเปิดแฟ้ม %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't add files to the archive:"
+msgid "Can't open the archive!\n"
+msgstr "ไม่สามารถเพิ่มแฟ้มไปยังแฟ้มจัดเก็บ:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"

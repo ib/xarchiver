@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2020-02-26 11:18-0300\n"
 "Last-Translator: Fúlvio G. Alves <fga.fulvio@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -298,6 +298,12 @@ msgstr "Erro abrindo o arquivo \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Não foi possível abrir o arquivo %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "Não foi possível abrir o pacote \"%s\":"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1501,9 +1507,6 @@ msgstr "|Tamanho\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Convertendo o pacote para auto-descompactável, aguarde por favor..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "Não foi possível abrir o pacote \"%s\":"
 
 #~ msgid "Command line output"
 #~ msgstr "Saída da linha de comando"

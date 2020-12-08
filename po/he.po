@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -307,6 +307,12 @@ msgstr "אין אפשרות לפתוח את הקובץ \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "לא ניתן לפתוח את הקובץ \"%s\":"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open archive \"%s\":"
+msgid "Can't open the archive!\n"
+msgstr "אין אפשרות לפתוח את ארכיון \"%s\""
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -1526,9 +1532,6 @@ msgstr "|גודל\n"
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "ממיר את הארכיון לסוג חילוץ-עצמי, אנא המתן..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "אין אפשרות לפתוח את ארכיון \"%s\""
 
 #~ msgid "Command line output"
 #~ msgstr "פלט שורת פקודה"

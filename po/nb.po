@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"POT-Creation-Date: 2020-12-08 11:32+0100\n"
 "PO-Revision-Date: 2008-10-22 20:11+0200\n"
 "Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
 "Language-Team: Norwegian Bokmal\n"
@@ -303,6 +303,12 @@ msgstr "Klarte ikke å åpne filen \"%s\":"
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Kan ikke åpne filen %s:"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't add files to the archive:"
+msgid "Can't open the archive!\n"
+msgstr "Kan ikke legge til filer i arkivet:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
