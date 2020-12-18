@@ -1727,7 +1727,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 			"documenters",documenters,
 			"translator_credits",_("translator-credits"),
 			"logo_icon_name","xarchiver",
-			"website","https://wiki.github.com/ib/xarchiver",
+			"website","https://github.com/ib/xarchiver/wiki",
 			"license","Copyright \xC2\xA9 " COPYRIGHT_YEAR " " COPYRIGHT_HOLDER " - Colossus <colossus73@gmail.com>\n"
 			          "Copyright \xC2\xA9 " MAINTAINER_YEAR " " MAINTAINER "\n\n"
 					"This program is free software; you can redistribute it and/or modify it\n"
