@@ -367,7 +367,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	gtk_window_set_type_hint (GTK_WINDOW (data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for(GTK_WINDOW(data->dialog1),GTK_WINDOW(xa_main_window));
 	gtk_container_set_border_width (GTK_CONTAINER (data->dialog1),5);
-	gtk_widget_set_size_request(data->dialog1, 380, 460);
+	gtk_widget_set_size_request(data->dialog1, 380, 485);
 	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(data->dialog1));
 
 	vbox1 = gtk_vbox_new (FALSE, 5);
