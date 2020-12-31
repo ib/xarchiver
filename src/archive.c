@@ -600,7 +600,7 @@ gboolean xa_run_command (XArchive *archive, const gchar *command)
 
 	xa_child_processed(XA_CHILD_EXIT, status, archive);
 
-	return (status == 0);
+	return (status == 0 || (guint8) status == archive->exitstatus_ok);
 }
 
 gboolean xa_has_containing_directory (XArchive *archive)

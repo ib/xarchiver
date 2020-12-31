@@ -197,6 +197,7 @@ struct _XArchive
 	/* (un)compressor interface */
 	XArchiver *archiver;
 	parse_output_func parse_output;
+	guint8 exitstatus_ok;
 };
 
 extern XArchive *archive[];

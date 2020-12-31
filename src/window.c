@@ -798,6 +798,8 @@ void xa_child_processed (XAChildProcess process, guint8 exitstatus, XArchive *ar
 
 	if (--archive->child_ref == 0)
 	{
+		if (status[XA_CHILD_EXIT] == archive->exitstatus_ok) status[XA_CHILD_EXIT] = 0;
+
 		if (archive->output)
 			archive->output = g_slist_reverse(archive->output);
 
