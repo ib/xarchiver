@@ -779,11 +779,11 @@ static void xa_expand_containing_directory (XArchive *archive)
 	}
 }
 
-void xa_child_processed (XAChildProcess process, gboolean success, XArchive *archive)
+void xa_child_processed (XAChildProcess process, guint8 exitstatus, XArchive *archive)
 {
-	static gboolean okay[XA_CHILD_PROCS];
+	static guint8 status[XA_CHILD_PROCS];
 
-	okay[process] = success;
+	status[process] = exitstatus;
 
 	if (process == XA_CHILD_EXIT)
 	{
@@ -801,7 +801,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 		if (archive->output)
 			archive->output = g_slist_reverse(archive->output);
 
-		if (okay[XA_CHILD_EXIT] && okay[XA_CHILD_STDOUT] && okay[XA_CHILD_STDERR])
+		if (status[XA_CHILD_EXIT] == 0 && status[XA_CHILD_STDOUT] == 0 && status[XA_CHILD_STDERR] == 0)
 		{
 			if (xa_main_window)
 			{

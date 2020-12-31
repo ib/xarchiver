@@ -77,7 +77,7 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 	g_io_channel_shutdown(ioc, FALSE, NULL);
 	g_io_channel_unref(ioc);
 
-	xa_child_processed(XA_CHILD_STDOUT, cond == G_IO_HUP, archive);
+	xa_child_processed(XA_CHILD_STDOUT, cond != G_IO_HUP, archive);
 
 	return FALSE;
 }
@@ -122,21 +122,20 @@ static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive 
 	g_io_channel_shutdown(ioc, FALSE, NULL);
 	g_io_channel_unref(ioc);
 
-	xa_child_processed(XA_CHILD_STDERR, cond == G_IO_HUP, archive);
+	xa_child_processed(XA_CHILD_STDERR, cond != G_IO_HUP, archive);
 
 	return FALSE;
 }
 
 static void xa_process_exit (GPid pid, gint status, XArchive *archive)
 {
-	gboolean result;
-
 	if (WIFEXITED(status))
 	{
-		result = (WEXITSTATUS(status) == 0 || (archive->status == XARCHIVESTATUS_RELOAD &&
-		                                       !g_file_test(archive->path[0], G_FILE_TEST_EXISTS)));
+		if ((archive->status == XARCHIVESTATUS_RELOAD) && !g_file_test(archive->path[0], G_FILE_TEST_EXISTS))
+			status = 0;
+
 		g_spawn_close_pid(pid);
-		xa_child_processed(XA_CHILD_EXIT, result, archive);
+		xa_child_processed(XA_CHILD_EXIT, WEXITSTATUS(status), archive);
 	}
 }
 
@@ -574,7 +573,6 @@ gboolean xa_run_command (XArchive *archive, const gchar *command)
 {
 	pid_t pid = 0;
 	int status;
-	gboolean result;
 
 	/* batch mode and archive's list function has completed */
 	if (!xa_main_window && archive->column_types)
@@ -583,7 +581,7 @@ gboolean xa_run_command (XArchive *archive, const gchar *command)
 	xa_spawn_async_process(archive, command);
 
 	if (archive->child_pid == 0)
-		result = FALSE;
+		status = 1;
 	else
 	{
 		while (pid != archive->child_pid && pid != -1)
@@ -594,12 +592,15 @@ gboolean xa_run_command (XArchive *archive, const gchar *command)
 				gtk_main_iteration();
 		}
 
-		result = (WIFEXITED(status) && (WEXITSTATUS(status) == 0));
+		if (WIFEXITED(status))
+			status = WEXITSTATUS(status);
+		else
+			status = 1;
 	}
 
-	xa_child_processed(XA_CHILD_EXIT, result, archive);
+	xa_child_processed(XA_CHILD_EXIT, status, archive);
 
-	return result;
+	return (status == 0);
 }
 
 gboolean xa_has_containing_directory (XArchive *archive)

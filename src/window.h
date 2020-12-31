@@ -33,7 +33,7 @@ void xa_about(GtkMenuItem *, gpointer);
 void xa_add_files_archive(GtkMenuItem *, gpointer);
 void xa_archive_properties(GtkMenuItem *, gpointer);
 void xa_cancel_archive(GtkMenuItem *, gpointer);
-void xa_child_processed(XAChildProcess, gboolean, XArchive *);
+void xa_child_processed(XAChildProcess, guint8, XArchive *);
 void xa_clipboard_clear(GtkClipboard *, XArchive *);
 void xa_clipboard_copy(GtkMenuItem *, gpointer);
 void xa_clipboard_cut(GtkMenuItem *, gpointer);
