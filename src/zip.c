@@ -70,7 +70,14 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 
 	encrypted = dir = FALSE;
 	if ((line[0] != '-') && (line[0] != 'd') && (line[0] != 'l') && (line[0] != '?'))
+	{
+		/* unzip can compensate a central directory length reported as too long,
+		   but then exits with status (aka error level) 2, which is why we accept
+		   this exit status as okay in this case */
+		if (strcmp(line, "  zipfile?).  Compensating...\n") == 0) archive->exitstatus_ok = 2;
+
 		return;
+	}
 
 	linesize = strlen(line);
 
