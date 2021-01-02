@@ -483,6 +483,7 @@ void xa_clean_archive_structure (XArchive *archive)
 	g_free(archive->path[0]);
 	g_free(archive->path[1]);
 	g_free(archive->path[2]);
+	g_free(archive->path[3]);
 	g_free(archive->destination_path);
 	g_free(archive->extraction_dir);
 	g_free(archive->password);
