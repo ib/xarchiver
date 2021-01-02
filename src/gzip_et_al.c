@@ -17,6 +17,17 @@
  *  MA 02110-1301 USA.
  */
 
+#ifdef __APPLE__
+#include <libkern/OSByteOrder.h>
+#define le32toh(x) OSSwapLittleToHostInt32(x)
+#define htole32(x) OSSwapHostToLittleInt32(x)
+#elif defined(__FreeBSD__)
+#include <sys/endian.h>
+#else
+#include <endian.h>
+#endif
+#include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
@@ -427,11 +438,14 @@ void xa_gzip_et_al_list (XArchive *archive)
 {
 	GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Saving"), _("Date"), _("Time"), NULL, NULL};
-	const gchar *decompfile = "xa-tmp.decompressed";
-	gchar *password_str, *archive_path, *command, *workfile, buffer[12];
-	FILE *file;
+	const gchar *decompfile = "xa-tmp.decompressed", *framefile = "xa-tmp.framed";
+	gchar *password_str, *archive_path, *command, *workfile, buffer[4096];
+	FILE *file, *wfile;
 	struct stat st;
 	guint i;
+
+	if (!xa_create_working_directory(archive))
+		return;
 
 	if (archive->type == XARCHIVETYPE_LRZIP)
 	{
@@ -458,7 +472,98 @@ void xa_gzip_et_al_list (XArchive *archive)
 		}
 	}
 
-	if (!archive->path[2])
+	if (archive->type == XARCHIVETYPE_LZ4 && (archive->tag & 0xff) == 'm')
+	{
+		int skip, offset;
+		uint32_t uncompressed, blocksize;
+		guint8 flg, bd, hc, endmark[4] = "\x00\x00\x00\x00";
+		size_t bytes;
+
+		file = fopen(archive->path[0], "r");
+
+		if (file)
+		{
+			workfile = g_strconcat(archive->working_dir, "/", framefile, NULL);
+			wfile = fopen(workfile, "w");
+
+			if (wfile)
+			{
+				skip = (archive->tag == 'm' ? 8 : 16);   // magic
+
+				/* original (uncompressed) data size */
+				fseek(file, skip, SEEK_SET);
+				fread(&uncompressed, sizeof(uncompressed), 1, file);
+
+				/* create a lz4 frame header */
+
+				fwrite(LZ4_MAGIC, 4, 1, wfile);
+
+				flg = (0 << 7) + (1 << 6)   // version number
+				               + (1 << 5)   // block independence flag
+				               + (0 << 4)   // block checksum flag
+				               + (0 << 3)   // content size flag
+				               + (0 << 2)   // content checksum flag
+				               + (0 << 1)   // reserved
+				               + (0 << 0);  // dictionary id flag
+				fwrite(&flg, 1, 1, wfile);
+
+				if (le32toh(uncompressed) < 64 * 1024)          // 64 KB
+				{
+					bd = 0x40;
+					hc = 0x82;
+				}
+				else if (le32toh(uncompressed) < 256 * 1024)    // 256 KB
+				{
+					bd = 0x50;
+					hc = 0xfb;
+				}
+				else if (le32toh(uncompressed) < 1024 * 1024)   // 1 MB
+				{
+					bd = 0x60;
+					hc = 0x51;
+				}
+				else                                            // 4 MB
+				{
+					bd = 0x70;
+					hc = 0x73;
+				}
+
+				fwrite(&bd, 1, 1, wfile);   // block maximum size
+				fwrite(&hc, 1, 1, wfile);   // header checksum
+
+				offset = skip + 4;
+
+				fseek(file, 0, SEEK_END);
+				blocksize = htole32((uint32_t) (ftell(file) - offset));
+				fwrite(&blocksize, sizeof(blocksize), 1, wfile);
+
+				fseek(file, offset, SEEK_SET);
+
+				/* copy lz4 data */
+				while ((bytes = fread(buffer, 1, sizeof(buffer), file)) > 0)
+					fwrite(buffer, 1, bytes, wfile);
+
+				fwrite(endmark, sizeof(endmark), 1, wfile);
+
+				fclose(wfile);
+			}
+			else
+			{
+				fclose(file);
+				g_free(workfile);
+				return;
+			}
+
+			fclose(file);
+		}
+		else
+			return;
+
+		archive->path[2] = g_strdup(workfile);
+		archive->path[3] = xa_escape_bad_chars(workfile, ESCAPES);
+		g_free(workfile);
+	}
+	else
 	{
 		archive->path[2] = g_strdup(archive->path[0]);
 		archive->path[3] = g_strdup(archive->path[1]);
@@ -467,9 +572,6 @@ void xa_gzip_et_al_list (XArchive *archive)
 	if (archive->has_password)
 		if (!xa_check_password(archive))
 			return;
-
-	if (!xa_create_working_directory(archive))
-		return;
 
 	password_str = xa_gzip_et_al_password_str(archive->password, archive->type);
 	archive_path = xa_quote_shell_command(archive->path[2], TRUE);

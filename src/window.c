@@ -1755,7 +1755,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 ArchiveType xa_detect_archive_type (const gchar *filename)
 {
 	FILE *file;
-	unsigned char magic[14];
+	unsigned char magic[16];
 	long bytes;
 	uint32_t *uint32_magic = (uint32_t *) magic;
 	unsigned short *short_magic = (unsigned short *) magic;
@@ -1827,8 +1827,17 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	else if (memcmp(magic, "LRZI", 4) == 0)
 		xa.type = XARCHIVETYPE_LRZIP;
 	else if (memcmp(magic, LZ4_MAGIC, 4) == 0 ||
-	         memcmp(magic, "\x02\x21\x4c\x18", 4) == 0)
+	         memcmp(magic, "\x02\x21\x4c\x18", 4) == 0 ||
+	         memcmp(magic, "mozLz40\x00", 8) == 0 ||
+	         memcmp(magic, "mozJSSCLz40v001\x00", 16) == 0)
+	{
 		xa.type = XARCHIVETYPE_LZ4;
+
+		if (magic[3] == 'L')
+			xa.tag = 'm';
+		else if (magic[3] == 'J')
+			xa.tag = 'm' + 0x100;
+	}
 	else if (memcmp(magic, "LZIP", 4) == 0)
 		xa.type = XARCHIVETYPE_LZIP;
 	else if (memcmp(magic, "\x5d\x00\x00\x80", 4) == 0)
