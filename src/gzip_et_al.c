@@ -458,6 +458,12 @@ void xa_gzip_et_al_list (XArchive *archive)
 		}
 	}
 
+	if (!archive->path[2])
+	{
+		archive->path[2] = g_strdup(archive->path[0]);
+		archive->path[3] = g_strdup(archive->path[1]);
+	}
+
 	if (archive->has_password)
 		if (!xa_check_password(archive))
 			return;
@@ -466,7 +472,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 		return;
 
 	password_str = xa_gzip_et_al_password_str(archive->password, archive->type);
-	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
+	archive_path = xa_quote_shell_command(archive->path[2], TRUE);
 
 	archive->child_dir = g_strdup(archive->working_dir);
 	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -d", password_str, " ", archive_path, lrzip ? " -fo " : " -c > ", decompfile, "\"", NULL);
@@ -597,7 +603,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 				archive->columns = 10;
 			}
 
-			command = g_strconcat(archiver[archive->type].program[0], lrzip ? " -i" : " -l", xz ? " --robot " : (zstd ? "v " : " "), archive->path[1], NULL);
+			command = g_strconcat(archiver[archive->type].program[0], lrzip ? " -i" : " -l", xz ? " --robot " : (zstd ? "v " : " "), archive->path[3], NULL);
 
 			if (archive->type == XARCHIVETYPE_LRZIP)
 				archive->parse_output = xa_gzip_et_al_parse_lrzip;
@@ -661,7 +667,7 @@ void xa_gzip_et_al_test (XArchive *archive)
 	gchar *password_str, *command;
 
 	password_str = xa_gzip_et_al_password_str(archive->password, archive->type);
-	command = g_strconcat(archiver[archive->type].program[0], " -t", password_str, lrzip || lz4 ? " " : "v ", archive->path[1], NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " -t", password_str, lrzip || lz4 ? " " : "v ", archive->path[3], NULL);
 	g_free(password_str);
 
 	xa_run_command(archive, command);
@@ -697,7 +703,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	out_dir = g_shell_unquote(archive->extraction_dir, NULL);
 	out_file = g_strconcat(out_dir, "/", filename, NULL);
 
-	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
+	archive_path = xa_quote_shell_command(archive->path[2], TRUE);
 	extraction_dir = xa_quote_shell_command(archive->extraction_dir, FALSE);
 
 	if (archive->do_overwrite || !g_file_test(out_file, G_FILE_TEST_EXISTS))
@@ -770,7 +776,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	files_str = xa_escape_bad_chars(files->str, "\"");
-	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
+	archive_path = xa_quote_shell_command(archive->path[2] ? archive->path[2] : archive->path[0], TRUE);
 
 	if (archive->do_move)
 		move = g_strconcat(" && rm", files_str, NULL);
