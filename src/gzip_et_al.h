@@ -33,6 +33,8 @@
                                          archive->type == XARCHIVETYPE_LZOP     || \
                                          archive->type == XARCHIVETYPE_XZ)
 
+#define LZ4_MAGIC "\x04\x22\x4d\x18"
+
 void xa_gzip_et_al_add(XArchive *, GSList *, gchar *);
 void xa_gzip_et_al_ask(XArchive *);
 void xa_gzip_et_al_check_lrzip(const gchar *);

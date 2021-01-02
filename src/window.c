@@ -30,6 +30,7 @@
 #include "add_dialog.h"
 #include "exe.h"
 #include "extract_dialog.h"
+#include "gzip_et_al.h"
 #include "interface.h"
 #include "main.h"
 #include "mime.h"
@@ -1825,7 +1826,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_LHA;
 	else if (memcmp(magic, "LRZI", 4) == 0)
 		xa.type = XARCHIVETYPE_LRZIP;
-	else if (memcmp(magic, "\x04\x22\x4d\x18", 4) == 0 ||
+	else if (memcmp(magic, LZ4_MAGIC, 4) == 0 ||
 	         memcmp(magic, "\x02\x21\x4c\x18", 4) == 0)
 		xa.type = XARCHIVETYPE_LZ4;
 	else if (memcmp(magic, "LZIP", 4) == 0)
