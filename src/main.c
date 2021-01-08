@@ -1206,6 +1206,27 @@ int main (int argc, char **argv)
 
 			if (archive->path[0] != NULL)
 			{
+				gchar *fname;
+				gboolean is_dir;
+
+				if (*opt_compress != '/')
+				{
+					current_dir = g_get_current_dir();
+					fname = g_strconcat(current_dir, "/", opt_compress, NULL);
+					g_free(current_dir);
+				}
+				else
+					fname = g_strdup(opt_compress);
+
+				is_dir = g_file_test(fname, G_FILE_TEST_IS_DIR);
+				g_free(fname);
+
+				if (SINGLE_FILE_COMPRESSOR(archive) && (is_dir || (argc > 1)))
+				{
+					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("An error occurred!"), _("The archiver doesn't support compression of directories or multiple files!"));
+					goto leave;
+				}
+
 				xa_create_working_directory(archive);
 				current_dir = g_path_get_dirname(opt_compress);
 				chdir(current_dir);
@@ -1232,7 +1253,7 @@ int main (int argc, char **argv)
 				xa_cmd_line_error(argv[1], _("Can't add files to the archive:"));
 				goto leave;
 			}
-			if (!archive->can_add)
+			if (!archive->can_add || SINGLE_FILE_COMPRESSOR(archive))
 			{
 				xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), argv[1]);
 				goto leave;
