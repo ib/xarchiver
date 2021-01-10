@@ -472,7 +472,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse,
 
 	while (list)
 	{
-		xa_recurse_local_directory((gchar*) list->data, &dirlist, recurse);
+		xa_recurse_local_directory((gchar*) list->data, &dirlist, archive->do_full_path, recurse);
 		list = list->next;
 	}
 	files = xa_collect_filenames(archive, dirlist);

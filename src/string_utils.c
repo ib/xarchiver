@@ -292,7 +292,7 @@ GSList *xa_slist_copy(GSList *list)
 	return g_slist_reverse(y);
 }
 
-void xa_recurse_local_directory (gchar *path, GSList **list, gboolean recurse)
+void xa_recurse_local_directory (gchar *path, GSList **list, gboolean full_path, gboolean recurse)
 {
 	DIR *dir;
 	struct dirent *dirlist;
@@ -307,8 +307,13 @@ void xa_recurse_local_directory (gchar *path, GSList **list, gboolean recurse)
 	{
 		if (is_dir == FALSE)
 		{
-			basename = g_path_get_basename(path);
-			*list = g_slist_prepend(*list,basename);
+			if (full_path)
+				*list = g_slist_prepend(*list, g_strdup(path));
+			else
+			{
+				basename = g_path_get_basename(path);
+				*list = g_slist_prepend(*list, basename);
+			}
 			return;
 		}
 	}
@@ -322,7 +327,7 @@ void xa_recurse_local_directory (gchar *path, GSList **list, gboolean recurse)
 		if ( ! is_dir)
 			*list = g_slist_prepend(*list,fullname);
 		if (recurse && is_dir)
-			xa_recurse_local_directory(fullname, list, recurse);
+			xa_recurse_local_directory(fullname, list, full_path, recurse);
 	}
 	closedir(dir);
 }
