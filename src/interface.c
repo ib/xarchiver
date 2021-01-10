@@ -26,6 +26,7 @@
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
+#include "zip.h"
 
 GtkWidget *archive_dir_treeview;
 GtkWidget *archiver_data;
@@ -1672,7 +1673,9 @@ void xa_combo_box_text_append_compressor_types (GtkComboBoxText *combo_box_text)
 			while (list)
 			{
 				if (list->data)
-					sorted = g_slist_append(sorted, list->data);
+					/* only zip can create epub compliant with the standards */
+					if (strcmp(list->data, "epub") != 0 || archiver[i].ask == xa_zip_ask)
+						sorted = g_slist_append(sorted, list->data);
 
 				list = list->next;
 			}

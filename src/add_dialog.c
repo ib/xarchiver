@@ -234,7 +234,7 @@ Add_dialog_data *xa_create_add_dialog()
 void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 {
 	GTK_COMPAT_TOOLTIPS;
-	gboolean flag = FALSE;
+	gboolean epub, flag = FALSE;
 	gchar *compression_msg = NULL;
 	gushort default_value, max_value;
 	default_value = max_value = 0;
@@ -246,9 +246,11 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 
 	prefs_window->size_changed[1] = TRUE;
 
+	epub = (archive->tag == 'e');
+
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1), !SINGLE_FILE_COMPRESSOR(archive));
 
-	if ((archive->location_path && *archive->location_path) || !archive->can_full_path[1])
+	if ((archive->location_path && *archive->location_path) || !archive->can_full_path[1] || epub)
 	{
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path), TRUE);
 		flag = FALSE;
@@ -331,7 +333,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		g_signal_connect(G_OBJECT(compression_value), "value-changed", G_CALLBACK(fix_adjustment_value), NULL);
 	gtk_widget_set_tooltip_text(add_dialog->compression_scale, compression_msg);
 
-	gtk_widget_set_sensitive(add_dialog->add_password, archive->can_password);
+	gtk_widget_set_sensitive(add_dialog->add_password, archive->can_password && !epub);
 	gtk_widget_show_all(add_dialog->dialog1);
 }
 

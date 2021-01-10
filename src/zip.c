@@ -258,6 +258,7 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 
 void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
+	gboolean epub;
 	GString *files;
 	gchar *password_str, *command;
 
@@ -267,6 +268,39 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	if (!compression)
 		compression = "6";
 
+	epub = (archive->tag == 'e');
+
+	/* epub requires mimetype to be uncompressed, unencrypted, and the first file in the archive*/
+	if (epub)
+	{
+		guint i;
+		GSList *fname;
+
+		for (i = 0; i < g_slist_length(file_list); i++)
+		{
+			fname = g_slist_nth(file_list, i);
+
+			if (strcmp(fname->data, "mimetype") == 0)
+				break;
+
+			fname = NULL;
+		}
+
+		if (fname)
+		{
+			command = g_strconcat(archiver[archive->type].program[1],
+			                      archive->do_update ? " -ou" : "",
+			                      archive->do_freshen ? " -of" : "",
+			                      archive->do_move ? " -m" : "",
+			                      " -0X ",
+			                      archive->path[1], " mimetype", NULL);
+			xa_run_command(archive, command);
+			g_free(command);
+
+			file_list = g_slist_remove(file_list, g_slist_nth_data(file_list, i));
+		}
+	}
+
 	files = xa_quote_filenames(file_list, NULL, TRUE);   // no escaping for adding!
 	password_str = xa_zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[1],
@@ -274,6 +308,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->do_freshen ? " -of" : "",
 	                      archive->do_move ? " -m" : "",
 	                      " -", compression,
+	                      epub ? "XD" : "",
 	                      password_str, " ",
 	                      archive->path[1], files->str, NULL);
 	g_free(password_str);
