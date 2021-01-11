@@ -611,6 +611,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 			xa_gzip_et_al_can(archive, FALSE);
 
 			archive->archiver = &archiver[XARCHIVETYPE_TAR];
+			archive->status = XARCHIVESTATUS_LIST;
 
 			(*archive->archiver->ask)(archive);
 			(*archive->archiver->list)(archive);
