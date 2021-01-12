@@ -26,6 +26,7 @@
 typedef struct
 {
 	GtkWidget *window;
+	GtkWidget *message;
 	GtkWidget *label;
 	GtkWidget *bar;
 	gboolean multi_extract;

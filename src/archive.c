@@ -414,8 +414,10 @@ void xa_spawn_async_process (XArchive *archive, const gchar *command)
 		if (!archive->timeout)
 			archive->timeout = g_timeout_add(350, (GSourceFunc) xa_flash_led_indicator, archive);
 	}
-	else if (progress && !progress->multi_extract)
+	else if (!progress || !progress->multi_extract)
 	{
+		xa_show_progress_bar(archive);
+
 		if (!archive->timeout)
 			archive->timeout = g_timeout_add(100, (GSourceFunc) xa_pulse_progress_bar, archive);
 	}
@@ -579,10 +581,6 @@ gboolean xa_run_command (XArchive *archive, const gchar *command)
 {
 	pid_t pid = 0;
 	int status;
-
-	/* batch mode and archive's list function has completed */
-	if (!xa_main_window && archive->column_types)
-		xa_show_progress_bar(archive);
 
 	xa_spawn_async_process(archive, command);
 

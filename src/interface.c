@@ -588,6 +588,34 @@ static void set_label (GtkWidget *label, gchar *text)
     g_free (tmp_markup);
 }
 
+static gchar *xa_progress_bar_message (XArchive *archive)
+{
+	gchar *message;
+
+	switch (archive->status)
+	{
+		case XARCHIVESTATUS_LIST:
+		  message = _("Opening archive:");
+			break;
+
+		case XARCHIVESTATUS_EXTRACT:
+		  message = _("Extracting from archive:");
+		  break;
+
+		case XARCHIVESTATUS_ADD:
+		  message = _("Adding to archive:");
+		  break;
+
+		default:
+		  message = "";
+		  break;
+	}
+
+	message = g_markup_printf_escaped("<b>%s</b>", message);
+
+	return message;
+}
+
 static void xa_cancel_progress_bar (GtkButton *button, GPid *pid)
 {
 	if (pid != NULL && *pid != 0)
@@ -1543,13 +1571,21 @@ void xa_disable_delete_buttons (gboolean value)
 
 void xa_show_progress_bar (XArchive *archive)
 {
-	GtkWidget *vbox1, *vbox2, *message, *hbox1, *icon_pixbuf, *total_label, *action_area, *cancel_button;
+	GtkWidget *vbox1, *vbox2, *hbox1, *icon_pixbuf, *total_label, *action_area, *cancel_button;
 	GdkPixbuf *pixbuf;
 	gchar *text = NULL,*markup;
 
 	if (progress)
 	{
+		if (archive)
+		{
+			markup = xa_progress_bar_message(archive);
+			gtk_label_set_markup(GTK_LABEL(progress->message), markup);
+			g_free(markup);
+		}
+
 		gtk_widget_show(progress->window);
+
 		return;
 	}
 
@@ -1584,17 +1620,12 @@ void xa_show_progress_bar (XArchive *archive)
 
 	if (archive)
 	{
-		if (archive->status == XARCHIVESTATUS_EXTRACT)
-			text = _("Extracting from archive:");
-		else
-			text = _("Adding to archive:");
-
-		message = gtk_label_new("");
-		markup = g_markup_printf_escaped("<b>%s</b>", text);
-		gtk_label_set_markup(GTK_LABEL(message),markup);
+		progress->message = gtk_label_new(NULL);
+		markup = xa_progress_bar_message(archive);
+		gtk_label_set_markup(GTK_LABEL(progress->message), markup);
 		g_free (markup);
-		gtk_box_pack_start (GTK_BOX (vbox2),message,FALSE,FALSE,0);
-		gtk_misc_set_alignment (GTK_MISC (message),0,0.5);
+		gtk_box_pack_start(GTK_BOX(vbox2), progress->message, FALSE, FALSE, 0);
+		gtk_misc_set_alignment(GTK_MISC(progress->message), 0, 0.5);
 	}
 
 	progress->label = gtk_label_new(NULL);
