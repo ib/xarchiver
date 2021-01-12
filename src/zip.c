@@ -288,7 +288,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 		if (fname)
 		{
-			command = g_strconcat(archiver[archive->type].program[1],
+			command = g_strconcat(archiver[archive->type].program[1], " -q",
 			                      archive->do_update ? " -ou" : "",
 			                      archive->do_freshen ? " -of" : "",
 			                      archive->do_move ? " -m" : "",
@@ -303,7 +303,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);   // no escaping for adding!
 	password_str = xa_zip_password_str(archive);
-	command = g_strconcat(archiver[archive->type].program[1],
+	command = g_strconcat(archiver[archive->type].program[1], " -q",
 	                      archive->do_update ? " -ou" : "",
 	                      archive->do_freshen ? " -of" : "",
 	                      archive->do_move ? " -m" : "",
