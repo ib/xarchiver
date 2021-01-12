@@ -617,7 +617,6 @@ static void xa_icon_theme_changed (GtkIconTheme *icon_theme, gpointer data)
 void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, gboolean show_sidebar, gboolean show_toolbar)
 {
 	GTK_COMPAT_TOOLTIPS;
-	GdkPixbuf *icon;
 	GtkIconSize tmp_toolbar_icon_size;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *archive_dir_renderer;
@@ -635,8 +634,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	xa_set_window_title (xa_main_window,NULL);
 
 	//g_signal_connect (G_OBJECT (icon_theme),"changed",G_CALLBACK (xa_icon_theme_changed),NULL);
-	icon = gtk_icon_theme_load_icon(icon_theme, "xarchiver", 24, (GtkIconLookupFlags) 0, NULL);
-	gtk_window_set_icon (GTK_WINDOW(xa_main_window),icon);
+	xa_set_xarchiver_icon(GTK_WINDOW(xa_main_window));
 	g_signal_connect (G_OBJECT (xa_main_window),"delete-event",G_CALLBACK (xa_quit_application),NULL);
 
 	vbox1 = gtk_vbox_new (FALSE,2);
@@ -1562,9 +1560,7 @@ void xa_show_progress_bar (XArchive *archive)
 	gtk_container_set_border_width(GTK_CONTAINER(progress->window), 6);
 	gtk_window_set_transient_for(GTK_WINDOW(progress->window), GTK_WINDOW(xa_main_window));
 
-	pixbuf = gtk_icon_theme_load_icon(icon_theme, "xarchiver", 24, (GtkIconLookupFlags) 0, NULL);
-	gtk_window_set_icon(GTK_WINDOW(progress->window), pixbuf);
-	g_object_unref(pixbuf);
+	xa_set_xarchiver_icon(GTK_WINDOW(progress->window));
 
 	vbox1 = gtk_vbox_new (FALSE,12);
   	gtk_container_add(GTK_CONTAINER(progress->window), vbox1);

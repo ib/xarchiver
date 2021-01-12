@@ -62,6 +62,7 @@ void xa_row_selected(GtkTreeSelection *, XArchive *);
 void xa_save_archive(GtkMenuItem *, gpointer);
 void xa_select_all(GtkMenuItem *, gpointer);
 void xa_set_statusbar_message_for_displayed_rows(XArchive *);
+void xa_set_xarchiver_icon(GtkWindow *);
 void xa_show_archive_comment(GtkMenuItem *, gpointer);
 void xa_show_archive_output(GtkMenuItem *, XArchive *);
 void xa_show_help(GtkMenuItem *, gpointer);

@@ -3071,3 +3071,12 @@ GtkWidget *xa_main_window_find_image (gchar *filename, GtkIconSize size)
 
   return file_image;
 }
+
+void xa_set_xarchiver_icon (GtkWindow *window)
+{
+	GdkPixbuf *pixbuf;
+
+	pixbuf = gtk_icon_theme_load_icon(icon_theme, "xarchiver", 24, (GtkIconLookupFlags) 0, NULL);
+	gtk_window_set_icon(window, pixbuf);
+	g_object_unref(pixbuf);
+}
