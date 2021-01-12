@@ -410,10 +410,15 @@ void xa_spawn_async_process (XArchive *archive, const gchar *command)
 	if (xa_main_window)
 	{
 		gtk_widget_set_sensitive(Stop_button, TRUE);
-		g_timeout_add(350, (GSourceFunc) xa_flash_led_indicator, archive);
+
+		if (!archive->timeout)
+			archive->timeout = g_timeout_add(350, (GSourceFunc) xa_flash_led_indicator, archive);
 	}
 	else if (progress && !progress->multi_extract)
-		g_timeout_add(100, xa_pulse_progress_bar, NULL);
+	{
+		if (!archive->timeout)
+			archive->timeout = g_timeout_add(100, (GSourceFunc) xa_pulse_progress_bar, archive);
+	}
 
 	if (archive->output)
 	{

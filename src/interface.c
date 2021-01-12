@@ -1147,6 +1147,8 @@ gboolean xa_flash_led_indicator (XArchive *archive)
 	{
 		gtk_widget_show(green_led);
 		gtk_widget_hide(red_led);
+		archive->timeout = 0;
+
 		return FALSE;
 	}
 	if (gtk_widget_get_visible(green_led))
@@ -1648,7 +1650,7 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 		g_free (markup);
 }
 
-gboolean xa_pulse_progress_bar (gpointer user_data)
+gboolean xa_pulse_progress_bar (XArchive *archive)
 {
 	if (progress && gtk_widget_get_visible(progress->window))
 	{
@@ -1656,7 +1658,10 @@ gboolean xa_pulse_progress_bar (gpointer user_data)
 		return TRUE;
 	}
 	else
+	{
+		archive->timeout = 0;
 		return FALSE;
+	}
 }
 
 void xa_combo_box_text_append_compressor_types (GtkComboBoxText *combo_box_text)

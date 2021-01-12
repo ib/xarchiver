@@ -187,6 +187,7 @@ struct _XArchive
 	gboolean do_move;
 	gboolean do_solid;
 	/* child process */
+	guint timeout;
 	gchar *child_dir;     // (free and set NULL after use)
 	GPid child_pid;
 	guint child_ref;
