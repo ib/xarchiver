@@ -1254,6 +1254,8 @@ gboolean xa_check_password (XArchive *archive)
   	gtk_window_set_resizable (GTK_WINDOW (password_dialog),FALSE);
   	gtk_window_set_type_hint (GTK_WINDOW (password_dialog),GDK_WINDOW_TYPE_HINT_DIALOG);
 
+  	xa_set_xarchiver_icon(GTK_WINDOW(password_dialog));
+
   	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(password_dialog));
   	gtk_widget_show (dialog_vbox1);
 

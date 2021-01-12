@@ -914,6 +914,7 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 		title = PACKAGE_NAME " " VERSION;
 
 	dialog = gtk_dialog_new_with_buttons(title, GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, NULL, NULL);
+	xa_set_xarchiver_icon(GTK_WINDOW(dialog));
 
 	show_cmd = gtk_dialog_add_button(GTK_DIALOG(dialog), _("Show command"), GTK_RESPONSE_APPLY);
 	gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
@@ -1006,6 +1007,7 @@ int xa_show_message_dialog (GtkWindow *window,int mode,int type,int button,const
 	int response;
 
 	dialog = gtk_message_dialog_new (window,mode,type,button,"%s",message1);
+	xa_set_xarchiver_icon(GTK_WINDOW(dialog));
 	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),"%s",message2);
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (GTK_WIDGET (dialog));

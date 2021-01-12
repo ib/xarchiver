@@ -146,6 +146,9 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 							GTK_STOCK_CANCEL,
 							GTK_RESPONSE_CANCEL,
 							NULL);
+
+	xa_set_xarchiver_icon(GTK_WINDOW(xa_file_chooser));
+
 	create = gtk_dialog_add_button(GTK_DIALOG(xa_file_chooser), _("Cr_eate"), XA_RESPONSE_CREATE);
 
 	gtk_dialog_set_default_response(GTK_DIALOG(xa_file_chooser), XA_RESPONSE_CREATE);

@@ -80,6 +80,8 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_window_set_position (GTK_WINDOW (add_dialog->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 
+	xa_set_xarchiver_icon(GTK_WINDOW(add_dialog->dialog1));
+
 	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(add_dialog->dialog1));
 
 	add_dialog->notebook1 = gtk_notebook_new ();
