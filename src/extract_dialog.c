@@ -839,7 +839,6 @@ run:
 
 	xa_show_progress_bar(NULL);
 
-	percent=fraction;
 	do
 	{
 		gtk_tree_model_get(GTK_TREE_MODEL(dialog->files_liststore), &iter, 0, &file, 2, &path, -1);
@@ -860,8 +859,14 @@ run:
 		if (dialog->stop_pressed)
 			break;
 		percent += fraction;
+
+		xa_increase_progress_bar(progress, NULL, percent);
 	}
 	while (gtk_tree_model_iter_next (GTK_TREE_MODEL(dialog->files_liststore),&iter));
+
+	/* let the user see the progress of 100% */
+	gtk_main_iteration();
+	g_usleep(G_USEC_PER_SEC / 4);
 
 	if (strlen(output->str)> 0)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Some errors occurred:"),output->str );
