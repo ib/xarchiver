@@ -1308,7 +1308,12 @@ gboolean xa_check_password (XArchive *archive)
 	if (xa_main_window)
 		label_pwd_required = gtk_label_new(_("<span weight='bold' size='larger'>Enter password for:</span>"));
 	else
+	{
+		if (progress)
+			gtk_widget_hide(progress->window);
+
 		label_pwd_required = gtk_label_new(_("<span weight='bold' size='larger'>Password required for:</span>"));
+	}
 
   	gtk_widget_show (label_pwd_required);
   	gtk_box_pack_start (GTK_BOX (vbox2),label_pwd_required,FALSE,FALSE,0);

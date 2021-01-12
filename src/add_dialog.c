@@ -241,6 +241,9 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gushort default_value, max_value;
 	default_value = max_value = 0;
 
+	if (progress)
+		gtk_widget_hide(progress->window);
+
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->add_coords[0] != -1)
 		gtk_window_set_default_size (GTK_WINDOW(add_dialog->dialog1), prefs_window->add_coords[0], prefs_window->add_coords[1]);
 	else

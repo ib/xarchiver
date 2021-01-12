@@ -913,6 +913,9 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 	else
 		title = PACKAGE_NAME " " VERSION;
 
+	if (progress)
+		gtk_widget_hide(progress->window);
+
 	dialog = gtk_dialog_new_with_buttons(title, GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, NULL, NULL);
 	xa_set_xarchiver_icon(GTK_WINDOW(dialog));
 
