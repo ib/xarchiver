@@ -133,10 +133,14 @@ static void xa_process_exit (GPid pid, gint status, XArchive *archive)
 	{
 		if ((archive->status == XARCHIVESTATUS_RELOAD) && !g_file_test(archive->path[0], G_FILE_TEST_EXISTS))
 			status = 0;
-
-		g_spawn_close_pid(pid);
-		xa_child_processed(XA_CHILD_EXIT, WEXITSTATUS(status), archive);
+		else
+			status = WEXITSTATUS(status);
 	}
+	else
+		status = 1;
+
+	g_spawn_close_pid(pid);
+	xa_child_processed(XA_CHILD_EXIT, status, archive);
 }
 
 static void xa_delete_working_directory (XArchive *archive)
