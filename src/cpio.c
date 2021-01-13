@@ -225,7 +225,7 @@ void xa_cpio_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 	files = xa_quote_filenames(file_list, "\"", FALSE);
 	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
-	command = g_strconcat("sh -c \"", "ls -d", files->str, " | ",
+	command = g_strconcat("sh -c \"", "exec ls -d", files->str, " | ",
 	                      archiver[archive->type].program[0], " -o",
 	                      g_file_test(archive->path[0], G_FILE_TEST_EXISTS) ? " -A" : "",
 	                      " -F ", archive_path, "\"", NULL);

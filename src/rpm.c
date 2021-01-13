@@ -145,7 +145,7 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 			return g_strdup(_("Unknown compression type!"));
 	}
 
-	command = g_strconcat("sh -c \"", executable, cpio_z, " > ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
+	command = g_strconcat("sh -c \"exec ", executable, cpio_z, " > ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
 	g_free(cpio_z);
 
 	success = xa_run_command(archive, command);

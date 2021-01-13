@@ -654,7 +654,7 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 		break;
 
 		case XARCHIVETYPE_ZIP:
-		command = g_strconcat ("sh -c \"zip ",archive[idx]->path[1]," -z <",tmp,"\"",NULL);
+		command = g_strconcat ("sh -c \"exec zip ",archive[idx]->path[1]," -z <",tmp,"\"",NULL);
 		break;
 
 		default:

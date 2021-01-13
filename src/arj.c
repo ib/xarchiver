@@ -274,7 +274,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 				                   extraction_dir, NULL);
 
 			archive->child_dir = g_strdup(archive->working_dir);
-			command = g_strconcat("sh -c \"rm -f * && ",
+			command = g_strconcat("sh -c \"exec rm -f * && ",
 			                      archiver[archive->type].program[0], " e ",
 			                      archive_path, move, "\"", NULL);
 			g_free(move);
