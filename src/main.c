@@ -979,6 +979,22 @@ static void xa_check_available_archivers ()
 	g_free(unar);
 }
 
+static gchar *xa_make_full_path (char *filename)
+{
+	gchar *cur_dir, *path;
+
+	if (*filename != '/')
+	{
+		cur_dir = g_get_current_dir();
+		path = g_strconcat(cur_dir, "/", filename, NULL);
+		g_free(cur_dir);
+	}
+	else
+		path = g_strdup(filename);
+
+	return path;
+}
+
 static XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
 	XArchive *archive;
@@ -1004,14 +1020,7 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 		return NULL;
 	}
 
-	if (*filename != '/')
-	{
-		gchar *cur_dir = g_get_current_dir();
-		path = g_strconcat(cur_dir, "/", filename, NULL);
-		g_free(cur_dir);
-	}
-	else
-		path = g_strdup(filename);
+	path = xa_make_full_path(filename);
 
 	archive->path[0] = g_strdup(path);
 	archive->path[1] = xa_escape_bad_chars(path, ESCAPES);
@@ -1209,15 +1218,7 @@ int main (int argc, char **argv)
 				gchar *fname;
 				gboolean is_dir;
 
-				if (*opt_compress != '/')
-				{
-					current_dir = g_get_current_dir();
-					fname = g_strconcat(current_dir, "/", opt_compress, NULL);
-					g_free(current_dir);
-				}
-				else
-					fname = g_strdup(opt_compress);
-
+				fname = xa_make_full_path(opt_compress);
 				is_dir = g_file_test(fname, G_FILE_TEST_IS_DIR);
 				g_free(fname);
 
