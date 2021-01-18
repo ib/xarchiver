@@ -911,7 +911,7 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 	if (xa_main_window)
 		title = _("Archiver output");
 	else
-		title = PACKAGE_NAME " " VERSION;
+		title = PACKAGE_NAME;
 
 	if (progress)
 		gtk_widget_hide(progress->window);

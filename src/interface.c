@@ -1273,7 +1273,7 @@ gboolean xa_check_password (XArchive *archive)
 	if (archive->password)
 		return TRUE;
 
-  	password_dialog = gtk_dialog_new_with_buttons(PACKAGE_NAME " " VERSION,
+  	password_dialog = gtk_dialog_new_with_buttons(PACKAGE_NAME,
 									GTK_WINDOW (xa_main_window),GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
 
