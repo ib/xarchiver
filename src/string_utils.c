@@ -296,40 +296,44 @@ void xa_recurse_local_directory (gchar *path, GSList **list, gboolean full_path,
 {
 	DIR *dir;
 	struct dirent *dirlist;
-	gchar *fullname = NULL,*basename = NULL;
-	gboolean is_dir;
+	gchar *fullname;
 
-	dir = opendir(path);
-	is_dir = g_file_test(path,G_FILE_TEST_IS_DIR);
-	if (is_dir)
-		*list = g_slist_prepend(*list,g_strdup(path));
-	if (dir == NULL)
+	if (g_file_test(path, G_FILE_TEST_IS_DIR))
 	{
-		if (is_dir == FALSE)
+		*list = g_slist_prepend(*list, g_strdup(path));
+
+		dir = opendir(path);
+
+		if (dir)
 		{
-			if (full_path)
-				*list = g_slist_prepend(*list, g_strdup(path));
-			else
+			while ((dirlist = readdir(dir)))
 			{
-				basename = g_path_get_basename(path);
-				*list = g_slist_prepend(*list, basename);
-			}
-		}
-		return;
-	}
+				if (strcmp(dirlist->d_name, ".") == 0 || strcmp(dirlist->d_name, "..") == 0)
+					continue;
 
-	while ((dirlist = readdir(dir)))
-	{
-		if (strcmp(dirlist->d_name,".") == 0 || strcmp(dirlist->d_name,"..") == 0)
-			continue;
-		fullname = g_strconcat (path,"/",dirlist->d_name,NULL);
-		is_dir = g_file_test(fullname,G_FILE_TEST_IS_DIR);
-		if ( ! is_dir)
-			*list = g_slist_prepend(*list,fullname);
-		if (recurse && is_dir)
-			xa_recurse_local_directory(fullname, list, full_path, recurse);
+				fullname = g_strconcat(path, "/", dirlist->d_name, NULL);
+
+				if (g_file_test(fullname, G_FILE_TEST_IS_DIR))
+				{
+					if (recurse)
+						xa_recurse_local_directory(fullname, list, full_path, recurse);
+
+					g_free(fullname);
+				}
+				else
+					*list = g_slist_prepend(*list, fullname);
+			}
+
+			closedir(dir);
+		}
 	}
-	closedir(dir);
+	else
+	{
+		if (full_path)
+			*list = g_slist_prepend(*list, g_strdup(path));
+		else
+			*list = g_slist_prepend(*list, g_path_get_basename(path));
+	}
 }
 
 GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean slash)
