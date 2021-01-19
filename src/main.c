@@ -1218,7 +1218,10 @@ int main (int argc, char **argv)
 			archive = xa_new_archive_dialog(opt_compress, NULL);
 
 			if (archive == NULL)
+			{
+				g_free(opt_compress);
 				goto leave;
+			}
 
 			if (archive->path[0] != NULL)
 			{
@@ -1232,6 +1235,7 @@ int main (int argc, char **argv)
 				if (SINGLE_FILE_COMPRESSOR(archive) && (is_dir || (argc > 1)))
 				{
 					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("An error occurred!"), _("The archiver doesn't support compression of directories or multiple files!"));
+					g_free(opt_compress);
 					goto leave;
 				}
 
