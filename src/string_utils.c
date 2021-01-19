@@ -314,8 +314,8 @@ void xa_recurse_local_directory (gchar *path, GSList **list, gboolean full_path,
 				basename = g_path_get_basename(path);
 				*list = g_slist_prepend(*list, basename);
 			}
-			return;
 		}
+		return;
 	}
 
 	while ((dirlist = readdir(dir)))
