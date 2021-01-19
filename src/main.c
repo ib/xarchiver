@@ -1208,6 +1208,13 @@ int main (int argc, char **argv)
 		/* Switch -c */
 		else if (opt_compress)
 		{
+			if (*opt_compress == 0)
+			{
+				xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform this action:"), _("You haven't selected any files to add!"));
+				g_free(opt_compress);
+				goto leave;
+			}
+
 			archive = xa_new_archive_dialog(opt_compress, NULL);
 
 			if (archive == NULL)
