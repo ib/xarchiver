@@ -1011,6 +1011,10 @@ int xa_show_message_dialog (GtkWindow *window,int mode,int type,int button,const
 
 	dialog = gtk_message_dialog_new (window,mode,type,button,"%s",message1);
 	xa_set_xarchiver_icon(GTK_WINDOW(dialog));
+
+	if (!window)
+		gtk_window_set_title(GTK_WINDOW(dialog), PACKAGE_NAME);
+
 	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),"%s",message2);
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (GTK_WIDGET (dialog));
