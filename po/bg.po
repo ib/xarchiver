@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
 "PO-Revision-Date: 2018-12-31 11:31+0100\n"
 "Last-Translator: cybercop-montana <cybercop_montana@abv.bg>\n"
 "Language-Team: български\n"
@@ -176,7 +176,7 @@ msgstr "Разреши поддиректориите с влачене и пу�
 msgid "An error occurred while accessing the archive:"
 msgstr "Възникна грешка при достъпа до архива:"
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "Възникна грешка!"
 
@@ -316,7 +316,7 @@ msgstr "Не може да бъдат добавени файловете към
 msgid "Can't perform extraction!"
 msgstr "Не може да се изпълни извличането!"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "Не може да бъде изпълнено следното действие:"
 
@@ -621,15 +621,16 @@ msgstr "От файл"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;android;архиватор;архивиране;комикс файл;компресия;front end;графичен "
 "интерфейс;библиотека;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;"
-"compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;"
-"unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;"
+"lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -765,6 +766,12 @@ msgstr "Отвори маркираните файлове с:"
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "Отваряне на архива, моля изчакайте..."
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open an archive"
+msgid "Opening archive:"
+msgstr "Отвори архив"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1066,6 +1073,13 @@ msgstr ""
 "Структурата на архивираната директория е пресъздадена в директорията за "
 "разархивиране"
 
+#: ../src/add_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "The archiver doesn't support this feature!"
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr "Архиватора не поддържа тази опция!"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "Архиватора не поддържа тази опция!"
@@ -1275,7 +1289,7 @@ msgstr "Нямате права за да извлечете файловете 
 msgid "You haven't added any of them!"
 msgstr "Не сте добавили никой от тях!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "Не сте избрали файлове за добавяне!"
 

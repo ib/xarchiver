@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
-"PO-Revision-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
+"PO-Revision-Date: 2021-01-11 12:19+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lietuvių\n"
 "Language: lt\n"
@@ -185,7 +185,7 @@ msgstr "Leisti pakatalogių vilkimą"
 msgid "An error occurred while accessing the archive:"
 msgstr "Gaunant prieigą prie failo, įvyko klaida:"
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "Įvyko klaida!"
 
@@ -317,7 +317,7 @@ msgstr "Nepavyksta atverti archyvo!\n"
 msgid "Can't perform extraction!"
 msgstr "Nepavyksta atlikti išskleidimą!"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "Nepavyksta atlikti šį veiksmą:"
 
@@ -618,15 +618,16 @@ msgstr "Iš failo"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;Android;archyvavimo programa;archyvavimas;biblioteka;glaudinimas;išorinė "
 "pusė;komiksų knyga;naudotojo sąsaja;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;"
-"bz2;bzip2;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;"
-"rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"bz2;bzip2;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;"
+"lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;"
+"pigz;plzip;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;"
+"zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -754,6 +755,12 @@ msgstr "Atverti pasirinktus failus naudojant"
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "Atveriamas archyvas, prašome palaukti..."
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open an archive"
+msgid "Opening archive:"
+msgstr "Atverti archyvą"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1046,6 +1053,11 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Archyvo katalogo struktūra bus atkurta išskleidimo kataloge"
 
+#: ../src/add_dialog.c ../src/main.c
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr "Archyvavimo programa nepalaiko kelių failų katalogų glaudinimo!"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "Archyvavimo programa nepalaiko šios ypatybės!"
@@ -1233,7 +1245,7 @@ msgstr ""
 msgid "You haven't added any of them!"
 msgstr "Jūs nepridėjote nei vieno iš jų!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "Jūs nepasirinkote jokių pridedamų failų!"
 

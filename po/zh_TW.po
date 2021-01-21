@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -177,7 +177,7 @@ msgstr "允許用拖放功能加入子目錄"
 msgid "An error occurred while accessing the archive:"
 msgstr "存取封存檔時發生錯誤："
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "發生錯誤！"
 
@@ -316,7 +316,7 @@ msgstr "無法開啟封存檔「%s」:"
 msgid "Can't perform extraction!"
 msgstr "無法執行抽出動作！"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "無法執行此操作："
 
@@ -620,9 +620,9 @@ msgstr "從檔案"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -755,6 +755,12 @@ msgstr "以...開啟選取的檔案"
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "開啟封存檔中，請稍候..."
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open an archive"
+msgid "Opening archive:"
+msgstr "開啟封存檔"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1056,6 +1062,13 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "已在目標目錄重新建立封存檔內的完整目錄結構"
 
+#: ../src/add_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "The archiver doesn't support this feature!"
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr "封存程式不支援此功能！"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "封存程式不支援此功能！"
@@ -1249,7 +1262,7 @@ msgstr "您沒有在目錄 %s 寫入檔案的權限。"
 msgid "You haven't added any of them!"
 msgstr "請至少要加入一個！"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "尚未選取要加入的檔案！"
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
 "PO-Revision-Date: 2009-09-02 13:03+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: Asturian <alministradores@softastur.org>\n"
@@ -177,7 +177,7 @@ msgstr "Permitir subdireutorios con arrastrar y soltar"
 msgid "An error occurred while accessing the archive:"
 msgstr "Asocedió un fallu al acceder al ficheru comprimíu:"
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "¡Asocedió un fallu!"
 
@@ -316,7 +316,7 @@ msgstr "Nun pueden amestase ficheros al ficheru comprimíu:"
 msgid "Can't perform extraction!"
 msgstr "¡Nun puede facese la estraición!"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "Nun puede facese esta aición:"
 
@@ -622,9 +622,9 @@ msgstr "Dende ficheru"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -762,6 +762,12 @@ msgstr "Abrir los ficheros seleicionaos con"
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "Abriendo ficheru. Por favor, espera..."
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open an archive"
+msgid "Opening archive:"
+msgstr "Abrir un ficheru comprimíu"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1067,6 +1073,13 @@ msgstr ""
 "La estructura de direutorios del ficheru comprimíu ye recriada nel "
 "direutoriu d'estraición"
 
+#: ../src/add_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "The archiver doesn't support this feature!"
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr "¡El programa de compresión nun sofita esta funcionalidá!"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "¡El programa de compresión nun sofita esta funcionalidá!"
@@ -1275,7 +1288,7 @@ msgstr ""
 msgid "You haven't added any of them!"
 msgstr "¡Nun amestaste dengún d'ellos!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "¡Nun esbillasti dengún ficheru p'amestar!"
 

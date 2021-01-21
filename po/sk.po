@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
 "PO-Revision-Date: 2011-08-26 12:33+0200\n"
 "Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -187,7 +187,7 @@ msgstr "Umožniť vytvorenie podpriečinkov funkciou potiahni a pusť"
 msgid "An error occurred while accessing the archive:"
 msgstr "Pri prístupe k archívu došlo k chybe:"
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "Došlo k chybe!"
 
@@ -326,7 +326,7 @@ msgstr "Nie je možné pridať súbory do archívu:"
 msgid "Can't perform extraction!"
 msgstr "Nie je možné rozbaliť archív!"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "Akciu nie je možné vykonať!"
 
@@ -630,9 +630,9 @@ msgstr "Zo súboru"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -768,6 +768,12 @@ msgstr "Otvoriť vybrané súbory pomocou"
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "Otváranie archívu, prosím čakajte..."
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open an archive"
+msgid "Opening archive:"
+msgstr "Otvoriť archív"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1072,6 +1078,13 @@ msgstr ""
 "Adresárová štruktúra archívu bude opätovne vytvorená do adresára určeného "
 "pre rozbalenie"
 
+#: ../src/add_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "The archiver doesn't support this feature!"
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr "Archivátor túto funkciu nepodporuje!"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "Archivátor túto funkciu nepodporuje!"
@@ -1281,7 +1294,7 @@ msgstr "Nemáte oprávnenia potrebné k rozbaleniu súboru do priečinku \"%s\".
 msgid "You haven't added any of them!"
 msgstr "Nepridali ste žiadny z nich!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "Nevybrali ste žiadne súbory pre pridanie!"
 

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
-"PO-Revision-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
+"PO-Revision-Date: 2021-01-21 13:49+0100\n"
 "Last-Translator: alexl <alexl@mageia.org>\n"
 "Language-Team: русский\n"
 "Language: ru\n"
@@ -182,7 +182,7 @@ msgstr "Разрешить перетаскивание подкаталогов
 msgid "An error occurred while accessing the archive:"
 msgstr "Ошибка обработки архива:"
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "Произошла ошибка!"
 
@@ -314,7 +314,7 @@ msgstr "Не получается открыть архив!\n"
 msgid "Can't perform extraction!"
 msgstr "Не удаётся выполнить извлечение!"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "Не удалось выполнить операцию:"
 
@@ -615,14 +615,14 @@ msgstr "Из файла"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
-"GTK;андроид;архиватор;архивирование;библиотека;comic book;сжатие;фронтэнд;"
-"7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;"
-"cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;"
-"lzh;lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"GTK;андроид;архиватор;архивирование;библиотека;comic book;сжатие;фронтэнд;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
+"exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
 "unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
@@ -752,6 +752,10 @@ msgstr "Открыть выбранные файлы с помощью"
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "Открытие архива, пожалуйста, подождите..."
+
+#: ../src/interface.c
+msgid "Opening archive:"
+msgstr "Открытие архива:"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1042,6 +1046,11 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "При извлечении будет воссоздана полная структура папок."
 
+#: ../src/add_dialog.c ../src/main.c
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr "Архиватор не поддерживает сжатие каталогов или нескольких файлов!"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "Архиватор не поддерживает такую возможность!"
@@ -1224,7 +1233,7 @@ msgstr "У вас не достаточно прав для извлечения
 msgid "You haven't added any of them!"
 msgstr "Ни одного не добавлено!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "Вы не выбрали ни одного файла!"
 

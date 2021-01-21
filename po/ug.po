@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Gheyret T.Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -173,7 +173,7 @@ msgstr ""
 msgid "An error occurred while accessing the archive:"
 msgstr "ئارخىپنى زىيارەت قىلىۋاتقاندا خاتالىق كۆرۈلدى:"
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "خاتالىق كۆرۈلدى!"
 
@@ -312,7 +312,7 @@ msgstr "ھۆججەتلەرنى ئارخىپقا قوشقىلى بولمىدى:"
 msgid "Can't perform extraction!"
 msgstr "يايغىلى بولمىدى!"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "بۇ مەشغۇلاتنى ئېلىپ بارالمىدىم:"
 
@@ -616,9 +616,9 @@ msgstr "ھۆججەتتىن"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -749,6 +749,12 @@ msgstr "تاللانغان ھۆججەتلەرنى بېكىتىلگەن پروگ�
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "ئارخىپنى ئېچىۋاتىدۇ، سەل ساقلاڭ..."
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open an archive"
+msgid "Opening archive:"
+msgstr "ئارخىپ ئاچ"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1050,6 +1056,13 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 
+#: ../src/add_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "The archiver doesn't support this feature!"
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr "archiver نىڭ بۇ خىل ئىقتىدارى يوق!"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "archiver نىڭ بۇ خىل ئىقتىدارى يوق!"
@@ -1236,7 +1249,7 @@ msgstr "ھۆججەتنى \"%s\" مۇندەرىجىگە يېيىپ چىقىرىش
 msgid "You haven't added any of them!"
 msgstr "ھېچ قايسىنى قوشماپسىز!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "قوشىدىغان ھېچقانداق ھۆججەت تاللىمىدىڭىز!"
 

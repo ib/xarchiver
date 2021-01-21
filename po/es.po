@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
-"PO-Revision-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
+"PO-Revision-Date: 2021-01-21 13:49+0100\n"
 "Last-Translator: jcsl\n"
 "Language-Team: Español\n"
 "Language: es\n"
@@ -182,7 +182,7 @@ msgstr "Permitir subdirectorios con arrastrar y soltar"
 msgid "An error occurred while accessing the archive:"
 msgstr "Ocurrió un error al acceder al archivo:"
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "¡Ha ocurrido un error!"
 
@@ -315,7 +315,7 @@ msgstr "¡No se puede abrir el archivo!\n"
 msgid "Can't perform extraction!"
 msgstr "¡No se puede realizar la extracción!"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "No se puede realizar esta acción:"
 
@@ -618,15 +618,16 @@ msgstr "Desde archivo"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;Android;archivado;archivador;biblioteca;compresión;compresor;interfaz;"
 "libro de cómic;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;"
-"compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;"
-"unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;"
+"lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -755,6 +756,10 @@ msgstr "Abrir los ficheros seleccionados con"
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "Abriendo archivo. Por favor, espere..."
+
+#: ../src/interface.c
+msgid "Opening archive:"
+msgstr "Abriendo el archivo:"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1047,6 +1052,13 @@ msgstr ""
 "La estructura de directorios del archivo comprimido es recreada en el "
 "directorio de extracción"
 
+#: ../src/add_dialog.c ../src/main.c
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr
+"¡El archivador no permite la compresión de directorios o de múltiples "
+"ficheros!"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "¡El programa de compresión no soporta esta funcionalidad!"
@@ -1237,7 +1249,7 @@ msgstr ""
 msgid "You haven't added any of them!"
 msgstr "¡No ha añadido ninguno de ellos!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "¡No ha seleccionado ningún fichero para ser añadido!"
 

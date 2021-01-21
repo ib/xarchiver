@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
 "PO-Revision-Date: 2020-02-26 11:18-0300\n"
 "Last-Translator: Fúlvio G. Alves <fga.fulvio@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -175,7 +175,7 @@ msgstr "Permitir sub-diretórios com o arrastar e soltar"
 msgid "An error occurred while accessing the archive:"
 msgstr "Ocorreu um erro enquanto o pacote era acessado:"
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "Ocorreu um erro!"
 
@@ -309,7 +309,7 @@ msgstr "Não foi possível abrir o pacote \"%s\":"
 msgid "Can't perform extraction!"
 msgstr "Não foi possível extrair!"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "Não é possível efetuar esta ação:"
 
@@ -604,9 +604,9 @@ msgstr "Do arquivo"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -737,6 +737,12 @@ msgstr "Abrir arquivos selecionados com"
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "Abrindo o pacote, aguarde por favor..."
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open an archive"
+msgid "Opening archive:"
+msgstr "Abrir um pacote"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1029,6 +1035,13 @@ msgid ""
 msgstr ""
 "A estrutura de diretórios do pacote é recriada no diretório  de extração"
 
+#: ../src/add_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "The archiver doesn't support this feature!"
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr "O compactador não suporta este recurso!"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "O compactador não suporta este recurso!"
@@ -1216,7 +1229,7 @@ msgstr ""
 msgid "You haven't added any of them!"
 msgstr "Você não adicionou nenhum deles!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "Você não selecionou nenhum arquivo!"
 

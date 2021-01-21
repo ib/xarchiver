@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
 "PO-Revision-Date: 2010-04-04 10:58+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -166,7 +166,7 @@ msgstr ""
 msgid "An error occurred while accessing the archive:"
 msgstr ""
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "ਗਲਤੀ ਆਈ!"
 
@@ -303,7 +303,7 @@ msgstr "ਅਕਾਇਵ ਇੰਝ ਸੰਭਾਲੋ"
 msgid "Can't perform extraction!"
 msgstr ""
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr ""
 
@@ -597,9 +597,9 @@ msgstr "ਫਾਇਲ ਤੋਂ"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -729,6 +729,12 @@ msgstr ""
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr ""
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open an archive"
+msgid "Opening archive:"
+msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1020,6 +1026,11 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 
+#: ../src/add_dialog.c ../src/main.c
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr ""
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr ""
@@ -1189,7 +1200,7 @@ msgstr ""
 msgid "You haven't added any of them!"
 msgstr ""
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr ""
 
