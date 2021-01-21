@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2021-01-21 13:49+0100\n"
-"PO-Revision-Date: 2021-01-12 13:22+0000\n"
+"PO-Revision-Date: 2021-01-21 13:49+0100\n"
 "Last-Translator: Asier Iturralde Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: Euskara <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 2.3\n"
 
 #: ../src/window.c
 #, c-format
@@ -300,10 +300,8 @@ msgid "Can't open file %s:"
 msgstr "Ezin da %s fitxategia ireki:"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Can't add files to the archive:"
 msgid "Can't open the archive!\n"
-msgstr "Ezin dira fitxategiak artxibora gehitu:"
+msgstr "Ezin da artxiboa ireki!\n"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -358,10 +356,8 @@ msgid "Cmd-line outp_ut"
 msgstr "Ko_mando-lerro irteera"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Comment"
 msgid "Command"
-msgstr "Iruzkina"
+msgstr "Komandoa"
 
 #: ../src/window.c
 msgid "Comment"
@@ -610,13 +606,6 @@ msgstr "Fitxategitik"
 
 # Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
-#, fuzzy
-#| msgid ""
-#| "GTK;android;archiver;archiving;comic book;compression;front end;"
-#| "frontend;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;"
-#| "cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;"
-#| "lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;"
-#| "xpi;xz;zip;zst;Zstandard;zstd;"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
@@ -624,11 +613,11 @@ msgid ""
 "lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
 "tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
-"GTK;android;konprimatzailea;artxibatzea;konpresioa;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;"
-"pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;konprimatzailea;artxibatzea;komiki liburua;konpresioa;front end;"
+"frontend;liburutegia;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;"
+"compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;"
+"unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -694,7 +683,7 @@ msgstr "Ez"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
-msgstr ""
+msgstr "Nullsoft instalatzailea"
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -903,10 +892,8 @@ msgid "Re_name"
 msgstr "Be_rrizendatu"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Opening archive, please wait..."
 msgid "Reloading archive, please wait..."
-msgstr "Artxiboa irekitzen, itxaron mesedez..."
+msgstr "Artxiboa berriz kargatzen, itxaron mesedez..."
 
 #: ../src/interface.c
 msgid "Rename"
@@ -973,10 +960,8 @@ msgid "Show archive tree sidebar"
 msgstr "Erakutsi artxiboaren zuhaitza albo-barran"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Show archive comment"
 msgid "Show command"
-msgstr "Erakutsi artxiboaren iruzkina"
+msgstr "Erakutsi komandoa"
 
 #: ../src/main.c
 msgid ""
@@ -1170,7 +1155,7 @@ msgstr "_Desordenatu"
 
 #: ../src/7zip.c
 msgid "Unsupported binary format!"
-msgstr "Euskarririk gabeko formatu bitarra"
+msgstr "Euskarririk gabeko formatu bitarra!"
 
 #: ../src/interface.c
 msgid "Up"
