@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2020-12-08 11:32+0100\n"
-"PO-Revision-Date: 2020-12-08 11:32+0100\n"
+"POT-Creation-Date: 2021-01-21 13:49+0100\n"
+"PO-Revision-Date: 2021-01-21 13:49+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de\n"
@@ -167,7 +167,7 @@ msgstr "Dateien werden dem Archiv hinzugefügt, bitte warten …"
 
 #: ../src/interface.c
 msgid "Adding to archive:"
-msgstr "Hinzugefügt wird zum Archiv:"
+msgstr "Zum Archiv wird hinzugefügt …"
 
 #: ../src/pref_dialog.c
 msgid "Advanced"
@@ -185,7 +185,7 @@ msgstr "Unterverzeichnisse bei »Drag und Drop« zulassen"
 msgid "An error occurred while accessing the archive:"
 msgstr "Beim Zugriff auf das Archiv ist ein Fehler aufgetreten:"
 
-#: ../src/window.c
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
 msgstr "Ein Fehler ist aufgetreten!"
 
@@ -317,7 +317,7 @@ msgstr "Das Archiv kann nicht geöffnet werden!\n"
 msgid "Can't perform extraction!"
 msgstr "Entpacken kann nicht durchgeführt werden!"
 
-#: ../src/interface.c ../src/window.c
+#: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
 msgstr "Diese Aktion kann nicht ausgeführt werden:"
 
@@ -571,7 +571,7 @@ msgstr "Dateien aus dem Archiv werden entpackt, bitte warten …"
 
 #: ../src/interface.c
 msgid "Extracting from archive:"
-msgstr "Entpackt wird aus Archiv:"
+msgstr "Archiv wird entpackt …"
 
 #: ../src/window.c
 msgid "Failed to launch the application!"
@@ -619,15 +619,16 @@ msgstr "Aus Datei"
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
+"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;Android;Archivierer;Archivierung;Bibliothek;Comic-Book;Kompression;"
 "Komprimierung;Front-End;Frontend;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;"
-"bz2;bzip2;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;"
-"rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"bz2;bzip2;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;"
+"lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;"
+"pigz;plzip;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;"
+"zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -724,7 +725,7 @@ msgstr "Öffnen"
 #: ../src/open-with-dlg.c
 #, c-format
 msgid "Open <i>%s</i> with:"
-msgstr "<i>%s</i>  öffnen mit:"
+msgstr "<i>%s</i> öffnen mit:"
 
 #: ../src/interface.c ../src/open-with-dlg.c
 msgid "Open With"
@@ -757,6 +758,10 @@ msgstr "Ausgewählte Dateien öffnen mit"
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "Archiv wird geöffnet, bitte warten …"
+
+#: ../src/interface.c
+msgid "Opening archive:"
+msgstr "Archiv wird geöffnet …"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -1049,6 +1054,13 @@ msgstr ""
 "Die Verzeichnisstruktur des Archivs wird in dem Verzeichnis, in dem entpackt "
 "wird, wiederhergestellt."
 
+#: ../src/add_dialog.c ../src/main.c
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr ""
+"Das Archivprogramm unterstützt die Komprimierung von Verzeichnissen oder "
+"mehreren Dateien nicht!"
+
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "Das Archivprogramm unterstützt diese Möglichkeit nicht!"
@@ -1241,7 +1253,7 @@ msgstr ""
 msgid "You haven't added any of them!"
 msgstr "Sie haben keines hinzugefügt!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
 msgstr "Sie haben keine Dateien zum Hinzufügen ausgewählt!"
 
