@@ -7,7 +7,7 @@ dnl changed and updated by Ingo Brückl.
 dnl ***************
 dnl *** Version ***
 dnl ***************
-m4_define([xarchiver_version], [0.5.4.16])
+m4_define([xarchiver_version], [0.5.4.17])
 
 dnl ***************************
 dnl *** Initialize autoconf ***
