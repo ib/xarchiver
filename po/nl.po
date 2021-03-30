@@ -152,7 +152,7 @@ msgstr ""
 
 #: ../src/add_dialog.c
 msgid "Adding files to archive, please wait..."
-msgstr "Bezig met toevoegen van bestanden aan archief…"
+msgstr "Bezig met toevoegen van bestanden…"
 
 #: ../src/interface.c
 msgid "Adding to archive:"
@@ -192,7 +192,7 @@ msgstr "Archiefinformatie"
 
 #: ../src/interface.c
 msgid "Archive _comment"
-msgstr "Archief_opmerking"
+msgstr "Archief_opmerkingen"
 
 #: ../src/window.c
 #, c-format
@@ -360,16 +360,16 @@ msgstr "Opdracht"
 
 #: ../src/window.c
 msgid "Comment"
-msgstr "Opmerking"
+msgstr "Opmerkingen"
 
 #: ../src/interface.c
 msgid "Comment:"
-msgstr "Opmerking:"
+msgstr "Opmerkingen:"
 
 #: ../src/window.c
 #, c-format
 msgid "Comment:\n"
-msgstr "Opmerking:\n"
+msgstr "Opmerkingen:\n"
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Compressed"
@@ -952,7 +952,7 @@ msgstr "Selectie"
 
 #: ../src/pref_dialog.c
 msgid "Show archive comment"
-msgstr "Archiefopmerking tonen"
+msgstr "Archiefopmerkingen tonen"
 
 #: ../src/pref_dialog.c
 msgid "Show archive location bar"
@@ -1001,7 +1001,7 @@ msgstr "Dit archiefformaat wordt niet ondersteund:"
 
 #: ../src/pref_dialog.c
 msgid "Sort archive by filename"
-msgstr "Archief sorteren op bestandsnaam"
+msgstr "Sorteren op bestandsnaam"
 
 #: ../src/interface.c
 msgid "Stop"
