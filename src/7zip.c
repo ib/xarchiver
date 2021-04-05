@@ -44,7 +44,7 @@ static void xa_7zip_seek_position (const gchar *filename, GIOChannel **file, gin
 	else /* find the volume the offset is pointing to */
 	{
 		guint64 position, volsizes = 0;
-		gchar *fvname;
+		gchar *fvname, fvext[5];
 		size_t ext;
 		guint i;
 		GStatBuf st;
@@ -62,7 +62,8 @@ static void xa_7zip_seek_position (const gchar *filename, GIOChannel **file, gin
 		for (i = 1; i < 1000; i++)
 		{
 			fvname[ext] = 0;
-			sprintf(fvname, "%s.%03u", fvname, i);
+			sprintf(fvext, ".%03u", i);
+			strcat(fvname, fvext);
 
 			if (!g_file_test(fvname, G_FILE_TEST_EXISTS) || (g_stat(fvname, &st) != 0))
 				break;
