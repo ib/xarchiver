@@ -1645,7 +1645,10 @@ void xa_show_progress_bar (XArchive *archive)
 	else
 	{
 		progress->multi_extract = TRUE;
-		total_label = gtk_label_new (_("Total Progress:"));
+		markup = g_markup_printf_escaped("<b>%s</b>", _("Total Progress:"));
+		total_label = gtk_label_new(NULL);
+		gtk_label_set_markup(GTK_LABEL(total_label), markup);
+		g_free(markup);
 		gtk_box_pack_start(GTK_BOX(vbox2), total_label, FALSE, FALSE, 6);
 		gtk_misc_set_alignment (GTK_MISC (total_label),0,0);
 	}
@@ -1670,7 +1673,7 @@ void xa_show_progress_bar (XArchive *archive)
 
 void xa_increase_progress_bar (Progress *progress, gchar *filename, double percent)
 {
-	gchar *message = NULL, *basename, *markup;
+	gchar *message = NULL, *basename;
 
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress->bar), percent);
 		message = g_strdup_printf("%.0f%%",(percent*100));
@@ -1680,10 +1683,10 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 		if (filename)
 		{
 			basename = g_path_get_basename(filename);
-			markup = g_markup_printf_escaped("<b>%s</b>", xa_set_max_width_chars_ellipsize(basename, 50, PANGO_ELLIPSIZE_END));
+			message = g_markup_printf_escaped(_("Extracting \"%s\"..."), xa_set_max_width_chars_ellipsize(basename, 35, PANGO_ELLIPSIZE_END));
 			g_free(basename);
-			gtk_label_set_markup(GTK_LABEL(progress->label), markup);
-			g_free(markup);
+			gtk_label_set(GTK_LABEL(progress->label), message);
+			g_free(message);
 		}
 }
 
