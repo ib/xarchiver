@@ -273,17 +273,19 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	/* epub requires mimetype to be uncompressed, unencrypted, and the first file in the archive*/
 	if (epub)
 	{
-		guint i;
-		GSList *fname;
+		GSList *flist, *fname = NULL;
 
-		for (i = 0; i < g_slist_length(file_list); i++)
+		flist = file_list;
+
+		while (flist)
 		{
-			fname = g_slist_nth(file_list, i);
-
-			if (strcmp(fname->data, "mimetype") == 0)
+			if (strcmp(flist->data, "mimetype") == 0)
+			{
+				fname = flist;
 				break;
+			}
 
-			fname = NULL;
+			flist = flist->next;
 		}
 
 		if (fname)
@@ -297,7 +299,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 			xa_run_command(archive, command);
 			g_free(command);
 
-			file_list = g_slist_remove(file_list, g_slist_nth_data(file_list, i));
+			file_list = g_slist_remove(file_list, fname);
 		}
 	}
 
