@@ -270,7 +270,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 	epub = (archive->tag == 'e');
 
-	/* epub requires mimetype to be uncompressed, unencrypted, and the first file in the archive*/
+	/* epub requires mimetype to be uncompressed, unencrypted, and the first file in the archive */
 	if (epub)
 	{
 		GSList *flist, *fname = NULL;
