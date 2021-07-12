@@ -408,7 +408,8 @@ GString *xa_collect_files_in_dir (const gchar *directory)
 		file = stack->data;
 		stack = g_slist_delete_link(stack, stack);
 
-		if (g_file_test(file, G_FILE_TEST_IS_DIR))
+		if (g_file_test(file, G_FILE_TEST_IS_DIR) &&
+		   !g_file_test(file, G_FILE_TEST_IS_SYMLINK))
 		{
 			GDir *dir;
 			const gchar *name;
