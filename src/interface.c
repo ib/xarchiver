@@ -1685,7 +1685,7 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 			basename = g_path_get_basename(filename);
 			message = g_markup_printf_escaped(_("Extracting \"%s\"..."), xa_set_max_width_chars_ellipsize(basename, 35, PANGO_ELLIPSIZE_END));
 			g_free(basename);
-			gtk_label_set(GTK_LABEL(progress->label), message);
+			gtk_label_set_text(GTK_LABEL(progress->label), message);
 			g_free(message);
 		}
 }
