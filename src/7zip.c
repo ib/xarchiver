@@ -115,7 +115,7 @@ static gboolean is_encrypted (XArchive *archive)
 	gchar *command, *output;
 	gboolean result;
 
-	command = g_strconcat(archiver[archive->type].program[INDEX], " l -slt ", archive->path[0], NULL);
+	command = g_strconcat(archiver[archive->type].program[INDEX], " l -slt ", archive->path[1], NULL);
 	g_spawn_command_line_sync(command, &output, NULL, NULL, NULL);
 
 	result = (strstr(output, "\nEncrypted = +\n") != NULL);
