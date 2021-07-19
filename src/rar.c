@@ -39,10 +39,10 @@ void xa_rar_check_version (gchar *path)
 
 	if (output)
 	{
-	id = strstr(output, "\nRAR ");
+		id = strstr(output, "\nRAR ");
 
-	if (!id)
-		id = strstr(output, "\nUNRAR ");
+		if (!id)
+			id = strstr(output, "\nUNRAR ");
 	}
 
 	if (id)
