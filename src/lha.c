@@ -30,11 +30,11 @@ static gboolean data_line, last_line;
 
 gboolean xa_lha_check_program (gchar *path)
 {
-	gchar *output;
+	gchar *output = NULL;
 	gboolean full_lha;
 
 	g_spawn_command_line_sync(path, &output, NULL, NULL, NULL);
-	full_lha = (g_ascii_strncasecmp("Lhasa ", output, 6) != 0);
+	full_lha = (output && (g_ascii_strncasecmp("Lhasa ", output, 6) != 0));
 	g_free(output);
 
 	return full_lha;

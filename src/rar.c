@@ -32,15 +32,18 @@ static gboolean header_line, data_line, fname_line, last_line;
 
 void xa_rar_check_version (gchar *path)
 {
-	gchar *output, *id;
+	gchar *output = NULL, *id = NULL;
 	gchar version;
 
 	g_spawn_command_line_sync(path, &output, NULL, NULL, NULL);
 
+	if (output)
+	{
 	id = strstr(output, "\nRAR ");
 
 	if (!id)
 		id = strstr(output, "\nUNRAR ");
+	}
 
 	if (id)
 	{

@@ -56,19 +56,19 @@ static gboolean zstd_can_list, zstd_can_test;
 
 void xa_gzip_et_al_check_lrzip (const gchar *path)
 {
-	gchar *command, *output;
+	gchar *command, *output = NULL;
 
 	command = g_strconcat(path, " -h", NULL);
 	g_spawn_command_line_sync(command, NULL, &output, NULL, NULL);
 	g_free(command);
 
-	lrzip_can_password = (strstr(output, "-e, --encrypt[=pass") != NULL);
+	lrzip_can_password = (output && strstr(output, "-e, --encrypt[=pass"));
 	g_free(output);
 }
 
 gchar *xa_gzip_et_al_check_zstd (const gchar *compressor, const gchar *decompressor, gboolean *is_compressor)
 {
-	gchar *path, *command, *output;
+	gchar *path, *command, *output = NULL;
 	gboolean found_compressor = FALSE;
 
 	path = g_find_program_in_path(compressor);
@@ -86,7 +86,7 @@ gchar *xa_gzip_et_al_check_zstd (const gchar *compressor, const gchar *decompres
 	g_free(command);
 
 	/* check whether decompression is available */
-	if (strstr(output, "\n -d "))
+	if (output && strstr(output, "\n -d "))
 	{
 		if (found_compressor)
 			*is_compressor = (strstr(output, "\n -# ") != NULL);

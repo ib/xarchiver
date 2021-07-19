@@ -112,13 +112,13 @@ static void xa_7zip_uint64_skip (GIOChannel *file)
 
 static gboolean is_encrypted (XArchive *archive)
 {
-	gchar *command, *output;
+	gchar *command, *output = NULL;
 	gboolean result;
 
 	command = g_strconcat(archiver[archive->type].program[INDEX], " l -slt ", archive->path[1], NULL);
 	g_spawn_command_line_sync(command, &output, NULL, NULL, NULL);
 
-	result = (strstr(output, "\nEncrypted = +\n") != NULL);
+	result = (output && strstr(output, "\nEncrypted = +\n"));
 
 	g_free(output);
 	g_free(command);
