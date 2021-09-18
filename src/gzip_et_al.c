@@ -328,7 +328,7 @@ static void xa_gzip_et_al_parse_lrzip (gchar *line, XArchive *archive)
 
 static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 {
-	static gchar *zstandard;
+	static gchar *zstdframes;
 	gchar *skipframes;
 	XEntry *entry;
 	char *pos;
@@ -356,14 +356,14 @@ static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 	}
 	else IF_ITEM_LINE("# Zstandard Frames:")
 	{
-		DUPE_ITEM(zstandard);
-		item[6] = g_strconcat(zstandard, "/0", NULL);
+		DUPE_ITEM(zstdframes);
+		item[6] = g_strconcat(zstdframes, "/0", NULL);
 	}
 	else IF_ITEM_LINE("# Skippable Frames:")
 	{
 		NEXT_ITEM(skipframes);
 		g_free(item[6]);
-		item[6] = g_strconcat(zstandard, "/", skipframes, NULL);
+		item[6] = g_strconcat(zstdframes, "/", skipframes, NULL);
 	}
 	else IF_ITEM_LINE("Compressed Size:")
 	{
@@ -410,7 +410,7 @@ static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 	g_free(item[5]);
 	g_free(item[6]);
 	g_free(filename);
-	g_free(zstandard);
+	g_free(zstdframes);
 }
 
 static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
