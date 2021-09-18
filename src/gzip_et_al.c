@@ -387,6 +387,9 @@ static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 	if (!last_line)
 		return;
 
+	if (!item[0])
+		item[0] = g_strdup("0");
+
 	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
 	if (entry)
