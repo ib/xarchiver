@@ -50,7 +50,7 @@
 
 static gpointer item[7];
 static gchar *filename;
-static gboolean data_line, last_line;
+static gboolean first_line, data_line, last_line;
 static gboolean lrzip_can_password;
 static gboolean zstd_can_list, zstd_can_test;
 
@@ -338,19 +338,26 @@ static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 	if (last_line)
 		return;
 
+	if (first_line)
+		/* post-v1.3.2? (no header any more) */
+		data_line = (strncmp(line, "===========================================", 43) != 0);
+
 	if (!data_line)
 	{
+		first_line = FALSE;
+		/* pre-v1.3.2? (end of header) */
 		data_line = (strncmp(line, "Number of files listed:", 23) == 0);
 		return;
 	}
 
-	if ((pos = strstr(line, " (1/1):\n")))
+	if ((pos = strstr(line, first_line ? "\n" : "(1/1):\n")))
 	{
 		*pos = 0;
+
 		LAST_ITEM(filename);
 
-		if (g_str_has_suffix(filename, ".zst"))
-			*(line - 4) = 0;
+		if (g_str_has_suffix(filename, ".zst "))
+			*(line - 5) = 0;
 
 		filename = g_path_get_basename(filename);
 	}
@@ -387,6 +394,8 @@ static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 		DUPE_ITEM(item[5]);
 		last_line = TRUE;
 	}
+
+	first_line = FALSE;
 
 	if (!last_line)
 		return;
@@ -701,6 +710,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 				item[0] = NULL;
 				item[2] = NULL;
 
+				first_line = TRUE;
 				data_line = FALSE;
 				last_line = FALSE;
 
