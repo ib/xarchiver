@@ -74,11 +74,6 @@ dnl *** Work-around system-specific limitations ***
 dnl ***********************************************
 AC_SYS_LARGEFILE
 
-dnl **********************************
-dnl *** Check for standard headers ***
-dnl **********************************
-AC_HEADER_STDC
-
 dnl ************************************
 dnl *** Check for standard functions ***
 dnl ************************************
