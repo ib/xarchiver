@@ -21,7 +21,7 @@ AC_PREREQ([2.65])
 AC_INIT([xarchiver], [xarchiver_version], [https://github.com/ib/xarchiver/issues])
 : ${CFLAGS="-O2"}
 AC_CONFIG_SRCDIR([src/main.c])
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_HOST
 
@@ -114,8 +114,8 @@ dnl *** Check for debugging support ***
 dnl ***********************************
 AC_ARG_ENABLE(
 [debug],
-AC_HELP_STRING([--enable-debug[=yes|no|full]], [build with debugging support])
-AC_HELP_STRING([--disable-debug], [no debugging support [default]]),
+AS_HELP_STRING([--enable-debug[=yes|no|full]], [build with debugging support])
+AS_HELP_STRING([--disable-debug], [no debugging support [default]]),
 [],
 [enable_debug=no]
 )
@@ -190,7 +190,7 @@ AC_SUBST([PIXMAPDIR])
 dnl **************
 dnl *** Output ***
 dnl **************
-AC_OUTPUT([
+AC_CONFIG_FILES([
 doc/Makefile
 icons/16x16/Makefile
 icons/24x24/Makefile
@@ -203,6 +203,7 @@ src/Makefile
 src/xdgmime/Makefile
 Makefile
 ])
+AC_OUTPUT
 
 echo "
 
