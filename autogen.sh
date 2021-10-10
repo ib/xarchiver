@@ -19,5 +19,5 @@ echo "done."
 
 # clean up in order to keep repository small
 # (will be needed if 'make dist' is used though)
-rm AUTHORS NEWS INSTALL aclocal.m4 compile intltool-extract.in intltool-merge.in intltool-update.in
+rm AUTHORS NEWS INSTALL aclocal.m4 intltool-extract.in intltool-merge.in intltool-update.in
 rm -r autom4te.cache m4
