@@ -17,7 +17,7 @@ AC_COPYRIGHT([Copyright (c) 2006
 
 Written for Xfce by Giuseppe Torelli <colossus73@gmail.com>.
 Continuation of the Xfce master branch.])
-AC_PREREQ([2.62])
+AC_PREREQ([2.65])
 AC_INIT([xarchiver], [xarchiver_version], [https://github.com/ib/xarchiver/issues])
 : ${CFLAGS="-O2"}
 AC_CONFIG_SRCDIR([src/main.c])
@@ -28,7 +28,7 @@ AC_CANONICAL_HOST
 dnl ***************************
 dnl *** Initialize automake ***
 dnl ***************************
-AM_INIT_AUTOMAKE([1.11 dist-xz])
+AM_INIT_AUTOMAKE([1.13 dist-xz])
 AM_PROG_CC_C_O
 AM_SILENT_RULES([yes])
 AM_MAINTAINER_MODE
