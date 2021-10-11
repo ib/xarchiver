@@ -13,7 +13,7 @@ libtoolize --copy --force --quiet || exit
 aclocal || exit
 autoheader || exit
 automake --copy --force-missing --add-missing --gnu 2>&1 | sed "/installing/d" || exit
-autoconf || exit
+autoconf -Wno-obsolete || exit
 
 echo "done."
 
