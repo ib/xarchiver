@@ -437,9 +437,9 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 	command = g_strconcat(archiver[archive->type].program[INDEX],
 	                      archive->do_full_path ? " x" : " e",
 	                      archive->do_overwrite ? " -aoa" : " -aos",
-	                      password_str, " -bd -spd -y ",
-	                      archive->path[1], files->str,
-	                      " -o", archive->extraction_dir, NULL);
+	                      password_str, " -bd -spd -y",
+	                      " -o", archive->extraction_dir,
+	                      " ", archive->path[1], files->str, NULL);
 	g_free(password_str);
 	g_string_free(files,TRUE);
 
