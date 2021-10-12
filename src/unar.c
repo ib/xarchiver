@@ -235,10 +235,11 @@ gboolean xa_unar_extract (XArchive *archive, GSList *file_list)
 
 	files = xa_quote_filenames(file_list, "*?[]\"", TRUE);
 	password_str = xa_unar_password_str(archive);
-	command = g_strconcat(archiver[archive->type].program[1], " ",
-	                      archive->path[1], password_str, " -D -q",
+	command = g_strconcat(archiver[archive->type].program[1],
+	                      password_str, " -D -q",
 	                      archive->do_overwrite ? " -f" : "",
-	                      " -o ", extract_to, files->str, NULL);
+	                      " -o ", extract_to,
+	                      " ", archive->path[1], files->str, NULL);
 
 	result = xa_run_command(archive, command);
 	g_free(command);
