@@ -270,12 +270,12 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 				move = g_strconcat(" mv",
 				                   archive->do_overwrite ? " -f" : " -n",
 				                   archive->do_update ? " -fu" : "",
-				                   *files->str ? files_str : " *", " ",
+				                   *files->str ? files_str : " `ls -A`", " ",
 				                   extraction_dir, NULL);
 
 			archive->child_dir = g_strdup(archive->working_dir);
 
-			command = g_strdup("sh -c \"exec rm -f *\"");
+			command = g_strdup("sh -c \"exec rm -f `ls -A`\"");
 			result = xa_run_command(archive, command);
 
 			g_free(command);
