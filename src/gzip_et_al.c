@@ -854,6 +854,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 {
 	GString *files;
 	gchar *move, *files_str, *archive_path, *password_str, *command;
+	gboolean result;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
@@ -900,19 +901,29 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 	archive_path = xa_quote_shell_command(archive->path[2] ? archive->path[2] : archive->path[0], TRUE);
 
 	if (archive->do_move)
-		move = g_strconcat(" && rm", files_str, NULL);
+		move = g_strconcat(" rm", files_str, NULL);
 	else
 		move = g_strdup("");
 
 	password_str = xa_gzip_et_al_password_str(archive->password, archive->type);
-	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress ? "b " : (lrzip ? "L " : ""), compression, password_str, files_str, lrzip ? " -fo " : " -c > ", archive_path, move, "\"", NULL);
-	g_free(password_str);
 
+	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress ? "b " : (lrzip ? "L " : ""), compression, password_str, files_str, lrzip ? " -fo " : " -c > ", archive_path, "\"", NULL);
+	result = xa_run_command(archive, command);
+
+	g_free(command);
+	command = NULL;
+
+	if (result)
+		command = g_strconcat("sh -c \"exec", move, "\"", NULL);
+
+	g_free(password_str);
 	g_free(move);
 	g_free(archive_path);
 	g_free(files_str);
 	g_string_free(files, TRUE);
 
-	xa_run_command(archive, command);
+	if (command)
+		xa_run_command(archive, command);
+
 	g_free(command);
 }
