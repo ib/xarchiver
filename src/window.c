@@ -2742,7 +2742,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	GSList *list = NULL;
 	GSList *list_of_files = NULL;
 	GString *names = g_string_new("");
-	gchar *dummy, *e_filename;
+	gchar *b_filename, *e_filename;
 	XEntry *entry;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
@@ -2783,9 +2783,9 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	chdir(archive[idx]->working_dir);
 	do
 	{
-		dummy = g_path_get_basename(list_of_files->data);
-		e_filename = g_shell_quote(dummy);
-		g_free(dummy);
+		b_filename = g_path_get_basename(list_of_files->data);
+		e_filename = g_shell_quote(b_filename);
+		g_free(b_filename);
 		g_string_append (names,e_filename);
 		g_string_append_c (names,' ');
 		list_of_files = list_of_files->next;
