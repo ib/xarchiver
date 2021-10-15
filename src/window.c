@@ -2742,7 +2742,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	GSList *list = NULL;
 	GSList *list_of_files = NULL;
 	GString *names = g_string_new("");
-	gchar *dummy = NULL,*e_filename = NULL;
+	gchar *dummy, *e_filename;
 	XEntry *entry;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
