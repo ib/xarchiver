@@ -42,6 +42,7 @@ gboolean match_patterns(char **, const char *, int);
 gchar *xa_escape_bad_chars(const gchar *, const gchar *);
 GSList *xa_collect_filenames(XArchive *, GSList *);
 GString *xa_collect_files_in_dir(const gchar *);
+gchar *xa_make_full_path(const char *);
 GString *xa_quote_filenames(GSList *, const gchar *, gboolean);
 gchar *xa_quote_shell_command(const gchar *, gboolean);
 void xa_recurse_local_directory(gchar *, GSList **, gboolean, gboolean);

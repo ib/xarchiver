@@ -490,3 +490,19 @@ gchar *xa_set_max_width_chars_ellipsize (const gchar *string, gint n, PangoEllip
 
 	return ellipsized;
 }
+
+gchar *xa_make_full_path (const char *filename)
+{
+	gchar *cur_dir, *path;
+
+	if (*filename != '/')
+	{
+		cur_dir = g_get_current_dir();
+		path = g_strconcat(cur_dir, "/", filename, NULL);
+		g_free(cur_dir);
+	}
+	else
+		path = g_strdup(filename);
+
+	return path;
+}
