@@ -251,7 +251,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 		                      archive->do_overwrite ? "" : (archive->do_update ? " -u" : (archive->do_freshen ? " -f" : " -n")),
 		                      password_str, " -i -y ",
 		                      archive->path[1], " ",
-		                      archive->extraction_dir, files->str, NULL);
+		                      archive->extraction_dir, " --", files->str, NULL);
 		g_free(password_str);
 	}
 	else
@@ -270,12 +270,12 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 				move = g_strconcat(" mv",
 				                   archive->do_overwrite ? " -f" : " -n",
 				                   archive->do_update ? " -fu" : "",
-				                   *files->str ? files_str : " `ls -A`", " ",
+				                   " --", *files->str ? files_str : " `ls -A`", " ",
 				                   extraction_dir, NULL);
 
 			archive->child_dir = g_strdup(archive->working_dir);
 
-			command = g_strdup("sh -c \"exec rm -f `ls -A`\"");
+			command = g_strdup("sh -c \"exec rm -f -- `ls -A`\"");
 			result = xa_run_command(archive, command);
 
 			g_free(command);
@@ -334,7 +334,7 @@ void xa_arj_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->do_move ? " -d1" : "",
 	                      " -m", compression,
 	                      password_str, " -2d -i -y ",
-	                      archive->path[1], files->str, NULL);
+	                      archive->path[1], " --", files->str, NULL);
 	g_free(password_str);
 	g_string_free(files,TRUE);
 
@@ -348,7 +348,7 @@ void xa_arj_delete (XArchive *archive, GSList *file_list)
 	gchar *command;
 
 	files = xa_quote_filenames(file_list, "*?[]", FALSE);
-	command = g_strconcat(archiver[archive->type].program[0], " d -i -y ", archive->path[1], files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d -i -y ", archive->path[1], " --", files->str, NULL);
 	g_string_free(files,TRUE);
 
 	xa_run_command(archive, command);

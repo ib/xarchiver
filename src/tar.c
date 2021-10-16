@@ -269,7 +269,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 	                      " -f ", archive->path[2],
 	                      archive->do_touch ? " -m" : "",
 	                      archive->do_overwrite ? "" : (archive->do_update ? " --keep-newer-files" : " -k"),
-	                      " -C ", extract_to, files->str, NULL);
+	                      " -C ", extract_to, " --", files->str, NULL);
 
 	result = xa_run_command(archive, command);
 	g_free(command);
@@ -283,7 +283,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 		command = g_strconcat("mv",
 		                      archive->do_overwrite ? " -f" : " -n",
 		                      archive->do_update ? " -fu" : "",
-		                      all_files->str, " ", archive->extraction_dir, NULL);
+		                      " --", all_files->str, " ", archive->extraction_dir, NULL);
 		g_string_free(all_files, TRUE);
 
 		result = xa_run_command(archive, command);
@@ -331,14 +331,14 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
 		                      " -c --no-recursion --no-wildcards",
 		                      archive->do_move ? " --remove-files" : "",
-		                      " -f ", archive->path[2], files->str, NULL);
+		                      " -f ", archive->path[2], " --", files->str, NULL);
 	}
 	else
 		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
 		                      archive->do_update ? " -u" : " -r",
 		                      " --no-recursion --no-wildcards",
 		                      archive->do_move ? " --remove-files" : "",
-		                      " -f ", archive->path[2], files->str, NULL);
+		                      " -f ", archive->path[2], " --", files->str, NULL);
 
 	if (archive->type != XARCHIVETYPE_TAR)
 	{
@@ -361,7 +361,7 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 	gchar *command;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
-	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-recursion --no-wildcards -f ", archive->path[2], files->str, NULL);
+	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-recursion --no-wildcards -f ", archive->path[2], " --", files->str, NULL);
 
 	if (archive->type != XARCHIVETYPE_TAR)
 	{

@@ -559,7 +559,7 @@ gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_touch ? " -tsm-" : "",
 	                      archive->do_overwrite ? " -o+" : (archive->do_update ? " -u" : (archive->do_freshen ? " -f" : " -o-")),
 	                      password_str, " -idp -y ",
-	                      archive->path[1], files->str,
+	                      archive->path[1], " --", files->str,
 	                      " ", archive->extraction_dir, NULL);
 	g_free(password_str);
 	g_string_free(files,TRUE);
@@ -601,7 +601,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->do_solid ? " -s" : "",
 	                      " -m", compression,
 	                      password_str, " -idp -y ",
-	                      archive->path[1], files->str, NULL);
+	                      archive->path[1], " --", files->str, NULL);
 	g_free(password_str);
 	g_string_free(files,TRUE);
 
@@ -615,7 +615,7 @@ void xa_rar_delete (XArchive *archive, GSList *file_list)
 	gchar *command;
 
 	files = xa_quote_filenames(file_list, NULL, FALSE);
-	command = g_strconcat(archiver[archive->type].program[0], " d -idp -y ", archive->path[1], files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d -idp -y ", archive->path[1], " --", files->str, NULL);
 	g_string_free(files,TRUE);
 
 	xa_run_command(archive, command);

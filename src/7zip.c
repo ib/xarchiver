@@ -439,7 +439,7 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_overwrite ? " -aoa" : " -aos",
 	                      password_str, " -bd -spd -y",
 	                      " -o", archive->extraction_dir,
-	                      " ", archive->path[1], files->str, NULL);
+	                      " ", archive->path[1], " --", files->str, NULL);
 	g_free(password_str);
 	g_string_free(files,TRUE);
 
@@ -470,7 +470,7 @@ void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->type == XARCHIVETYPE_7ZIP ? solid : "",
 	                      " -mx=", compression,
 	                      password_str, " -bd -spd -y ",
-	                      archive->path[1], files->str, NULL);
+	                      archive->path[1], " --", files->str, NULL);
 	g_free(solid);
 	g_free(password_str);
 	g_string_free(files,TRUE);

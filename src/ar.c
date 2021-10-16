@@ -143,7 +143,7 @@ gboolean xa_ar_extract (XArchive *archive, GSList *file_list)
 	archive->child_dir = g_strdup(archive->extraction_dir);
 	command = g_strconcat(archiver[archive->type].program[0], " x",
 	                      archive->do_touch ? " " : "o ",
-	                      archive->path[1], files->str, NULL);
+	                      archive->path[1], " --", files->str, NULL);
 	g_string_free(files, TRUE);
 
 	result = xa_run_command(archive, command);
