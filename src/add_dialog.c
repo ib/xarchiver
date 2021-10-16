@@ -467,7 +467,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse,
 				slist = slist->next;
 			}
 			g_free(basedir);
-			command = g_strconcat ("cp -rf ",items->str," ",new_path,NULL);
+			command = g_strconcat("cp -rfp -- ", items->str, new_path, NULL);
 			g_free(new_path);
 			g_string_free(items,TRUE);
 			xa_run_command(archive, command);
