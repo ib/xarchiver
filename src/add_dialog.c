@@ -306,8 +306,8 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		}
 		if (archive->type == XARCHIVETYPE_XZ)
 		{
-			compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
-			default_value = 5;
+			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
+			default_value = 6;
 			max_value = 9;
 		}
 
