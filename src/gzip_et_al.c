@@ -887,7 +887,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *compression, *move, *files_str, *archive_path, *password_str, *out, *command;
+	gchar *compression, *files_str, *archive_path, *move, *password_str, *out, *command;
 	gboolean result;
 
 	if (archive->location_path != NULL)
