@@ -23,7 +23,7 @@
 #include <glib.h>
 #include "archive.h"
 
-void xa_cpio_add(XArchive *, GSList *, gchar *);
+void xa_cpio_add(XArchive *, GSList *);
 void xa_cpio_ask(XArchive *);
 gboolean xa_cpio_extract(XArchive *, GSList *);
 void xa_cpio_list(XArchive *);

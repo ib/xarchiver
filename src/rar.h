@@ -25,7 +25,7 @@
 
 extern int rar_version;
 
-void xa_rar_add(XArchive *, GSList *, gchar *);
+void xa_rar_add(XArchive *, GSList *);
 void xa_rar_ask(XArchive *);
 void xa_rar_check_version(gchar *);
 void xa_rar_delete(XArchive *, GSList *);

@@ -51,7 +51,7 @@ typedef struct Add_dialog_data
 } Add_dialog_data;
 
 Add_dialog_data *xa_create_add_dialog();
-void xa_execute_add_commands(XArchive *, GSList *, gboolean, gchar *);
+void xa_execute_add_commands(XArchive *, GSList *, gboolean);
 void xa_parse_add_dialog_options(XArchive *, Add_dialog_data *);
 void xa_set_add_dialog_options(Add_dialog_data *, XArchive *);
 

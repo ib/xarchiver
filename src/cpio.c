@@ -213,15 +213,13 @@ gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_cpio_add (XArchive *archive, GSList *file_list, gchar *compression)
+void xa_cpio_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *archive_path, *command;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
-
-	// no option for compression
 
 	files = xa_quote_filenames(file_list, "\"", FALSE);
 	archive_path = xa_quote_shell_command(archive->path[0], TRUE);

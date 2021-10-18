@@ -335,7 +335,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 {
 	gchar *temp_password = NULL;
-	gchar *compression = NULL;
 	gboolean done = FALSE;
 	GSList *list = NULL;
 
@@ -400,24 +399,21 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				archive->do_solid = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->solid_archive));
 
 			if (gtk_widget_is_sensitive(add_dialog->compression_scale))
-			{
 				archive->compression = gtk_adjustment_get_value(GTK_ADJUSTMENT(compression_value));
-				compression = g_strdup_printf("%hu", archive->compression);
-			}
+
 			gtk_widget_hide(add_dialog->dialog1);
 
 			if (!archive->do_full_path)
 				archive->child_dir = g_path_get_dirname(list->data);
 
-			xa_execute_add_commands(archive, list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->recurse)), compression);
-			g_free(compression);
+			xa_execute_add_commands(archive, list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->recurse)));
 		}
 	}
 	gtk_widget_destroy(add_dialog->compression_scale);
 	gtk_widget_hide (add_dialog->dialog1);
 }
 
-void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse, gchar *compression)
+void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 {
 	gchar *new_path = NULL;
 	gchar *esc2, *basedir;
@@ -475,7 +471,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse,
 	g_slist_free_full(dirlist, g_free);
 
 	archive->status = XARCHIVESTATUS_ADD;
-	(*archive->archiver->add)(archive, files, compression);
+	(*archive->archiver->add)(archive, files);
 
 	g_free(archive->child_dir);
 	archive->child_dir = NULL;

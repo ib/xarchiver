@@ -299,7 +299,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
+void xa_tar_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *command;

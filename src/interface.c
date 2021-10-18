@@ -287,7 +287,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	archive[idx]->has_password = FALSE;
 	archive[idx]->do_full_path = FALSE;
 
-	xa_execute_add_commands(archive[idx], list, TRUE, NULL);
+	xa_execute_add_commands(archive[idx], list, TRUE);
 
 	archive[idx]->has_password = dummy_password;
 	archive[idx]->do_full_path = full_path;

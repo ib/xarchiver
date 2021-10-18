@@ -572,10 +572,10 @@ gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
+void xa_rar_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *password_str, *command, *version_switch;
+	gchar *compression, *password_str, *command, *version_switch;
 
 
 	if (archive->location_path != NULL)
@@ -591,8 +591,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	else
 		version_switch = "";
 
-	if (!compression)
-		compression = "3";
+	compression = g_strdup_printf("%hu", archive->compression);
 
 	files = xa_quote_filenames(file_list, NULL, FALSE);
 	password_str = xa_rar_password_str(archive);
@@ -606,6 +605,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->path[1], " --", files->str, NULL);
 	g_free(password_str);
 	g_string_free(files,TRUE);
+	g_free(compression);
 
 	xa_run_command(archive, command);
 	g_free(command);

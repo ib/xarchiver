@@ -258,17 +258,16 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
+void xa_zip_add (XArchive *archive, GSList *file_list)
 {
 	gboolean epub;
 	GString *files;
-	gchar *password_str, *command;
+	gchar *compression, *password_str, *command;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
 
-	if (!compression)
-		compression = "6";
+	compression = g_strdup_printf("%hu", archive->compression);
 
 	epub = (archive->tag == 'e');
 
@@ -317,6 +316,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->path[1], " --", files->str, NULL);
 	g_free(password_str);
 	g_string_free(files,TRUE);
+	g_free(compression);
 
 	xa_run_command(archive, command);
 	g_free(command);

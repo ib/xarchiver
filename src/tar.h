@@ -25,7 +25,7 @@
 #include "archive.h"
 
 gboolean isTar(FILE *);
-void xa_tar_add(XArchive *, GSList *, gchar *);
+void xa_tar_add(XArchive *, GSList *);
 void xa_tar_ask(XArchive *);
 void xa_tar_delete(XArchive *, GSList *);
 gboolean xa_tar_extract(XArchive *, GSList *);

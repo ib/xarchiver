@@ -213,16 +213,15 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_lha_add (XArchive *archive, GSList *file_list, gchar *compression)
+void xa_lha_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *command;
+	gchar *compression, *command;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
 
-	if (!compression)
-		compression = "5";
+	compression = g_strdup_printf("%hu", archive->compression);
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[archive->type].program[0],
@@ -231,6 +230,7 @@ void xa_lha_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      "o", compression, " ",
 	                      archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
+	g_free(compression);
 
 	xa_run_command(archive, command);
 	g_free(command);

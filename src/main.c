@@ -1247,7 +1247,7 @@ int main (int argc, char **argv)
 					files = g_slist_append(files, g_strdup(current_dir));
 					g_free(current_dir);
 				}
-				xa_execute_add_commands(archive, files, TRUE, NULL);
+				xa_execute_add_commands(archive, files, TRUE);
 			}
 		}
 		/* Switch -a */

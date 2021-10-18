@@ -884,51 +884,16 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression)
+void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *move, *files_str, *archive_path, *password_str, *out, *command;
+	gchar *compression, *move, *files_str, *archive_path, *password_str, *out, *command;
 	gboolean result;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
 
-	if (!compression)
-	{
-		switch (archive->type)
-		{
-			case XARCHIVETYPE_BZIP2:
-				compression = "9";
-				break;
-
-			case XARCHIVETYPE_COMPRESS:
-				compression = "16";
-				break;
-
-			case XARCHIVETYPE_GZIP:
-			case XARCHIVETYPE_LZIP:
-			case XARCHIVETYPE_XZ:
-				compression = "6";
-				break;
-
-			case XARCHIVETYPE_LZ4:
-				compression = "1";
-				break;
-
-			case XARCHIVETYPE_LRZIP:
-			case XARCHIVETYPE_LZMA:
-				compression = "7";
-				break;
-
-			case XARCHIVETYPE_LZOP:
-			case XARCHIVETYPE_ZSTD:
-				compression = "3";
-				break;
-
-			default:
-				break;
-		}
-	}
+	compression = g_strdup_printf("%hu", archive->compression);
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	files_str = xa_escape_bad_chars(files->str, "\"");
@@ -961,6 +926,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 	g_free(archive_path);
 	g_free(files_str);
 	g_string_free(files, TRUE);
+	g_free(compression);
 
 	if (command)
 		xa_run_command(archive, command);
