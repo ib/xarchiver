@@ -43,6 +43,8 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_freshen[0] = archiver[archive->type].is_compressor;
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
+	archive->can_compress = archiver[archive->type].is_compressor;
+	archive->compression = 1;
 }
 
 static gchar *xa_arj_password_str (XArchive *archive)

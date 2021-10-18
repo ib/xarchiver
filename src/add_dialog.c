@@ -238,8 +238,8 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	GTK_COMPAT_TOOLTIPS;
 	gboolean epub, flag = FALSE;
 	gchar *compression_msg = NULL;
-	gushort default_value, max_value;
-	default_value = max_value = 0;
+	gushort max_value;
+	max_value = 0;
 
 	if (progress)
 		gtk_widget_hide(progress->window);
@@ -277,48 +277,40 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		if (archive->type == XARCHIVETYPE_7ZIP)
 		{
 			compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
-			default_value = 5;
 			max_value = 9;
 		}
 		else if (archive->type == XARCHIVETYPE_ZIP)
 		{
 			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
-			default_value = 6;
 			max_value = 9;
 		}
 		else if (archive->type == XARCHIVETYPE_RAR)
 		{
 			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
-			default_value = 3;
 			max_value = 5;
 		}
 		else if (archive->type == XARCHIVETYPE_ARJ)
 		{
 			compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression");
-			default_value = 1;
 			max_value = 4;
 		}
 		else if (archive->type == XARCHIVETYPE_LHA)
 		{
 			compression_msg = _("5 = default compression, 7 = max compression");
-			default_value = 5;
 			max_value = 7;
 		}
 		if (archive->type == XARCHIVETYPE_XZ)
 		{
 			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
-			default_value = 6;
 			max_value = 9;
 		}
 
-	flag = (compression_msg != NULL);
-
 	if (archive->type == XARCHIVETYPE_7ZIP)
-		compression_value = gtk_adjustment_new(default_value, 0, max_value, 2, 2, 0);
+		compression_value = gtk_adjustment_new(archive->compression, 0, max_value, 2, 2, 0);
 	else if (archive->type == XARCHIVETYPE_LHA)
-		compression_value = gtk_adjustment_new(default_value, 5, max_value, 7, 7, 0);
+		compression_value = gtk_adjustment_new(archive->compression, 5, max_value, 7, 7, 0);
 	else
-		compression_value = gtk_adjustment_new(default_value, 0, max_value, 0, 0, 0);
+		compression_value = gtk_adjustment_new(archive->compression, 0, max_value, 0, 0, 0);
 
 	add_dialog->compression_scale = gtk_hscale_new(GTK_ADJUSTMENT(compression_value));
 	if (gtk_bin_get_child(GTK_BIN(add_dialog->alignment2)) == NULL)
@@ -326,10 +318,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_TOP);
 	gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
 
-	if (archive->compression == 0)
-		archive->compression = default_value;
-
-	gtk_widget_set_sensitive(add_dialog->compression_scale,flag);
+	gtk_widget_set_sensitive(add_dialog->compression_scale, archive->can_compress);
 	gtk_adjustment_set_value(GTK_ADJUSTMENT(compression_value), archive->compression);
 
 	if (archive->type == XARCHIVETYPE_ARJ)

@@ -251,6 +251,8 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_freshen[1] = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive));
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_solid = (archive->type == XARCHIVETYPE_7ZIP);
+	archive->can_compress = archiver[archive->type].is_compressor;
+	archive->compression = 5;
 }
 
 static gchar *xa_7zip_password_str (XArchive *archive)

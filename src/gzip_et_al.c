@@ -129,6 +129,37 @@ gchar *xa_gzip_et_al_get_command (const gchar *program, gchar *workfile, gchar *
 	return command;
 }
 
+static gushort xa_gzip_et_al_compression (XArchive *archive)
+{
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_BZIP2:
+			return 9;
+
+		case XARCHIVETYPE_COMPRESS:
+			return 16;
+
+		case XARCHIVETYPE_GZIP:
+		case XARCHIVETYPE_LZIP:
+		case XARCHIVETYPE_XZ:
+			return 6;
+
+		case XARCHIVETYPE_LZ4:
+			return 1;
+
+		case XARCHIVETYPE_LRZIP:
+		case XARCHIVETYPE_LZMA:
+			return 7;
+
+		case XARCHIVETYPE_LZOP:
+		case XARCHIVETYPE_ZSTD:
+			return 3;
+
+		default:
+			return 0;
+	}
+}
+
 static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 {
 	archive->can_test = (can && !compress && (!zstd || zstd_can_test));
@@ -139,6 +170,9 @@ static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 
 	/* only if archive is new and empty */
 	archive->can_add = (can && archiver[archive->type].is_compressor);
+
+	archive->can_compress = (can && archiver[archive->type].is_compressor);
+	archive->compression = xa_gzip_et_al_compression(archive);
 }
 
 void xa_gzip_et_al_ask (XArchive *archive)

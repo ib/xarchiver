@@ -46,6 +46,8 @@ void xa_zip_ask (XArchive *archive)
 	archive->can_freshen[0] = TRUE;
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
+	archive->can_compress = archiver[archive->type].is_compressor;
+	archive->compression = 6;
 
 	g_free(sfx);
 }

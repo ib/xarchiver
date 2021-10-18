@@ -178,6 +178,7 @@ struct _XArchive
 	gboolean can_freshen[2];     // can limit activity to only changed files
 	gboolean can_move;           // can delete files after adding
 	gboolean can_solid;          // can create a solid archive
+	gboolean can_compress;       // can compress at different levels
 	/* instructions */
 	gboolean do_full_path;
 	gboolean do_touch;

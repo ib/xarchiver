@@ -51,6 +51,8 @@ void xa_lha_ask (XArchive *archive)
 	archive->can_overwrite = TRUE;
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
+	archive->can_compress = archiver[archive->type].is_compressor;
+	archive->compression = 5;
 }
 
 static void xa_lha_parse_output (gchar *line, XArchive *archive)
