@@ -424,6 +424,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			g_free(compression);
 		}
 	}
+	gtk_widget_destroy(add_dialog->compression_scale);
 	gtk_widget_hide (add_dialog->dialog1);
 }
 
