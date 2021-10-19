@@ -253,8 +253,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	GTK_COMPAT_TOOLTIPS;
 	gboolean epub, flag = FALSE;
 	gchar *compression_msg = NULL;
-	gushort max_value;
-	max_value = 0;
 
 	if (progress)
 		gtk_widget_hide(progress->window);
@@ -292,40 +290,29 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		if (archive->type == XARCHIVETYPE_7ZIP)
 		{
 			compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
-			max_value = 9;
 		}
 		else if (archive->type == XARCHIVETYPE_ZIP)
 		{
 			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
-			max_value = 9;
 		}
 		else if (archive->type == XARCHIVETYPE_RAR)
 		{
 			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
-			max_value = 5;
 		}
 		else if (archive->type == XARCHIVETYPE_ARJ)
 		{
 			compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression");
-			max_value = 4;
 		}
 		else if (archive->type == XARCHIVETYPE_LHA)
 		{
 			compression_msg = _("5 = default compression, 7 = max compression");
-			max_value = 7;
 		}
 		if (archive->type == XARCHIVETYPE_XZ)
 		{
 			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
-			max_value = 9;
 		}
 
-	if (archive->type == XARCHIVETYPE_7ZIP)
-		compression_value = gtk_adjustment_new(archive->compression, 0, max_value, 2, 2, 0);
-	else if (archive->type == XARCHIVETYPE_LHA)
-		compression_value = gtk_adjustment_new(archive->compression, 5, max_value, 7, 7, 0);
-	else
-		compression_value = gtk_adjustment_new(archive->compression, 0, max_value, 0, 0, 0);
+	compression_value = gtk_adjustment_new(archive->compression, archive->compressor.least, archive->compressor.best, archive->compressor.steps, archive->compressor.steps, 0);
 
 	add_dialog->compression_scale = gtk_hscale_new(GTK_ADJUSTMENT(compression_value));
 	if (gtk_bin_get_child(GTK_BIN(add_dialog->alignment2)) == NULL)
