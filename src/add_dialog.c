@@ -316,7 +316,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_range_set_inverted(GTK_RANGE(add_dialog->compression_scale), !normal);
 
 	gtk_widget_set_sensitive(add_dialog->compression_scale, archive->can_compress);
-	gtk_adjustment_set_value(GTK_ADJUSTMENT(compression_value), archive->compression);
 	gtk_widget_set_sensitive(add_dialog->uncompressed_button, archive->can_compress && archive->compressor.can_uncompressed);
 
 	if (gtk_widget_get_sensitive(add_dialog->uncompressed_button) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->uncompressed_button)))
