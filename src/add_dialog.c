@@ -57,7 +57,11 @@ static void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_dat
 
 static void toggle_compression (GtkToggleButton *button, Add_dialog_data *add_dialog)
 {
-	gtk_widget_set_sensitive(add_dialog->compression_scale, !gtk_toggle_button_get_active(button));
+	gboolean toggle_button_active = gtk_toggle_button_get_active(button);
+
+	gtk_widget_set_sensitive(add_dialog->label_least, !toggle_button_active);
+	gtk_widget_set_sensitive(add_dialog->label_best, !toggle_button_active);
+	gtk_widget_set_sensitive(add_dialog->compression_scale, !toggle_button_active);
 }
 
 static void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
@@ -74,7 +78,7 @@ Add_dialog_data *xa_create_add_dialog()
 	GTK_COMPAT_TOOLTIPS;
 	GtkWidget *dialog_vbox1,*label1,*label2,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
 	GtkWidget *alignment1, *alignment2, *alignment3, *vbox3, *frame2, *frame3, *frame4, *alignment4;
-	GtkWidget *vbox1, *vbox2;
+	GtkWidget *vbox1, *vbox2, *table;
 	Add_dialog_data *add_dialog;
 	GSList *group;
 
@@ -192,11 +196,20 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_container_add(GTK_CONTAINER(vbox2), add_dialog->alignment2);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (add_dialog->alignment2), 0, 0, 5, 5);
 
-	alignment3 = gtk_alignment_new(0.5, 1, 0, 0);
-	gtk_box_pack_start(GTK_BOX(vbox2), alignment3, FALSE, FALSE, 0);
+	table = gtk_table_new(2, 2, FALSE);
+	gtk_container_add(GTK_CONTAINER(vbox2), table);
+	add_dialog->label_least = gtk_label_new(_("least"));
+	gtk_misc_set_alignment(GTK_MISC(add_dialog->label_least), 0, 0);
+	gtk_misc_set_padding(GTK_MISC(add_dialog->label_least), 10, 0);
+	gtk_table_attach(GTK_TABLE(table), add_dialog->label_least, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	add_dialog->label_best = gtk_label_new(_("best"));
+	gtk_misc_set_alignment(GTK_MISC(add_dialog->label_best), 1, 0);
+	gtk_misc_set_padding(GTK_MISC(add_dialog->label_best), 10, 0);
+	gtk_table_attach(GTK_TABLE(table), add_dialog->label_best, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 
 	add_dialog->uncompressed_button = gtk_check_button_new_with_label(_("No compression"));
-	gtk_container_add(GTK_CONTAINER(alignment3), add_dialog->uncompressed_button);
+	gtk_button_set_alignment(GTK_BUTTON(add_dialog->uncompressed_button), 0.5, 1);
+	gtk_table_attach(GTK_TABLE(table), add_dialog->uncompressed_button, 0, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 24);
 	g_signal_connect(G_OBJECT(add_dialog->uncompressed_button), "toggled", G_CALLBACK(toggle_compression), add_dialog);
 
 	label4 = gtk_label_new (_("Compression: "));
@@ -300,7 +313,11 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->uncompressed_button, archive->can_compress && archive->compressor.can_uncompressed);
 
 	if (gtk_widget_get_sensitive(add_dialog->uncompressed_button) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->uncompressed_button)))
+	{
+		gtk_widget_set_sensitive(add_dialog->label_least, FALSE);
+		gtk_widget_set_sensitive(add_dialog->label_best, FALSE);
 		gtk_widget_set_sensitive(add_dialog->compression_scale, FALSE);
+	}
 
 	if (archive->type == XARCHIVETYPE_ARJ)
 		gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);

@@ -31,6 +31,8 @@ typedef struct Add_dialog_data
 	GtkWidget *filechooserwidget1;
 	GtkWidget *frame1;
 	GtkWidget *label;
+	GtkWidget *label_least;
+	GtkWidget *label_best;
 	GtkWidget *store_path;
 	GtkWidget *no_store_path;
 	GtkWidget *option_notebook_vbox;
