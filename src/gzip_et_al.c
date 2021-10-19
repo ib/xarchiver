@@ -134,7 +134,7 @@ static compressor_t xa_gzip_et_al_compressor (XArchive *archive)
 	compressor_t bzip2_compressor = {FALSE, 1, 9, 9, 1};
 	compressor_t compress_compressor = {FALSE, 9, 16, 16, 1};
 	compressor_t gzip_compressor = {FALSE, 1, 6, 9, 1};
-	compressor_t lrzip_compressor = {FALSE, 1, 7, 9, 1};
+	compressor_t lrzip_compressor = {TRUE, 1, 7, 9, 1};
 	compressor_t lz4_compressor = {FALSE, 1, 1, 9, 1};
 	compressor_t lzma_compressor = {FALSE, 1, 7, 9, 1};
 	compressor_t lzop_compressor = {FALSE, 1, 3, 9, 1};
@@ -929,7 +929,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 	else
 		out = g_strconcat(" -c --", files_str, " > ", archive_path, NULL);
 
-	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress ? "b " : (lrzip ? "L " : ""), compression, password_str, out, "\"", NULL);
+	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress ? "b " : (lrzip ? (*compression == '0' ? "n" : "L ") : ""), lrzip && (*compression == '0') ? "" : compression, password_str, out, "\"", NULL);
 	result = xa_run_command(archive, command);
 
 	g_free(command);
