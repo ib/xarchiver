@@ -58,6 +58,8 @@ void xa_rar_check_version (gchar *path)
 
 void xa_rar_ask (XArchive *archive)
 {
+	compressor_t rar_compressor = {TRUE, 1, 3, 5, 1};
+
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
 	archive->can_add = archiver[archive->type].is_compressor;
@@ -75,7 +77,8 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_solid = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
-	archive->compression = 3;
+	archive->compressor = rar_compressor;
+	archive->compression = archive->compressor.preset;
 }
 
 static gchar *xa_rar_password_str (XArchive *archive)

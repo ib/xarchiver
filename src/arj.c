@@ -29,6 +29,8 @@ static gboolean data_line, fname_line;
 
 void xa_arj_ask (XArchive *archive)
 {
+	compressor_t arj_compressor = {TRUE, 4, 1, 1, 1};
+
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
 	archive->can_add = archiver[archive->type].is_compressor;
@@ -44,7 +46,8 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
-	archive->compression = 1;
+	archive->compressor = arj_compressor;
+	archive->compression = archive->compressor.preset;
 }
 
 static gchar *xa_arj_password_str (XArchive *archive)

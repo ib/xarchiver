@@ -126,6 +126,15 @@ struct _XEntry
 
 typedef struct _XAClipboard XAClipboard;
 
+typedef struct
+{
+	gboolean can_uncompressed;   // has compression level 0?
+	gushort least;               // least compression level
+	gushort preset;              // default compression level
+	gushort best;                // best compression level
+	gushort steps;               // level steps (usually 1)
+} compressor_t;
+
 struct _XArchive
 {
 	/* characteristics */
@@ -162,6 +171,7 @@ struct _XArchive
 	gchar *password;
 	gboolean has_comment;
 	GString *comment;
+	compressor_t compressor;
 	gushort compression;
 	/* capabilities */           // 0: extract, 1: add
 	gboolean can_test;           // can test an archive for integrity

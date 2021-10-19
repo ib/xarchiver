@@ -42,6 +42,8 @@ gboolean xa_lha_check_program (gchar *path)
 
 void xa_lha_ask (XArchive *archive)
 {
+	compressor_t lha_compressor = {FALSE, 5, 5, 7, 1};
+
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
 	archive->can_add = archiver[archive->type].is_compressor;
@@ -52,7 +54,8 @@ void xa_lha_ask (XArchive *archive)
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
-	archive->compression = 5;
+	archive->compressor = lha_compressor;
+	archive->compression = archive->compressor.preset;
 }
 
 static void xa_lha_parse_output (gchar *line, XArchive *archive)

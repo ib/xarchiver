@@ -129,34 +129,51 @@ gchar *xa_gzip_et_al_get_command (const gchar *program, gchar *workfile, gchar *
 	return command;
 }
 
-static gushort xa_gzip_et_al_compression (XArchive *archive)
+static compressor_t xa_gzip_et_al_compressor (XArchive *archive)
 {
+	compressor_t bzip2_compressor = {FALSE, 1, 9, 9, 1};
+	compressor_t compress_compressor = {FALSE, 9, 16, 16, 1};
+	compressor_t gzip_compressor = {FALSE, 1, 6, 9, 1};
+	compressor_t lrzip_compressor = {FALSE, 1, 7, 9, 1};
+	compressor_t lz4_compressor = {FALSE, 1, 1, 9, 1};
+	compressor_t lzma_compressor = {FALSE, 1, 7, 9, 1};
+	compressor_t lzop_compressor = {FALSE, 1, 3, 9, 1};
+	compressor_t xz_compressor = {FALSE, 0, 6, 9, 1};
+	compressor_t zstd_compressor = {FALSE, 1, 3, 19, 1};
+	compressor_t void_compressor = {FALSE, 0, 0, 0, 0};
+
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_BZIP2:
-			return 9;
+			return bzip2_compressor;
 
 		case XARCHIVETYPE_COMPRESS:
-			return 16;
+			return compress_compressor;
 
 		case XARCHIVETYPE_GZIP:
+			return gzip_compressor;
+
 		case XARCHIVETYPE_LZIP:
 		case XARCHIVETYPE_XZ:
-			return 6;
-
-		case XARCHIVETYPE_LZ4:
-			return 1;
+			return xz_compressor;
 
 		case XARCHIVETYPE_LRZIP:
+			return lrzip_compressor;
+
+		case XARCHIVETYPE_LZ4:
+			return lz4_compressor;
+
 		case XARCHIVETYPE_LZMA:
-			return 7;
+			return lzma_compressor;
 
 		case XARCHIVETYPE_LZOP:
+			return lzop_compressor;
+
 		case XARCHIVETYPE_ZSTD:
-			return 3;
+			return zstd_compressor;
 
 		default:
-			return 0;
+			return void_compressor;
 	}
 }
 
@@ -172,7 +189,8 @@ static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 	archive->can_add = (can && archiver[archive->type].is_compressor);
 
 	archive->can_compress = (can && archiver[archive->type].is_compressor);
-	archive->compression = xa_gzip_et_al_compression(archive);
+	archive->compressor = xa_gzip_et_al_compressor(archive);
+	archive->compression = archive->compressor.preset;
 }
 
 void xa_gzip_et_al_ask (XArchive *archive)

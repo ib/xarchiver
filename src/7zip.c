@@ -239,6 +239,9 @@ gboolean is7zip_mhe (const gchar *filename)
 /* it can handle other archive types as well */
 void xa_7zip_ask (XArchive *archive)
 {
+	compressor_t sevenz_compressor = {TRUE, 1, 5, 9, 2};
+	compressor_t sevenz_gzip_et_al_compressor = {FALSE, 1, 5, 9, 2};
+
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
 	archive->can_add = archiver[archive->type].is_compressor;
@@ -252,7 +255,8 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_solid = (archive->type == XARCHIVETYPE_7ZIP);
 	archive->can_compress = archiver[archive->type].is_compressor;
-	archive->compression = 5;
+	archive->compressor = (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_ZIP ? sevenz_compressor : sevenz_gzip_et_al_compressor);
+	archive->compression = archive->compressor.preset;
 }
 
 static gchar *xa_7zip_password_str (XArchive *archive)

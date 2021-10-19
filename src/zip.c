@@ -28,6 +28,7 @@
 void xa_zip_ask (XArchive *archive)
 {
 	gchar *sfx;
+	compressor_t zip_compressor = {TRUE, 1, 6, 9, 1};
 
 	sfx = g_find_program_in_path("unzipsfx");
 
@@ -47,7 +48,8 @@ void xa_zip_ask (XArchive *archive)
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
-	archive->compression = 6;
+	archive->compressor = zip_compressor;
+	archive->compression = archive->compressor.preset;
 
 	g_free(sfx);
 }
