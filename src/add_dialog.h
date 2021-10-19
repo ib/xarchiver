@@ -39,6 +39,7 @@ typedef struct Add_dialog_data
 	GtkWidget *freshen;
 	GtkWidget *solid_archive;
 	GtkWidget *compression_scale;
+	GtkWidget *uncompressed_button;
 	GtkWidget *add_password;
 	GtkWidget *add_password_entry;
 	GtkWidget *recurse;
