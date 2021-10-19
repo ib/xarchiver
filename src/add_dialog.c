@@ -265,7 +265,7 @@ Add_dialog_data *xa_create_add_dialog()
 void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 {
 	GTK_COMPAT_TOOLTIPS;
-	gboolean epub, flag = FALSE;
+	gboolean epub, flag = FALSE, normal;
 	gchar *compression_msg;
 
 	if (progress)
@@ -301,13 +301,19 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
 
-	compression_value = gtk_adjustment_new(archive->compression, archive->compressor.least, archive->compressor.best, archive->compressor.steps, archive->compressor.steps, 0);
+	normal = (archive->compressor.least <= archive->compressor.best);
+
+	if (normal)
+		compression_value = gtk_adjustment_new(archive->compression, archive->compressor.least, archive->compressor.best, archive->compressor.steps, archive->compressor.steps, 0);
+	else
+		compression_value = gtk_adjustment_new(archive->compression, archive->compressor.best, archive->compressor.least, archive->compressor.steps, archive->compressor.steps, 0);
 
 	add_dialog->compression_scale = gtk_hscale_new(GTK_ADJUSTMENT(compression_value));
 	if (gtk_bin_get_child(GTK_BIN(add_dialog->alignment2)) == NULL)
 		gtk_container_add (GTK_CONTAINER (add_dialog->alignment2), add_dialog->compression_scale);
 	gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_TOP);
 	gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
+	gtk_range_set_inverted(GTK_RANGE(add_dialog->compression_scale), !normal);
 
 	gtk_widget_set_sensitive(add_dialog->compression_scale, archive->can_compress);
 	gtk_adjustment_set_value(GTK_ADJUSTMENT(compression_value), archive->compression);
@@ -319,9 +325,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		gtk_widget_set_sensitive(add_dialog->label_best, FALSE);
 		gtk_widget_set_sensitive(add_dialog->compression_scale, FALSE);
 	}
-
-	if (archive->type == XARCHIVETYPE_ARJ)
-		gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
 
 	if (archive->compressor.steps > 1)
 		g_signal_connect(G_OBJECT(compression_value), "value-changed", G_CALLBACK(fix_adjustment_value), archive);
