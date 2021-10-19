@@ -252,7 +252,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 {
 	GTK_COMPAT_TOOLTIPS;
 	gboolean epub, flag = FALSE;
-	gchar *compression_msg = NULL;
+	gchar *compression_msg;
 
 	if (progress)
 		gtk_widget_hide(progress->window);
@@ -287,31 +287,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
 
-		if (archive->type == XARCHIVETYPE_7ZIP)
-		{
-			compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
-		}
-		else if (archive->type == XARCHIVETYPE_ZIP)
-		{
-			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
-		}
-		else if (archive->type == XARCHIVETYPE_RAR)
-		{
-			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
-		}
-		else if (archive->type == XARCHIVETYPE_ARJ)
-		{
-			compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression");
-		}
-		else if (archive->type == XARCHIVETYPE_LHA)
-		{
-			compression_msg = _("5 = default compression, 7 = max compression");
-		}
-		if (archive->type == XARCHIVETYPE_XZ)
-		{
-			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
-		}
-
 	compression_value = gtk_adjustment_new(archive->compression, archive->compressor.least, archive->compressor.best, archive->compressor.steps, archive->compressor.steps, 0);
 
 	add_dialog->compression_scale = gtk_hscale_new(GTK_ADJUSTMENT(compression_value));
@@ -331,7 +306,10 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
 	else if (archive->type == XARCHIVETYPE_7ZIP)
 		g_signal_connect(G_OBJECT(compression_value), "value-changed", G_CALLBACK(fix_adjustment_value), NULL);
+
+	compression_msg = g_strdup_printf(_("%hu is least compression\n%hu is default compression\n%hu is best compression"), archive->compressor.least, archive->compressor.preset, archive->compressor.best);
 	gtk_widget_set_tooltip_text(add_dialog->compression_scale, compression_msg);
+	g_free(compression_msg);
 
 	gtk_widget_set_sensitive(add_dialog->add_password, archive->can_password && !epub);
 	gtk_widget_set_sensitive(add_dialog->add_password_entry, archive->can_password && !epub);
