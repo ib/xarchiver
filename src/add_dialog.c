@@ -64,13 +64,14 @@ static void toggle_compression (GtkToggleButton *button, Add_dialog_data *add_di
 	gtk_widget_set_sensitive(add_dialog->compression_scale, !toggle_button_active);
 }
 
-static void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
+static void fix_adjustment_value (GtkAdjustment *adjustment, XArchive *archive)
 {
-	unsigned short int digit = gtk_adjustment_get_value (adjustment);
-	if (digit & 1)
+	gushort value = gtk_adjustment_get_value(adjustment);
+
+	if ((value - archive->compressor.least) % archive->compressor.steps == 0)
 		return;
 	else
-		gtk_adjustment_set_value (adjustment, digit-1);
+		gtk_adjustment_set_value(adjustment, value - 1);
 }
 
 Add_dialog_data *xa_create_add_dialog()
@@ -321,8 +322,9 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 
 	if (archive->type == XARCHIVETYPE_ARJ)
 		gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
-	else if (archive->type == XARCHIVETYPE_7ZIP)
-		g_signal_connect(G_OBJECT(compression_value), "value-changed", G_CALLBACK(fix_adjustment_value), NULL);
+
+	if (archive->compressor.steps > 1)
+		g_signal_connect(G_OBJECT(compression_value), "value-changed", G_CALLBACK(fix_adjustment_value), archive);
 
 	compression_msg = g_strdup_printf(_("%hu is least compression\n%hu is default compression\n%hu is best compression"), archive->compressor.least, archive->compressor.preset, archive->compressor.best);
 	gtk_widget_set_tooltip_text(add_dialog->compression_scale, compression_msg);
