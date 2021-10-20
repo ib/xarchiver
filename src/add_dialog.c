@@ -265,7 +265,7 @@ Add_dialog_data *xa_create_add_dialog()
 void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 {
 	GTK_COMPAT_TOOLTIPS;
-	gboolean epub, flag = FALSE, normal;
+	gboolean epub, full_path, normal;
 	gchar *compression_msg;
 
 	if (progress)
@@ -285,13 +285,13 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	if ((archive->location_path && *archive->location_path) || !archive->can_full_path[1] || epub)
 	{
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path), TRUE);
-		flag = FALSE;
+		full_path = FALSE;
 	}
 	else
-		flag = TRUE;
+		full_path = TRUE;
 
-	gtk_widget_set_sensitive(add_dialog->label, flag);
-	gtk_widget_set_sensitive(add_dialog->store_path,flag);
+	gtk_widget_set_sensitive(add_dialog->label, full_path);
+	gtk_widget_set_sensitive(add_dialog->store_path, full_path);
 
 	g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 
