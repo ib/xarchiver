@@ -97,7 +97,7 @@ ArchiveType exetype (FILE *file)
 		if (fseek(file, le32toh(lelong) + 0xf8, SEEK_SET) == 0 &&
 		    search(file, ".rsrc", 0x140))
 		{
-			if (fseek(file, 0x0f, SEEK_CUR) == 0 &&
+			if (fseek(file, (8 - 5) + 0x0c, SEEK_CUR) == 0 &&
 			    fread(&lelong1, sizeof(lelong1), 1, file) == 1 &&
 			    fseek(file, -sizeof(lelong1) - 4, SEEK_CUR) == 0 &&
 			    fread(&lelong2, sizeof(lelong2), 1, file) == 1)
@@ -132,7 +132,7 @@ ArchiveType exetype (FILE *file)
 		if (fseek(file, le32toh(lelong) + 0xf8, SEEK_SET) == 0 &&
 		    search(file, "UPX2", 0x140))
 		{
-			if (fseek(file, 0x10, SEEK_CUR) == 0 &&
+			if (fseek(file, (8 - 4) + 0x0c, SEEK_CUR) == 0 &&
 			    fread(&lelong1, sizeof(lelong1), 1, file) == 1 &&
 			    fseek(file, -sizeof(lelong1) - 4, SEEK_CUR) == 0 &&
 			    fread(&lelong2, sizeof(lelong2), 1, file) == 1)
