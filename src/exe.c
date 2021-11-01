@@ -79,11 +79,14 @@ static gboolean search (FILE *file, const char *what, unsigned int max)
 ArchiveType exetype (FILE *file)
 {
 	ArchiveType xa = {XARCHIVETYPE_UNKNOWN, 0};
-	uint16_t offset_rlctbl;
+	uint16_t magic, offset_rlctbl;
 	uint32_t pe_start;
 	char pe[4], buffer[9];
 
-	if (fseek(file, 0x18, SEEK_SET) == 0 &&
+	if (fseek(file, 0, SEEK_SET) == 0 &&
+	    fread(&magic, sizeof(magic), 1, file) == 1 &&
+	    memcmp(&magic, "MZ", 2) == 0 &&
+	    fseek(file, 0x18, SEEK_SET) == 0 &&
 	    fread(&offset_rlctbl, sizeof(offset_rlctbl), 1, file) == 1 &&
 	    le16toh(offset_rlctbl) > 0x3f &&
 	    fseek(file, 0x3c, SEEK_SET) == 0 &&
