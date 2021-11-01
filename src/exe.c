@@ -79,30 +79,31 @@ static gboolean search (FILE *file, const char *what, unsigned int max)
 ArchiveType exetype (FILE *file)
 {
 	ArchiveType xa = {XARCHIVETYPE_UNKNOWN, 0};
-	uint16_t leshort;
-	uint32_t lelong;
+	uint16_t offset_rlctbl;
+	uint32_t pe_start;
 	char pe[4], buffer[9];
 
 	if (fseek(file, 0x18, SEEK_SET) == 0 &&
-	    fread(&leshort, sizeof(leshort), 1, file) == 1 &&
-	    le16toh(leshort) > 0x3f &&
+	    fread(&offset_rlctbl, sizeof(offset_rlctbl), 1, file) == 1 &&
+	    le16toh(offset_rlctbl) > 0x3f &&
 	    fseek(file, 0x3c, SEEK_SET) == 0 &&
-	    fread(&lelong, sizeof(lelong), 1, file) == 1 &&
-	    fseek(file, le32toh(lelong), SEEK_SET) == 0 &&
+	    fread(&pe_start, sizeof(pe_start), 1, file) == 1 &&
+	    fseek(file, le32toh(pe_start), SEEK_SET) == 0 &&
 	    fread(pe, sizeof(pe), 1, file) == 1 &&
 	    memcmp(pe, "PE" "\x00\x00", 4) == 0)
 	{
-		uint32_t lelong1, lelong2;
+		/* a section starts at offset with a section directory */
+		uint32_t dirsize, offset;
 
-		if (fseek(file, le32toh(lelong) + 0xf8, SEEK_SET) == 0 &&
+		if (fseek(file, le32toh(pe_start) + 0xf8, SEEK_SET) == 0 &&
 		    search(file, ".rsrc", 0x140))
 		{
 			if (fseek(file, (8 - 5) + 0x08, SEEK_CUR) == 0 &&
-			    fread(&lelong1, sizeof(lelong1), 1, file) == 1 &&
-			    fread(&lelong2, sizeof(lelong2), 1, file) == 1)
+			    fread(&dirsize, sizeof(dirsize), 1, file) == 1 &&
+			    fread(&offset, sizeof(offset), 1, file) == 1)
 			{
 				/* self-extracting Nullsoft Installer */
-				if (fseek(file, le32toh(lelong1) + le32toh(lelong2), SEEK_SET) == 0 &&
+				if (fseek(file, le32toh(offset) + le32toh(dirsize), SEEK_SET) == 0 &&
 				    search(file, "Nullsoft", 32))
 				{
 					xa.type = XARCHIVETYPE_7ZIP;
@@ -111,7 +112,7 @@ ArchiveType exetype (FILE *file)
 				}
 
 				/* self-extracting 7-ZIP archive */
-				if (fseek(file, le32toh(lelong1) + le32toh(lelong2), SEEK_SET) == 0 &&
+				if (fseek(file, le32toh(offset) + le32toh(dirsize), SEEK_SET) == 0 &&
 				    fread(buffer, 6, 1, file) == 1 && memcmp(buffer, "7z" "\xbc\xaf\x27\x1c", 6) == 0)
 				{
 					xa.type = XARCHIVETYPE_7ZIP;
@@ -119,7 +120,7 @@ ArchiveType exetype (FILE *file)
 				}
 
 				/* self-extracting RAR archive */
-				if (fseek(file, le32toh(lelong1) + le32toh(lelong2), SEEK_SET) == 0 &&
+				if (fseek(file, le32toh(offset) + le32toh(dirsize), SEEK_SET) == 0 &&
 				    fread(buffer, 4, 1, file) == 1 && memcmp(buffer, "Rar!", 4) == 0)
 				{
 					xa.type = XARCHIVETYPE_RAR;
@@ -128,15 +129,15 @@ ArchiveType exetype (FILE *file)
 			}
 		}
 
-		if (fseek(file, le32toh(lelong) + 0xf8, SEEK_SET) == 0 &&
+		if (fseek(file, le32toh(pe_start) + 0xf8, SEEK_SET) == 0 &&
 		    search(file, "UPX2", 0x140))
 		{
 			if (fseek(file, (8 - 4) + 0x08, SEEK_CUR) == 0 &&
-			    fread(&lelong1, sizeof(lelong1), 1, file) == 1 &&
-			    fread(&lelong2, sizeof(lelong2), 1, file) == 1)
+			    fread(&dirsize, sizeof(dirsize), 1, file) == 1 &&
+			    fread(&offset, sizeof(offset), 1, file) == 1)
 			{
 				/* self-extracting (Info-)ZIP archive */
-				if (fseek(file, le32toh(lelong1) + le32toh(lelong2), SEEK_SET) == 0 &&
+				if (fseek(file, le32toh(offset) + le32toh(dirsize), SEEK_SET) == 0 &&
 				    fread(buffer, 4, 1, file) == 1 && memcmp(buffer, "PK" "\x03\x04", 4) == 0)
 				{
 					xa.type = XARCHIVETYPE_ZIP;
