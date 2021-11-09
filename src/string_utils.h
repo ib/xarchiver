@@ -49,6 +49,5 @@ void xa_recurse_local_directory(gchar *, GSList **, gboolean, gboolean);
 gchar *xa_remove_level_from_path(const gchar *);
 gchar *xa_set_max_width_chars_ellipsize(const gchar *, gint, PangoEllipsizeMode);
 void xa_set_window_title(GtkWidget *, gchar *);
-GSList *xa_slist_copy(GSList *);
 
 #endif

@@ -279,19 +279,6 @@ GSList *xa_collect_filenames (XArchive *archive, GSList *in)
 	return out;
 }
 
-GSList *xa_slist_copy(GSList *list)
-{
-	GSList *x,*y = NULL;
-	x = list;
-
-	while (x)
-	{
-		y = g_slist_prepend(y,g_strdup(x->data));
-		x = x->next;
-	}
-	return g_slist_reverse(y);
-}
-
 void xa_recurse_local_directory (gchar *path, GSList **list, gboolean full_path, gboolean recurse)
 {
 	DIR *dir;

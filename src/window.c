@@ -723,6 +723,11 @@ static void xa_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selecti
 	g_string_free (params,TRUE);
 }
 
+static gpointer xa_copy_list_data (gconstpointer src, G_GNUC_UNUSED gpointer data)
+{
+	return g_strdup(src);
+}
+
 static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode mode)
 {
 	GtkClipboard *clipboard;
@@ -742,7 +747,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	if (clipboard_data == NULL)
 		return;
 
-	clipboard_data->files = xa_slist_copy(files);
+	clipboard_data->files = g_slist_copy_deep(files, xa_copy_list_data, NULL);
 	clipboard_data->mode  = mode;
 	gtk_clipboard_set_with_data(clipboard, targets, G_N_ELEMENTS(targets), (GtkClipboardGetFunc) xa_clipboard_get, (GtkClipboardClearFunc) xa_clipboard_clear, archive);
 	archive->clipboard = clipboard_data;
@@ -2678,7 +2683,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	gtk_selection_data_free (selection);
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
-	list = xa_slist_copy(paste_data->files);
+	list = g_slist_copy_deep(paste_data->files, xa_copy_list_data, NULL);
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->child_dir = g_strdup(paste_data->target->working_dir);
 	xa_execute_add_commands(archive[idx], list, FALSE);
@@ -2687,7 +2692,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 
 	if (paste_data->mode == XA_CLIPBOARD_CUT)
 	{
-		list = xa_slist_copy(paste_data->files);
+		list = g_slist_copy_deep(paste_data->files, xa_copy_list_data, NULL);
 
 		paste_data->target->status = XARCHIVESTATUS_DELETE;
 		(*paste_data->target->archiver->delete)(paste_data->target, list);
@@ -2773,7 +2778,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->do_overwrite = TRUE;
-	list_of_files = xa_slist_copy(list);
+	list_of_files = g_slist_copy_deep(list, xa_copy_list_data, NULL);
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->archiver->extract) (archive[idx],list);
