@@ -21,6 +21,13 @@ How to install (as root):
 =========================
 make install
 
+Dependencies
+============
+GTK2: 2.10.0
+GLib: 2.12.0
+Note to hackers: avoid using symbols from later versions, see exceptions in
+src/support.h. Increase the minimum required versions for good reason only.
+
 Contact
 =======
 Author of Xarchiver is Giuseppe Torelli <colossus73@gmail.com>,
