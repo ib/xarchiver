@@ -5,7 +5,7 @@
 <!ENTITY app "Xarchiver">
 <!ENTITY applower "xarchiver">
 <!ENTITY appversion "0.5.4">
-<!ENTITY appurl "https://github.com/ib/xarchiver/releases">
+<!ENTITY appurl "https://github.com/ib/xarchiver/tags">
 <!ENTITY date "September 29, 2006">
 ]>
 
