@@ -140,6 +140,10 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 			executable = "xz -dc ";
 			break;
 
+		case XARCHIVETYPE_ZSTD:
+			executable = "zstd -dc ";
+			break;
+
 		default:
 			g_free(cpio_z);
 			return g_strdup(_("Unknown compression type!"));
