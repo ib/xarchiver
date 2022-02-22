@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2021-01-21 13:49+0100\n"
-"PO-Revision-Date: 2021-01-21 13:49+0100\n"
+"PO-Revision-Date: 2022-02-22 12:55+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de\n"
@@ -163,11 +163,11 @@ msgstr ""
 
 #: ../src/add_dialog.c
 msgid "Adding files to archive, please wait..."
-msgstr "Dateien werden dem Archiv hinzugefügt, bitte warten …"
+msgstr "Dateien werden dem Archiv hinzugefügt, bitte warten …"
 
 #: ../src/interface.c
 msgid "Adding to archive:"
-msgstr "Zum Archiv wird hinzugefügt …"
+msgstr "Zum Archiv wird hinzugefügt …"
 
 #: ../src/pref_dialog.c
 msgid "Advanced"
@@ -567,11 +567,11 @@ msgstr "Entpacken nach:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
-msgstr "Dateien aus dem Archiv werden entpackt, bitte warten …"
+msgstr "Dateien aus dem Archiv werden entpackt, bitte warten …"
 
 #: ../src/interface.c
 msgid "Extracting from archive:"
-msgstr "Archiv wird entpackt …"
+msgstr "Archiv wird entpackt …"
 
 #: ../src/window.c
 msgid "Failed to launch the application!"
@@ -757,11 +757,11 @@ msgstr "Ausgewählte Dateien öffnen mit"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."
-msgstr "Archiv wird geöffnet, bitte warten …"
+msgstr "Archiv wird geöffnet, bitte warten …"
 
 #: ../src/interface.c
 msgid "Opening archive:"
-msgstr "Archiv wird geöffnet …"
+msgstr "Archiv wird geöffnet …"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -906,7 +906,7 @@ msgstr "_Umbenennen"
 
 #: ../src/window.c
 msgid "Reloading archive, please wait..."
-msgstr "Archiv wird neu geladen, bitte warten …"
+msgstr "Archiv wird neu geladen, bitte warten …"
 
 #: ../src/interface.c
 msgid "Rename"
@@ -1036,7 +1036,7 @@ msgstr "Prüfergebnis:"
 
 #: ../src/window.c
 msgid "Testing archive, please wait..."
-msgstr "Archiv wird geprüft, bitte warten …"
+msgstr "Archiv wird geprüft, bitte warten …"
 
 #: ../src/new_dialog.c
 #, c-format
@@ -1335,7 +1335,7 @@ msgstr "und"
 
 #: ../src/pref_dialog.c
 msgid "choose..."
-msgstr "Wählen …"
+msgstr "Wählen …"
 
 #: ../src/main.c
 msgid "destination"
