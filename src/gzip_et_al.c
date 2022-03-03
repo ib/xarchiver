@@ -345,11 +345,11 @@ static void xa_gzip_et_al_parse_lrzip (gchar *line, XArchive *archive)
 FILENAME:
 			LAST_ITEM(filename);
 
-		if (g_str_has_suffix(filename, ".lrz"))
-			*(line - 5) = 0;
+			if (g_str_has_suffix(filename, ".lrz"))
+				*(line - 5) = 0;
 
-		filename = g_path_get_basename(filename);
-		data_line = TRUE;
+			filename = g_path_get_basename(filename);
+			data_line = TRUE;
 		}
 
 		return;
