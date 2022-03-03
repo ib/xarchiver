@@ -324,25 +324,49 @@ static void xa_gzip_et_al_parse_lrzip (gchar *line, XArchive *archive)
 
 	if (!data_line)
 	{
-		LAST_ITEM(filename);
+		if (first_line)
+		{
+			first_line = FALSE;
 
-		filename[strlen(filename) - 1] = 0;   // remove colon
+			/* pre-v0.650 */
+			if (*line != '\n')
+			{
+				gchar *colon = g_strrstr(line, ":\n");
+
+				if (colon) *colon = '\n';   // remove colon
+
+				goto FILENAME;
+			}
+		}
+
+		/* since v0.650 */
+		IF_ITEM_LINE("File:")
+		{
+FILENAME:
+			LAST_ITEM(filename);
 
 		if (g_str_has_suffix(filename, ".lrz"))
-			*(line - 6) = 0;
+			*(line - 5) = 0;
 
 		filename = g_path_get_basename(filename);
 		data_line = TRUE;
+		}
 
 		return;
 	}
+
+	line = g_strchug(line);
 
 	IF_ITEM_LINE("lrzip version:")
 	{
 		NEXT_ITEM(item[6]);
 		item[6] = g_strdup(item[6]);
 	}
+	/* pre-v0.650 */
 	else IF_ITEM_LINE("Compression:")
+		DUPE_ITEM(item[5]);
+	/* since v0.650 */
+	else IF_ITEM_LINE("Compression Method:")
 		DUPE_ITEM(item[5]);
 	else IF_ITEM_LINE("Decompressed file size:")
 		DUPE_ITEM(item[0]);
@@ -351,6 +375,13 @@ static void xa_gzip_et_al_parse_lrzip (gchar *line, XArchive *archive)
 	else IF_ITEM_LINE("Compression ratio:")
 	{
 		NEXT_ITEM(item[2]);
+
+		/* since v0.650 */
+		if (g_str_has_suffix(item[2], "x"))
+			*((char *) item[2] + strlen(item[2]) - 1) = 0;
+		else if (*(char *) item[2] == 'U')                 // Unavailable
+			item[2] = "1";
+
 		item[2] = g_strconcat(item[2], ":1", NULL);
 		last_line = TRUE;
 	}
@@ -721,6 +752,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 					/* no further information will be available then */
 					break;
 
+				first_line = TRUE;
 				data_line = FALSE;
 				last_line = FALSE;
 
