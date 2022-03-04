@@ -2780,11 +2780,10 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	if (result == FALSE)
 		return;
 
-	chdir(archive[idx]->working_dir);
 	do
 	{
 		b_filename = g_path_get_basename(list_of_files->data);
-		f_filename = xa_make_full_path(b_filename);
+		f_filename = g_strconcat(archive[idx]->working_dir, "/", b_filename, NULL);
 		e_filename = g_shell_quote(f_filename);
 		g_free(f_filename);
 		g_free(b_filename);
