@@ -1238,14 +1238,12 @@ int main (int argc, char **argv)
 				chdir(current_dir);
 				g_free(current_dir);
 				fname = g_path_get_basename(opt_compress);
-				files = g_slist_append(files, g_strdup(fname));
-				g_free(fname);
+				files = g_slist_append(files, fname);
 				g_free(opt_compress);
 				for (i = 1; i < argc; i++)
 				{
 					fname = g_path_get_basename(argv[i]);
-					files = g_slist_append(files, g_strdup(fname));
-					g_free(fname);
+					files = g_slist_append(files, fname);
 				}
 				xa_execute_add_commands(archive, files, TRUE);
 			}
