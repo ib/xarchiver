@@ -1220,6 +1220,7 @@ int main (int argc, char **argv)
 			{
 				gchar *fname;
 				gboolean is_dir;
+				GSList *files = NULL;
 
 				fname = xa_make_full_path(opt_compress);
 				is_dir = g_file_test(fname, G_FILE_TEST_IS_DIR);
@@ -1236,7 +1237,6 @@ int main (int argc, char **argv)
 				current_dir = g_path_get_dirname(opt_compress);
 				chdir(current_dir);
 				g_free(current_dir);
-				GSList *files = NULL;
 				current_dir = g_path_get_basename(opt_compress);
 				files = g_slist_append(files, g_strdup(current_dir));
 				g_free(current_dir);
