@@ -439,7 +439,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 
 		/* Add the renamed file to the archive */
 		file_list = g_slist_append(NULL, g_strdup(new_name));
-		chdir(archive->working_dir);
+		archive->child_dir = g_strdup(archive->working_dir);
 		xa_execute_add_commands(archive, file_list, FALSE);
 	}
 done:

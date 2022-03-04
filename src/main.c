@@ -1234,9 +1234,7 @@ int main (int argc, char **argv)
 				}
 
 				xa_create_working_directory(archive);
-				current_dir = g_path_get_dirname(opt_compress);
-				chdir(current_dir);
-				g_free(current_dir);
+				archive->child_dir = g_path_get_dirname(opt_compress);
 				fname = g_path_get_basename(opt_compress);
 				files = g_slist_append(files, fname);
 				g_free(opt_compress);
