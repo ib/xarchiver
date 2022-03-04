@@ -253,8 +253,6 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 		list = g_slist_append(list,filename);
 		len++;
 	}
-	const char *home_dir = g_get_home_dir();
-	chdir (home_dir);
 
 	/* Let's get the full pathname so to add dropped files there */
 	path = g_object_get_data(G_OBJECT(context),"current_path");
