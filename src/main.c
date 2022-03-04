@@ -1234,15 +1234,19 @@ int main (int argc, char **argv)
 				}
 
 				xa_create_working_directory(archive);
+
 				archive->child_dir = g_path_get_dirname(opt_compress);
+
 				fname = g_path_get_basename(opt_compress);
 				files = g_slist_append(files, fname);
 				g_free(opt_compress);
+
 				for (i = 1; i < argc; i++)
 				{
 					fname = g_path_get_basename(argv[i]);
 					files = g_slist_append(files, fname);
 				}
+
 				xa_execute_add_commands(archive, files, TRUE);
 			}
 		}
