@@ -215,7 +215,7 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 	else if (archive->type == XARCHIVETYPE_LZIP)
 	{
 		/* heading? */
-		if (line[3] == 'u')
+		if (*g_strchug(line) == 'u')
 			return;
 		else
 		{
