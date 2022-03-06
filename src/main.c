@@ -536,14 +536,20 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_LZIP;
 	path = g_find_program_in_path("lzip");
 
-	if (!path && plzip)
+	if (path)
+		archiver[type].is_compressor = TRUE;
+	else if (plzip)
+	{
 		/* alternative compressor */
 		path = g_strdup(plzip);
+		archiver[type].is_compressor = TRUE;
+	}
+	else
+		path = g_find_program_in_path("lunzip");
 
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = TRUE;
 		archiver[type].type = g_slist_append(archiver[type].type, "lzip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lz");
 
