@@ -584,75 +584,75 @@ void xa_gzip_et_al_list (XArchive *archive)
 		if (!file)
 			return;
 
-			workfile = g_strconcat(archive->working_dir, "/", framefile, NULL);
-			wfile = fopen(workfile, "w");
+		workfile = g_strconcat(archive->working_dir, "/", framefile, NULL);
+		wfile = fopen(workfile, "w");
 
-			if (!wfile)
-			{
-				fclose(file);
-				g_free(workfile);
-				return;
-			}
-
-				skip = (archive->tag == 'm' ? 8 : 16);   // magic
-
-				/* original (uncompressed) data size */
-				fseek(file, skip, SEEK_SET);
-				fread(&uncompressed, sizeof(uncompressed), 1, file);
-
-				/* create a lz4 frame header */
-
-				fwrite(LZ4_MAGIC, 4, 1, wfile);
-
-				flg = (0 << 7) + (1 << 6)   // version number
-				               + (1 << 5)   // block independence flag
-				               + (0 << 4)   // block checksum flag
-				               + (0 << 3)   // content size flag
-				               + (0 << 2)   // content checksum flag
-				               + (0 << 1)   // reserved
-				               + (0 << 0);  // dictionary id flag
-				fwrite(&flg, 1, 1, wfile);
-
-				if (le32toh(uncompressed) < 64 * 1024)          // 64 KB
-				{
-					bd = 0x40;
-					hc = 0x82;
-				}
-				else if (le32toh(uncompressed) < 256 * 1024)    // 256 KB
-				{
-					bd = 0x50;
-					hc = 0xfb;
-				}
-				else if (le32toh(uncompressed) < 1024 * 1024)   // 1 MB
-				{
-					bd = 0x60;
-					hc = 0x51;
-				}
-				else                                            // 4 MB
-				{
-					bd = 0x70;
-					hc = 0x73;
-				}
-
-				fwrite(&bd, 1, 1, wfile);   // block maximum size
-				fwrite(&hc, 1, 1, wfile);   // header checksum
-
-				offset = skip + 4;
-
-				fseek(file, 0, SEEK_END);
-				blocksize = htole32((uint32_t) (ftell(file) - offset));
-				fwrite(&blocksize, sizeof(blocksize), 1, wfile);
-
-				fseek(file, offset, SEEK_SET);
-
-				/* copy lz4 data */
-				while ((bytes = fread(buffer, 1, sizeof(buffer), file)) > 0)
-					fwrite(buffer, 1, bytes, wfile);
-
-				fwrite(endmark, sizeof(endmark), 1, wfile);
-
-				fclose(wfile);
+		if (!wfile)
+		{
 			fclose(file);
+			g_free(workfile);
+			return;
+		}
+
+		skip = (archive->tag == 'm' ? 8 : 16);   // magic
+
+		/* original (uncompressed) data size */
+		fseek(file, skip, SEEK_SET);
+		fread(&uncompressed, sizeof(uncompressed), 1, file);
+
+		/* create a lz4 frame header */
+
+		fwrite(LZ4_MAGIC, 4, 1, wfile);
+
+		flg = (0 << 7) + (1 << 6)   // version number
+		               + (1 << 5)   // block independence flag
+		               + (0 << 4)   // block checksum flag
+		               + (0 << 3)   // content size flag
+		               + (0 << 2)   // content checksum flag
+		               + (0 << 1)   // reserved
+		               + (0 << 0);  // dictionary id flag
+		fwrite(&flg, 1, 1, wfile);
+
+		if (le32toh(uncompressed) < 64 * 1024)          // 64 KB
+		{
+			bd = 0x40;
+			hc = 0x82;
+		}
+		else if (le32toh(uncompressed) < 256 * 1024)    // 256 KB
+		{
+			bd = 0x50;
+			hc = 0xfb;
+		}
+		else if (le32toh(uncompressed) < 1024 * 1024)   // 1 MB
+		{
+			bd = 0x60;
+			hc = 0x51;
+		}
+		else                                            // 4 MB
+		{
+			bd = 0x70;
+			hc = 0x73;
+		}
+
+		fwrite(&bd, 1, 1, wfile);   // block maximum size
+		fwrite(&hc, 1, 1, wfile);   // header checksum
+
+		offset = skip + 4;
+
+		fseek(file, 0, SEEK_END);
+		blocksize = htole32((uint32_t) (ftell(file) - offset));
+		fwrite(&blocksize, sizeof(blocksize), 1, wfile);
+
+		fseek(file, offset, SEEK_SET);
+
+		/* copy lz4 data */
+		while ((bytes = fread(buffer, 1, sizeof(buffer), file)) > 0)
+			fwrite(buffer, 1, bytes, wfile);
+
+		fwrite(endmark, sizeof(endmark), 1, wfile);
+
+		fclose(wfile);
+		fclose(file);
 
 		archive->path[2] = g_strdup(workfile);
 		archive->path[3] = xa_escape_bad_chars(workfile, ESCAPES);
