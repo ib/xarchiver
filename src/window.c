@@ -588,7 +588,7 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 
 		if (response == FALSE)
 		{
-			gchar *msg = g_strdup_printf (_("Can't open file %s:"),path);
+			gchar *msg = g_strdup_printf (_("Can't open file \"%s\":"),path);
 			g_free(path);
 			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 			msg,error->message);
