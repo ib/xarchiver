@@ -581,13 +581,19 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 		file = fopen(archive->path[0], "r");
 
-		if (file)
-		{
+		if (!file)
+			return;
+
 			workfile = g_strconcat(archive->working_dir, "/", framefile, NULL);
 			wfile = fopen(workfile, "w");
 
-			if (wfile)
+			if (!wfile)
 			{
+				fclose(file);
+				g_free(workfile);
+				return;
+			}
+
 				skip = (archive->tag == 'm' ? 8 : 16);   // magic
 
 				/* original (uncompressed) data size */
@@ -646,18 +652,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 				fwrite(endmark, sizeof(endmark), 1, wfile);
 
 				fclose(wfile);
-			}
-			else
-			{
-				fclose(file);
-				g_free(workfile);
-				return;
-			}
-
 			fclose(file);
-		}
-		else
-			return;
 
 		archive->path[2] = g_strdup(workfile);
 		archive->path[3] = xa_escape_bad_chars(workfile, ESCAPES);
