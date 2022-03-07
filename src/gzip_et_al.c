@@ -598,7 +598,14 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 		/* original (uncompressed) data size */
 		fseek(file, skip, SEEK_SET);
-		fread(&uncompressed, sizeof(uncompressed), 1, file);
+
+		if (fread(&uncompressed, sizeof(uncompressed), 1, file) != 1)
+		{
+			fclose(file);
+			fclose(wfile);
+			g_free(workfile);
+			return;
+		}
 
 		/* create a lz4 frame header */
 

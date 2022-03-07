@@ -187,8 +187,7 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 			}
 		}
 		fseek (stream,eocds_position,SEEK_SET);
-		fread(&len, sizeof(len), 1, stream);
-		if (len == 0)
+		if (fread(&len, sizeof(len), 1, stream) != 1 || len == 0)
 		{
 			fclose(stream);
 			return FALSE;
@@ -198,7 +197,13 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 			archive->comment = g_string_new("");
 			while (cmt_len != len)
 			{
-				fread(&sig, sizeof(sig), 1, stream);
+				if (fread(&sig, sizeof(sig), 1, stream) != 1)
+				{
+					fclose(stream);
+					g_string_free(archive->comment, TRUE);
+					archive->comment = NULL;
+					return FALSE;
+				}
 				g_string_append_c (archive->comment,sig);
 				cmt_len++;
 			}
@@ -212,7 +217,11 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 		fseek ( stream,39 ,SEEK_SET);
 		while (sig != 0)
 		{
-			fread(&sig, sizeof(sig), 1, stream);
+			if (fread(&sig, sizeof(sig), 1, stream) != 1)
+			{
+				fclose(stream);
+				return FALSE;
+			}
 			cmt_len++;
 		}
 		fseek ( stream,39 + cmt_len ,SEEK_SET);
@@ -221,9 +230,7 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 		archive->comment = g_string_new("");
 		while (sig != 0)
 		{
-			fread(&sig, sizeof(sig), 1, stream);
-
-			if (sig == 0 && archive->comment->len == 0)
+			if (fread(&sig, sizeof(sig), 1, stream) != 1 || (sig == 0 && archive->comment->len == 0))
 			{
 				g_string_free (archive->comment,FALSE);
 				archive->comment = NULL;
@@ -1540,7 +1547,11 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
 				{
-					fread(&buffer, sizeof(buffer), 1, archive_not_sfx);
+					if (fread(&buffer, sizeof(buffer), 1, archive_not_sfx) != 1)
+						/* !!! this is as bad as not checking the return value !!! */
+						/* !!! xa_convert_sfx() must report back success or failure !!! */
+						break;
+
 					fwrite(&buffer, sizeof(buffer), 1, sfx_archive);
 				}
 				fclose (archive_not_sfx);
@@ -1646,7 +1657,11 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
 				{
-					fread(&buffer, sizeof(buffer), 1, archive_not_sfx);
+					if (fread(&buffer, sizeof(buffer), 1, archive_not_sfx) != 1)
+						/* !!! this is as bad as not checking the return value !!! */
+						/* !!! xa_convert_sfx() must report back success or failure !!! */
+						break;
+
 					fwrite(&buffer, sizeof(buffer), 1, sfx_archive);
 				}
 				fclose (archive_not_sfx);
