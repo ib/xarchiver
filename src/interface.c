@@ -1259,7 +1259,7 @@ void xa_add_page (XArchive *archive)
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-begin",	G_CALLBACK (drag_begin),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-data-get", G_CALLBACK (drag_data_get),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"row-activated", G_CALLBACK (xa_treeview_row_activated),archive);
-	g_signal_connect (G_OBJECT (archive->treeview),"button-press-event",G_CALLBACK (xa_mouse_button_event),archive);
+	g_signal_connect(G_OBJECT(archive->treeview), "button-press-event", G_CALLBACK(xa_treeview_mouse_button_press), archive);
 }
 
 gboolean xa_check_password (XArchive *archive)

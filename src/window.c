@@ -2592,7 +2592,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
 }
 
-gboolean xa_mouse_button_event (GtkWidget *widget, GdkEventButton *event, XArchive *archive)
+gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *event, XArchive *archive)
 {
 	XEntry *entry;
 	GtkTreePath *path;
