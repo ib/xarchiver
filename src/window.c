@@ -2293,7 +2293,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData
 	}
 }
 
-void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, int x, int y, GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
+void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
 	gchar **array = NULL;
 	gchar *filename = NULL;
