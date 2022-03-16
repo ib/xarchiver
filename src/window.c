@@ -2175,7 +2175,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	g_free(msg);
 }
 
-void drag_begin (GtkWidget *widget, GdkDragContext *context, XArchive *archive)
+void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchive *archive)
 {
     GtkTreeSelection *selection;
     GtkTreeIter       iter;
