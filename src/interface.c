@@ -210,7 +210,7 @@ static void xa_dir_sidebar_row_expanded (GtkTreeView *tree_view, GtkTreeIter *it
 		gtk_tree_store_set(GTK_TREE_STORE(model),iter,0,"gtk-directory",-1);
 }
 
-static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext *context, int x, int y, GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
+static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
 	gchar **array = NULL;
 	gchar *filename = NULL;
