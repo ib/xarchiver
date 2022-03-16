@@ -26,7 +26,7 @@
 extern gchar *current_open_directory;
 
 void xa_treeview_drag_begin(GtkWidget *, GdkDragContext *, XArchive *);
-void drag_data_get(GtkWidget *, GdkDragContext *, GtkSelectionData *, guint, guint, XArchive *);
+void xa_treeview_drag_data_get(GtkWidget *, GdkDragContext *, GtkSelectionData *, guint, guint, XArchive *);
 void xa_page_drag_data_received(GtkWidget *, GdkDragContext *, gint, gint, GtkSelectionData *, guint, guint, gpointer);
 gboolean treeview_select_search(GtkTreeModel *, gint, const gchar *, GtkTreeIter *, gpointer);
 void xa_about(GtkMenuItem *, gpointer);

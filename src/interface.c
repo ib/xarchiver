@@ -1257,7 +1257,7 @@ void xa_add_page (XArchive *archive)
 	gtk_drag_source_set(archive->treeview, GDK_BUTTON1_MASK, drag_targets, 1, GDK_ACTION_COPY);
 	g_signal_connect(sel, "changed", G_CALLBACK(xa_row_selected), archive);
 	g_signal_connect(G_OBJECT(archive->treeview), "drag-begin", G_CALLBACK(xa_treeview_drag_begin), archive);
-	g_signal_connect (G_OBJECT (archive->treeview),"drag-data-get", G_CALLBACK (drag_data_get),archive);
+	g_signal_connect(G_OBJECT(archive->treeview), "drag-data-get", G_CALLBACK(xa_treeview_drag_data_get), archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"row-activated", G_CALLBACK (xa_treeview_row_activated),archive);
 	g_signal_connect(G_OBJECT(archive->treeview), "button-press-event", G_CALLBACK(xa_treeview_mouse_button_press), archive);
 }

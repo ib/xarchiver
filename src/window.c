@@ -2206,7 +2206,7 @@ void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchiv
 	g_list_free_full(row_list, (GDestroyNotify) gtk_tree_path_free);
 }
 
-void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *data, guint info, guint time, XArchive *archive)
+void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *data, guint info, guint time, XArchive *archive)
 {
 	GtkTreeSelection *selection;
 	GList *row_list;
