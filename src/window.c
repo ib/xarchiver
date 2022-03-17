@@ -2556,7 +2556,6 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	/* Avoid segfault if there's no file opened */
 	if (idx == -1)
 		return;
 
