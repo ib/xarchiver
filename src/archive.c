@@ -841,7 +841,7 @@ void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_dat
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	if ((idx >= 0) && gtk_tree_selection_get_selected(selection, &model, &iter))
+	if ((idx != -1) && gtk_tree_selection_get_selected(selection, &model, &iter))
 	{
 		path = gtk_tree_model_get_path(model,&iter);
 		if ( ! gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview),path))

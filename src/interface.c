@@ -229,7 +229,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	if (idx < 0)
+	if (idx == -1)
 	{
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;

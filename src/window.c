@@ -910,7 +910,7 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 	{
 		gint idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-		if (idx < 0)
+		if (idx == -1)
 			return;
 		this_archive = archive[idx];
 	}
@@ -1357,7 +1357,7 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	if (idx > -1 && archive[idx]->child_pid)
+	if (idx != -1 && archive[idx]->child_pid)
 		return;
 
 	for (i = 0; i < gtk_notebook_get_n_pages(notebook) ; i++)
@@ -2557,7 +2557,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	/* Avoid segfault if there's no file opened */
-	if(idx<0)
+	if (idx == -1)
 		return;
 
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(location_entry))) == 0)
@@ -3049,7 +3049,7 @@ void xa_unsort (GtkMenuItem *menu_item, gpointer user_data)
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	if (idx < 0)
+	if (idx == -1)
 		return;
 
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive[idx]->model), GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID, (GtkSortType) 0);
