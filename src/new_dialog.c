@@ -135,7 +135,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 	gchar *my_path = NULL;
 	gchar *basepath, *filename;
 	gchar *current_dir = NULL;
-	gint current_page, response;
+	gint idx, response;
 	ArchiveType xa = {XARCHIVETYPE_UNKNOWN, 0};
 	gpointer suffix;
 	int i;
@@ -235,10 +235,10 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 
 			for (x = 0; x < gtk_notebook_get_n_pages (notebook) ; x++)
 			{
-				current_page = xa_find_archive_index (x);
-				if (current_page == -1)
+				idx = xa_find_archive_index(x);
+				if (idx == -1)
 					break;
-				if (strcmp(my_path, archive_open[current_page]->path[0]) == 0)
+				if (strcmp(my_path, archive_open[idx]->path[0]) == 0)
 				{
 					gchar *msg = g_strdup_printf(_("\"%s\" is already open!"),my_path);
 					xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't create a new archive:"), msg);

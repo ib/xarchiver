@@ -992,22 +992,22 @@ run_dialog:
 
 void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gint current_page;
+	gint idx;
 
-	current_page = xa_get_new_archive_idx();
-	if (current_page == -1)
+	idx = xa_get_new_archive_idx();
+	if (idx == -1)
 		return;
 
-	archive[current_page] = xa_new_archive_dialog(NULL, archive);
+	archive[idx] = xa_new_archive_dialog(NULL, archive);
 
-	if (archive[current_page] == NULL)
+	if (archive[idx] == NULL)
 		return;
 
-	xa_add_page (archive[current_page]);
-	xa_set_button_state(1, 1, 1, 1, archive[current_page]->can_test, 1, archive[current_page]->can_add, archive[current_page]->can_extract, archive[current_page]->sorted, archive[current_page]->can_sfx, archive[current_page]->has_comment, archive[current_page]->output, archive[current_page]->has_password);
+	xa_add_page(archive[idx]);
+	xa_set_button_state(1, 1, 1, 1, archive[idx]->can_test, 1, archive[idx]->can_add, archive[idx]->can_extract, archive[idx]->sorted, archive[idx]->can_sfx, archive[idx]->has_comment, archive[idx]->output, archive[idx]->has_password);
     xa_disable_delete_buttons(FALSE);
 
-	xa_set_window_title(xa_main_window, archive[current_page]->path[0]);
+	xa_set_window_title(xa_main_window, archive[idx]->path[0]);
 	gtk_label_set_text(GTK_LABEL(total_label),"");
 }
 
@@ -1067,7 +1067,7 @@ void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 void xa_open_archive (GtkWidget *widget, gchar *path)
 {
 	gchar *utf8_path,*msg;
-	gint current_page;
+	gint idx;
 	gint x;
 	ArchiveType xa;
 
@@ -1081,13 +1081,13 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 	/* Let's check if the archive is already opened */
 	for (x = 0; x < gtk_notebook_get_n_pages (notebook); x++)
 	{
-		current_page = xa_find_archive_index (x);
-		if (current_page == -1)
+		idx = xa_find_archive_index(x);
+		if (idx == -1)
 			break;
-		if (strcmp(path, archive[current_page]->path[0]) == 0)
+		if (strcmp(path, archive[idx]->path[0]) == 0)
 		{
 			g_free (path);
-			gtk_notebook_set_current_page (notebook,current_page);
+			gtk_notebook_set_current_page(notebook, idx);
 			return;
 		}
 	}
@@ -1115,14 +1115,14 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 		return;
 	}
 
-	current_page = xa_get_new_archive_idx();
-	if (current_page == -1)
+	idx = xa_get_new_archive_idx();
+	if (idx == -1)
 	{
 		g_free (path);
 		return;
 	}
-	archive[current_page] = xa_init_archive_structure(xa);
-	if (archive[current_page] == NULL)
+	archive[idx] = xa_init_archive_structure(xa);
+	if (archive[idx] == NULL)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure:"),_("Operation aborted!"));
 		g_free (path);
@@ -1130,17 +1130,17 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 	}
 	/* Detect archive comment,rar one is detected in rar.c */
 	if (xa.type == XARCHIVETYPE_ZIP)
-		archive[current_page]->has_comment = xa_detect_archive_comment (XARCHIVETYPE_ZIP,path,archive[current_page]);
+		archive[idx]->has_comment = xa_detect_archive_comment(XARCHIVETYPE_ZIP, path, archive[idx]);
 	else if (xa.type == XARCHIVETYPE_ARJ)
-		archive[current_page]->has_comment = xa_detect_archive_comment (XARCHIVETYPE_ARJ,path,archive[current_page]);
+		archive[idx]->has_comment = xa_detect_archive_comment(XARCHIVETYPE_ARJ, path, archive[idx]);
 
 	if (g_path_is_absolute(path) == FALSE)
-		archive[current_page]->path[0] = g_strconcat(g_get_current_dir() ,"/", path, NULL);
+		archive[idx]->path[0] = g_strconcat(g_get_current_dir(), "/", path, NULL);
 	else
-		archive[current_page]->path[0] = g_strdup(path);
+		archive[idx]->path[0] = g_strdup(path);
 
-	archive[current_page]->path[1] = xa_escape_bad_chars(archive[current_page]->path[0], ESCAPES);
-	xa_add_page (archive[current_page]);
+	archive[idx]->path[1] = xa_escape_bad_chars(archive[idx]->path[0], ESCAPES);
+	xa_add_page(archive[idx]);
 
 	xa_disable_delete_buttons (FALSE);
 	g_free (path);
@@ -1148,8 +1148,8 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 	xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive, please wait..."));
 
-	archive[current_page]->status = XARCHIVESTATUS_LIST;
-	(*archive[current_page]->archiver->list)(archive[current_page]);
+	archive[idx]->status = XARCHIVESTATUS_LIST;
+	(*archive[idx]->archiver->list)(archive[idx]);
 }
 
 void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)

@@ -354,22 +354,22 @@ static void xa_restore_navigation (int idx)
 
 static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE page, guint page_num, gpointer user_data)
 {
-	gint id;
+	gint idx;
 
-	id = xa_find_archive_index (page_num);
-	if (id == -1)
+	idx = xa_find_archive_index(page_num);
+	if (idx == -1)
 		return;
 
-	xa_set_window_title(xa_main_window,archive[id]->path[0]);
-	xa_restore_navigation(id);
-	xa_set_statusbar_message_for_displayed_rows(archive[id]);
+	xa_set_window_title(xa_main_window, archive[idx]->path[0]);
+	xa_restore_navigation(idx);
+	xa_set_statusbar_message_for_displayed_rows(archive[idx]);
 
-	if (archive[id]->treeview != NULL)
+	if (archive[idx]->treeview != NULL)
 	{
 		GtkTreeSelection *selection;
 		gint selected;
 
-		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive[idx]->treeview));
 		selected = gtk_tree_selection_count_selected_rows (selection);
 		if (selected == 0)
 		{
@@ -380,13 +380,13 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 		{
 			gtk_widget_show(selected_frame);
 			gtk_widget_set_sensitive(deselect_all,TRUE);
-			gtk_widget_set_sensitive(delete_menu, archive[id]->can_delete);
-			gtk_widget_set_sensitive(rename_menu, can_rename(archive[id]));
+			gtk_widget_set_sensitive(delete_menu, archive[idx]->can_delete);
+			gtk_widget_set_sensitive(rename_menu, can_rename(archive[idx]));
 		}
 		/* Let's set the location bar */
-		if (archive[id]->location_path)
+		if (archive[idx]->location_path)
 		{
-			gchar *entry_utf8 = g_filename_display_name(archive[id]->location_path);
+			gchar *entry_utf8 = g_filename_display_name(archive[idx]->location_path);
 			gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
 			g_free(entry_utf8);
 		}
@@ -395,17 +395,17 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 		xa_block_signal_dir_treeview_selection(TRUE);
 
-		xa_fill_dir_sidebar(archive[id],TRUE);
+		xa_fill_dir_sidebar(archive[idx], TRUE);
 		gtk_widget_grab_focus(archive_dir_treeview);
 
-		if (archive[id]->location_path && *archive[id]->location_path)
-			xa_dir_sidebar_select_row(xa_find_entry_from_dirpath(archive[id], archive[id]->location_path));
+		if (archive[idx]->location_path && *archive[idx]->location_path)
+			xa_dir_sidebar_select_row(xa_find_entry_from_dirpath(archive[idx], archive[idx]->location_path));
 		else
 			gtk_tree_selection_unselect_all(gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview)));
 
 		xa_block_signal_dir_treeview_selection(FALSE);
 	}
-	xa_set_button_state(1, 1, 1, 1, archive[id]->can_test, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->sorted, archive[id]->can_sfx, archive[id]->has_comment, archive[id]->output, archive[id]->has_password);
+	xa_set_button_state(1, 1, 1, 1, archive[idx]->can_test, 1, archive[idx]->can_add, archive[idx]->can_extract, archive[idx]->sorted, archive[idx]->can_sfx, archive[idx]->has_comment, archive[idx]->output, archive[idx]->has_password);
 }
 
 static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_data)
