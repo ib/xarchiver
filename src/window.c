@@ -994,7 +994,7 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
 	gint idx;
 
-	idx = xa_get_new_archive_idx();
+	idx = xa_get_new_archive_index();
 	if (idx == -1)
 		return;
 
@@ -1115,7 +1115,7 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 		return;
 	}
 
-	idx = xa_get_new_archive_idx();
+	idx = xa_get_new_archive_index();
 	if (idx == -1)
 	{
 		g_free (path);
@@ -2336,7 +2336,7 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 
 	if (current_page == -1)
 	{
-		idx = xa_get_new_archive_idx();
+		idx = xa_get_new_archive_index();
 		if (idx == -1)
 			return;
 		archive[idx] = xa_new_archive_dialog(filename, archive);

@@ -644,7 +644,7 @@ gint xa_find_archive_index (gint page_num)
 	return -1;
 }
 
-gint xa_get_new_archive_idx()
+gint xa_get_new_archive_index ()
 {
 	gint i;
 
@@ -653,6 +653,7 @@ gint xa_get_new_archive_idx()
 		if (archive[i] == NULL)
 			return i;
 	}
+
 	return -1;
 }
 
