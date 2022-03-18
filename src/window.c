@@ -1320,15 +1320,15 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 
 void xa_close_archive (GtkWidget *widget, gpointer page)
 {
-	gint current_page;
+	gint page_num;
 	gint idx;
 
-	current_page = gtk_notebook_page_num(notebook, page);
-	idx = xa_find_archive_index (current_page);
-	gtk_notebook_remove_page ( notebook ,current_page);
+	page_num = gtk_notebook_page_num(notebook, page);
+	idx = xa_find_archive_index(page_num);
+	gtk_notebook_remove_page(notebook, page_num);
 
-	current_page = gtk_notebook_get_n_pages(notebook);
-	if (current_page == 0)
+	page_num = gtk_notebook_get_n_pages(notebook);
+	if (page_num == 0)
 	{
 		gtk_widget_set_sensitive (up_button,FALSE);
 		gtk_widget_set_sensitive (home_button,FALSE);
@@ -1341,7 +1341,7 @@ void xa_close_archive (GtkWidget *widget, gpointer page)
 		gtk_label_set_text(GTK_LABEL(total_label),_("Select \"New\" to create or \"Open\" to open an archive"));
 		gtk_widget_hide(selected_frame);
 	}
-	else if ( current_page == 1)
+	else if (page_num == 1)
 		gtk_notebook_set_show_tabs (notebook,FALSE);
 	else
 		gtk_notebook_set_show_tabs (notebook,TRUE);
@@ -2301,7 +2301,7 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 	GSList *list = NULL;
 	gboolean one_file;
 	unsigned int len = 0;
-	gint current_page, idx;
+	gint page_num, idx;
 	ArchiveType xa;
 
 	array = gtk_selection_data_get_uris(data);
@@ -2332,9 +2332,9 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 		}
     }
 
-	current_page = gtk_notebook_get_current_page(notebook);
+	page_num = gtk_notebook_get_current_page(notebook);
 
-	if (current_page == -1)
+	if (page_num == -1)
 	{
 		idx = xa_get_new_archive_index();
 		if (idx == -1)
@@ -2345,7 +2345,7 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 		xa_add_page (archive[idx]);
 	}
 	else
-		idx = xa_find_archive_index (current_page);
+		idx = xa_find_archive_index(page_num);
 
 	if (!archive[idx]->can_add)
 	{
@@ -2385,10 +2385,10 @@ void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,Gtk
 void xa_select_all(GtkMenuItem *menuitem,gpointer user_data)
 {
 	gint idx;
-	gint current_page;
+	gint page_num;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+	page_num = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index(page_num);
 
 	gtk_tree_selection_select_all ( gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview)));
 	gtk_widget_set_sensitive (select_all,FALSE);
