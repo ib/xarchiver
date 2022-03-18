@@ -156,19 +156,18 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 
 	prefs_data->prefs_liststore = gtk_list_store_new (3,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT);
 	gtk_list_store_append (prefs_data->prefs_liststore,&iter);
-	icon_pixbuf = gtk_icon_theme_load_icon(icon_theme, "gnome-mime-application-zip", 40, (GtkIconLookupFlags) 0, NULL);
-	if (!icon_pixbuf) icon_pixbuf = gtk_icon_theme_load_icon(icon_theme,"package-x-generic",32,GTK_ICON_LOOKUP_FORCE_SIZE,NULL);
+	icon_pixbuf = gtk_icon_theme_load_icon(icon_theme, "package-x-generic", 32, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Archive"),2,0,-1);
 	if(icon_pixbuf != NULL)
 		g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-	icon_pixbuf = gtk_widget_render_icon (prefs_data->dialog1, "gtk-leave-fullscreen", GTK_ICON_SIZE_DND, NULL);
+	icon_pixbuf = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", 32, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Window"),2,1,-1);
 	g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-	icon_pixbuf = gtk_widget_render_icon (prefs_data->dialog1, "gtk-execute", GTK_ICON_SIZE_DND, NULL);
+	icon_pixbuf = gtk_icon_theme_load_icon(icon_theme, "system-run", 32, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"),2,2,-1);
 	g_object_unref (icon_pixbuf);
 
