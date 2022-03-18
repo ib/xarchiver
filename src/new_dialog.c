@@ -231,11 +231,11 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 
 		if (xa_main_window)
 		{
-			int x;
+			gint n;
 
-			for (x = 0; x < gtk_notebook_get_n_pages (notebook) ; x++)
+			for (n = 0; n < gtk_notebook_get_n_pages(notebook); n++)
 			{
-				idx = xa_find_archive_index(x);
+				idx = xa_find_archive_index(n);
 				if (idx == -1)
 					break;
 				if (strcmp(my_path, archive_open[idx]->path[0]) == 0)

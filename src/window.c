@@ -1068,7 +1068,7 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 {
 	gchar *utf8_path,*msg;
 	gint idx;
-	gint x;
+	gint n;
 	ArchiveType xa;
 
 	if (path == NULL)
@@ -1079,9 +1079,9 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 	}
 
 	/* Let's check if the archive is already opened */
-	for (x = 0; x < gtk_notebook_get_n_pages (notebook); x++)
+	for (n = 0; n < gtk_notebook_get_n_pages(notebook); n++)
 	{
-		idx = xa_find_archive_index(x);
+		idx = xa_find_archive_index(n);
 		if (idx == -1)
 			break;
 		if (strcmp(path, archive[idx]->path[0]) == 0)
@@ -1352,7 +1352,7 @@ void xa_close_archive (GtkWidget *widget, gpointer page)
 
 void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
-	gint i;
+	gint n;
 	gint idx;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
@@ -1360,9 +1360,9 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data
 	if (idx != -1 && archive[idx]->child_pid)
 		return;
 
-	for (i = 0; i < gtk_notebook_get_n_pages(notebook) ; i++)
+	for (n = 0; n < gtk_notebook_get_n_pages(notebook); n++)
 	{
-		idx = xa_find_archive_index (i);
+		idx = xa_find_archive_index(n);
 		if (archive[idx] != NULL)
 		{
 			xa_clean_archive_structure (archive[idx]);
