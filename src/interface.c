@@ -1191,14 +1191,13 @@ gboolean xa_flash_led_indicator (XArchive *archive)
 void xa_add_page (XArchive *archive)
 {
 	GTK_COMPAT_TOOLTIPS;
+	gboolean page_one;
 	GtkWidget	*page_hbox,*label,*tab_label,*close_button,*image,*align;
 	gchar *filename_only, *label_utf8;
 	GtkRcStyle *rcstyle;
 
-	if (gtk_notebook_get_current_page(notebook) > -1)
-		gtk_notebook_set_show_tabs (notebook,TRUE);
-	else
-		gtk_notebook_set_show_tabs (notebook,FALSE);
+	page_one = (gtk_notebook_get_current_page(notebook) == -1);
+	gtk_notebook_set_show_tabs(notebook, !page_one);
 
 	archive->page = gtk_scrolled_window_new(NULL, NULL);
 	g_object_set(G_OBJECT(archive->page), "hscrollbar-policy", GTK_POLICY_AUTOMATIC, "vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
