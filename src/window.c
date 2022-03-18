@@ -1087,7 +1087,7 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 		if (strcmp(path, archive[idx]->path[0]) == 0)
 		{
 			g_free (path);
-			gtk_notebook_set_current_page(notebook, idx);
+			gtk_notebook_set_current_page(notebook, n);
 			return;
 		}
 	}
