@@ -116,12 +116,14 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDr
 	unsigned int n = 0;
 
 	uris = gtk_selection_data_get_uris(data);
+
 	if (!uris)
 	{
-		xa_show_message_dialog(GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"",_("Sorry, I could not perform the operation!"));
-		gtk_drag_finish (context,FALSE,FALSE,time);
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "", _("Sorry, I could not perform the operation!"));
+		gtk_drag_finish(context, FALSE, FALSE, time);
 		return;
 	}
+
 	while (uris[n])
 	{
 		filename = g_filename_from_uri(uris[n], NULL, NULL);
@@ -129,9 +131,10 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDr
 		if (filename)
 			xa_multi_extract_dialog_add_file(filename, dialog_data);
 
-		g_free (filename);
+		g_free(filename);
 		n++;
 	}
+
 	g_strfreev(uris);
 	gtk_drag_finish(context, TRUE, FALSE, time);
 }
