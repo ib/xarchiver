@@ -111,27 +111,27 @@ static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selecti
 
 static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer dialog_data)
 {
-	gchar **array = NULL;
+	gchar **uris;
 	gchar *filename;
-	unsigned int len = 0;
+	unsigned int n = 0;
 
 	gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
-	array = gtk_selection_data_get_uris (data);
-	if (array == NULL)
+	uris = gtk_selection_data_get_uris(data);
+	if (!uris)
 	{
 		xa_show_message_dialog(GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"",_("Sorry, I could not perform the operation!"));
 		gtk_drag_finish (context,FALSE,FALSE,time);
 		return;
 	}
 	gtk_drag_finish (context,TRUE,FALSE,time);
-	while (array[len])
+	while (uris[n])
 	{
-		filename = g_filename_from_uri (array[len],NULL,NULL);
+		filename = g_filename_from_uri(uris[n], NULL, NULL);
 		xa_multi_extract_dialog_add_file(filename, dialog_data);
 		g_free (filename);
-		len++;
+		n++;
 	}
-	g_strfreev (array);
+	g_strfreev(uris);
 }
 
 static void xa_multi_extract_dialog_select_files_to_add (GtkButton *button, Multi_extract_data *dialog)

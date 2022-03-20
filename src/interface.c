@@ -212,10 +212,10 @@ static void xa_dir_sidebar_row_expanded (GtkTreeView *tree_view, GtkTreeIter *it
 
 static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
-	gchar **array = NULL;
+	gchar **uris;
 	gchar *filename = NULL;
 	gchar *name = NULL;
-	unsigned int len = 0;
+	unsigned int n = 0;
 	gint idx;
 	GSList *list = NULL;
 	GtkTreeModel *model;
@@ -240,18 +240,18 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
-	array = gtk_selection_data_get_uris(data);
-	if (array == NULL || archive[idx]->child_pid)
+	uris = gtk_selection_data_get_uris(data);
+	if (!uris || archive[idx]->child_pid)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"");
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
-	while (array[len])
+	while (uris[n])
 	{
-		filename = g_filename_from_uri (array[len],NULL,NULL);
+		filename = g_filename_from_uri(uris[n], NULL, NULL);
 		list = g_slist_append(list,filename);
-		len++;
+		n++;
 	}
 
 	/* Let's get the full pathname so to add dropped files there */
@@ -292,7 +292,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 
 	g_string_free(full_pathname,TRUE);
 	g_slist_free_full(list, g_free);
-	g_strfreev (array);
+	g_strfreev(uris);
 
 	gtk_drag_finish (context,TRUE,FALSE,time);
 }

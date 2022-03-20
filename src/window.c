@@ -2295,29 +2295,29 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 
 void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
-	gchar **array = NULL;
+	gchar **uris;
 	gchar *filename = NULL;
 	gchar *current_dir;
 	GSList *list = NULL;
 	gboolean one_file;
-	unsigned int len = 0;
+	unsigned int n = 0;
 	gint page_num, idx;
 	ArchiveType xa;
 
-	array = gtk_selection_data_get_uris(data);
+	uris = gtk_selection_data_get_uris(data);
 
-	if (array == NULL)
+	if (!uris)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"");
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
 	gtk_drag_finish (context,TRUE,FALSE,time);
-	one_file = (array[1] == NULL);
+	one_file = (uris[1] == NULL);
 
 	if (one_file)
 	{
-		filename = g_filename_from_uri(array[0],NULL,NULL);
+		filename = g_filename_from_uri(uris[0], NULL, NULL);
 
 		if (filename == NULL)
 			return;
@@ -2327,7 +2327,7 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 		if (xa.type != XARCHIVETYPE_UNKNOWN && xa.type != XARCHIVETYPE_NOT_FOUND)
 		{
 			xa_open_archive(NULL,filename);
-			g_strfreev(array);
+			g_strfreev(uris);
 			return;
 		}
     }
@@ -2353,18 +2353,18 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
-	current_dir = g_path_get_dirname(array[0]);
+	current_dir = g_path_get_dirname(uris[0]);
 	archive[idx]->child_dir = g_filename_from_uri(current_dir, NULL, NULL);
 	g_free(current_dir);
-	while (array[len])
+	while (uris[n])
 	{
-		filename = g_filename_from_uri (array[len],NULL,NULL);
+		filename = g_filename_from_uri(uris[n], NULL, NULL);
 		list = g_slist_append(list,filename);
-		len++;
+		n++;
 	}
 	archive[idx]->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_window->store_path));
 	xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
-	g_strfreev (array);
+	g_strfreev(uris);
 }
 
 void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,GtkTreeIter *iter,GSList **data)
