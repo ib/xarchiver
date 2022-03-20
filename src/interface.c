@@ -297,7 +297,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	gtk_drag_finish (context,TRUE,FALSE,time);
 }
 
-static gboolean xa_dir_sidebar_drag_motion_expand (gpointer user_data)
+static gboolean xa_dir_sidebar_drag_motion_expand (GdkDragContext *context)
 {
 	GtkTreePath *path;
 
@@ -306,10 +306,13 @@ static gboolean xa_dir_sidebar_drag_motion_expand (gpointer user_data)
 	{
 		gtk_tree_view_expand_row (GTK_TREE_VIEW(archive_dir_treeview), path, FALSE);
 		gtk_tree_path_free (path);
-		return FALSE;
 	}
-	else
-		return TRUE;
+
+	/* if context still valid */
+	if (G_IS_OBJECT(context))
+		g_object_steal_data(G_OBJECT(context), "expand_row");
+
+	return FALSE;
 }
 
 static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, gpointer user_data)
@@ -320,7 +323,12 @@ static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *c
 
 	if (path)
 	{
-		g_timeout_add_full(G_PRIORITY_LOW, 1000, xa_dir_sidebar_drag_motion_expand, NULL, NULL);
+		if (!g_object_get_data(G_OBJECT(context), "expand_row"))
+		{
+			g_timeout_add_full(G_PRIORITY_LOW, 1000, (GSourceFunc) xa_dir_sidebar_drag_motion_expand, context, NULL);
+			g_object_set_data(G_OBJECT(context), "expand_row", GINT_TO_POINTER(TRUE));
+		}
+
 		g_object_set_data(G_OBJECT(context), "tree_path", path);
 	}
 
