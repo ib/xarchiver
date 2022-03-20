@@ -255,7 +255,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	}
 
 	/* Let's get the full pathname so to add dropped files there */
-	path = g_object_get_data(G_OBJECT(context),"current_path");
+	path = g_object_get_data(G_OBJECT(context),"tree_path");
 	if (path == NULL)
 	{
 		gtk_drag_finish (context,TRUE,FALSE,time);
@@ -321,7 +321,7 @@ static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *c
 	if (path)
 	{
 		g_timeout_add_full(G_PRIORITY_LOW, 1000, xa_dir_sidebar_drag_motion_expand, NULL, NULL);
-		g_object_set_data(G_OBJECT(context), "current_path", path);
+		g_object_set_data(G_OBJECT(context), "tree_path", path);
 	}
 
 	gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget), path, GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
