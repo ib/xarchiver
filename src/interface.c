@@ -316,15 +316,18 @@ static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *c
 {
 	GtkTreePath *path;
 
-	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,NULL);
+	gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y, &path, NULL);
+
 	if (path)
 	{
 		g_timeout_add_full(G_PRIORITY_LOW, 1000, xa_dir_sidebar_drag_motion_expand_timeout, NULL, NULL);
-		g_object_set_data(G_OBJECT(context),"current_path",path);
+		g_object_set_data(G_OBJECT(context), "current_path", path);
 	}
+
 	/* This to set the focus on the dropped row */
-	gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
+	gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget), path, GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
 	gdk_drag_status(context, GDK_ACTION_COPY, time);
+
 	return TRUE;
 }
 
