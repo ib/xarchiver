@@ -335,14 +335,14 @@ static void xa_gzip_et_al_parse_lrzip (gchar *line, XArchive *archive)
 
 				if (colon) *colon = '\n';   // remove colon
 
-				goto FILENAME;
+				goto filename;
 			}
 		}
 
 		/* since v0.650 */
 		IF_ITEM_LINE("File:")
 		{
-FILENAME:
+filename:
 			LAST_ITEM(filename);
 
 			if (g_str_has_suffix(filename, ".lrz"))
