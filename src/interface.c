@@ -316,7 +316,6 @@ static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *c
 {
 	GtkTreePath *path;
 
-	gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,NULL);
 	if (path)
 	{
