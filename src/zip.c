@@ -266,9 +266,6 @@ void xa_zip_add (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *compression, *password_str, *command;
 
-	if (archive->location_path != NULL)
-		archive->child_dir = g_strdup(archive->working_dir);
-
 	compression = g_strdup_printf("%hu", archive->compression);
 
 	epub = (archive->tag == 'e');

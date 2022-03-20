@@ -479,6 +479,12 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 	files = xa_collect_filenames(archive, dirlist);
 	g_slist_free_full(dirlist, g_free);
 
+	if (archive->location_path != NULL)
+	{
+		g_free(archive->child_dir);
+		archive->child_dir = g_strdup(archive->working_dir);
+	}
+
 	archive->status = XARCHIVESTATUS_ADD;
 	(*archive->archiver->add)(archive, files);
 

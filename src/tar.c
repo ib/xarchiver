@@ -304,9 +304,6 @@ void xa_tar_add (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command;
 
-	if (archive->location_path != NULL)
-		archive->child_dir = g_strdup(archive->working_dir);
-
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 
 	if (!g_file_test(archive->path[0], G_FILE_TEST_EXISTS))

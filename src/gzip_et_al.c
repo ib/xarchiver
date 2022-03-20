@@ -942,9 +942,6 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 	gchar *compression, *files_str, *archive_path, *move, *password_str, *out, *command;
 	gboolean result;
 
-	if (archive->location_path != NULL)
-		archive->child_dir = g_strdup(archive->working_dir);
-
 	compression = g_strdup_printf("%hu", archive->compression);
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
