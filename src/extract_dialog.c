@@ -115,7 +115,6 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDr
 	gchar *filename;
 	unsigned int n = 0;
 
-	gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	uris = gtk_selection_data_get_uris(data);
 	if (!uris)
 	{
@@ -123,15 +122,18 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDr
 		gtk_drag_finish (context,FALSE,FALSE,time);
 		return;
 	}
-	gtk_drag_finish (context,TRUE,FALSE,time);
 	while (uris[n])
 	{
 		filename = g_filename_from_uri(uris[n], NULL, NULL);
-		xa_multi_extract_dialog_add_file(filename, dialog_data);
+
+		if (filename)
+			xa_multi_extract_dialog_add_file(filename, dialog_data);
+
 		g_free (filename);
 		n++;
 	}
 	g_strfreev(uris);
+	gtk_drag_finish(context, TRUE, FALSE, time);
 }
 
 static void xa_multi_extract_dialog_select_files_to_add (GtkButton *button, Multi_extract_data *dialog)
