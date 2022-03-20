@@ -301,11 +301,12 @@ static gboolean xa_dir_sidebar_drag_motion_expand (GdkDragContext *context)
 {
 	GtkTreePath *path;
 
-	gtk_tree_view_get_drag_dest_row (GTK_TREE_VIEW(archive_dir_treeview), &path, NULL);
-	if (G_LIKELY (path != NULL))
+	gtk_tree_view_get_drag_dest_row(GTK_TREE_VIEW(archive_dir_treeview), &path, NULL);
+
+	if (G_LIKELY(path != NULL))
 	{
-		gtk_tree_view_expand_row (GTK_TREE_VIEW(archive_dir_treeview), path, FALSE);
-		gtk_tree_path_free (path);
+		gtk_tree_view_expand_row(GTK_TREE_VIEW(archive_dir_treeview), path, FALSE);
+		gtk_tree_path_free(path);
 	}
 
 	/* if context still valid */
