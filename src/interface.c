@@ -265,7 +265,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	gtk_tree_model_get(model,&iter,1,&name,-1);
 	g_string_prepend_c(full_pathname,'/');
 	g_string_prepend(full_pathname,name);
-	gtk_tree_path_free(path);
+	g_object_set_data(G_OBJECT(context), "tree_path", NULL);
 
 	while (gtk_tree_model_iter_parent(model,&parent,&iter))
 	{
@@ -329,7 +329,7 @@ static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *c
 			g_object_set_data(G_OBJECT(context), "expand_row", GINT_TO_POINTER(TRUE));
 		}
 
-		g_object_set_data(G_OBJECT(context), "tree_path", path);
+		g_object_set_data_full(G_OBJECT(context), "tree_path", path, (GDestroyNotify) gtk_tree_path_free);
 		gdk_drag_status(context, GDK_ACTION_COPY, time);
 	}
 	else
