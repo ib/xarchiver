@@ -297,7 +297,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	gtk_drag_finish (context,TRUE,FALSE,time);
 }
 
-static gboolean xa_dir_sidebar_drag_motion_expand_timeout (gpointer user_data)
+static gboolean xa_dir_sidebar_drag_motion_expand (gpointer user_data)
 {
 	GtkTreePath *path;
 
@@ -320,7 +320,7 @@ static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *c
 
 	if (path)
 	{
-		g_timeout_add_full(G_PRIORITY_LOW, 1000, xa_dir_sidebar_drag_motion_expand_timeout, NULL, NULL);
+		g_timeout_add_full(G_PRIORITY_LOW, 1000, xa_dir_sidebar_drag_motion_expand, NULL, NULL);
 		g_object_set_data(G_OBJECT(context), "current_path", path);
 	}
 
