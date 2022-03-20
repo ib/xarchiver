@@ -330,10 +330,15 @@ static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *c
 		}
 
 		g_object_set_data(G_OBJECT(context), "tree_path", path);
+		gdk_drag_status(context, GDK_ACTION_COPY, time);
+	}
+	else
+	{
+		g_object_set_data(G_OBJECT(context), "tree_path", NULL);
+		gdk_drag_status(context, 0, time);
 	}
 
 	gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget), path, GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
-	gdk_drag_status(context, GDK_ACTION_COPY, time);
 
 	return TRUE;
 }
