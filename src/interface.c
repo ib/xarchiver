@@ -276,8 +276,7 @@ failed:
 		g_free(name);
 		iter = parent;
 	}
-	if (archive[idx]->location_path != NULL)
-		g_free(archive[idx]->location_path);
+	g_free(archive[idx]->location_path);
 
 	/* This is to have the dragged files stored inside current archive location entry */
 	archive[idx]->location_path = g_strdup(full_pathname->str);
