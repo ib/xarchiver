@@ -252,7 +252,10 @@ failed:
 	while (uris[n])
 	{
 		filename = g_filename_from_uri(uris[n], NULL, NULL);
-		list = g_slist_append(list,filename);
+
+		if (filename)
+			list = g_slist_append(list, filename);
+
 		n++;
 	}
 
