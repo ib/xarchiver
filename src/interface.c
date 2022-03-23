@@ -213,8 +213,8 @@ static void xa_dir_sidebar_row_expanded (GtkTreeView *tree_view, GtkTreeIter *it
 static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
 	gchar **uris = NULL;
-	gchar *filename = NULL;
-	gchar *name = NULL;
+	gchar *filename;
+	gchar *name;
 	unsigned int n = 0;
 	gint idx;
 	GSList *list = NULL;
