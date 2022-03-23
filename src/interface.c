@@ -275,13 +275,13 @@ failed:
 		g_free(name);
 		iter = parent;
 	}
-	g_free(archive[idx]->location_path);
 
 	/* add dragged files inside the determined archive location path */
+	g_free(archive[idx]->location_path);
 	archive[idx]->location_path = g_strdup(full_pathname->str);
 	archive[idx]->child_dir = g_path_get_dirname(list->data);
-	full_path = archive[idx]->do_full_path;
 
+	full_path = archive[idx]->do_full_path;
 	archive[idx]->do_full_path = FALSE;
 
 	xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
