@@ -222,8 +222,8 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	GtkTreePath *path;
 	GtkTreeIter iter;
 	GtkTreeIter parent;
-	GString *full_pathname;
-	gboolean full_path;
+	GString *pathname;
+	gboolean do_full_path;
 
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
@@ -263,32 +263,32 @@ failed:
 	gtk_tree_model_get(model,&iter,1,&name,-1);
 	g_object_set_data(G_OBJECT(context), "tree_path", NULL);
 
-	full_pathname = g_string_new("/");
-	g_string_prepend(full_pathname, name);
+	pathname = g_string_new("/");
+	g_string_prepend(pathname, name);
 	g_free(name);
 
 	while (gtk_tree_model_iter_parent(model,&parent,&iter))
 	{
 		gtk_tree_model_get(model,&parent,1,&name,-1);
-		g_string_prepend_c(full_pathname,'/');
-		g_string_prepend(full_pathname,name);
+		g_string_prepend_c(pathname, '/');
+		g_string_prepend(pathname, name);
 		g_free(name);
 		iter = parent;
 	}
 
 	/* add dragged files inside the determined archive location path */
 	g_free(archive[idx]->location_path);
-	archive[idx]->location_path = g_strdup(full_pathname->str);
+	archive[idx]->location_path = g_strdup(pathname->str);
 	archive[idx]->child_dir = g_path_get_dirname(list->data);
 
-	full_path = archive[idx]->do_full_path;
+	do_full_path = archive[idx]->do_full_path;
 	archive[idx]->do_full_path = FALSE;
 
 	xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
 
-	archive[idx]->do_full_path = full_path;
+	archive[idx]->do_full_path = do_full_path;
 
-	g_string_free(full_pathname,TRUE);
+	g_string_free(pathname, TRUE);
 	g_slist_free_full(list, g_free);
 	g_strfreev(uris);
 
