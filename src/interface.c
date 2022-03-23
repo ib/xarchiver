@@ -265,12 +265,14 @@ failed:
 	g_string_prepend_c(full_pathname,'/');
 	g_string_prepend(full_pathname,name);
 	g_object_set_data(G_OBJECT(context), "tree_path", NULL);
+	g_free(name);
 
 	while (gtk_tree_model_iter_parent(model,&parent,&iter))
 	{
 		gtk_tree_model_get(model,&parent,1,&name,-1);
 		g_string_prepend_c(full_pathname,'/');
 		g_string_prepend(full_pathname,name);
+		g_free(name);
 		iter = parent;
 	}
 	if (archive[idx]->location_path != NULL)
