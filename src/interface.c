@@ -280,6 +280,7 @@ failed:
 
 	/* This is to have the dragged files stored inside current archive location entry */
 	archive[idx]->location_path = g_strdup(full_pathname->str);
+	archive[idx]->child_dir = g_path_get_dirname(list->data);
 	full_path = archive[idx]->do_full_path;
 
 	archive[idx]->do_full_path = FALSE;
