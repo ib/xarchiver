@@ -232,21 +232,21 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 
 	if (idx == -1 || path == NULL)
 	{
+failed:
+		g_object_set_data(G_OBJECT(context), "tree_path", NULL);
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
 	if (!archive[idx]->can_add)
 	{
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform this action:"), _("You can't add content to this archive type!"));
-		gtk_drag_finish(context,FALSE,FALSE,time);
-		return;
+		goto failed;
 	}
 	uris = gtk_selection_data_get_uris(data);
 	if (!uris || archive[idx]->child_pid)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"");
-		gtk_drag_finish(context,FALSE,FALSE,time);
-		return;
+		goto failed;
 	}
 	while (uris[n])
 	{
