@@ -212,7 +212,7 @@ static void xa_dir_sidebar_row_expanded (GtkTreeView *tree_view, GtkTreeIter *it
 
 static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
-	gchar **uris;
+	gchar **uris = NULL;
 	gchar *filename = NULL;
 	gchar *name = NULL;
 	unsigned int n = 0;
@@ -246,6 +246,7 @@ failed:
 	if (!uris || archive[idx]->child_pid)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"");
+		g_strfreev(uris);
 		goto failed;
 	}
 	while (uris[n])
