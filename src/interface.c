@@ -258,7 +258,6 @@ failed:
 		n++;
 	}
 
-	/* Let's get the full pathname so to add dropped files there */
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	gtk_tree_model_get_iter(model,&iter,path);
 	gtk_tree_model_get(model,&iter,1,&name,-1);
@@ -278,7 +277,7 @@ failed:
 	}
 	g_free(archive[idx]->location_path);
 
-	/* This is to have the dragged files stored inside current archive location entry */
+	/* add dragged files inside the determined archive location path */
 	archive[idx]->location_path = g_strdup(full_pathname->str);
 	archive[idx]->child_dir = g_path_get_dirname(list->data);
 	full_path = archive[idx]->do_full_path;
