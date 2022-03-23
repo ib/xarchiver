@@ -285,7 +285,7 @@ failed:
 
 	archive[idx]->do_full_path = FALSE;
 
-	xa_execute_add_commands(archive[idx], list, TRUE);
+	xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
 
 	archive[idx]->do_full_path = full_path;
 
