@@ -222,7 +222,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	GtkTreePath *path;
 	GtkTreeIter iter;
 	GtkTreeIter parent;
-	GString *full_pathname = g_string_new("");
+	GString *full_pathname;
 	gboolean full_path, dummy_password;
 
 
@@ -262,9 +262,10 @@ failed:
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	gtk_tree_model_get_iter(model,&iter,path);
 	gtk_tree_model_get(model,&iter,1,&name,-1);
-	g_string_prepend_c(full_pathname,'/');
-	g_string_prepend(full_pathname,name);
 	g_object_set_data(G_OBJECT(context), "tree_path", NULL);
+
+	full_pathname = g_string_new("/");
+	g_string_prepend(full_pathname, name);
 	g_free(name);
 
 	while (gtk_tree_model_iter_parent(model,&parent,&iter))
