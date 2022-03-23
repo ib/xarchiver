@@ -223,7 +223,6 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	GString *pathname;
 	gboolean do_full_path;
 
-
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 	path = g_object_get_data(G_OBJECT(context), "tree_path");
 
@@ -231,21 +230,25 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	{
 failed:
 		g_object_set_data(G_OBJECT(context), "tree_path", NULL);
-		gtk_drag_finish(context,FALSE,FALSE,time);
+		gtk_drag_finish(context, FALSE, FALSE, time);
 		return;
 	}
+
 	if (!archive[idx]->can_add)
 	{
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform this action:"), _("You can't add content to this archive type!"));
 		goto failed;
 	}
+
 	uris = gtk_selection_data_get_uris(data);
+
 	if (!uris || archive[idx]->child_pid)
 	{
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"");
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, I could not perform the operation!"), "");
 		g_strfreev(uris);
 		goto failed;
 	}
+
 	while (uris[n])
 	{
 		filename = g_filename_from_uri(uris[n], NULL, NULL);
@@ -257,17 +260,17 @@ failed:
 	}
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
-	gtk_tree_model_get_iter(model,&iter,path);
-	gtk_tree_model_get(model,&iter,1,&name,-1);
+	gtk_tree_model_get_iter(model, &iter, path);
+	gtk_tree_model_get(model, &iter, 1, &name, -1);
 	g_object_set_data(G_OBJECT(context), "tree_path", NULL);
 
 	pathname = g_string_new("/");
 	g_string_prepend(pathname, name);
 	g_free(name);
 
-	while (gtk_tree_model_iter_parent(model,&parent,&iter))
+	while (gtk_tree_model_iter_parent(model, &parent, &iter))
 	{
-		gtk_tree_model_get(model,&parent,1,&name,-1);
+		gtk_tree_model_get(model, &parent, 1, &name, -1);
 		g_string_prepend_c(pathname, '/');
 		g_string_prepend(pathname, name);
 		g_free(name);
@@ -290,7 +293,7 @@ failed:
 	g_slist_free_full(list, g_free);
 	g_strfreev(uris);
 
-	gtk_drag_finish (context,TRUE,FALSE,time);
+	gtk_drag_finish(context, TRUE, FALSE, time);
 }
 
 static gboolean xa_dir_sidebar_drag_motion_expand (GdkDragContext *context)
