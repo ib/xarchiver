@@ -228,8 +228,9 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+	path = g_object_get_data(G_OBJECT(context), "tree_path");
 
-	if (idx == -1)
+	if (idx == -1 || path == NULL)
 	{
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
@@ -255,12 +256,6 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	}
 
 	/* Let's get the full pathname so to add dropped files there */
-	path = g_object_get_data(G_OBJECT(context),"tree_path");
-	if (path == NULL)
-	{
-		gtk_drag_finish (context,TRUE,FALSE,time);
-		return;
-	}
 	gtk_tree_model_get_iter(model,&iter,path);
 	gtk_tree_model_get(model,&iter,1,&name,-1);
 	g_string_prepend_c(full_pathname,'/');
