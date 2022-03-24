@@ -783,7 +783,13 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 
 	if (!archiver[xa.type].list)
 	{
-		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), _("The proper archiver is not installed!"));
+		gchar *name, *msg;
+
+		name = g_path_get_basename(file_path);
+		msg = g_strdup_printf(_("The proper archiver for \"%s\" is not installed!"), name);
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), msg);
+		g_free(msg);
+		g_free(name);
 		return;
 	}
 
