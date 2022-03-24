@@ -2298,75 +2298,121 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
 	gchar **uris;
-	gchar *filename = NULL;
-	gchar *current_dir;
-	GSList *list = NULL;
-	gboolean one_file;
+	gchar *filename;
 	unsigned int n = 0;
-	gint page_num, idx;
+	GSList *list = NULL, *flist;
 	ArchiveType xa;
+	XArchive *opened;
+	gint idx;
+	gboolean archives = FALSE, files = FALSE, do_full_path;
 
 	uris = gtk_selection_data_get_uris(data);
 
 	if (!uris)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"");
+
+failed:
+		g_slist_free_full(list, g_free);
+		g_strfreev(uris);
 		gtk_drag_finish(context,FALSE,FALSE,time);
+
 		return;
 	}
-	gtk_drag_finish (context,TRUE,FALSE,time);
-	one_file = (uris[1] == NULL);
 
-	if (one_file)
-	{
-		filename = g_filename_from_uri(uris[0], NULL, NULL);
-
-		if (filename == NULL)
-			return;
-
-		xa = xa_detect_archive_type(filename);
-
-		if (xa.type != XARCHIVETYPE_UNKNOWN && xa.type != XARCHIVETYPE_NOT_FOUND)
-		{
-			xa_open_archive(NULL,filename);
-			g_strfreev(uris);
-			return;
-		}
-    }
-
-	page_num = gtk_notebook_get_current_page(notebook);
-
-	if (page_num == -1)
-	{
-		idx = xa_get_new_archive_index();
-		if (idx == -1)
-			return;
-		archive[idx] = xa_new_archive_dialog(filename, archive);
-		if (archive[idx] == NULL)
-			return;
-		xa_add_page (archive[idx]);
-	}
-	else
-		idx = xa_find_archive_index(page_num);
-
-	if (!archive[idx]->can_add)
-	{
-		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform this action:"), _("You can't add content to this archive type!"));
-		gtk_drag_finish(context,FALSE,FALSE,time);
-		return;
-	}
-	current_dir = g_path_get_dirname(uris[0]);
-	archive[idx]->child_dir = g_filename_from_uri(current_dir, NULL, NULL);
-	g_free(current_dir);
 	while (uris[n])
 	{
 		filename = g_filename_from_uri(uris[n], NULL, NULL);
-		list = g_slist_append(list,filename);
+
+		if (filename)
+		{
+			list = g_slist_append(list, filename);
+			xa = xa_detect_archive_type(filename);
+
+			if (xa.type != XARCHIVETYPE_UNKNOWN && xa.type != XARCHIVETYPE_NOT_FOUND)
+				archives = TRUE;
+			else
+				files = TRUE;
+		}
+
 		n++;
 	}
-	archive[idx]->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_window->store_path));
-	xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
+
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+
+	if (idx != -1 && archive[idx]->child_pid)
+	{
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, I could not perform the operation!"), "");
+		goto failed;
+	}
+
+	/* nothing but archives */
+	if (archives && !files)
+	{
+		flist = list;
+
+		while (flist)
+		{
+			opened = xa_open_archive(NULL, g_strdup(flist->data));
+
+			while (opened && (opened->status == XARCHIVESTATUS_LIST))
+				gtk_main_iteration_do(FALSE);
+
+			flist = flist->next;
+		}
+	}
+	/* nothing but files */
+	else if (files && !archives)
+	{
+		/* no archive open */
+		if (idx == -1)
+		{
+			idx = xa_get_new_archive_index();
+
+			if (idx == -1)
+				goto failed;
+
+			archive[idx] = xa_new_archive_dialog(NULL, archive);
+
+			if (!archive[idx])
+				goto failed;
+
+			if (archive[idx]->can_add)
+				xa_add_page(archive[idx]);
+			else
+			{
+				xa_clean_archive_structure(archive[idx]);
+				archive[idx] = NULL;
+			}
+		}
+
+		/* an open archive */
+
+		if (!archive[idx]->can_add)
+		{
+			xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform this action:"), _("You can't add content to this archive type!"));
+			goto failed;
+		}
+
+		do_full_path = archive[idx]->do_full_path;
+		archive[idx]->do_full_path = FALSE;
+
+		archive[idx]->child_dir = g_path_get_dirname(list->data);
+
+		xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
+
+		archive[idx]->do_full_path = do_full_path;
+	}
+	else
+	{
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform this action:"), _("You can drop either archives to open or files to add. It is not possible to do both at the same time."));
+		goto failed;
+	}
+
+	g_slist_free_full(list, g_free);
 	g_strfreev(uris);
+
+	gtk_drag_finish(context, TRUE, FALSE, time);
 }
 
 void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,GtkTreeIter *iter,GSList **data)
