@@ -101,7 +101,7 @@ static const GtkTargetEntry drag_targets[] =
 
 static const GtkTargetEntry drop_targets[] =
 {
-  { "text/uri-list",0,0 },
+	{"text/uri-list", 0, 0}
 };
 
 static void xa_create_popup_menu ()
@@ -1073,7 +1073,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_container_add (GTK_CONTAINER (scrolledwindow2),archive_dir_treeview);
 	gtk_widget_show(archive_dir_treeview);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_treestore), 1, GTK_SORT_ASCENDING);
-	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(archive_dir_treeview), drop_targets, 1, GDK_ACTION_COPY);
+	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(archive_dir_treeview), drop_targets, G_N_ELEMENTS(drop_targets), GDK_ACTION_COPY);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "row-collapsed", G_CALLBACK(xa_dir_sidebar_row_expanded), archive_dir_treestore);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "row-expanded", G_CALLBACK(xa_dir_sidebar_row_expanded), archive_dir_treestore);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-data-received", G_CALLBACK(xa_dir_sidebar_drag_data_received), NULL);
@@ -1101,7 +1101,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_show (GTK_WIDGET(notebook));
 	g_signal_connect(notebook, "switch-page", G_CALLBACK(xa_page_has_changed), NULL);
 
-	gtk_drag_dest_set(GTK_WIDGET(notebook), GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY);
+	gtk_drag_dest_set(GTK_WIDGET(notebook), GTK_DEST_DEFAULT_ALL, drop_targets, G_N_ELEMENTS(drop_targets), GDK_ACTION_COPY);
 	g_signal_connect(G_OBJECT(notebook), "drag-data-received", G_CALLBACK(xa_page_drag_data_received), NULL);
 
   	hbox_sb = gtk_hbox_new (FALSE,2);

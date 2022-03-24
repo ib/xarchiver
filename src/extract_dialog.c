@@ -35,7 +35,7 @@ static GtkWidget *label_password;
 
 static const GtkTargetEntry drop_targets[] =
 {
-	{ "text/uri-list",0,0 },
+	{"text/uri-list", 0, 0}
 };
 
 static void xa_select_where_to_extract (GtkEntry *entry, gint icon_pos, GTK_COMPAT_ENTRY_ICON_TYPE button_release, gpointer user_data)
@@ -683,7 +683,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(dialog_data->files_treeview),TRUE);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),dialog_data->files_treeview);
 
-	gtk_drag_dest_set(dialog_data->files_treeview, GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY);
+	gtk_drag_dest_set(dialog_data->files_treeview, GTK_DEST_DEFAULT_ALL, drop_targets, G_N_ELEMENTS(drop_targets), GDK_ACTION_COPY);
 	g_signal_connect (G_OBJECT (dialog_data->files_treeview),"drag-data-received",G_CALLBACK (xa_multi_extract_dialog_drag_data_received),dialog_data);
 
 	hbox2 = gtk_hbox_new (TRUE,5);
