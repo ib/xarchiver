@@ -771,6 +771,20 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	(*archive->archiver->extract) (archive,files);
 }
 
+static void xa_set_notebook_page (GtkNotebook *notebook, XArchive *archive)
+{
+	gint n;
+
+	for (n = 0; n < gtk_notebook_get_n_pages(notebook); n++)
+	{
+		if (archive->page == gtk_notebook_get_nth_page(notebook, n))
+		{
+			gtk_notebook_set_current_page(notebook, n);
+			break;
+		}
+	}
+}
+
 static void xa_expand_containing_directory (XArchive *archive)
 {
 	if (xa_has_containing_directory(archive))
