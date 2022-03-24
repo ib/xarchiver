@@ -2310,12 +2310,12 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 
 	if (!uris)
 	{
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"");
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, I could not perform the operation!"), "");
 
 failed:
 		g_slist_free_full(list, g_free);
 		g_strfreev(uris);
-		gtk_drag_finish(context,FALSE,FALSE,time);
+		gtk_drag_finish(context, FALSE, FALSE, time);
 
 		return;
 	}
