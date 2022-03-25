@@ -2218,10 +2218,12 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	GSList *names = NULL;
 	gint length;
 	guchar *_destination;
-	gchar *destination, *to_send, *extraction_dir;
+	gchar *destination, *send, *extraction_dir;
+
+	send = "E";
 
 	if (archive->child_pid)
-		return;
+		goto done;
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 
@@ -2240,7 +2242,8 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		destination = g_filename_from_uri((gchar*)_destination,NULL,NULL);
 		g_free(_destination);
 
-		if (!destination) return;
+		if (!destination)
+			goto done;
 
 		extraction_dir = xa_remove_level_from_path(destination);
 		g_free(destination);
@@ -2249,9 +2252,8 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		{
 			if (!xa_check_password(archive))
 			{
-				gtk_drag_finish(context, FALSE, FALSE, time);
 				g_free(extraction_dir);
-				return;
+				goto done;
 			}
 		}
 
@@ -2265,7 +2267,6 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
 			g_free (utf8_path);
 			g_free (msg);
-			to_send = "E";
 		}
 		else
 		{
@@ -2279,12 +2280,13 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->archiver->extract) (archive,names);
 
-			to_send = "S";
+			send = "S";
 		}
 
 		g_free(extraction_dir);
 
-		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (const guchar *) to_send, 1);
+done:
+		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) send, 1);
 	}
 }
 
