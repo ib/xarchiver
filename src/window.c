@@ -2281,7 +2281,8 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		(*archive->archiver->extract) (archive,names);
 
-		send = "S";
+		if (archive->status == XARCHIVESTATUS_IDLE)   // no error occurred
+			send = "S";
 	}
 
 	g_free(extraction_dir);
