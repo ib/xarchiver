@@ -2247,15 +2247,6 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		extraction_dir = xa_remove_level_from_path(destination);
 		g_free(destination);
 
-		if (archive->has_password)
-		{
-			if (!xa_check_password(archive))
-			{
-				g_free(extraction_dir);
-				goto done;
-			}
-		}
-
 		if (access(extraction_dir, R_OK | W_OK | X_OK))
 		{
 			gchar *utf8_path;
@@ -2269,6 +2260,15 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		}
 		else
 		{
+			if (archive->has_password)
+			{
+				if (!xa_check_password(archive))
+				{
+					g_free(extraction_dir);
+					goto done;
+				}
+			}
+
 			selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
 			archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->extract_full));
