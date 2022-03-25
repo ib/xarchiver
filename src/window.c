@@ -55,6 +55,9 @@
 #endif
 
 #define	XDS_FILENAME "xds.txt"
+static const gchar * const XDS_STR_XDND_DIRECT_SAVE0 = "XdndDirectSave0";
+static const gchar * const XDS_STR_TEXT_PLAIN = "text/plain";
+
 #define bswap(word) (((word << 8) & 0xff00) | ((word >> 8) & 0x00ff))
 
 gchar *current_open_directory;
@@ -2220,8 +2223,8 @@ void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchiv
 	gtk_tree_model_get(GTK_TREE_MODEL(archive->liststore), &iter, archive->columns - 1, &entry, -1);
 
 	gdk_property_change(gdk_drag_context_get_source_window(context),
-					gdk_atom_intern ("XdndDirectSave0",FALSE),
-					gdk_atom_intern ("text/plain",FALSE),
+					gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
+					gdk_atom_intern_static_string(XDS_STR_TEXT_PLAIN),
 					8,GDK_PROP_MODE_REPLACE,
 					(guchar *) XDS_FILENAME,
 			     	strlen (XDS_FILENAME));
@@ -2250,8 +2253,8 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	g_list_free_full(row_list, (GDestroyNotify) gtk_tree_path_free);
 
 	gdk_property_get(gdk_drag_context_get_source_window(context),
-	                 gdk_atom_intern("XdndDirectSave0", FALSE),
-	                 gdk_atom_intern("text/plain", FALSE),
+	                 gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
+	                 gdk_atom_intern_static_string(XDS_STR_TEXT_PLAIN),
 	                 0, 4096, FALSE, NULL, NULL, &length, &_destination);
 
 	if (_destination)
