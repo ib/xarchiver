@@ -54,7 +54,7 @@
 #include "socket.h"
 #endif
 
-#define	XDS_FILENAME "xds.txt"
+static const gchar * const XDS_FILENAME = "xds.txt";
 static const gchar * const XDS_STR_XDND_DIRECT_SAVE0 = "XdndDirectSave0";
 static const gchar * const XDS_STR_TEXT_PLAIN = "text/plain";
 
