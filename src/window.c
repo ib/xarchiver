@@ -2203,24 +2203,10 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 
 void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchive *archive)
 {
-    GtkTreeSelection *selection;
-    GtkTreeIter       iter;
-    GList            *row_list;
-	XEntry *entry;
-
 	if (archive->child_pid)
 		gtk_drag_source_set_icon_stock(widget, "gtk-stop");
 	else
 		gtk_drag_source_set_icon_name(widget, "xarchiver");
-
-	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
-
-	row_list = gtk_tree_selection_get_selected_rows (selection,NULL);
-	if (row_list == NULL)
-		return;
-
-	gtk_tree_model_get_iter(archive->model,&iter,(GtkTreePath*) (row_list->data));
-	gtk_tree_model_get(GTK_TREE_MODEL(archive->liststore), &iter, archive->columns - 1, &entry, -1);
 
 	gdk_property_change(gdk_drag_context_get_source_window(context),
 					gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
@@ -2228,8 +2214,6 @@ void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchiv
 					8,GDK_PROP_MODE_REPLACE,
 					(guchar *) XDS_FILENAME,
 			     	strlen (XDS_FILENAME));
-
-	g_list_free_full(row_list, (GDestroyNotify) gtk_tree_path_free);
 }
 
 void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *data, guint info, guint time, XArchive *archive)
