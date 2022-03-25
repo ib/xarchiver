@@ -2215,7 +2215,6 @@ void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchiv
 void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *data, guint info, guint time, XArchive *archive)
 {
 	GtkTreeSelection *selection;
-	GList *row_list;
 	GSList *names = NULL;
 	gint length;
 	guchar *_destination;
@@ -2225,12 +2224,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		return;
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
-	row_list = gtk_tree_selection_get_selected_rows (selection,NULL);
 
-	if (row_list == NULL)
-		return;
-
-	g_list_free_full(row_list, (GDestroyNotify) gtk_tree_path_free);
 
 	gdk_property_get(gdk_drag_context_get_source_window(context),
 	                 gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
