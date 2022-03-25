@@ -2661,10 +2661,22 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 	if (path == NULL)
 		return FALSE;
 
-	if (event->type == GDK_BUTTON_PRESS && (event->button == 2 || event->button == 3))
+	if (event->type == GDK_BUTTON_PRESS && (event->button == 1 || event->button == 2 || event->button == 3))
 	{
 		gtk_tree_model_get_iter(GTK_TREE_MODEL(archive->liststore), &iter, path);
 		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
+
+		if (event->button == 1)
+		{
+			GdkModifierType state;
+
+			gdk_event_get_state((GdkEvent *) event, &state);
+
+			if (gtk_tree_selection_iter_is_selected(selection, &iter) && ((state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)) == 0))
+				return TRUE;
+			else
+				return FALSE;
+		}
 
 		if (!gtk_tree_selection_iter_is_selected(selection, &iter))
 		{
