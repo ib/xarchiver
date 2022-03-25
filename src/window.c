@@ -2217,7 +2217,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	GtkTreeSelection *selection;
 	GSList *names = NULL;
 	gint length;
-	guchar *uri;
+	guchar *uri = NULL;
 	gchar *destination, *send, *extraction_dir;
 
 	send = "E";
@@ -2232,8 +2232,9 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	                 gdk_atom_intern_static_string(XDS_STR_TEXT_PLAIN),
 	                 0, 4096, FALSE, NULL, NULL, &length, &uri);
 
-	if (uri)
-	{
+	if (!uri)
+		goto done;
+
 		uri = g_realloc(uri, length + 1);
 		uri[length] = 0;
 
@@ -2287,7 +2288,6 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 
 done:
 		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) send, 1);
-	}
 }
 
 void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
