@@ -2226,6 +2226,13 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		goto done;
 
 
+	if (!archive->can_extract)
+	{
+		gchar *path_utf8 = g_filename_display_name(archive->path[0]);
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), path_utf8);
+		g_free(path_utf8);
+		goto done;
+	}
 
 	gdk_property_get(gdk_drag_context_get_source_window(context),
 	                 gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
