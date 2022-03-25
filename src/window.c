@@ -2217,7 +2217,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	GtkTreeSelection *selection;
 	GSList *names = NULL;
 	gint length;
-	guchar *_destination;
+	guchar *uri;
 	gchar *destination, *send, *extraction_dir;
 
 	send = "E";
@@ -2230,16 +2230,16 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	gdk_property_get(gdk_drag_context_get_source_window(context),
 	                 gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
 	                 gdk_atom_intern_static_string(XDS_STR_TEXT_PLAIN),
-	                 0, 4096, FALSE, NULL, NULL, &length, &_destination);
+	                 0, 4096, FALSE, NULL, NULL, &length, &uri);
 
-	if (_destination)
+	if (uri)
 	{
-		_destination = g_realloc(_destination, length + 1);
-		_destination[length] = 0;
+		uri = g_realloc(uri, length + 1);
+		uri[length] = 0;
 
 
-		destination = g_filename_from_uri((gchar*)_destination,NULL,NULL);
-		g_free(_destination);
+		destination = g_filename_from_uri((gchar *) uri, NULL, NULL);
+		g_free(uri);
 
 		if (!destination)
 			goto done;
