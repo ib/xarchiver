@@ -2206,11 +2206,10 @@ void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchiv
 	gtk_drag_source_set_icon_name(widget, archive->child_pid ? "process-stop" : "xarchiver");
 
 	gdk_property_change(gdk_drag_context_get_source_window(context),
-					gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
-					gdk_atom_intern_static_string(XDS_STR_TEXT_PLAIN),
-					8,GDK_PROP_MODE_REPLACE,
-					(guchar *) XDS_FILENAME,
-			     	strlen (XDS_FILENAME));
+	                    gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
+	                    gdk_atom_intern_static_string(XDS_STR_TEXT_PLAIN),
+	                    8, GDK_PROP_MODE_REPLACE,
+	                    (guchar *) XDS_FILENAME, strlen(XDS_FILENAME));
 }
 
 void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *data, guint info, guint time, XArchive *archive)
