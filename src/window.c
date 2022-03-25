@@ -2214,17 +2214,16 @@ void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchiv
 
 void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *data, guint info, guint time, XArchive *archive)
 {
+	gchar *send, *destination, *extraction_dir;
+	guchar *uri = NULL;
+	gint length;
 	GtkTreeSelection *selection;
 	GSList *names = NULL;
-	gint length;
-	guchar *uri = NULL;
-	gchar *destination, *send, *extraction_dir;
 
 	send = "E";
 
 	if (archive->child_pid)
 		goto done;
-
 
 	if (!archive->can_extract)
 	{
@@ -2245,7 +2244,6 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	uri = g_realloc(uri, length + 1);
 	uri[length] = 0;
 
-
 	destination = g_filename_from_uri((gchar *) uri, NULL, NULL);
 	g_free(uri);
 
@@ -2257,14 +2255,13 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 
 	if (access(extraction_dir, R_OK | W_OK | X_OK) == -1)
 	{
-		gchar *utf8_path;
-		gchar  *msg;
+		gchar *dir_utf8, *msg;
 
-		utf8_path = g_filename_to_utf8(extraction_dir, -1, NULL, NULL, NULL);
-		msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."),utf8_path);
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
-		g_free (utf8_path);
-		g_free (msg);
+		dir_utf8 = g_filename_to_utf8(extraction_dir, -1, NULL, NULL, NULL);
+		msg = g_strdup_printf(_("You don't have the right permissions to extract the files to the directory \"%s\"."), dir_utf8);
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform extraction!"), msg);
+		g_free(dir_utf8);
+		g_free(msg);
 	}
 	else
 	{
@@ -2278,7 +2275,8 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		}
 
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
-		gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
+		gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &names);
+
 		archive->do_full_path = TRUE;
 		archive->do_overwrite = FALSE;
 
@@ -2286,8 +2284,9 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
 
 		gtk_label_set_text(GTK_LABEL(total_label), _("Extracting files from archive, please wait..."));
+
 		archive->status = XARCHIVESTATUS_EXTRACT;
-		(*archive->archiver->extract) (archive,names);
+		(*archive->archiver->extract)(archive, names);
 
 		if (archive->status == XARCHIVESTATUS_IDLE)   // no error occurred
 			send = "S";
