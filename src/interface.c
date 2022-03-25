@@ -96,7 +96,7 @@ static gulong changed;
 
 static const GtkTargetEntry drag_targets[] =
 {
-  { "XdndDirectSave0",0,0 },
+	{"XdndDirectSave0", 0, 0}
 };
 
 static const GtkTargetEntry drop_targets[] =
@@ -1267,7 +1267,7 @@ void xa_add_page (XArchive *archive)
 	gtk_tree_selection_set_mode(sel,GTK_SELECTION_MULTIPLE);
 	gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(archive->treeview),TRUE);
 
-	gtk_drag_source_set(archive->treeview, GDK_BUTTON1_MASK, drag_targets, 1, GDK_ACTION_COPY);
+	gtk_drag_source_set(archive->treeview, GDK_BUTTON1_MASK, drag_targets, G_N_ELEMENTS(drag_targets), GDK_ACTION_COPY);
 	g_signal_connect(sel, "changed", G_CALLBACK(xa_row_selected), archive);
 	g_signal_connect(G_OBJECT(archive->treeview), "drag-begin", G_CALLBACK(xa_treeview_drag_begin), archive);
 	g_signal_connect(G_OBJECT(archive->treeview), "drag-data-get", G_CALLBACK(xa_treeview_drag_data_get), archive);
