@@ -2225,7 +2225,6 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	if (archive->child_pid)
 		goto done;
 
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 
 
 	gdk_property_get(gdk_drag_context_get_source_window(context),
@@ -2270,6 +2269,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		}
 		else
 		{
+			selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
 			archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->extract_full));
 			archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->overwrite_check));
