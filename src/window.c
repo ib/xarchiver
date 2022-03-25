@@ -2203,10 +2203,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 
 void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchive *archive)
 {
-	if (archive->child_pid)
-		gtk_drag_source_set_icon_name(widget, "process-stop");
-	else
-		gtk_drag_source_set_icon_name(widget, "xarchiver");
+	gtk_drag_source_set_icon_name(widget, archive->child_pid ? "process-stop" : "xarchiver");
 
 	gdk_property_change(gdk_drag_context_get_source_window(context),
 					gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
