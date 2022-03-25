@@ -2279,8 +2279,9 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 		gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
-		archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->extract_full));
-		archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->overwrite_check));
+		archive->do_full_path = TRUE;
+		archive->do_overwrite = FALSE;
+
 		g_free(archive->extraction_dir);
 		archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
 
