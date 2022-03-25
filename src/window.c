@@ -2245,7 +2245,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	if (!destination)
 		goto done;
 
-	extraction_dir = xa_remove_level_from_path(destination);
+	extraction_dir = g_path_get_dirname(destination);
 	g_free(destination);
 
 	if (access(extraction_dir, R_OK | W_OK | X_OK) == -1)
