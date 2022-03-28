@@ -684,22 +684,13 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 	g_free(tmp);
 }
 
-static XAClipboard *xa_clipboard_data_new ()
-{
-	XAClipboard *data = NULL;
-
-	data = g_new0(XAClipboard,1);
-
-	return data;
-}
-
 static XAClipboard *xa_get_paste_data_from_clipboard_selection (const guchar *data)
 {
 	gchar **uris;
 	gint i;
 	XAClipboard *clipboard_data;
 
-	clipboard_data = xa_clipboard_data_new();
+	clipboard_data = g_new0(XAClipboard, 1);
 	uris = g_strsplit((const gchar *) data,"\r\n",-1);
 	clipboard_data->mode = (strcmp(uris[0], "copy") == 0 ? XA_CLIPBOARD_COPY : XA_CLIPBOARD_CUT);
 	sscanf(uris[1], "%p", &clipboard_data->target);
@@ -748,7 +739,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&files);
 
 	clipboard = gtk_clipboard_get (XA_CLIPBOARD);
-	clipboard_data = xa_clipboard_data_new();
+	clipboard_data = g_new0(XAClipboard, 1);
 	if (clipboard_data == NULL)
 		return;
 
