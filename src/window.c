@@ -2767,11 +2767,8 @@ void xa_clipboard_clear (GtkClipboard *clipboard, XArchive *archive)
 {
 	if (archive->clipboard != NULL)
 	{
-		if (archive->clipboard->files != NULL)
-		{
 			g_slist_free_full(archive->clipboard->files, g_free);
 			archive->clipboard->files = NULL;
-		}
 
 		g_free(archive->clipboard);
 		archive->clipboard = NULL;

@@ -426,11 +426,8 @@ void xa_spawn_async_process (XArchive *archive, const gchar *command)
 			archive->timeout = g_timeout_add(100, (GSourceFunc) xa_pulse_progress_bar, archive);
 	}
 
-	if (archive->output)
-	{
 		g_slist_free_full(archive->output, g_free);
 		archive->output = NULL;
-	}
 
 	ioc = g_io_channel_unix_new(archive->child_fdout);
 	g_io_channel_set_encoding(ioc, NULL, NULL);
@@ -484,7 +481,6 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->comment)
 		g_string_free(archive->comment, TRUE);
 
-	if (archive->output)
 		g_slist_free_full(archive->output, g_free);
 
 	if (archive->clipboard)
