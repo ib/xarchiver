@@ -229,7 +229,7 @@ struct _XAClipboard
 {
 	XAClipboardMode mode;
 	GSList *files;
-	XArchive *target;
+	XArchive *archive;
 };
 
 gchar *xa_build_full_path_name_from_entry(XEntry *);

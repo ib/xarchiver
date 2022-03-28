@@ -693,7 +693,7 @@ static XAClipboard *xa_get_paste_data_from_clipboard_selection (const guchar *da
 	clipboard_data = g_new0(XAClipboard, 1);
 	uris = g_strsplit((const gchar *) data,"\r\n",-1);
 	clipboard_data->mode = (strcmp(uris[0], "copy") == 0 ? XA_CLIPBOARD_COPY : XA_CLIPBOARD_CUT);
-	sscanf(uris[1], "%p", &clipboard_data->target);
+	sscanf(uris[1], "%p", &clipboard_data->archive);
 	for (i = 2; uris[i]; i++)
 		if (uris[i][0] != '\0')
 			clipboard_data->files = g_slist_prepend (clipboard_data->files,g_strdup (uris[i]));
@@ -2692,7 +2692,7 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 				paste_data = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(clipboard_selection));
 				gtk_selection_data_free(clipboard_selection);
 
-				pasteable = (strcmp(archive->path[1], paste_data->target->path[1]) != 0);
+				pasteable = (strcmp(archive->path[1], paste_data->archive->path[1]) != 0);
 			}
 
 			gtk_widget_set_sensitive(eextract, archive->can_extract);
@@ -2748,7 +2748,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
 	list = xa_slist_copy(paste_data->files);
 	archive[idx]->do_full_path = FALSE;
-	archive[idx]->child_dir = g_strdup(paste_data->target->working_dir);
+	archive[idx]->child_dir = g_strdup(paste_data->archive->working_dir);
 	xa_execute_add_commands(archive[idx], list, FALSE);
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
@@ -2757,9 +2757,9 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	{
 		list = xa_slist_copy(paste_data->files);
 
-		paste_data->target->status = XARCHIVESTATUS_DELETE;
-		(*paste_data->target->archiver->delete)(paste_data->target, list);
-		xa_reload_archive_content(paste_data->target);
+		paste_data->archive->status = XARCHIVESTATUS_DELETE;
+		(*paste_data->archive->archiver->delete)(paste_data->archive, list);
+		xa_reload_archive_content(paste_data->archive);
 	}
 }
 
