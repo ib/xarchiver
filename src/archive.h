@@ -124,8 +124,6 @@ struct _XEntry
 	XEntry *next;
 };
 
-typedef struct _XAClipboard XAClipboard;
-
 typedef struct
 {
 	gboolean can_uncompressed;   // has compression level 0?
@@ -157,7 +155,6 @@ struct _XArchive
 	GtkCellRenderer *text_renderer;
 	GSList *back;
 	GSList *forward;
-	XAClipboard *clipboard;
 	/* environment */
 	gchar *path[4];          // 0: original, 1: escaped, 2: working copy, 3: escaped working copy
 	gchar *working_dir;
@@ -225,12 +222,12 @@ typedef enum
 	XA_CLIPBOARD_COPY
 } XAClipboardMode;
 
-struct _XAClipboard
+typedef struct
 {
 	XAClipboardMode mode;
 	GSList *files;
 	XArchive *archive;
-};
+} XAClipboard;
 
 gchar *xa_build_full_path_name_from_entry(XEntry *);
 void xa_clean_archive_structure(XArchive *);
