@@ -2682,7 +2682,6 @@ void xa_clipboard_copy (GtkMenuItem *item, gpointer user_data)
 void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 {
 	gint idx;
-	GSList *list = NULL;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
@@ -2690,19 +2689,16 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 		return;
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
-	list = xa_slist_copy(XA_Clipboard.files);
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->child_dir = g_strdup(XA_Clipboard.archive->working_dir);
-	xa_execute_add_commands(archive[idx], list, FALSE);
+	xa_execute_add_commands(archive[idx], XA_Clipboard.files, FALSE);
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
 
 	if (XA_Clipboard.mode == XA_CLIPBOARD_CUT)
 	{
-		list = xa_slist_copy(XA_Clipboard.files);
-
 		XA_Clipboard.archive->status = XARCHIVESTATUS_DELETE;
-		(*XA_Clipboard.archive->archiver->delete)(XA_Clipboard.archive, list);
+		(*XA_Clipboard.archive->archiver->delete)(XA_Clipboard.archive, xa_slist_copy(XA_Clipboard.files));
 		xa_reload_archive_content(XA_Clipboard.archive);
 	}
 }
