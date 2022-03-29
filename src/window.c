@@ -709,11 +709,11 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	XA_Clipboard.mode  = mode;
 	XA_Clipboard.archive = archive;
 
-	/* Let's extract the selected files to the archive tmp dir */
-	g_free(archive->extraction_dir);
-	archive->extraction_dir = g_strdup(archive->working_dir);
 	archive->do_full_path = TRUE;
 	archive->do_overwrite = TRUE;
+
+	g_free(archive->extraction_dir);
+	archive->extraction_dir = g_strdup(archive->working_dir);
 
 	archive->status = XARCHIVESTATUS_EXTRACT;
 	(*archive->archiver->extract) (archive,files);
