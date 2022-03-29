@@ -2717,6 +2717,9 @@ void xa_clipboard_cut (GtkMenuItem *item, gpointer user_data)
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
+	if (idx == -1)
+		return;
+
 	xa_clipboard_fill(archive[idx], XA_CLIPBOARD_CUT);
 }
 
@@ -2725,6 +2728,10 @@ void xa_clipboard_copy (GtkMenuItem *item, gpointer user_data)
 	gint idx;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+
+	if (idx == -1)
+		return;
+
 	xa_clipboard_fill(archive[idx], XA_CLIPBOARD_COPY);
 }
 
@@ -2737,6 +2744,9 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	GSList *list = NULL;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+
+	if (idx == -1)
+		return;
 
 	clipboard = gtk_clipboard_get(XA_CLIPBOARD);
 	selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
