@@ -2642,7 +2642,7 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 	gint selected;
 	GtkClipboard *clipboard;
 	GtkSelectionData *clipboard_selection;
-	XAClipboard *paste_data;
+	XAClipboard *source;
 	gboolean pasteable = FALSE;
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
@@ -2689,10 +2689,10 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 
 			if (clipboard_selection != NULL)
 			{
-				paste_data = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(clipboard_selection));
+				source = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(clipboard_selection));
 				gtk_selection_data_free(clipboard_selection);
 
-				pasteable = (strcmp(archive->path[1], paste_data->archive->path[1]) != 0);
+				pasteable = (strcmp(archive->path[1], source->archive->path[1]) != 0);
 			}
 
 			gtk_widget_set_sensitive(eextract, archive->can_extract);
@@ -2733,7 +2733,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	gint idx;
 	GtkClipboard *clipboard;
 	GtkSelectionData *selection;
-	XAClipboard *paste_data;
+	XAClipboard *source;
 	GSList *list = NULL;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
@@ -2742,24 +2742,24 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
 	if (selection == NULL)
 		return;
-	paste_data = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(selection));
+	source = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(selection));
 	gtk_selection_data_free (selection);
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
-	list = xa_slist_copy(paste_data->files);
+	list = xa_slist_copy(source->files);
 	archive[idx]->do_full_path = FALSE;
-	archive[idx]->child_dir = g_strdup(paste_data->archive->working_dir);
+	archive[idx]->child_dir = g_strdup(source->archive->working_dir);
 	xa_execute_add_commands(archive[idx], list, FALSE);
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
 
-	if (paste_data->mode == XA_CLIPBOARD_CUT)
+	if (source->mode == XA_CLIPBOARD_CUT)
 	{
-		list = xa_slist_copy(paste_data->files);
+		list = xa_slist_copy(source->files);
 
-		paste_data->archive->status = XARCHIVESTATUS_DELETE;
-		(*paste_data->archive->archiver->delete)(paste_data->archive, list);
-		xa_reload_archive_content(paste_data->archive);
+		source->archive->status = XARCHIVESTATUS_DELETE;
+		(*source->archive->archiver->delete)(source->archive, list);
+		xa_reload_archive_content(source->archive);
 	}
 }
 
