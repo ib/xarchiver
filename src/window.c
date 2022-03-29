@@ -715,6 +715,8 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	g_free(archive->extraction_dir);
 	archive->extraction_dir = g_strdup(archive->working_dir);
 
+	gtk_label_set_text(GTK_LABEL(total_label), _("Extracting files from archive, please wait..."));
+
 	archive->status = XARCHIVESTATUS_EXTRACT;
 	(*archive->archiver->extract) (archive,files);
 }
