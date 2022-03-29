@@ -741,7 +741,7 @@ static void xa_clipboard_fill (XArchive *archive, XAClipboardMode mode)
 
 	XA_Clipboard.files = xa_slist_copy(files);
 	XA_Clipboard.mode  = mode;
-	gtk_clipboard_set_with_data(clipboard, targets, G_N_ELEMENTS(targets), (GtkClipboardGetFunc) xa_clipboard_get, (GtkClipboardClearFunc) xa_clipboard_clear, archive);
+	gtk_clipboard_set_with_data(clipboard, targets, G_N_ELEMENTS(targets), (GtkClipboardGetFunc) xa_clipboard_get, xa_clipboard_clear, archive);
 	gtk_widget_set_sensitive(paste,TRUE);
 
 	/* Let's extract the selected files to the archive tmp dir */
@@ -2768,12 +2768,13 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	}
 }
 
-void xa_clipboard_clear (GtkClipboard *clipboard, XArchive *archive)
+void xa_clipboard_clear (GtkClipboard *clipboard, gpointer user_data)
 {
 	g_slist_free_full(XA_Clipboard.files, g_free);
 
 	XA_Clipboard.mode = XA_CLIPBOARD_EMPTY;
 	XA_Clipboard.files = NULL;
+	XA_Clipboard.archive = NULL;
 }
 
 void xa_rename_archive (GtkMenuItem *item, gpointer user_data)
