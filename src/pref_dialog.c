@@ -366,10 +366,10 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_attach(GTK_TABLE(table2), prefs_data->check_save_geometry, 0, 2, 7, 8,
 	                 GTK_FILL, GTK_FILL,0, 0);
 
-	prefs_data->allow_sub_dir = gtk_check_button_new_with_mnemonic (_("Allow subdirs with drag and drop"));
+	prefs_data->allow_sub_dir = gtk_check_button_new_with_mnemonic (_("Allow subdirs with clipboard and drag-and-drop"));
 	gtk_table_attach(GTK_TABLE(table2), prefs_data->allow_sub_dir, 0, 2, 8, 9,
 	                 GTK_FILL, (GtkAttachOptions) 0, 0, 0);
-	gtk_widget_set_tooltip_text(prefs_data->allow_sub_dir, _("This option includes the subdirectories when you add files with drag and drop"));
+	gtk_widget_set_tooltip_text(prefs_data->allow_sub_dir, _("This option includes the subdirectories when you add files from the clipboard or with drag-and-drop"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_geometry), FALSE);
 
 	if (!xdg_open)
