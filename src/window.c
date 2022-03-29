@@ -686,7 +686,7 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 	g_free(tmp);
 }
 
-static void xa_clipboard_fill (XArchive *archive, XAClipboardMode mode)
+static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 {
 	GSList *files = NULL;
 	GtkTreeSelection *selection;
@@ -2660,7 +2660,7 @@ void xa_clipboard_cut (GtkMenuItem *item, gpointer user_data)
 	if (idx == -1)
 		return;
 
-	xa_clipboard_fill(archive[idx], XA_CLIPBOARD_CUT);
+	xa_clipboard_prepare(archive[idx], XA_CLIPBOARD_CUT);
 }
 
 void xa_clipboard_copy (GtkMenuItem *item, gpointer user_data)
@@ -2672,7 +2672,7 @@ void xa_clipboard_copy (GtkMenuItem *item, gpointer user_data)
 	if (idx == -1)
 		return;
 
-	xa_clipboard_fill(archive[idx], XA_CLIPBOARD_COPY);
+	xa_clipboard_prepare(archive[idx], XA_CLIPBOARD_COPY);
 }
 
 void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
