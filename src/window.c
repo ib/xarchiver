@@ -708,7 +708,6 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	XA_Clipboard.files = xa_slist_copy(files);
 	XA_Clipboard.mode  = mode;
 	XA_Clipboard.archive = archive;
-	gtk_widget_set_sensitive(paste,TRUE);
 
 	/* Let's extract the selected files to the archive tmp dir */
 	g_free(archive->extraction_dir);
