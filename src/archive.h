@@ -219,8 +219,8 @@ extern XArchive *archive[];
 typedef enum
 {
 	XA_CLIPBOARD_EMPTY,
-	XA_CLIPBOARD_CUT,
-	XA_CLIPBOARD_COPY
+	XA_CLIPBOARD_COPY,
+	XA_CLIPBOARD_CUT
 } XAClipboardMode;
 
 typedef struct
