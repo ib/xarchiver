@@ -688,8 +688,8 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 
 static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 {
-	GSList *files = NULL;
 	GtkTreeSelection *selection;
+	GSList *files = NULL;
 
 	if (archive->child_pid || !xa_create_working_directory(archive))
 		return;
@@ -701,12 +701,12 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	}
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
-	gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&files);
+	gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &files);
 
 	xa_clipboard_clear();
 
+	XA_Clipboard.mode = mode;
 	XA_Clipboard.files = xa_slist_copy(files);
-	XA_Clipboard.mode  = mode;
 	XA_Clipboard.archive = archive;
 
 	archive->do_full_path = TRUE;
@@ -718,7 +718,7 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	gtk_label_set_text(GTK_LABEL(total_label), _("Extracting files from archive, please wait..."));
 
 	archive->status = XARCHIVESTATUS_EXTRACT;
-	(*archive->archiver->extract) (archive,files);
+	(*archive->archiver->extract)(archive, files);
 }
 
 static void xa_set_notebook_page (GtkNotebook *notebook, XArchive *archive)
