@@ -54,7 +54,7 @@
 #include "socket.h"
 #endif
 
-static XAClipboard XA_Clipboard;
+XAClipboard XA_Clipboard;
 
 static const gchar * const XDS_FILENAME = "xds.txt";
 static const gchar * const XDS_STR_XDND_DIRECT_SAVE0 = "XdndDirectSave0";
@@ -686,62 +686,19 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 	g_free(tmp);
 }
 
-static XAClipboard *xa_get_paste_data_from_clipboard_selection (const guchar *data)
-{
-	gchar **uris;
-	gint i;
-
-	uris = g_strsplit((const gchar *) data,"\r\n",-1);
-	XA_Clipboard.mode = (strcmp(uris[0], "copy") == 0 ? XA_CLIPBOARD_COPY : XA_CLIPBOARD_CUT);
-	sscanf(uris[1], "%p", &XA_Clipboard.archive);
-	for (i = 2; uris[i]; i++)
-		if (uris[i][0] != '\0')
-			XA_Clipboard.files = g_slist_prepend (XA_Clipboard.files,g_strdup (uris[i]));
-	XA_Clipboard.files = g_slist_reverse (XA_Clipboard.files);
-	g_strfreev(uris);
-	return &XA_Clipboard;
-}
-
-static void xa_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selection_data, guint info, XArchive *archive)
-{
-	GSList *files = XA_Clipboard.files;
-	GString *params = g_string_new("");
-	if (gtk_selection_data_get_target(selection_data) != XA_INFO_LIST)
-		return;
-
-	g_string_append(params, XA_Clipboard.mode == XA_CLIPBOARD_COPY ? "copy" : "cut");
-	g_string_append (params,"\r\n");
-	g_string_append_printf (params,"%p",archive);
-	g_string_append (params,"\r\n");
-
-	while (files)
-	{
-		g_string_append(params, files->data);
-		g_string_append (params,"\r\n");
-		files = files->next;
-	}
-	gtk_selection_data_set(selection_data, gtk_selection_data_get_target(selection_data), 8, (guchar *) params->str, strlen(params->str));
-	g_string_free (params,TRUE);
-}
-
 static void xa_clipboard_fill (XArchive *archive, XAClipboardMode mode)
 {
-	GtkClipboard *clipboard;
 	GSList *files = NULL;
 	GtkTreeSelection *selection;
-	GtkTargetEntry targets[] =
-	{
-		{ "application/xarchiver-info-list",0,1 }
-	};
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 	gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&files);
 
-	clipboard = gtk_clipboard_get (XA_CLIPBOARD);
+	xa_clipboard_clear();
 
 	XA_Clipboard.files = xa_slist_copy(files);
 	XA_Clipboard.mode  = mode;
-	gtk_clipboard_set_with_data(clipboard, targets, G_N_ELEMENTS(targets), (GtkClipboardGetFunc) xa_clipboard_get, xa_clipboard_clear, archive);
+	XA_Clipboard.archive = archive;
 	gtk_widget_set_sensitive(paste,TRUE);
 
 	/* Let's extract the selected files to the archive tmp dir */
@@ -2635,10 +2592,7 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 	GtkTreeIter iter;
 	GtkTreeSelection *selection;
 	gint selected;
-	GtkClipboard *clipboard;
-	GtkSelectionData *clipboard_selection;
-	XAClipboard *source;
-	gboolean pasteable = FALSE;
+	gboolean pasteable;
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 	selected = gtk_tree_selection_count_selected_rows(selection);
@@ -2679,16 +2633,7 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 			gtk_widget_set_sensitive(view, (selected == 1) && !entry->is_dir && archive->can_extract);
 			gtk_widget_set_sensitive(rrename, (selected == 1) && !entry->is_dir && can_rename(archive));
 
-			clipboard = gtk_clipboard_get(XA_CLIPBOARD);
-			clipboard_selection = gtk_clipboard_wait_for_contents(clipboard, XA_INFO_LIST);
-
-			if (clipboard_selection != NULL)
-			{
-				source = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(clipboard_selection));
-				gtk_selection_data_free(clipboard_selection);
-
-				pasteable = (strcmp(archive->path[0], source->archive->path[0]) != 0);
-			}
+			pasteable = (XA_Clipboard.mode != XA_CLIPBOARD_EMPTY && archive != XA_Clipboard.archive);
 
 			gtk_widget_set_sensitive(eextract, archive->can_extract);
 			gtk_widget_set_sensitive(cut, archive->can_extract && archive->can_delete);
@@ -2733,9 +2678,6 @@ void xa_clipboard_copy (GtkMenuItem *item, gpointer user_data)
 void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 {
 	gint idx;
-	GtkClipboard *clipboard;
-	GtkSelectionData *selection;
-	XAClipboard *source;
 	GSList *list = NULL;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
@@ -2743,32 +2685,25 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	if (idx == -1)
 		return;
 
-	clipboard = gtk_clipboard_get(XA_CLIPBOARD);
-	selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
-	if (selection == NULL)
-		return;
-	source = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(selection));
-	gtk_selection_data_free (selection);
-
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
-	list = xa_slist_copy(source->files);
+	list = xa_slist_copy(XA_Clipboard.files);
 	archive[idx]->do_full_path = FALSE;
-	archive[idx]->child_dir = g_strdup(source->archive->working_dir);
+	archive[idx]->child_dir = g_strdup(XA_Clipboard.archive->working_dir);
 	xa_execute_add_commands(archive[idx], list, FALSE);
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
 
-	if (source->mode == XA_CLIPBOARD_CUT)
+	if (XA_Clipboard.mode == XA_CLIPBOARD_CUT)
 	{
-		list = xa_slist_copy(source->files);
+		list = xa_slist_copy(XA_Clipboard.files);
 
-		source->archive->status = XARCHIVESTATUS_DELETE;
-		(*source->archive->archiver->delete)(source->archive, list);
-		xa_reload_archive_content(source->archive);
+		XA_Clipboard.archive->status = XARCHIVESTATUS_DELETE;
+		(*XA_Clipboard.archive->archiver->delete)(XA_Clipboard.archive, list);
+		xa_reload_archive_content(XA_Clipboard.archive);
 	}
 }
 
-void xa_clipboard_clear (GtkClipboard *clipboard, gpointer user_data)
+void xa_clipboard_clear ()
 {
 	g_slist_free_full(XA_Clipboard.files, g_free);
 

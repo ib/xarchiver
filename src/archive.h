@@ -213,9 +213,6 @@ extern XArchive *archive[];
 
 #define can_rename(archive) ((archive)->can_extract && (archive)->can_delete && (archive)->can_add)
 
-#define XA_CLIPBOARD (gdk_atom_intern_static_string("XARCHIVER_OWN_CLIPBOARD"))
-#define XA_INFO_LIST (gdk_atom_intern_static_string("application/xarchiver-info-list"))
-
 typedef enum
 {
 	XA_CLIPBOARD_EMPTY,
@@ -229,6 +226,8 @@ typedef struct
 	GSList *files;
 	XArchive *archive;
 } XAClipboard;
+
+extern XAClipboard XA_Clipboard;
 
 gchar *xa_build_full_path_name_from_entry(XEntry *);
 void xa_clean_archive_structure(XArchive *);

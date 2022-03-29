@@ -483,7 +483,8 @@ void xa_clean_archive_structure (XArchive *archive)
 
 	g_slist_free_full(archive->output, g_free);
 
-	xa_clipboard_clear(NULL, NULL);
+	if (archive == XA_Clipboard.archive)
+		 xa_clipboard_clear();
 
 	g_free(archive->column_types);
 	g_free(archive->path[0]);
