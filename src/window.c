@@ -2692,7 +2692,7 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 				source = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(clipboard_selection));
 				gtk_selection_data_free(clipboard_selection);
 
-				pasteable = (strcmp(archive->path[1], source->archive->path[1]) != 0);
+				pasteable = (strcmp(archive->path[0], source->archive->path[0]) != 0);
 			}
 
 			gtk_widget_set_sensitive(eextract, archive->can_extract);
