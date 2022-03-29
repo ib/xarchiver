@@ -135,6 +135,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	GdkPixbuf *icon_pixbuf;
 	GtkTreePath *top;
 	Prefs_dialog_data *prefs_data;
+	GList *children;
 
 	prefs_data = g_new0 (Prefs_dialog_data,1);
 	prefs_data->dialog1 = gtk_dialog_new_with_buttons(_("Preferences"),
@@ -367,6 +368,9 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	                 GTK_FILL, GTK_FILL,0, 0);
 
 	prefs_data->allow_sub_dir = gtk_check_button_new_with_mnemonic (_("Allow subdirs with clipboard and drag-and-drop"));
+	children = gtk_container_get_children(GTK_CONTAINER(prefs_data->allow_sub_dir));
+	gtk_label_set_line_wrap(GTK_LABEL(children->data), TRUE);
+	g_list_free(children);
 	gtk_table_attach(GTK_TABLE(table2), prefs_data->allow_sub_dir, 0, 2, 8, 9,
 	                 GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_widget_set_tooltip_text(prefs_data->allow_sub_dir, _("This option includes the subdirectories when you add files from the clipboard or with drag-and-drop"));
