@@ -218,6 +218,7 @@ extern XArchive *archive[];
 
 typedef enum
 {
+	XA_CLIPBOARD_EMPTY,
 	XA_CLIPBOARD_CUT,
 	XA_CLIPBOARD_COPY
 } XAClipboardMode;

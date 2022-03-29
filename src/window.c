@@ -2772,6 +2772,7 @@ void xa_clipboard_clear (GtkClipboard *clipboard, XArchive *archive)
 {
 	g_slist_free_full(XA_Clipboard.files, g_free);
 
+	XA_Clipboard.mode = XA_CLIPBOARD_EMPTY;
 	XA_Clipboard.files = NULL;
 }
 
