@@ -691,6 +691,15 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	GSList *files = NULL;
 	GtkTreeSelection *selection;
 
+	if (archive->child_pid || !xa_create_working_directory(archive))
+		return;
+
+	if (archive->has_password)
+	{
+		if (!xa_check_password(archive))
+			return;
+	}
+
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 	gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&files);
 
@@ -702,13 +711,7 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	gtk_widget_set_sensitive(paste,TRUE);
 
 	/* Let's extract the selected files to the archive tmp dir */
-	if (archive->has_password)
-	{
-		if (!xa_check_password(archive))
-			return;
-	}
 	g_free(archive->extraction_dir);
-	xa_create_working_directory(archive);
 	archive->extraction_dir = g_strdup(archive->working_dir);
 	archive->do_full_path = TRUE;
 	archive->do_overwrite = TRUE;
