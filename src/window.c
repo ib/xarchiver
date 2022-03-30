@@ -2696,10 +2696,13 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	if (idx == -1)
 		return;
 
-	/* Let's add the already extracted files in the tmp dir to the current archive dir */
+	/* add the already extracted files from the source archive's working dir to the current archive */
+
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->child_dir = g_path_get_dirname(XA_Clipboard.paths->data);
+
 	xa_execute_add_commands(archive[idx], XA_Clipboard.paths, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
+
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
 
