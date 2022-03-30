@@ -1384,7 +1384,10 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("You are about to delete entries from the archive."),_( "Are you sure you want to do this?"));
 		if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
+		{
+			g_slist_free_full(list, g_free);
 			return;
+		}
 	}
 
 	archive[idx]->status = XARCHIVESTATUS_DELETE;
