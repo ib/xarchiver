@@ -729,7 +729,7 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 
 	XA_Clipboard.mode = mode;
 	XA_Clipboard.paths = paths;
-	XA_Clipboard.files = xa_slist_copy(files);
+	XA_Clipboard.files = files;
 	XA_Clipboard.archive = archive;
 
 	archive->do_full_path = TRUE;
@@ -741,7 +741,7 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	gtk_label_set_text(GTK_LABEL(total_label), _("Extracting files from archive, please wait..."));
 
 	archive->status = XARCHIVESTATUS_EXTRACT;
-	(*archive->archiver->extract)(archive, files);
+	(*archive->archiver->extract)(archive, xa_slist_copy(files));
 }
 
 static void xa_set_notebook_page (GtkNotebook *notebook, XArchive *archive)
