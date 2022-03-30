@@ -223,6 +223,7 @@ typedef enum
 typedef struct
 {
 	XAClipboardMode mode;
+	GSList *paths;
 	GSList *files;
 	XArchive *archive;
 } XAClipboard;

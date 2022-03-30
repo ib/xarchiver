@@ -689,7 +689,11 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 {
 	GtkTreeSelection *selection;
-	GSList *files = NULL;
+	GSList *files = NULL, *paths = NULL;
+	GList *rows;
+	GtkTreeIter iter;
+	XEntry *entry;
+	gchar *name;
 
 	if (archive->child_pid || !xa_create_working_directory(archive))
 		return;
@@ -703,9 +707,28 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 	gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &files);
 
+	rows = gtk_tree_selection_get_selected_rows(selection, &archive->model);
+
+	while (rows)
+	{
+		gtk_tree_model_get_iter(archive->model, &iter, rows->data);
+		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
+		gtk_tree_path_free(rows->data);
+
+		name = xa_build_full_path_name_from_entry(entry);
+		xa_remove_slash_from_path(name);
+		paths = g_slist_append(paths, g_strconcat(archive->working_dir, "/", name, NULL));
+		g_free(name);
+
+		rows = rows->next;
+	}
+
+	g_list_free(rows);
+
 	xa_clipboard_clear();
 
 	XA_Clipboard.mode = mode;
+	XA_Clipboard.paths = paths;
 	XA_Clipboard.files = xa_slist_copy(files);
 	XA_Clipboard.archive = archive;
 
@@ -2676,7 +2699,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->child_dir = g_strdup(XA_Clipboard.archive->working_dir);
-	xa_execute_add_commands(archive[idx], XA_Clipboard.files, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
+	xa_execute_add_commands(archive[idx], XA_Clipboard.paths, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
 
@@ -2690,9 +2713,11 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 
 void xa_clipboard_clear ()
 {
+	g_slist_free_full(XA_Clipboard.paths, g_free);
 	g_slist_free_full(XA_Clipboard.files, g_free);
 
 	XA_Clipboard.mode = XA_CLIPBOARD_EMPTY;
+	XA_Clipboard.paths = NULL;
 	XA_Clipboard.files = NULL;
 	XA_Clipboard.archive = NULL;
 }
