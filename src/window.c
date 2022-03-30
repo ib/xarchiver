@@ -1370,19 +1370,21 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data
 	return;
 }
 
-void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
+void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
+	GtkTreeSelection *selection;
 	GSList *list = NULL;
 	gint idx, response;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive[idx]->treeview));
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive[idx]->treeview));
 	gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &list);
 
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->confirm_deletion)))
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("You are about to delete entries from the archive."),_( "Are you sure you want to do this?"));
+		response = xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("You are about to delete entries from the archive."), _( "Are you sure you want to do this?"));
+
 		if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 		{
 			g_slist_free_full(list, g_free);
