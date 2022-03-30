@@ -1372,34 +1372,14 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data
 
 void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
-	GList  *row_list = NULL;
-	XEntry *entry = NULL;
-	GtkTreeIter iter;
 	GSList *list = NULL;
 	gint idx, response;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive[idx]->treeview));
+	gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &list);
 
-	row_list = gtk_tree_selection_get_selected_rows(selection, &archive[idx]->model);
-	if (row_list != NULL)
-	{
-		while (row_list)
-		{
-			gtk_tree_model_get_iter(archive[idx]->model, &iter, row_list->data);
-			gtk_tree_model_get(archive[idx]->model, &iter, archive[idx]->columns - 1, &entry, -1);
-			gtk_tree_path_free (row_list->data);
-
-			list = g_slist_prepend(list, xa_build_full_path_name_from_entry(entry));
-
-			if (entry->is_dir)
-				xa_fill_list_with_recursed_entries(entry->child, &list);
-
-			row_list = row_list->next;
-		}
-		g_list_free (row_list);
-	}
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->confirm_deletion)))
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("You are about to delete entries from the archive."),_( "Are you sure you want to do this?"));
