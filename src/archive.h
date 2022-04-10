@@ -196,12 +196,12 @@ struct _XArchive
 	gboolean do_solid;       // add_func
 	/* child process */
 	guint timeout;
-	gchar *child_dir;     // (free and set NULL after use)
+	gchar *child_dir;   // (free and set NULL after use)
 	GPid child_pid;
 	guint child_ref;
 	gint child_fdout;
 	gint child_fderr;
-	gchar *command;       // (free before use)
+	gchar *command;     // (free before use)
 	GSList *output;
 	/* (un)compressor interface */
 	XArchiver *archiver;
