@@ -221,7 +221,6 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	GtkTreeModel *model;
 	GtkTreeIter iter, parent;
 	GString *pathname;
-	gboolean do_full_path;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 	path = g_object_get_data(G_OBJECT(context), "tree_path");
@@ -282,12 +281,9 @@ failed:
 	archive[idx]->location_path = g_strdup(pathname->str);
 	archive[idx]->child_dir = g_path_get_dirname(list->data);
 
-	do_full_path = archive[idx]->do_full_path;
 	archive[idx]->do_full_path = FALSE;
 
 	xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
-
-	archive[idx]->do_full_path = do_full_path;
 
 	g_string_free(pathname, TRUE);
 	g_slist_free_full(list, g_free);
