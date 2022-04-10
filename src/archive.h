@@ -187,13 +187,13 @@ struct _XArchive
 	gboolean can_solid;          // can create a solid archive
 	gboolean can_compress;       // can compress at different levels
 	/* instructions */
-	gboolean do_full_path;
-	gboolean do_touch;
-	gboolean do_overwrite;
-	gboolean do_update;
-	gboolean do_freshen;
-	gboolean do_move;
-	gboolean do_solid;
+	gboolean do_full_path;   // extract_func, (xa_execute_add_commands)
+	gboolean do_touch;       // extract_func
+	gboolean do_overwrite;   // extract_func
+	gboolean do_update;      // extract_func, add_func
+	gboolean do_freshen;     // extract_func, add_func
+	gboolean do_move;        // add_func
+	gboolean do_solid;       // add_func
 	/* child process */
 	guint timeout;
 	gchar *child_dir;     // (free and set NULL after use)
