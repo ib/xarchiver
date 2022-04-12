@@ -425,7 +425,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 {
 	gchar *new_path = NULL;
-	gchar *esc2, *basedir;
+	gchar *esc2, *basedir, *dest;
 	gboolean result = FALSE;
 	GString *items;
 	gchar *command = NULL;
@@ -462,7 +462,9 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 				slist = slist->next;
 			}
 			g_free(basedir);
-			command = g_strconcat("cp -rfp -- ", items->str, new_path, NULL);
+			dest = xa_escape_bad_chars(new_path, ESCAPES);
+			command = g_strconcat("cp -rfp -- ", items->str, dest, NULL);
+			g_free(dest);
 			g_free(new_path);
 			g_string_free(items,TRUE);
 			xa_run_command(archive, command);
