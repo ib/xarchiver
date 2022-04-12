@@ -436,7 +436,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 			g_free(q_new_name);
 			goto done;
 		}
-		command = g_strconcat("mv -f ", archive->working_dir, "/", q_old_name, " ", archive->working_dir, "/", q_new_name, NULL);
+		command = g_strconcat("mv -f ", archive->extraction_dir, "/", q_old_name, " ", archive->extraction_dir, "/", q_new_name, NULL);
 		xa_run_command(archive, command);
 		g_free(command);
 		g_free(q_old_name);
