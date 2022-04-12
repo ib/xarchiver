@@ -413,7 +413,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		}
 		g_free(archive->extraction_dir);
 		xa_create_working_directory(archive);
-		archive->extraction_dir = g_strdup(archive->working_dir);
+		archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);
 		old_name = xa_build_full_path_name_from_entry(entry);
 		q_old_name = g_shell_quote(old_name);
 		names = g_slist_append(names,old_name);
@@ -736,7 +736,7 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	archive->do_overwrite = TRUE;
 
 	g_free(archive->extraction_dir);
-	archive->extraction_dir = g_strdup(archive->working_dir);
+	archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);
 
 	gtk_label_set_text(GTK_LABEL(total_label), _("Extracting files from archive, please wait..."));
 
@@ -2780,7 +2780,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	g_list_free (row_list);
 	g_free(archive[idx]->extraction_dir);
 	xa_create_working_directory(archive[idx]);
-	archive[idx]->extraction_dir = g_strdup(archive[idx]->working_dir);
+	archive[idx]->extraction_dir = xa_escape_bad_chars(archive[idx]->working_dir, ESCAPES);
 
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->do_overwrite = TRUE;
@@ -2842,7 +2842,7 @@ void xa_view_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	if (g_file_test(filename,G_FILE_TEST_EXISTS))
 		goto here;
 	g_free(archive[idx]->extraction_dir);
-	archive[idx]->extraction_dir = g_strdup(archive[idx]->working_dir);
+	archive[idx]->extraction_dir = xa_escape_bad_chars(archive[idx]->working_dir, ESCAPES);
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->do_overwrite = TRUE;
 
@@ -2887,7 +2887,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		}
 	   	g_free(archive->extraction_dir);
 	   	xa_create_working_directory(archive);
-	   	archive->extraction_dir = g_strdup(archive->working_dir);
+		archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);
 	   	item = xa_build_full_path_name_from_entry(entry);
 	   	names = g_slist_append(names,item);
 	   	archive->do_full_path = FALSE;
