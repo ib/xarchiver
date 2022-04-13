@@ -378,8 +378,9 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 
 	if (!xdg_open)
 	{
-		label5 = gtk_label_new(_("<span color='red' style='italic'>Please install xdg-utils package so that\nXarchiver can recognize more file types.</span>"));
+		label5 = gtk_label_new(_("\n<span color='red' style='italic'>Please install xdg-utils package so that\nXarchiver can recognize more file types.</span>"));
 		gtk_label_set_use_markup (GTK_LABEL (label5), TRUE);
+		gtk_misc_set_alignment(GTK_MISC(label5), 0, 0);
 		gtk_box_pack_start (GTK_BOX (vbox3), label5, FALSE, FALSE, 0);
 	}
 	label3 = gtk_label_new ("");
