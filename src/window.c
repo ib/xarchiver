@@ -1052,7 +1052,7 @@ void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 	}
 }
 
-XArchive *xa_open_archive (GtkWidget *widget, gchar *path)
+void xa_open_archive (GtkWidget *widget, gchar *path)
 {
 	gchar *utf8_path,*msg;
 	gint idx;
@@ -1063,7 +1063,7 @@ XArchive *xa_open_archive (GtkWidget *widget, gchar *path)
     {
 		path = xa_open_file_dialog ();
 		if (path == NULL)
-			return NULL;
+			return;
 	}
 
 	/* Let's check if the archive is already opened */
@@ -1076,7 +1076,7 @@ XArchive *xa_open_archive (GtkWidget *widget, gchar *path)
 		{
 			g_free (path);
 			gtk_notebook_set_current_page(notebook, n);
-			return NULL;
+			return;
 		}
 	}
 	xa = xa_detect_archive_type(path);
@@ -1093,7 +1093,7 @@ XArchive *xa_open_archive (GtkWidget *widget, gchar *path)
 		g_free (utf8_path);
 		g_free (msg);
 		g_free (path);
-		return NULL;
+		return;
 	}
 
 	if (!archiver[xa.type].list)
@@ -1106,21 +1106,21 @@ XArchive *xa_open_archive (GtkWidget *widget, gchar *path)
 		g_free(msg);
 		g_free(name);
 		g_free(path);
-		return NULL;
+		return;
 	}
 
 	idx = xa_get_new_archive_index();
 	if (idx == -1)
 	{
 		g_free (path);
-		return NULL;
+		return;
 	}
 	archive[idx] = xa_init_archive_structure(xa);
 	if (archive[idx] == NULL)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure:"),_("Operation aborted!"));
 		g_free (path);
-		return NULL;
+		return;
 	}
 	/* Detect archive comment,rar one is detected in rar.c */
 	if (xa.type == XARCHIVETYPE_ZIP)
@@ -1144,8 +1144,6 @@ XArchive *xa_open_archive (GtkWidget *widget, gchar *path)
 
 	archive[idx]->status = XARCHIVESTATUS_LIST;
 	(*archive[idx]->archiver->list)(archive[idx]);
-
-	return archive[idx];
 }
 
 void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
