@@ -2260,7 +2260,6 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 	unsigned int n = 0;
 	GSList *list = NULL, *flist;
 	ArchiveType xa;
-	XArchive *opened;
 	gint idx;
 	gboolean archives = FALSE, files = FALSE;
 
@@ -2311,10 +2310,10 @@ failed:
 
 		while (flist)
 		{
-			opened = xa_open_archive(NULL, g_strdup(flist->data));
+			xa_open_archive(NULL, g_strdup(flist->data));
 
-			while (opened && (opened->status == XARCHIVESTATUS_LIST))
-				gtk_main_iteration_do(FALSE);
+			while (gtk_events_pending())
+				gtk_main_iteration();
 
 			flist = flist->next;
 		}
