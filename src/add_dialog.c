@@ -425,7 +425,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 {
 	gchar *new_path = NULL;
-	gchar *esc2, *basedir, *dest;
+	gchar *esc2, *dest;
 	gboolean result = FALSE;
 	GString *items;
 	gchar *command = NULL;
@@ -452,7 +452,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 				return;
 			}
 			slist = list;
-			basedir = g_path_get_dirname(slist->data);
+
 			while (slist)
 			{
 				esc2 = g_shell_quote(slist->data);
@@ -461,7 +461,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 				g_free(esc2);
 				slist = slist->next;
 			}
-			g_free(basedir);
+
 			dest = xa_escape_bad_chars(new_path, ESCAPES);
 			command = g_strconcat("cp -rfp -- ", items->str, dest, NULL);
 			g_free(dest);
