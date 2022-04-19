@@ -303,6 +303,7 @@ void xa_tar_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *command;
+	gboolean success;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 
@@ -339,16 +340,22 @@ void xa_tar_add (XArchive *archive, GSList *file_list)
 
 	if (archive->type != XARCHIVETYPE_TAR)
 	{
-		xa_run_command(archive, command);
+		success = xa_run_command(archive, command);
 		g_free(command);
+		command = NULL;
 
+		if (success)
+		{
 		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0], archive->password, xa_tar_get_compressor_type(archive));
 		archive->status = XARCHIVESTATUS_ADD;
+		}
 	}
 
 	g_string_free(files, TRUE);
 
-	xa_run_command(archive, command);
+	if (command)
+		xa_run_command(archive, command);
+
 	g_free(command);
 }
 
@@ -356,21 +363,28 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *command;
+	gboolean success;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-recursion --no-wildcards -f ", archive->path[2], " --", files->str, NULL);
 
 	if (archive->type != XARCHIVETYPE_TAR)
 	{
-		xa_run_command(archive, command);
+		success = xa_run_command(archive, command);
 		g_free(command);
+		command = NULL;
 
+		if (success)
+		{
 		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0], archive->password, xa_tar_get_compressor_type(archive));
 		archive->status = XARCHIVESTATUS_DELETE;
+		}
 	}
 
 	g_string_free(files, TRUE);
 
-	xa_run_command(archive, command);
+	if (command)
+		xa_run_command(archive, command);
+
 	g_free(command);
 }
