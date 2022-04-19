@@ -940,7 +940,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *compression, *files_str, *archive_path, *move, *password_str, *out, *command;
-	gboolean result;
+	gboolean success;
 
 	compression = g_strdup_printf("%hu", archive->compression);
 
@@ -961,12 +961,12 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 		out = g_strconcat(" -c --", files_str, " > ", archive_path, NULL);
 
 	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress ? "b " : (lrzip ? (*compression == '0' ? "n" : "L ") : ""), lrzip && (*compression == '0') ? "" : compression, password_str, out, "\"", NULL);
-	result = xa_run_command(archive, command);
+	success = xa_run_command(archive, command);
 
 	g_free(command);
 	command = NULL;
 
-	if (result)
+	if (success)
 		command = g_strconcat("sh -c \"exec", move, "\"", NULL);
 
 	g_free(out);
