@@ -493,6 +493,6 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 	g_free(archive->child_dir);
 	archive->child_dir = NULL;
 
-	if (xa_main_window)
+	if (xa_main_window && (archive->status == XARCHIVESTATUS_IDLE))
 		xa_reload_archive_content(archive);
 }
