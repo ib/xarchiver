@@ -346,8 +346,8 @@ void xa_tar_add (XArchive *archive, GSList *file_list)
 
 		if (success)
 		{
-		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0], archive->password, xa_tar_get_compressor_type(archive));
-		archive->status = XARCHIVESTATUS_ADD;
+			command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0], archive->password, xa_tar_get_compressor_type(archive));
+			archive->status = XARCHIVESTATUS_ADD;
 		}
 	}
 
@@ -376,8 +376,8 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 
 		if (success)
 		{
-		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0], archive->password, xa_tar_get_compressor_type(archive));
-		archive->status = XARCHIVESTATUS_DELETE;
+			command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0], archive->password, xa_tar_get_compressor_type(archive));
+			archive->status = XARCHIVESTATUS_DELETE;
 		}
 	}
 
