@@ -2597,7 +2597,8 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 	GtkTreeIter iter;
 	GtkTreeSelection *selection;
 	gint selected;
-	gboolean pasteable;
+	gboolean pasteable, replaceable;
+	gchar *file;
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 	selected = gtk_tree_selection_count_selected_rows(selection);
@@ -2638,13 +2639,24 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 			gtk_widget_set_sensitive(view, (selected == 1) && !entry->is_dir && archive->can_extract);
 			gtk_widget_set_sensitive(rrename, (selected == 1) && !entry->is_dir && can_rename(archive));
 
-			pasteable = (XA_Clipboard.mode != XA_CLIPBOARD_EMPTY && archive != XA_Clipboard.archive);
+			pasteable = ((XA_Clipboard.mode == XA_CLIPBOARD_COPY || XA_Clipboard.mode == XA_CLIPBOARD_CUT) && archive != XA_Clipboard.archive);
+
+			if (XA_Clipboard.mode == XA_CLIPBOARD_EDIT)
+			{
+				file = xa_build_full_path_name_from_entry(entry);
+				replaceable = (strcmp(file, XA_Clipboard.files->data) == 0 && archive == XA_Clipboard.archive);
+				g_free(file);
+			}
+			else
+				replaceable = FALSE;
 
 			gtk_widget_set_sensitive(eextract, archive->can_extract);
 			gtk_widget_set_sensitive(cut, archive->can_extract && archive->can_delete);
 			gtk_widget_set_sensitive(copy, archive->can_extract);
 			gtk_widget_set_sensitive(paste, pasteable && archive->can_add);
 			gtk_widget_set_sensitive(ddelete, archive->can_delete);
+			gtk_widget_set_sensitive(edit, (selected == 1) && !entry->is_dir && archive->can_extract);
+			gtk_widget_set_sensitive(replace, (selected == 1) && replaceable && archive->can_add);
 			gtk_menu_popup(GTK_MENU(xa_popup_menu), NULL, NULL, NULL, xa_main_window, event->button, event->time);
 		}
 
@@ -2678,6 +2690,30 @@ void xa_clipboard_copy (GtkMenuItem *item, gpointer user_data)
 		return;
 
 	xa_clipboard_prepare(archive[idx], XA_CLIPBOARD_COPY);
+}
+
+void xa_clipboard_edit (GtkMenuItem *item, gpointer user_data)
+{
+	gint idx;
+	gchar *basename, *basename_utf8;
+
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+
+	if (idx == -1)
+		return;
+
+	xa_clipboard_prepare(archive[idx], XA_CLIPBOARD_EDIT);
+
+	if (archive[idx]->status == XARCHIVESTATUS_IDLE)
+	{
+		basename = g_path_get_basename(XA_Clipboard.paths->data);
+		basename_utf8 = g_filename_display_name(basename);
+
+		xa_create_open_with_dialog(basename_utf8, g_shell_quote(XA_Clipboard.paths->data), 1);
+
+		g_free(basename_utf8);
+		g_free(basename);
+	}
 }
 
 void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)

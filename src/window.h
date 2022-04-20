@@ -37,6 +37,7 @@ void xa_child_processed(XAChildProcess, guint8, XArchive *);
 void xa_clipboard_clear();
 void xa_clipboard_copy(GtkMenuItem *, gpointer);
 void xa_clipboard_cut(GtkMenuItem *, gpointer);
+void xa_clipboard_edit(GtkMenuItem *, gpointer);
 void xa_clipboard_paste(GtkMenuItem *, gpointer);
 void xa_close_archive(GtkWidget *, gpointer);
 void xa_concat_selected_filenames(GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GSList **);

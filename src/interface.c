@@ -40,6 +40,7 @@ GtkWidget *cut;
 GtkWidget *ddelete;
 GtkWidget *delete_menu;
 GtkWidget *deselect_all;
+GtkWidget *edit;
 GtkWidget *eextract;
 GtkWidget *encrypted_data;
 GtkWidget *home_button;
@@ -54,6 +55,7 @@ GtkWidget *password_entry_menu;
 GtkWidget *paste;
 GtkWidget *path_data;
 GtkWidget *rename_menu;
+GtkWidget *replace;
 GtkWidget *rrename;
 GtkWidget *scrolledwindow2;
 GtkWidget *selected_frame;
@@ -114,6 +116,8 @@ static void xa_create_popup_menu ()
 	GtkWidget *image9;
 	GtkWidget *image10;
 	GtkWidget *image11;
+	GtkWidget *image12;
+	GtkWidget *image13;
 
 	xa_popup_menu = gtk_menu_new();
 	open_popupmenu = gtk_image_menu_item_new_with_mnemonic (_("Open With"));
@@ -175,6 +179,29 @@ static void xa_create_popup_menu ()
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu),separator);
 	gtk_widget_set_sensitive (separator,FALSE);
 
+	edit = gtk_image_menu_item_new_with_mnemonic(_("Edit"));
+	gtk_widget_set_sensitive(edit, FALSE);
+	gtk_widget_show(edit);
+	gtk_container_add(GTK_CONTAINER(xa_popup_menu), edit);
+
+	image12 = gtk_image_new_from_stock("gtk-find-and-replace", GTK_ICON_SIZE_MENU);
+	gtk_widget_show(image12);
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(edit), image12);
+
+	replace = gtk_image_menu_item_new_with_mnemonic(_("Replace"));
+	gtk_widget_set_sensitive(replace, FALSE);
+	gtk_widget_show(replace);
+	gtk_container_add(GTK_CONTAINER(xa_popup_menu), replace);
+
+	image13 = gtk_image_new_from_stock("gtk-refresh", GTK_ICON_SIZE_MENU);
+	gtk_widget_show(image13);
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(replace), image13);
+
+	separator = gtk_separator_menu_item_new();
+	gtk_widget_show(separator);
+	gtk_container_add(GTK_CONTAINER(xa_popup_menu), separator);
+	gtk_widget_set_sensitive(separator, FALSE);
+
 	ddelete = gtk_image_menu_item_new_with_mnemonic (_("Delete"));
 	gtk_widget_set_sensitive (ddelete,FALSE);
 	gtk_widget_show (ddelete);
@@ -197,6 +224,8 @@ static void xa_create_popup_menu ()
 	g_signal_connect(cut, "activate", G_CALLBACK(xa_clipboard_cut), NULL);
 	g_signal_connect(copy, "activate", G_CALLBACK(xa_clipboard_copy), NULL);
 	g_signal_connect(paste, "activate", G_CALLBACK(xa_clipboard_paste), NULL);
+	g_signal_connect(edit, "activate", G_CALLBACK(xa_clipboard_edit), NULL);
+	g_signal_connect(replace, "activate", G_CALLBACK(xa_clipboard_paste), NULL);
 	g_signal_connect(eextract, "activate", G_CALLBACK(xa_extract_archive), NULL);
 	g_signal_connect(ddelete, "activate", G_CALLBACK(xa_delete_archive), NULL);
 	g_signal_connect(rrename, "activate", G_CALLBACK(xa_rename_archive), NULL);
