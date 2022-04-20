@@ -913,10 +913,6 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_set_sensitive(view_shell_output1, FALSE);
 	gtk_widget_show (view_shell_output1);
 
-	image2 = gtk_image_new_from_stock ("gtk-find-and-replace",GTK_ICON_SIZE_MENU);
-	gtk_widget_show (image2);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_shell_output1),image2);
-
 	password_entry_menu = gtk_image_menu_item_new_with_mnemonic(_("Enter passwo_rd"));
 	gtk_widget_show (password_entry_menu);
 	gtk_widget_set_sensitive (password_entry_menu,FALSE);
