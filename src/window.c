@@ -728,6 +728,7 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	xa_clipboard_clear();
 
 	XA_Clipboard.mode = mode;
+	XA_Clipboard.origin = g_strdup(archive->location_path);
 	XA_Clipboard.paths = paths;
 	XA_Clipboard.files = files;
 	XA_Clipboard.archive = archive;
@@ -2639,7 +2640,10 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 			gtk_widget_set_sensitive(view, (selected == 1) && !entry->is_dir && archive->can_extract);
 			gtk_widget_set_sensitive(rrename, (selected == 1) && !entry->is_dir && can_rename(archive));
 
-			pasteable = ((XA_Clipboard.mode == XA_CLIPBOARD_COPY || XA_Clipboard.mode == XA_CLIPBOARD_CUT) && archive != XA_Clipboard.archive);
+			if (XA_Clipboard.mode == XA_CLIPBOARD_COPY || XA_Clipboard.mode == XA_CLIPBOARD_CUT)
+				pasteable = ((archive != XA_Clipboard.archive) || (g_strcmp0(archive->location_path, XA_Clipboard.origin) != 0) || entry->is_dir);
+			else
+				pasteable = FALSE;
 
 			if (XA_Clipboard.mode == XA_CLIPBOARD_EDIT)
 			{
@@ -2650,10 +2654,15 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 			else
 				replaceable = FALSE;
 
+			if (pasteable && entry->is_dir)
+				XA_Clipboard.target = entry;
+			else
+				XA_Clipboard.target = NULL;
+
 			gtk_widget_set_sensitive(eextract, archive->can_extract);
 			gtk_widget_set_sensitive(cut, archive->can_extract && archive->can_delete);
 			gtk_widget_set_sensitive(copy, archive->can_extract);
-			gtk_widget_set_sensitive(paste, pasteable && archive->can_add);
+			gtk_widget_set_sensitive(paste, (selected == 1) && pasteable && archive->can_add);
 			gtk_widget_set_sensitive(ddelete, archive->can_delete);
 			gtk_widget_set_sensitive(edit, (selected == 1) && !entry->is_dir && archive->can_extract);
 			gtk_widget_set_sensitive(replace, (selected == 1) && replaceable && archive->can_add);
@@ -2727,6 +2736,12 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 
 	/* add the already extracted files from the source archive's working dir to the current archive */
 
+	if (XA_Clipboard.target)
+	{
+		g_free(archive[idx]->location_path);
+		archive[idx]->location_path = xa_build_full_path_name_from_entry(XA_Clipboard.target);
+	}
+
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->child_dir = g_path_get_dirname(XA_Clipboard.paths->data);
 
@@ -2745,10 +2760,13 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 
 void xa_clipboard_clear ()
 {
+	g_free(XA_Clipboard.origin);
 	g_slist_free_full(XA_Clipboard.paths, g_free);
 	g_slist_free_full(XA_Clipboard.files, g_free);
 
 	XA_Clipboard.mode = XA_CLIPBOARD_EMPTY;
+	XA_Clipboard.origin = NULL;
+	XA_Clipboard.target = NULL;
 	XA_Clipboard.paths = NULL;
 	XA_Clipboard.files = NULL;
 	XA_Clipboard.archive = NULL;
