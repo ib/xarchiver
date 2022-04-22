@@ -426,8 +426,8 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 {
 	gchar *new_path = NULL;
 	gchar *esc2, *dest, *org_path = NULL;
-	gboolean result = FALSE;
-	gint n_list = 0;
+	gboolean success;
+	gint result, n_list = 0;
 	GString *items;
 	gchar *command = NULL;
 	GSList *slist = NULL;
@@ -440,14 +440,14 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 		/* This in case the user wants to add files in a directory in the archive tree */
 		if (archive->location_path != NULL)
 		{
-			result = xa_create_working_directory(archive);
-			if (result == FALSE)
+			success = xa_create_working_directory(archive);
+			if (!success)
 				return;
 
 			items = g_string_new("");
 			new_path = g_strconcat(archive->working_dir, "/", archive->location_path, NULL);
 			result = g_mkdir_with_parents(new_path,0700);
-			if (result < 0)
+			if (result != 0)
 			{
 				g_free(new_path);
 				return;
