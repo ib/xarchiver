@@ -477,12 +477,17 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 
 			xa_remove_slash_from_path(new_path);
 
-			if (g_strcmp0(org_path, new_path) != 0)
-				xa_run_command(archive, command);
+			if (g_strcmp0(org_path, new_path) == 0)
+				success = TRUE;
+			else
+				success = xa_run_command(archive, command);
 
 			g_free(org_path);
 			g_free(new_path);
 			g_free(command);
+
+			if (!success)
+				return;
 		}
 		xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	}
