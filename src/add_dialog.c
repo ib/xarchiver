@@ -441,17 +441,20 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 		if (archive->location_path != NULL)
 		{
 			success = xa_create_working_directory(archive);
+
 			if (!success)
 				return;
 
 			items = g_string_new("");
 			new_path = g_strconcat(archive->working_dir, "/", archive->location_path, NULL);
 			result = g_mkdir_with_parents(new_path,0700);
+
 			if (result != 0)
 			{
 				g_free(new_path);
 				return;
 			}
+
 			slist = list;
 
 			while (slist)
