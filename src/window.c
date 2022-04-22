@@ -2991,15 +2991,11 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		gtk_widget_set_sensitive(back_button, archive->back != NULL);
 		gtk_widget_set_sensitive(up_button,TRUE);
 		gtk_widget_set_sensitive(home_button,TRUE);
-		archive->location_path = xa_build_full_path_name_from_entry(entry);
-		xa_set_location_entry(archive);
 
-		/* check for root_entry */
-		if (!*entry->filename)
-		{
-			g_free(archive->location_path);
-			archive->location_path = NULL;
-		}
+		if (*entry->filename)
+			archive->location_path = xa_build_full_path_name_from_entry(entry);
+
+		xa_set_location_entry(archive);
 
 		entry = entry->child;
 	}
