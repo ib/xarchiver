@@ -3007,7 +3007,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		gtk_list_store_prepend(archive->liststore, &iter);
 		if(!g_utf8_validate(entry->filename,-1,NULL))
 		{
-			gchar *entry_utf8 = g_filename_display_name(entry->filename);
+			entry_utf8 = g_filename_display_name(entry->filename);
 			g_free(entry->filename);
 			entry->filename = entry_utf8;
 		}
