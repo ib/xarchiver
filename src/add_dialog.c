@@ -487,7 +487,20 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 			g_free(command);
 
 			if (!success)
+			{
+				new_path = xa_remove_level_from_path(archive->location_path);
+				g_free(archive->location_path);
+
+				if (strcmp(new_path, ".") == 0)
+					archive->location_path = NULL;
+				else
+					archive->location_path = g_strconcat(new_path, "/", NULL);
+
+				xa_set_location_entry(archive);
+
+				g_free(new_path);
 				return;
+			}
 		}
 		xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	}
