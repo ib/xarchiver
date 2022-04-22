@@ -94,6 +94,7 @@ gboolean xa_flash_led_indicator(XArchive *);
 void xa_increase_progress_bar(Progress *, gchar *, double);
 gboolean xa_pulse_progress_bar(XArchive *);
 void xa_set_button_state(gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, GSList *, gboolean);
+void xa_set_location_entry(XArchive *);
 void xa_show_progress_bar(XArchive *);
 
 #endif

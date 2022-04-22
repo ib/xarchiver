@@ -2570,12 +2570,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	g_free(pathname_local);
 	if (new_entry == NULL)
 	{
-		if (archive[idx]->location_path)
-		{
-			gchar *entry_utf8 = g_filename_display_name(archive[idx]->location_path);
-			gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
-			g_free(entry_utf8);
-		}
+		xa_set_location_entry(archive[idx]);
 		return;
 	}
 
@@ -2997,9 +2992,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		gtk_widget_set_sensitive(up_button,TRUE);
 		gtk_widget_set_sensitive(home_button,TRUE);
 		archive->location_path = xa_build_full_path_name_from_entry(entry);
-		entry_utf8 = g_filename_display_name(archive->location_path);
-		gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
-		g_free(entry_utf8);
+		xa_set_location_entry(archive);
 
 		/* check for root_entry */
 		if (!*entry->filename)

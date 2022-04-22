@@ -423,14 +423,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 			gtk_widget_set_sensitive(rename_menu, can_rename(archive[idx]));
 		}
 		/* Let's set the location bar */
-		if (archive[idx]->location_path)
-		{
-			gchar *entry_utf8 = g_filename_display_name(archive[idx]->location_path);
-			gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
-			g_free(entry_utf8);
-		}
-		else
-			gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
+		xa_set_location_entry(archive[idx]);
 
 		xa_block_signal_dir_treeview_selection(TRUE);
 
@@ -1198,6 +1191,20 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	g_signal_connect(Extract_button, "clicked", G_CALLBACK(xa_extract_archive), NULL);
 	g_signal_connect(Stop_button, "clicked", G_CALLBACK(xa_cancel_archive), NULL);
 	gtk_window_add_accel_group (GTK_WINDOW (xa_main_window),accel_group);
+}
+
+void xa_set_location_entry (XArchive *archive)
+{
+	gchar *entry_utf8;
+
+	if (archive->location_path)
+	{
+		entry_utf8 = g_filename_display_name(archive->location_path);
+		gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
+		g_free(entry_utf8);
+	}
+	else
+		gtk_entry_set_text(GTK_ENTRY(location_entry), "");
 }
 
 gboolean xa_flash_led_indicator (XArchive *archive)
