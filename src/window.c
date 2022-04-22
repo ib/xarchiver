@@ -3000,6 +3000,14 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		entry_utf8 = g_filename_display_name(archive->location_path);
 		gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
 		g_free(entry_utf8);
+
+		/* check for root_entry */
+		if (!*entry->filename)
+		{
+			g_free(archive->location_path);
+			archive->location_path = NULL;
+		}
+
 		entry = entry->child;
 	}
 	gtk_list_store_clear(archive->liststore);
