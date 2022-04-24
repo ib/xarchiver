@@ -1510,7 +1510,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				sfx_archive = fopen ( archive_name ,"w");
 				if (sfx_archive == NULL)
 				{
-					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
+					xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't write the sfx module to the archive:"), g_strerror(errno));
 					goto end_zip;
 				}
 				fwrite(content, length, 1, sfx_archive);
@@ -1618,7 +1618,7 @@ end_zip:
 				sfx_archive = fopen ( archive_name ,"w");
 				if (sfx_archive == NULL)
 				{
-					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
+					response = xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't write the sfx module to the archive:"), g_strerror(errno));
 					goto end_7zip;
 				}
 				fwrite(content, length, 1, sfx_archive);
