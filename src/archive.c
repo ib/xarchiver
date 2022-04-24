@@ -414,6 +414,7 @@ void xa_spawn_async_process (XArchive *archive, const gchar *command)
 	if (xa_main_window)
 	{
 		gtk_widget_set_sensitive(Stop_button, TRUE);
+		xa_show_archive_status(archive);
 
 		if (!archive->timeout)
 			archive->timeout = g_timeout_add(350, (GSourceFunc) xa_flash_led_indicator, archive);

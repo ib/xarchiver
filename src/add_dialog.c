@@ -436,7 +436,6 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 
 	if (xa_main_window)
 	{
-		gtk_label_set_text(GTK_LABEL(total_label),_("Adding files to archive, please wait..."));
 		/* This in case the user wants to add files in a directory in the archive tree */
 		if (archive->location_path != NULL)
 		{

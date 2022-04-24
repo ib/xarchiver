@@ -739,8 +739,6 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	g_free(archive->extraction_dir);
 	archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);
 
-	gtk_label_set_text(GTK_LABEL(total_label), _("Extracting files from archive, please wait..."));
-
 	archive->status = XARCHIVESTATUS_EXTRACT;
 	(*archive->archiver->extract)(archive, xa_slist_copy(files));
 }
@@ -878,8 +876,6 @@ void xa_reload_archive_content (XArchive *this_archive)
 	entry = g_new0(XEntry,1);
 	entry->filename = "";
 	this_archive->root_entry = entry;
-
-	gtk_label_set_text(GTK_LABEL(total_label), _("Reloading archive, please wait..."));
 
 	/* this reload will be called internally during adding and deleting */
 	this_archive->status = XARCHIVESTATUS_RELOAD;
@@ -1141,7 +1137,6 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 	g_free (path);
 
 	xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
-	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive, please wait..."));
 
 	archive[idx]->status = XARCHIVESTATUS_LIST;
 	(*archive[idx]->archiver->list)(archive[idx]);
@@ -1158,7 +1153,6 @@ void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 		if (!xa_check_password(archive[idx]))
 			return;
 	}
-	gtk_label_set_text(GTK_LABEL(total_label),_("Testing archive, please wait..."));
 
 	archive[idx]->status = XARCHIVESTATUS_TEST;
 	(*archive[idx]->archiver->test)(archive[idx]);
@@ -2237,8 +2231,6 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		g_free(archive->extraction_dir);
 		archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
 
-		gtk_label_set_text(GTK_LABEL(total_label), _("Extracting files from archive, please wait..."));
-
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		(*archive->archiver->extract)(archive, names);
 
@@ -3148,4 +3140,47 @@ void xa_set_xarchiver_icon (GtkWindow *window)
 	pixbuf = gtk_icon_theme_load_icon(icon_theme, "xarchiver", 24, (GtkIconLookupFlags) 0, NULL);
 	gtk_window_set_icon(window, pixbuf);
 	g_object_unref(pixbuf);
+}
+
+void xa_show_archive_status (XArchive *archive)
+{
+	gchar *message;
+
+	switch (archive->status)
+	{
+		case XARCHIVESTATUS_LIST:
+			message = _("Opening archive, please wait...");
+			break;
+
+		case XARCHIVESTATUS_TEST:
+			message = _("Testing archive, please wait...");
+			break;
+
+		case XARCHIVESTATUS_EXTRACT:
+			message = _("Extracting files from archive, please wait...");
+			break;
+
+		case XARCHIVESTATUS_ADD:
+			message = _("Adding files to archive, please wait...");
+			break;
+
+		case XARCHIVESTATUS_DELETE:
+			message = _("Deleting files from archive, please wait...");
+			break;
+
+		case XARCHIVESTATUS_SFX:
+			message = _("Converting archive, please wait...");
+			break;
+
+		case XARCHIVESTATUS_RELOAD:
+			message = _("Reloading archive, please wait...");
+			break;
+
+		default:
+			message = NULL;
+			break;
+	}
+
+	if (message)
+		gtk_label_set_text(GTK_LABEL(total_label), message);
 }
