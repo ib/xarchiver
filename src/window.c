@@ -1496,7 +1496,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
 					g_error_free (error);
 					g_free (unzipsfx_path);
-					return;
+					goto end_zip;
 				}
 				g_free (unzipsfx_path);
 
@@ -1505,7 +1505,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				if (sfx_archive == NULL)
 				{
 					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
-					return;
+					goto end_zip;
 				}
 				fwrite(content, length, 1, sfx_archive);
 				g_free (content);
@@ -1515,7 +1515,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				if (archive_not_sfx == NULL)
 				{
 					fclose(sfx_archive);
-					return;
+					goto end_zip;
 				}
 
 				/* Read archive data and write it after the sfx module in the new file */
@@ -1536,6 +1536,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				xa_run_command(archive[idx], command);
 				g_free(command);
 			}
+end_zip:
 			g_free (archive_name);
 			g_free (archive_name_quoted);
 		}
@@ -1606,7 +1607,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
 					g_error_free (error);
 					g_free (sfx_path);
-					return;
+					goto end_7zip;
 				}
 				g_free (sfx_path);
 
@@ -1615,7 +1616,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				if (sfx_archive == NULL)
 				{
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
-					return;
+					goto end_7zip;
 				}
 				fwrite(content, length, 1, sfx_archive);
 				g_free (content);
@@ -1625,7 +1626,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				if (archive_not_sfx == NULL)
 				{
 					fclose(sfx_archive);
-					return;
+					goto end_7zip;
 				}
 
 				/* Read archive data and write it after the sfx module in the new file */
@@ -1645,6 +1646,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				xa_run_command(archive[idx], command);
 				g_free(command);
 			}
+end_7zip:
 			g_free (archive_name);
 			g_free (archive_name_quoted);
 		}
