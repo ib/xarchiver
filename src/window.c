@@ -437,6 +437,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 			goto done;
 		}
 		command = g_strconcat("mv -f ", archive->extraction_dir, "/", q_old_name, " ", archive->extraction_dir, "/", q_new_name, NULL);
+		archive->status = XARCHIVESTATUS_EXTRACT;
 		xa_run_command(archive, command);
 		g_free(command);
 		g_free(q_old_name);
@@ -680,6 +681,7 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 
 	if (command != NULL)
 	{
+		archive[idx]->status = XARCHIVESTATUS_OTHER;
 		xa_run_command(archive[idx], command);
 		g_free(command);
 	}
@@ -1044,6 +1046,7 @@ void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 	{
 		command = g_strconcat ("cp ",archive[idx]->path[1]," ",path,NULL);
 		g_free(path);
+		archive[idx]->status = XARCHIVESTATUS_OTHER;
 		xa_run_command(archive[idx], command);
 		g_free(command);
 	}

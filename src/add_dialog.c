@@ -479,7 +479,10 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse)
 			if (g_strcmp0(org_path, new_path) == 0)
 				success = TRUE;
 			else
+			{
+				archive->status = XARCHIVESTATUS_ADD;
 				success = xa_run_command(archive, command);
+			}
 
 			g_free(org_path);
 			g_free(new_path);
