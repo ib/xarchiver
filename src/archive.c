@@ -63,8 +63,7 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 
 			g_free(line);
 
-			while (gtk_events_pending())
-				gtk_main_iteration();
+			process_gtk_events();
 
 			return TRUE;
 		}
@@ -592,9 +591,7 @@ gboolean xa_run_command (XArchive *archive, const gchar *command)
 		while (pid != archive->child_pid && pid != -1)
 		{
 			pid = waitpid(archive->child_pid, &status, WNOHANG);
-
-			while (gtk_events_pending())
-				gtk_main_iteration();
+			process_gtk_events();
 		}
 
 		if (WIFEXITED(status))
@@ -808,10 +805,7 @@ void xa_detect_encrypted_archive (XArchive *archive)
 	(*archive->archiver->list)(archive);
 
 	do
-	{
-		while (gtk_events_pending())
-			gtk_main_iteration();
-	}
+		process_gtk_events();
 	while (archive->child_ref);
 }
 

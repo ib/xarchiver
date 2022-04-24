@@ -1814,3 +1814,9 @@ void xa_block_signal_dir_treeview_selection (gboolean block)
 	else
 		g_signal_handler_unblock(selection, changed);
 }
+
+void process_gtk_events ()
+{
+	while (gtk_events_pending())
+		gtk_main_iteration();
+}

@@ -81,6 +81,7 @@ extern GtkNotebook *notebook;
 extern GtkTreeStore *archive_dir_treestore;
 extern Progress *progress;
 
+void process_gtk_events();
 gboolean select_matched_rows(GtkTreeModel *, GtkTreePath *, GtkTreeIter *, gpointer);
 void xa_add_page(XArchive *);
 void xa_block_signal_dir_treeview_selection(gboolean);

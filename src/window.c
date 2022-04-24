@@ -2301,8 +2301,7 @@ failed:
 		{
 			xa_open_archive(NULL, g_strdup(flist->data));
 
-			while (gtk_events_pending())
-				gtk_main_iteration();
+			process_gtk_events();
 
 			flist = flist->next;
 		}
