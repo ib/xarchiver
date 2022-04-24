@@ -1525,15 +1525,9 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				}
 
 				/* Read archive data and write it after the sfx module in the new file */
-				while ( ! feof(archive_not_sfx))
-				{
-					if (fread(&buffer, sizeof(buffer), 1, archive_not_sfx) != 1)
-						/* !!! this is as bad as not checking the return value !!! */
-						/* !!! xa_convert_sfx() must report back success or failure !!! */
-						break;
+				while ((length = fread(&buffer, 1, sizeof(buffer), archive_not_sfx)) > 0)
+					fwrite(&buffer, length, 1, sfx_archive);
 
-					fwrite(&buffer, sizeof(buffer), 1, sfx_archive);
-				}
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
 
@@ -1639,15 +1633,9 @@ end_zip:
 				}
 
 				/* Read archive data and write it after the sfx module in the new file */
-				while ( ! feof(archive_not_sfx))
-				{
-					if (fread(&buffer, sizeof(buffer), 1, archive_not_sfx) != 1)
-						/* !!! this is as bad as not checking the return value !!! */
-						/* !!! xa_convert_sfx() must report back success or failure !!! */
-						break;
+				while ((length = fread(&buffer, 1, sizeof(buffer), archive_not_sfx)) > 0)
+					fwrite(&buffer, length, 1, sfx_archive);
 
-					fwrite(&buffer, sizeof(buffer), 1, sfx_archive);
-				}
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
 
