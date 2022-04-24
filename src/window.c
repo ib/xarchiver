@@ -1495,10 +1495,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				{
 					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
 					g_error_free (error);
-					g_free (unzipsfx_path);
 					goto end_zip;
 				}
-				g_free (unzipsfx_path);
 
 				/* Write unzipsfx to a new file */
 				sfx_archive = fopen ( archive_name ,"w");
@@ -1537,6 +1535,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				g_free(command);
 			}
 end_zip:
+			g_free (unzipsfx_path);
 			g_free (archive_name);
 			g_free (archive_name_quoted);
 		}
@@ -1606,10 +1605,8 @@ end_zip:
 				{
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
 					g_error_free (error);
-					g_free (sfx_path);
 					goto end_7zip;
 				}
-				g_free (sfx_path);
 
 				/* Write 7zCon.sfx to a new file */
 				sfx_archive = fopen ( archive_name ,"w");
@@ -1647,6 +1644,7 @@ end_zip:
 				g_free(command);
 			}
 end_7zip:
+			g_free (sfx_path);
 			g_free (archive_name);
 			g_free (archive_name_quoted);
 		}
