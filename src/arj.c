@@ -289,13 +289,17 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 			if (result)
 			{
 				command = g_strconcat(archiver[archive->type].program[0], " e ", archive_path, NULL);
+				archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
 				result = xa_run_command(archive, command);
 
 				g_free(command);
 				command = NULL;
 
 				if (result)
+				{
 					command = g_strconcat("sh -c \"exec", move, "\"", NULL);
+					archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
+				}
 			}
 
 			g_free(move);

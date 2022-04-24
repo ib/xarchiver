@@ -967,7 +967,10 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 	command = NULL;
 
 	if (success)
+	{
 		command = g_strconcat("sh -c \"exec", move, "\"", NULL);
+		archive->status = XARCHIVESTATUS_ADD;   // restore status
+	}
 
 	g_free(out);
 	g_free(password_str);

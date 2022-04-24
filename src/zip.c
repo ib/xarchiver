@@ -299,6 +299,8 @@ void xa_zip_add (XArchive *archive, GSList *file_list)
 			xa_run_command(archive, command);
 			g_free(command);
 
+			archive->status = XARCHIVESTATUS_ADD;   // preserve status
+
 			file_list = g_slist_remove(file_list, fname);
 		}
 	}

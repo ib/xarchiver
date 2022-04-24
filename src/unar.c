@@ -255,6 +255,7 @@ gboolean xa_unar_extract (XArchive *archive, GSList *file_list)
 		                      " --", all_files->str, " ", archive->extraction_dir, NULL);
 		g_string_free(all_files, TRUE);
 
+		archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
 		result = xa_run_command(archive, command);
 		g_free(command);
 

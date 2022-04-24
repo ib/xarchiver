@@ -152,6 +152,7 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 	command = g_strconcat("sh -c \"exec ", executable, cpio_z, " > ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
 	g_free(cpio_z);
 
+	archive->status = XARCHIVESTATUS_LIST;        // restore status
 	success = xa_run_command(archive, command);
 	g_free(command);
 
@@ -351,6 +352,7 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 		                      " --", all_files->str, " ", archive->extraction_dir, NULL);
 		g_string_free(all_files, TRUE);
 
+		archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
 		result = xa_run_command(archive, command);
 		g_free(command);
 
