@@ -1544,7 +1544,6 @@ end_zip:
         case XARCHIVETYPE_7ZIP:
         {
         	gchar *archive_name = NULL;
-			gchar *archive_name_quoted;
 			FILE *sfx_archive;
 			FILE *archive_not_sfx;
 			gchar *content;
@@ -1560,7 +1559,6 @@ end_zip:
 
 			if (archive_name == NULL)
 				return;
-			archive_name_quoted = g_shell_quote(archive_name);
 
 			if (g_file_test ( "/usr/lib/p7zip/7zCon.sfx",G_FILE_TEST_EXISTS))
 				sfx_path = g_strdup("/usr/lib/p7zip/7zCon.sfx");
@@ -1639,14 +1637,11 @@ end_zip:
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
 
-				command = g_strconcat ("chmod 755 ",archive_name_quoted,NULL);
-				xa_run_command(archive[idx], command);
-				g_free(command);
+				g_chmod(archive_name, 0755);
 			}
 end_7zip:
 			g_free (sfx_path);
 			g_free (archive_name);
-			g_free (archive_name_quoted);
 		}
 		break;
 
