@@ -1469,6 +1469,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 			command = g_strconcat ("rar s -o+ ",archive[idx]->path[1],NULL);
 			xa_run_command(archive[idx], command);
 			g_free(command);
+			/* !!! positive feedback in case of success is missing !!! */
 		break;
 
 	    case XARCHIVETYPE_ZIP:
@@ -1534,6 +1535,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				g_chmod(archive_name, 0755);
 				command = g_strconcat ("zip -A ",archive_name_quoted,NULL);
 				xa_run_command(archive[idx], command);
+				/* !!! positive feedback in case of success is missing !!! */
 			}
 end_zip:
 			if (!command)
@@ -1640,6 +1642,7 @@ end_zip:
 				fclose (sfx_archive);
 
 				g_chmod(archive_name, 0755);
+				/* !!! positive feedback in case of success is missing !!! */
 			}
 end_7zip:
 			xa_run_command(archive[idx], "sh -c \"\"");
@@ -1652,6 +1655,7 @@ end_7zip:
         	command = g_strconcat ("arj y -je1 " ,archive[idx]->path[1],NULL);
         	xa_run_command(archive[idx], command);
         	g_free(command);
+		/* !!! positive feedback in case of success is missing !!! */
 		break;
 
 		default:
