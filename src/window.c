@@ -3176,6 +3176,10 @@ void xa_show_archive_status (XArchive *archive)
 			message = _("Reloading archive, please wait...");
 			break;
 
+		case XARCHIVESTATUS_OTHER:
+			message = _("Please wait...");
+			break;
+
 		default:
 			message = NULL;
 			break;
