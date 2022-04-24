@@ -1483,6 +1483,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 			gchar *unzipsfx_path = NULL;
 			gchar buffer[1024];
 
+			command = NULL;
+
 			archive_name = xa_open_sfx_file_selector();
 
 			if (archive_name == NULL)
@@ -1492,6 +1494,9 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 			unzipsfx_path = g_find_program_in_path ("unzipsfx");
 			if (unzipsfx_path != NULL)
 			{
+				xa_show_archive_status(archive[idx]);
+				process_gtk_events();
+
 				/* Load the unzipsfx executable in memory,about 50 KB */
 				result = g_file_get_contents (unzipsfx_path,&content,&length,&error);
 				if ( ! result)
@@ -1535,10 +1540,13 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				g_chmod(archive_name, 0755);
 				command = g_strconcat ("zip -A ",archive_name_quoted,NULL);
 				xa_run_command(archive[idx], command);
-				g_free(command);
 			}
 end_zip:
-			g_free (unzipsfx_path);
+			if (!command)
+				xa_run_command(archive[idx], "sh -c \"\"");
+
+			g_free(command);
+			g_free(unzipsfx_path);
 			g_free (archive_name);
 			g_free (archive_name_quoted);
 		}
@@ -1600,6 +1608,9 @@ end_zip:
 			}
 			if ( sfx_path != NULL)
 			{
+				xa_show_archive_status(archive[idx]);
+				process_gtk_events();
+
 				/* Load the 7zCon.sfx executable in memory ~ 500 KB; is it too much for 128 MB equipped PCs ? */
 				result = g_file_get_contents (sfx_path,&content,&length,&error);
 				if ( ! result)
@@ -1643,7 +1654,8 @@ end_zip:
 				g_chmod(archive_name, 0755);
 			}
 end_7zip:
-			g_free (sfx_path);
+			xa_run_command(archive[idx], "sh -c \"\"");
+			g_free(sfx_path);
 			g_free (archive_name);
 		}
 		break;
