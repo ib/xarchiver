@@ -598,11 +598,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
 			if (gtk_widget_is_sensitive(dialog_data->touch))
 				archive->do_touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
-			if (xa_main_window && gtk_widget_is_sensitive(dialog_data->extract_full))
+			if (gtk_widget_is_sensitive(dialog_data->extract_full))
 				archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full));
-			else
-				archive->do_full_path = archive->can_full_path[0];
-
 			if (gtk_widget_is_sensitive(dialog_data->fresh))
 				archive->do_freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
 			if (gtk_widget_is_sensitive(dialog_data->update))
