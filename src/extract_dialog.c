@@ -298,7 +298,7 @@ static void toggle_overwrite_update_freshen (GtkToggleButton *button, Extract_di
 Extract_dialog_data *xa_create_extract_dialog()
 {
 	GTK_COMPAT_TOOLTIPS;
-	GSList *radiobutton1_group;
+	GSList *radiobutton1_group, *radiobutton2_group;
 	Extract_dialog_data *dialog_data;
 	GtkWidget *hbox1, *hbox2, *hbox3, *vbox1, *vbox2, *vbox3, *vbox5, *alignment, *alignment1, *alignment2, *alignment3, *label1, *label2, *label3;
 	GtkWidget *frame1, *frame2;
@@ -377,6 +377,32 @@ Extract_dialog_data *xa_create_extract_dialog()
 	label2 = gtk_label_new (_("Files "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame1),label2);
 
+	frame1 = gtk_frame_new(_("File Paths "));
+	gtk_box_pack_start(GTK_BOX(vbox2), frame1, TRUE, TRUE, 0);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame1), GTK_SHADOW_OUT);
+
+	alignment1 = gtk_alignment_new(0.5, 0.5, 1, 1);
+	gtk_container_add(GTK_CONTAINER(frame1), alignment1);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment1), 0, 0, 12, 0);
+
+	vbox3 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(alignment1), vbox3);
+
+	dialog_data->full_paths_radio = gtk_radio_button_new_with_mnemonic(NULL, _("With full path"));
+	gtk_widget_set_tooltip_text(dialog_data->full_paths_radio, _("The archive's complete directory structure is recreated in the extraction directory"));
+	radiobutton2_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(dialog_data->full_paths_radio));
+	gtk_box_pack_start(GTK_BOX(vbox3), dialog_data->full_paths_radio, FALSE, FALSE, 0);
+
+	dialog_data->relative_paths_radio = gtk_radio_button_new_with_mnemonic(radiobutton2_group, _("Without parent path"));
+	gtk_widget_set_tooltip_text(dialog_data->relative_paths_radio, _("The archive's directory structure is recreated in the extraction directory, but with the parent directories of the selected files removed"));
+	radiobutton2_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(dialog_data->relative_paths_radio));
+	gtk_box_pack_start(GTK_BOX(vbox3), dialog_data->relative_paths_radio, FALSE, FALSE, 0);
+
+	dialog_data->no_paths_radio = gtk_radio_button_new_with_mnemonic(radiobutton2_group, _("Without any path"));
+	gtk_widget_set_tooltip_text(dialog_data->no_paths_radio, _("The archive's directory structure is not recreated; all files are placed in the extraction directory"));
+	radiobutton2_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(dialog_data->no_paths_radio));
+	gtk_box_pack_start(GTK_BOX(vbox3), dialog_data->no_paths_radio, FALSE, FALSE, 0);
+
 	frame2 = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (vbox2),frame2,TRUE,TRUE,0);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame2),GTK_SHADOW_OUT);
@@ -387,10 +413,6 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	vbox5 = gtk_vbox_new (FALSE,0);
 	gtk_container_add (GTK_CONTAINER (alignment2),vbox5);
-
-	dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
-	gtk_widget_set_tooltip_text(dialog_data->extract_full, _("The archive's directory structure is recreated in the extraction directory"));
-	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->extract_full,FALSE,FALSE,0);
 
 	dialog_data->touch = gtk_check_button_new_with_mnemonic (_("Touch files"));
 	gtk_widget_set_tooltip_text(dialog_data->touch, _("When this option is used, the modification times of the files will be the times of extraction instead of the times recorded in the archive"));
@@ -471,11 +493,15 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON (dialog_data->all_files_radio),TRUE);
 		}
 
-	gtk_widget_set_sensitive(dialog_data->extract_full, archive->can_full_path[0]);
+	gtk_widget_set_sensitive(dialog_data->full_paths_radio, archive->can_full_path[0]);
+	gtk_widget_set_sensitive(dialog_data->relative_paths_radio, archive->can_full_path[0]);
 	gtk_widget_set_sensitive(dialog_data->touch, archive->can_touch);
 	gtk_widget_set_sensitive(dialog_data->overwrite_check, archive->can_overwrite);
 	gtk_widget_set_sensitive(dialog_data->update, archive->can_update[0]);
 	gtk_widget_set_sensitive(dialog_data->fresh, archive->can_freshen[0]);
+
+	if (!archive->can_full_path[0])
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog_data->no_paths_radio), TRUE);
 
 	if (!archive->destination_path)
 	{
@@ -571,8 +597,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			if (gtk_widget_is_sensitive(dialog_data->ensure_directory) &&
 			    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->ensure_directory)))
 			{
-				if (!gtk_widget_is_sensitive(dialog_data->extract_full) ||
-				    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full)) ||
+				if (!gtk_widget_is_sensitive(dialog_data->full_paths_radio) ||
+				    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->full_paths_radio)) ||
 				    !xa_has_containing_directory(archive))
 				{
 					gchar *extraction_dir;
@@ -598,8 +624,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
 			if (gtk_widget_is_sensitive(dialog_data->touch))
 				archive->do_touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
-			if (gtk_widget_is_sensitive(dialog_data->extract_full))
-				archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full));
+			if (gtk_widget_is_sensitive(dialog_data->full_paths_radio))
+				archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->full_paths_radio));
 			if (gtk_widget_is_sensitive(dialog_data->fresh))
 				archive->do_freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
 			if (gtk_widget_is_sensitive(dialog_data->update))
