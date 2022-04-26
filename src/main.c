@@ -1151,6 +1151,7 @@ int main (int argc, char **argv)
 
 			archive->do_full_path = TRUE;
 			archive->do_overwrite = TRUE;
+			archive->do_touch = FALSE;
 			archive->extraction_dir = xa_escape_bad_chars(opt_extract_path, ESCAPES);
 			g_free(extraction_dir);
 

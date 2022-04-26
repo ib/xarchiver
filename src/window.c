@@ -419,6 +419,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		names = g_slist_append(names,old_name);
 
 		archive->do_overwrite = archive->do_full_path = TRUE;
+		archive->do_touch = FALSE;
 
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->archiver->extract) (archive,names);
@@ -737,6 +738,7 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 
 	archive->do_full_path = TRUE;
 	archive->do_overwrite = TRUE;
+	archive->do_touch = FALSE;
 
 	g_free(archive->extraction_dir);
 	archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);
@@ -2229,6 +2231,9 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 
 		archive->do_full_path = TRUE;
 		archive->do_overwrite = FALSE;
+		archive->do_update = FALSE;
+		archive->do_freshen = FALSE;
+		archive->do_touch = FALSE;
 
 		g_free(archive->extraction_dir);
 		archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
@@ -2823,6 +2828,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->do_overwrite = TRUE;
+	archive[idx]->do_touch = FALSE;
 	list_of_files = xa_slist_copy(list);
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
@@ -2884,6 +2890,7 @@ void xa_view_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	archive[idx]->extraction_dir = xa_escape_bad_chars(archive[idx]->working_dir, ESCAPES);
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->do_overwrite = TRUE;
+	archive[idx]->do_touch = FALSE;
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->archiver->extract) (archive[idx],list);
@@ -2931,6 +2938,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   	names = g_slist_append(names,item);
 	   	archive->do_full_path = FALSE;
 	   	archive->do_overwrite = TRUE;
+		archive->do_touch = FALSE;
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->archiver->extract) (archive,names);
 

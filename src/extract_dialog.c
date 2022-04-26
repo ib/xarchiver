@@ -244,6 +244,9 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 	archive = xa_init_archive_structure(xa);
 	dialog->archive = archive;
 	archive->do_overwrite = overwrite;
+	archive->do_update = FALSE;
+	archive->do_freshen = FALSE;
+	archive->do_touch = FALSE;
 	archive->do_full_path = full_path;
 	archive->path[0] = g_strdup(filename);
 	archive->path[1] = xa_escape_bad_chars(filename, ESCAPES);
