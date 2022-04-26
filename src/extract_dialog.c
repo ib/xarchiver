@@ -895,3 +895,68 @@ run:
 	dialog->nr=0;
 	gtk_list_store_clear(dialog->files_liststore);
 }
+
+void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean strip)
+{
+	gchar *extract_to, *extraction_dir, *command;
+
+	if (xa_main_window)
+	{
+		/* normal extraction if current location isn't inside a directory */
+		if (archive->location_path == NULL)
+			strip = FALSE;
+	}
+	else
+	{
+		/* normal extraction if there is no containing directory */
+		if (!xa_has_containing_directory(archive))
+			strip = FALSE;
+		else
+			archive->location_path = archive->root_entry->child->filename;
+	}
+
+	if (strip)
+	{
+		if (!xa_create_working_directory(archive))
+		{
+			xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't create directory!"), "");
+			return;
+		}
+
+		extract_to = g_strconcat(archive->working_dir, "/xa-tmp.XXXXXX", NULL);
+
+		if (!g_mkdtemp(extract_to))
+		{
+			xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't create directory!"), "");
+			g_free(extract_to);
+			return;
+		}
+
+		extraction_dir = g_shell_quote(archive->extraction_dir);
+		g_free(archive->extraction_dir);
+		archive->extraction_dir = xa_escape_bad_chars(extract_to, ESCAPES);
+	}
+
+	archive->status = XARCHIVESTATUS_EXTRACT;
+	(*archive->archiver->extract)(archive, list);
+
+	if (strip)
+	{
+		archive->child_dir = g_strconcat(extract_to, "/", archive->location_path, NULL);
+
+		command = g_strconcat("sh -c \"exec mv",
+		                      archive->do_overwrite ? " -f" : " -n",
+		                      archive->do_update ? " -fu" : "",
+		                      " -- `ls -A` ", extraction_dir, "\"", NULL);
+
+		archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
+		xa_run_command(archive, command);
+		g_free(command);
+
+		g_free(archive->child_dir);
+		archive->child_dir = NULL;
+
+		g_free(extraction_dir);
+		g_free(extract_to);
+	}
+}

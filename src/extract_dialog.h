@@ -42,6 +42,7 @@ typedef struct Multi_extract_data
 
 Extract_dialog_data *xa_create_extract_dialog();
 Multi_extract_data *xa_create_multi_extract_dialog();
+void xa_execute_extract_commands(XArchive *, GSList *, gboolean);
 void xa_multi_extract_dialog(Multi_extract_data *);
 void xa_multi_extract_dialog_add_file(gchar *, Multi_extract_data *);
 void xa_parse_extract_dialog_options(XArchive * , Extract_dialog_data *, GtkTreeSelection *);

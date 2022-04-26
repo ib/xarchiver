@@ -2245,8 +2245,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		g_free(archive->extraction_dir);
 		archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
 
-		archive->status = XARCHIVESTATUS_EXTRACT;
-		(*archive->archiver->extract)(archive, names);
+		xa_execute_extract_commands(archive, names, TRUE);
 
 		if (archive->status == XARCHIVESTATUS_IDLE)   // no error occurred
 			send = "S";
