@@ -116,18 +116,18 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_container_add (GTK_CONTAINER (add_dialog->frame1), alignment1);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment1), 0, 0, 20, 20);
 
-	add_dialog->label = gtk_label_new(_("File Paths: "));
+	add_dialog->label = gtk_label_new(_("File Paths "));
 	gtk_frame_set_label_widget(GTK_FRAME(add_dialog->frame1), add_dialog->label);
 
 	hbox1 = gtk_hbox_new (TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (alignment1), hbox1);
 
-	add_dialog->store_path = gtk_radio_button_new_with_mnemonic (NULL, _("Store full paths"));
+	add_dialog->store_path = gtk_radio_button_new_with_mnemonic(NULL, _("With full path"));
 	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->store_path, FALSE, FALSE, 0);
 	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(add_dialog->store_path));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->store_path), FALSE);
 
-	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic(group, _("Do not store paths"));
+	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic(group, _("Without parent path"));
 	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->no_store_path, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->no_store_path), FALSE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path),TRUE);
