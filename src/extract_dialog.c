@@ -552,7 +552,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dialog_data,GtkTreeSelection *selection)
 {
 	gchar *destination_path, *string;
-	gboolean done = FALSE;
+	gboolean strip, done = FALSE;
 	GSList *names = NULL;
 	GtkTreeModel *model;
 
@@ -644,8 +644,23 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
 			if (gtk_widget_is_sensitive(dialog_data->touch))
 				archive->do_touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
-			if (gtk_widget_is_sensitive(dialog_data->full_paths_radio))
-				archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->full_paths_radio));
+
+			if (gtk_widget_is_sensitive(dialog_data->full_paths_radio) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->full_paths_radio)))
+			{
+				archive->do_full_path = TRUE;
+				strip = FALSE;
+			}
+			else if (gtk_widget_is_sensitive(dialog_data->relative_paths_radio) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->relative_paths_radio)))
+			{
+				archive->do_full_path = TRUE;
+				strip = TRUE;
+			}
+			else
+			{
+				archive->do_full_path = FALSE;
+				strip = FALSE;
+			}
+
 			if (gtk_widget_is_sensitive(dialog_data->fresh))
 				archive->do_freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
 			if (gtk_widget_is_sensitive(dialog_data->update))
@@ -667,8 +682,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			if (xa_main_window)
 				xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 
-			archive->status = XARCHIVESTATUS_EXTRACT;
-			(*archive->archiver->extract)(archive,names);
+			xa_execute_extract_commands(archive, names, strip);
 		}
 	}
 	gtk_widget_hide (dialog_data->dialog1);
