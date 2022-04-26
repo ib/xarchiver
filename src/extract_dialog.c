@@ -329,7 +329,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_entry_set_activates_default(GTK_ENTRY(dialog_data->destination_path_entry), TRUE);
 
 	alignment = gtk_alignment_new(0.5, 0.5, 1, 1);
-	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 14, 0);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 14, 2);
 
 	dialog_data->ensure_directory = gtk_check_button_new_with_mnemonic(_("Ensure a containing directory"));
 	gtk_widget_set_tooltip_text(dialog_data->ensure_directory, _("Ensure that the contents of the extracted archive is always in a containing directory"));
@@ -348,7 +348,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	alignment1 = gtk_alignment_new (0.5,0.5,1,1);
 	gtk_container_add (GTK_CONTAINER (frame1),alignment1);
-	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment1), 0, 2, 12, 0);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment1), 0, 2, 12, 2);
 
 	vbox3 = gtk_vbox_new (FALSE,0);
 	gtk_container_add (GTK_CONTAINER (alignment1),vbox3);
@@ -409,7 +409,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	alignment2 = gtk_alignment_new (0.5,0.5,1,1);
 	gtk_container_add (GTK_CONTAINER (frame2),alignment2);
-	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment2), 0, 4, 12, 0);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment2), 0, 2, 12, 2);
 
 	vbox5 = gtk_vbox_new (FALSE,0);
 	gtk_container_add (GTK_CONTAINER (alignment2),vbox5);
