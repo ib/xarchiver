@@ -1260,6 +1260,12 @@ int main (int argc, char **argv)
 					files = g_slist_append(files, fname);
 				}
 
+				archive->do_full_path = FALSE;
+				archive->do_update = FALSE;
+				archive->do_freshen = FALSE;
+				archive->do_move = FALSE;
+				archive->do_solid = FALSE;
+
 				xa_execute_add_commands(archive, files, TRUE);
 			}
 		}

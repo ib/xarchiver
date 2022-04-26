@@ -454,6 +454,13 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		/* Add the renamed file to the archive */
 		file_list = g_slist_append(NULL, g_strdup(new_name));
 		archive->child_dir = g_strdup(archive->working_dir);
+
+		archive->do_full_path = TRUE;
+		archive->do_update = FALSE;
+		archive->do_freshen = FALSE;
+		archive->do_move = FALSE;
+		archive->do_solid = FALSE;
+
 		xa_execute_add_commands(archive, file_list, FALSE);
 	}
 done:
@@ -2348,8 +2355,13 @@ failed:
 			goto failed;
 		}
 
-		archive[idx]->do_full_path = FALSE;
 		archive[idx]->child_dir = g_path_get_dirname(list->data);
+
+		archive[idx]->do_full_path = FALSE;
+		archive[idx]->do_update = FALSE;
+		archive[idx]->do_freshen = FALSE;
+		archive[idx]->do_move = FALSE;
+		archive[idx]->do_solid = FALSE;
 
 		xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
 	}
@@ -2735,8 +2747,13 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 		archive[idx]->location_path = xa_build_full_path_name_from_entry(XA_Clipboard.target);
 	}
 
-	archive[idx]->do_full_path = FALSE;
 	archive[idx]->child_dir = g_path_get_dirname(XA_Clipboard.paths->data);
+
+	archive[idx]->do_full_path = FALSE;
+	archive[idx]->do_update = FALSE;
+	archive[idx]->do_freshen = FALSE;
+	archive[idx]->do_move = FALSE;
+	archive[idx]->do_solid = FALSE;
 
 	xa_execute_add_commands(archive[idx], XA_Clipboard.paths, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
 
