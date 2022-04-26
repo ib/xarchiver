@@ -77,6 +77,20 @@ static void xa_toggle_all_files_radio (GtkToggleButton *button, Extract_dialog_d
 	gtk_widget_set_sensitive(dialog->ensure_directory, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->all_files_radio)));
 }
 
+static void xa_toggle_relative_paths_radio (GtkToggleButton *button, Extract_dialog_data *dialog)
+{
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->relative_paths_radio)))
+	{
+		gtk_widget_set_sensitive(dialog->touch, FALSE);
+		gtk_widget_set_sensitive(dialog->fresh, FALSE);
+	}
+	else
+	{
+		gtk_widget_set_sensitive(dialog->touch, dialog->archive->can_touch);
+		gtk_widget_set_sensitive(dialog->fresh, dialog->archive->can_freshen[0]);
+	}
+}
+
 static void xa_activate_entry (GtkToggleButton *button, Extract_dialog_data *dialog)
 {
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(dialog->files_radio)))
@@ -397,6 +411,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_widget_set_tooltip_text(dialog_data->relative_paths_radio, _("The archive's directory structure is recreated in the extraction directory, but with the parent directories of the selected files removed"));
 	radiobutton2_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(dialog_data->relative_paths_radio));
 	gtk_box_pack_start(GTK_BOX(vbox3), dialog_data->relative_paths_radio, FALSE, FALSE, 0);
+	g_signal_connect(dialog_data->relative_paths_radio, "toggled", G_CALLBACK(xa_toggle_relative_paths_radio), dialog_data);
 
 	dialog_data->no_paths_radio = gtk_radio_button_new_with_mnemonic(radiobutton2_group, _("Without any path"));
 	gtk_widget_set_tooltip_text(dialog_data->no_paths_radio, _("The archive's directory structure is not recreated; all files are placed in the extraction directory"));
@@ -503,6 +518,9 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	if (!archive->can_full_path[0])
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog_data->no_paths_radio), TRUE);
 
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->relative_paths_radio)))
+		xa_toggle_relative_paths_radio(NULL, dialog_data);
+
 	if (!archive->destination_path)
 	{
 		gchar *archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
@@ -525,6 +543,8 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 
 	gtk_widget_set_sensitive(label_password, archive->has_password);
 	gtk_widget_set_sensitive(dialog_data->password_entry, archive->has_password);
+
+	dialog_data->archive = archive;
 
 	gtk_widget_show_all(dialog_data->dialog1);
 }
