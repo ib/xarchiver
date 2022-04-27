@@ -116,7 +116,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_container_add (GTK_CONTAINER (add_dialog->frame1), alignment1);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment1), 0, 0, 20, 20);
 
-	add_dialog->label = gtk_label_new(_("File Paths "));
+	add_dialog->label = gtk_label_new(_("File Paths"));
 	gtk_frame_set_label_widget(GTK_FRAME(add_dialog->frame1), add_dialog->label);
 
 	hbox1 = gtk_hbox_new (TRUE, 0);
@@ -179,7 +179,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_widget_set_tooltip_text(add_dialog->solid_archive, _("In a solid archive the files are grouped together resulting in a better compression ratio"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->solid_archive, FALSE, FALSE, 0);
 
-	label7 = gtk_label_new (_("Actions: "));
+	label7 = gtk_label_new(_("Actions"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame4), label7);
 
 	hbox3 = gtk_hbox_new (TRUE, 10);
@@ -213,7 +213,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_table_attach(GTK_TABLE(table), add_dialog->uncompressed_button, 0, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 24);
 	g_signal_connect(G_OBJECT(add_dialog->uncompressed_button), "toggled", G_CALLBACK(toggle_compression), add_dialog);
 
-	label4 = gtk_label_new (_("Compression: "));
+	label4 = gtk_label_new(_("Compression"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame2), label4);
 
 	frame3 = gtk_frame_new (NULL);
@@ -238,7 +238,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
 	gtk_entry_set_activates_default(GTK_ENTRY(add_dialog->add_password_entry), TRUE);
 
-	label5 = gtk_label_new (_("Encryption: "));
+	label5 = gtk_label_new(_("Encryption"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame3), label5);
 
 	add_dialog->cancel_button = gtk_button_new_from_stock ("gtk-cancel");

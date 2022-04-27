@@ -388,10 +388,10 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_widget_set_sensitive(dialog_data->entry2,FALSE);
 	g_signal_connect (G_OBJECT (dialog_data->files_radio),"toggled",G_CALLBACK(xa_activate_entry),dialog_data);
 
-	label2 = gtk_label_new (_("Files "));
+	label2 = gtk_label_new(_("Files"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame1),label2);
 
-	frame1 = gtk_frame_new(_("File Paths "));
+	frame1 = gtk_frame_new(_("File Paths"));
 	gtk_box_pack_start(GTK_BOX(vbox2), frame1, TRUE, TRUE, 0);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame1), GTK_SHADOW_OUT);
 
@@ -447,7 +447,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->fresh,FALSE,FALSE,0);
 	g_signal_connect(G_OBJECT(dialog_data->fresh), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
 
-	label3 = gtk_label_new (_("Options "));
+	label3 = gtk_label_new(_("Options"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame2),label3);
 
 	hbox3 = gtk_hbox_new(FALSE, 4);
@@ -784,7 +784,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Extract to dir \"Archive Name\""));
 	gtk_widget_set_tooltip_text(dialog_data->extract_to_archive_name, _("This option extracts archives in directories named with the archive names"));
 	gtk_box_pack_start (GTK_BOX (vbox2),dialog_data->extract_to_archive_name,FALSE,FALSE,0);
-	label1 = gtk_label_new (_("Destination dirs:"));
+	label1 = gtk_label_new(_("Destination dirs"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame1),label1);
 
 	/* Option frame */
@@ -801,7 +801,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	dialog_data->full_path = gtk_check_button_new_with_mnemonic (_("Extract pathnames"));
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->full_path,FALSE,FALSE,0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->full_path), TRUE);
-	label2 = gtk_label_new (_("Options:"));
+	label2 = gtk_label_new(_("Options"));
 	gtk_frame_set_label_widget(GTK_FRAME(frame2),label2);
 
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
