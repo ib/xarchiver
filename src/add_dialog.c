@@ -154,7 +154,7 @@ Add_dialog_data *xa_create_add_dialog()
 	vbox3 = gtk_vbox_new (TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (alignment4),vbox3);
 
-	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update and add"));
+	add_dialog->update = gtk_check_button_new_with_mnemonic(_("Update existing files and add new ones"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->update, _("This option will add any new files and update any files which are already in the archive but older there"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
