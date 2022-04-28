@@ -442,7 +442,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->update,FALSE,FALSE,0);
 	g_signal_connect(G_OBJECT(dialog_data->update), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
 
-	dialog_data->fresh = gtk_check_button_new_with_mnemonic (_("Freshen existing files"));
+	dialog_data->fresh = gtk_check_button_new_with_mnemonic(_("Freshen existing files only"));
 	gtk_widget_set_tooltip_text(dialog_data->fresh, _("Extract only those files that already exist on disk and that are newer than the disk copies"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->fresh,FALSE,FALSE,0);
 	g_signal_connect(G_OBJECT(dialog_data->fresh), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);

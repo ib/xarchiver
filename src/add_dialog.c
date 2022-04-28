@@ -159,7 +159,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_widget_set_tooltip_text(add_dialog->update, _("This option will add any new files and update any files which are already in the archive but older there"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
 
-	add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen and replace"));
+	add_dialog->freshen = gtk_check_button_new_with_mnemonic(_("Freshen existing files only"));
 
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->freshen), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->freshen, _("This option will only add files which are already in the archive but older there; unlike the update option it will not add any new files"));
