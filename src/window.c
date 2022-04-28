@@ -2603,6 +2603,7 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 	GtkTreeSelection *selection;
 	gint selected;
 	gboolean pasteable, replaceable;
+	struct stat st;
 	gchar *file;
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
@@ -2651,9 +2652,14 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 
 			if (XA_Clipboard.mode == XA_CLIPBOARD_EDIT)
 			{
+				replaceable = (stat(XA_Clipboard.paths->data, &st) == 0 && (st.st_mtim.tv_sec > XA_Clipboard.mtime.tv_sec || (st.st_mtim.tv_sec == XA_Clipboard.mtime.tv_sec && st.st_mtim.tv_nsec > XA_Clipboard.mtime.tv_nsec)));
+
+				if (replaceable)
+				{
 				file = xa_build_full_path_name_from_entry(entry);
 				replaceable = (strcmp(file, XA_Clipboard.files->data) == 0 && archive == XA_Clipboard.archive);
 				g_free(file);
+				}
 			}
 			else
 				replaceable = FALSE;
@@ -2708,6 +2714,7 @@ void xa_clipboard_copy (GtkMenuItem *item, gpointer user_data)
 void xa_clipboard_edit (GtkMenuItem *item, gpointer user_data)
 {
 	gint idx;
+	struct stat st;
 	gchar *basename, *basename_utf8;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
@@ -2719,6 +2726,9 @@ void xa_clipboard_edit (GtkMenuItem *item, gpointer user_data)
 
 	if (archive[idx]->status == XARCHIVESTATUS_IDLE)
 	{
+		stat(XA_Clipboard.paths->data, &st);
+		XA_Clipboard.mtime = st.st_mtim;
+
 		basename = g_path_get_basename(XA_Clipboard.paths->data);
 		basename_utf8 = g_filename_display_name(basename);
 
@@ -2759,11 +2769,20 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
 
-	if (XA_Clipboard.mode == XA_CLIPBOARD_CUT)
+	switch (XA_Clipboard.mode)
 	{
+		case XA_CLIPBOARD_CUT:
 		XA_Clipboard.archive->status = XARCHIVESTATUS_DELETE;
 		(*XA_Clipboard.archive->archiver->delete)(XA_Clipboard.archive, xa_slist_copy(XA_Clipboard.files));
 		xa_reload_archive_content(XA_Clipboard.archive);
+			break;
+
+		case XA_CLIPBOARD_EDIT:
+			xa_clipboard_clear();
+			break;
+
+		default:
+			break;
 	}
 }
 
@@ -2778,6 +2797,7 @@ void xa_clipboard_clear ()
 	XA_Clipboard.target = NULL;
 	XA_Clipboard.paths = NULL;
 	XA_Clipboard.files = NULL;
+	XA_Clipboard.mtime = (struct timespec) {0};
 	XA_Clipboard.archive = NULL;
 }
 

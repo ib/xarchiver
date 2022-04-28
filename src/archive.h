@@ -229,6 +229,7 @@ typedef struct
 	XEntry *target;
 	GSList *paths;
 	GSList *files;
+	struct timespec mtime;
 	XArchive *archive;
 } XAClipboard;
 
