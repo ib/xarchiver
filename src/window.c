@@ -2749,7 +2749,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	archive[idx]->child_dir = g_path_get_dirname(XA_Clipboard.paths->data);
 
 	archive[idx]->do_full_path = FALSE;
-	archive[idx]->do_update = FALSE;
+	archive[idx]->do_update = (XA_Clipboard.mode == XA_CLIPBOARD_EDIT);
 	archive[idx]->do_freshen = FALSE;
 	archive[idx]->do_move = FALSE;
 	archive[idx]->do_solid = FALSE;
