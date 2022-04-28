@@ -782,7 +782,6 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_entry_set_activates_default(GTK_ENTRY(dialog_data->entry1), TRUE);
 
 	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Extract to directories with archive names"));
-	gtk_widget_set_tooltip_text(dialog_data->extract_to_archive_name, _("This option extracts archives in directories named with the archive names"));
 	gtk_box_pack_start (GTK_BOX (vbox2),dialog_data->extract_to_archive_name,FALSE,FALSE,0);
 	label1 = gtk_label_new(_("Destination"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame1),label1);
