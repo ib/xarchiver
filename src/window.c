@@ -2656,9 +2656,9 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 
 				if (replaceable)
 				{
-				file = xa_build_full_path_name_from_entry(entry);
-				replaceable = (strcmp(file, XA_Clipboard.files->data) == 0 && archive == XA_Clipboard.archive);
-				g_free(file);
+					file = xa_build_full_path_name_from_entry(entry);
+					replaceable = (strcmp(file, XA_Clipboard.files->data) == 0 && archive == XA_Clipboard.archive);
+					g_free(file);
 				}
 			}
 			else
@@ -2772,9 +2772,9 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	switch (XA_Clipboard.mode)
 	{
 		case XA_CLIPBOARD_CUT:
-		XA_Clipboard.archive->status = XARCHIVESTATUS_DELETE;
-		(*XA_Clipboard.archive->archiver->delete)(XA_Clipboard.archive, xa_slist_copy(XA_Clipboard.files));
-		xa_reload_archive_content(XA_Clipboard.archive);
+			XA_Clipboard.archive->status = XARCHIVESTATUS_DELETE;
+			(*XA_Clipboard.archive->archiver->delete)(XA_Clipboard.archive, xa_slist_copy(XA_Clipboard.files));
+			xa_reload_archive_content(XA_Clipboard.archive);
 			break;
 
 		case XA_CLIPBOARD_EDIT:
