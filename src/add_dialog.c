@@ -28,6 +28,11 @@
 
 static GTK_COMPAT_ADJUSTMENT_TYPE compression_value;
 
+static gboolean no_focus (GtkWidget *widget, GtkDirectionType direction, gpointer user_data)
+{
+	return TRUE;
+}
+
 static void toggle_overwrite_update_freshen (GtkToggleButton *button, Add_dialog_data *data)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
@@ -160,6 +165,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->overwrite), FALSE);
 	gtk_box_pack_start(GTK_BOX(vbox3), add_dialog->overwrite, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(add_dialog->overwrite), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), add_dialog);
+	g_signal_connect(G_OBJECT(add_dialog->overwrite), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->update = gtk_check_button_new_with_mnemonic(_("Update existing files and add new ones"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
