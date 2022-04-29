@@ -596,7 +596,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list)
 	password_str = xa_rar_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      version_switch,
-	                      archive->do_update ? " u" : (archive->do_freshen ? " -f" : " a"),
+	                      archive->do_update ? " u" : (archive->do_freshen ? " u -f" : " a"),
 	                      archive->do_move ? " -df" : "",
 	                      archive->do_solid ? " -s" : "",
 	                      " -m", compression,
