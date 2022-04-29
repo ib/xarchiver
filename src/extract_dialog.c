@@ -346,6 +346,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 14, 2);
 
 	dialog_data->ensure_directory = gtk_check_button_new_with_mnemonic(_("Ensure a containing directory"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->ensure_directory), FALSE);
 	gtk_widget_set_tooltip_text(dialog_data->ensure_directory, _("Ensure that the contents of the extracted archive is always in a containing directory"));
 	gtk_container_add(GTK_CONTAINER(alignment), dialog_data->ensure_directory);
 	gtk_box_pack_start(GTK_BOX(vbox1), alignment, FALSE, FALSE, 0);
@@ -368,11 +369,13 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_container_add (GTK_CONTAINER (alignment1),vbox3);
 
 	dialog_data->all_files_radio = gtk_radio_button_new_with_mnemonic (NULL,_("All files"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->all_files_radio), FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->all_files_radio,FALSE,FALSE,0);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->all_files_radio));
 	g_signal_connect(dialog_data->all_files_radio, "toggled", G_CALLBACK(xa_toggle_all_files_radio), dialog_data);
 
 	dialog_data->selected_radio = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Selected files"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->selected_radio), FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->selected_radio,FALSE,FALSE,0);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->selected_radio));
 
@@ -380,6 +383,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox3),hbox2,FALSE,FALSE,0);
 
 	dialog_data->files_radio = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Files: "));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->files_radio), FALSE);
 	gtk_box_pack_start (GTK_BOX (hbox2),dialog_data->files_radio,FALSE,FALSE,0);
 
 	dialog_data->entry2 = gtk_entry_new ();
@@ -403,17 +407,20 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_container_add(GTK_CONTAINER(alignment1), vbox3);
 
 	dialog_data->full_paths_radio = gtk_radio_button_new_with_mnemonic(NULL, _("With full path"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->full_paths_radio), FALSE);
 	gtk_widget_set_tooltip_text(dialog_data->full_paths_radio, _("The archive's complete directory structure is recreated in the extraction directory"));
 	radiobutton2_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(dialog_data->full_paths_radio));
 	gtk_box_pack_start(GTK_BOX(vbox3), dialog_data->full_paths_radio, FALSE, FALSE, 0);
 
 	dialog_data->relative_paths_radio = gtk_radio_button_new_with_mnemonic(radiobutton2_group, _("Without parent path"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->relative_paths_radio), FALSE);
 	gtk_widget_set_tooltip_text(dialog_data->relative_paths_radio, _("The archive's directory structure is recreated in the extraction directory, but with the parent directories of the selected files removed"));
 	radiobutton2_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(dialog_data->relative_paths_radio));
 	gtk_box_pack_start(GTK_BOX(vbox3), dialog_data->relative_paths_radio, FALSE, FALSE, 0);
 	g_signal_connect(dialog_data->relative_paths_radio, "toggled", G_CALLBACK(xa_toggle_relative_paths_radio), dialog_data);
 
 	dialog_data->no_paths_radio = gtk_radio_button_new_with_mnemonic(radiobutton2_group, _("Without any path"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->no_paths_radio), FALSE);
 	gtk_widget_set_tooltip_text(dialog_data->no_paths_radio, _("The archive's directory structure is not recreated; all files are placed in the extraction directory"));
 	radiobutton2_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(dialog_data->no_paths_radio));
 	gtk_box_pack_start(GTK_BOX(vbox3), dialog_data->no_paths_radio, FALSE, FALSE, 0);
@@ -430,19 +437,23 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_container_add (GTK_CONTAINER (alignment2),vbox5);
 
 	dialog_data->touch = gtk_check_button_new_with_mnemonic (_("Touch files"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->touch), FALSE);
 	gtk_widget_set_tooltip_text(dialog_data->touch, _("When this option is used, the modification times of the files will be the times of extraction instead of the times recorded in the archive"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->touch,FALSE,FALSE,0);
 
 	dialog_data->overwrite_check = gtk_check_button_new_with_mnemonic (_("Overwrite existing files"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->overwrite_check), FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->overwrite_check,FALSE,FALSE,0);
 	g_signal_connect(G_OBJECT(dialog_data->overwrite_check), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
 
 	dialog_data->update = gtk_check_button_new_with_mnemonic (_("Update existing files"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->update), FALSE);
 	gtk_widget_set_tooltip_text(dialog_data->update, _("This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->update,FALSE,FALSE,0);
 	g_signal_connect(G_OBJECT(dialog_data->update), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
 
 	dialog_data->fresh = gtk_check_button_new_with_mnemonic(_("Freshen existing files only"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->fresh), FALSE);
 	gtk_widget_set_tooltip_text(dialog_data->fresh, _("Extract only those files that already exist on disk and that are newer than the disk copies"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->fresh,FALSE,FALSE,0);
 	g_signal_connect(G_OBJECT(dialog_data->fresh), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
@@ -777,6 +788,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	hbox3 = gtk_hbox_new (FALSE,2);
 	gtk_box_pack_start (GTK_BOX (vbox2),hbox3,FALSE,FALSE,0);
 	dialog_data->extract_to = gtk_radio_button_new_with_mnemonic (NULL,_("Extract to:"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->extract_to), FALSE);
 	gtk_box_pack_start (GTK_BOX (hbox3),dialog_data->extract_to,FALSE,FALSE,0);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->extract_to));
 
@@ -786,6 +798,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_entry_set_activates_default(GTK_ENTRY(dialog_data->entry1), TRUE);
 
 	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Extract to directories with archive names"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->extract_to_archive_name), FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox2),dialog_data->extract_to_archive_name,FALSE,FALSE,0);
 	label1 = gtk_label_new(_("Destination"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame1),label1);
@@ -800,8 +813,10 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	vbox3 = gtk_vbox_new (TRUE,0);
 	gtk_container_add (GTK_CONTAINER (alignment2),vbox3);
 	dialog_data->overwrite = gtk_check_button_new_with_mnemonic (_("Overwrite existing files"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->overwrite), FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->overwrite,FALSE,FALSE,0);
 	dialog_data->full_path = gtk_check_button_new_with_mnemonic(_("Extract with full path"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->full_path), FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->full_path,FALSE,FALSE,0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->full_path), TRUE);
 	label2 = gtk_label_new(_("Options"));

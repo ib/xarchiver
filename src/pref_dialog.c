@@ -369,6 +369,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	                 GTK_FILL, GTK_FILL,0, 0);
 
 	prefs_data->allow_sub_dir = gtk_check_button_new_with_mnemonic (_("Allow subdirs with clipboard and drag-and-drop"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_data->allow_sub_dir), FALSE);
 	children = gtk_container_get_children(GTK_CONTAINER(prefs_data->allow_sub_dir));
 	gtk_label_set_line_wrap(GTK_LABEL(children->data), TRUE);
 	g_list_free(children);

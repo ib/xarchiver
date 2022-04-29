@@ -216,6 +216,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_table_attach(GTK_TABLE(table), add_dialog->label_best, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 
 	add_dialog->uncompressed_button = gtk_check_button_new_with_label(_("No compression"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->uncompressed_button), FALSE);
 	gtk_button_set_alignment(GTK_BUTTON(add_dialog->uncompressed_button), 0.5, 1);
 	gtk_table_attach(GTK_TABLE(table), add_dialog->uncompressed_button, 0, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 24);
 	g_signal_connect(G_OBJECT(add_dialog->uncompressed_button), "toggled", G_CALLBACK(toggle_compression), add_dialog);
@@ -235,6 +236,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_container_add (GTK_CONTAINER (alignment3), hbox4);
 
 	add_dialog->add_password = gtk_check_button_new_with_mnemonic (_("Password:"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->add_password), FALSE);
 	gtk_box_pack_start (GTK_BOX (hbox4), add_dialog->add_password, FALSE, FALSE, 0);
 	g_signal_connect (G_OBJECT (add_dialog->add_password), "toggled",G_CALLBACK (password_toggled_cb) , add_dialog);
 
