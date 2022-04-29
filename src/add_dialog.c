@@ -28,11 +28,21 @@
 
 static GTK_COMPAT_ADJUSTMENT_TYPE compression_value;
 
-static void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_data *data)
+static void toggle_overwrite_update_freshen (GtkToggleButton *button, Add_dialog_data *data)
 {
-	gboolean active = gtk_toggle_button_get_active (button);
+	gboolean active = gtk_toggle_button_get_active(button);
+
 	if (active)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update), FALSE);
+	{
+		if (button != GTK_TOGGLE_BUTTON(data->overwrite))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->overwrite), FALSE);
+
+		if (button != GTK_TOGGLE_BUTTON(data->update))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->update), FALSE);
+
+		if (button != GTK_TOGGLE_BUTTON(data->freshen))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->freshen), FALSE);
+	}
 }
 
 static void password_toggled_cb (GtkToggleButton *button, Add_dialog_data *add_dialog)
@@ -44,15 +54,6 @@ static void password_toggled_cb (GtkToggleButton *button, Add_dialog_data *add_d
 	}
 	else
 		gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
-}
-
-static void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data)
-{
-	if (data->freshen == NULL)
-		return;
-	gboolean active = gtk_toggle_button_get_active (button);
-	if (active)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->freshen), FALSE);
 }
 
 static void toggle_compression (GtkToggleButton *button, Add_dialog_data *add_dialog)
@@ -157,18 +158,20 @@ Add_dialog_data *xa_create_add_dialog()
 	add_dialog->overwrite = gtk_check_button_new_with_mnemonic(_("Overwrite existing files"));
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->overwrite), FALSE);
 	gtk_box_pack_start(GTK_BOX(vbox3), add_dialog->overwrite, FALSE, FALSE, 0);
+	g_signal_connect(G_OBJECT(add_dialog->overwrite), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), add_dialog);
 
 	add_dialog->update = gtk_check_button_new_with_mnemonic(_("Update existing files and add new ones"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->update, _("This option will add any new files and update any files which are already in the archive but older there"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
+	g_signal_connect(G_OBJECT(add_dialog->update), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), add_dialog);
 
 	add_dialog->freshen = gtk_check_button_new_with_mnemonic(_("Freshen existing files only"));
 
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->freshen), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->freshen, _("This option will only add files which are already in the archive but older there; unlike the update option it will not add any new files"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->freshen, FALSE, FALSE, 0);
-	g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
+	g_signal_connect(G_OBJECT(add_dialog->freshen), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), add_dialog);
 
 	add_dialog->recurse = gtk_check_button_new_with_mnemonic (_("Include subdirectories"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->recurse), FALSE);
@@ -296,9 +299,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 
 	gtk_widget_set_sensitive(add_dialog->label, full_path);
 	gtk_widget_set_sensitive(add_dialog->store_path, full_path);
-
-	g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
-
 	gtk_widget_set_sensitive(add_dialog->update, archive->can_update[1]);
 	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen[1]);
 	gtk_widget_set_sensitive(add_dialog->recurse, TRUE);
