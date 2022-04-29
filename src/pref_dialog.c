@@ -100,6 +100,7 @@ static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory), TRUE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->full_paths_radio), TRUE);
 	/* Set the default options in the add dialog */
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_window->update), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_window->recurse),TRUE);
 }
 
@@ -720,6 +721,11 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->store_path),g_key_file_get_boolean(xa_key_file,PACKAGE,"store_path",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->update),g_key_file_get_boolean(xa_key_file,PACKAGE,"updadd",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->freshen),g_key_file_get_boolean(xa_key_file,PACKAGE,"freshen",NULL));
+
+		/* set default setting with existing, old config file */
+		if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_window->update)) && !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_window->freshen)))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_window->overwrite), TRUE);
+
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->recurse),g_key_file_get_boolean(xa_key_file,PACKAGE,"recurse",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->solid_archive),g_key_file_get_boolean(xa_key_file,PACKAGE,"solid_archive",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->remove_files),g_key_file_get_boolean(xa_key_file,PACKAGE,"remove_files",NULL));
