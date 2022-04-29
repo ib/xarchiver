@@ -179,6 +179,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 	gtk_box_pack_start (GTK_BOX (hbox),gtk_label_new (_("Archive type:")),FALSE,FALSE,0);
 
 	combo_box = gtk_combo_box_text_new();
+	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(combo_box), FALSE);
 
 	gtk_widget_set_tooltip_text(combo_box, _("Choose the archive type to create"));
 	xa_combo_box_text_append_compressor_types(GTK_COMBO_BOX_TEXT(combo_box));
