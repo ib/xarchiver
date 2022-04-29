@@ -133,11 +133,13 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->store_path, FALSE, FALSE, 0);
 	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(add_dialog->store_path));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->store_path), FALSE);
+	g_signal_connect(G_OBJECT(add_dialog->store_path), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic(group, _("Without parent path"));
 	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->no_store_path, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->no_store_path), FALSE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path),TRUE);
+	g_signal_connect(G_OBJECT(add_dialog->no_store_path), "focus", G_CALLBACK(no_focus), NULL);
 
 	/* Options page */
 	add_dialog->option_notebook_vbox = gtk_vbox_new (FALSE, 0);
