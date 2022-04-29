@@ -466,8 +466,7 @@ void xa_7zip_add (XArchive *archive, GSList *file_list)
 	password_str = xa_7zip_password_str(archive);
 	solid = g_strconcat(" -ms=", archive->do_solid ? "on" : "off", NULL);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->do_update ? " u" : " a",
-	                      archive->do_freshen ? " -ur0w0x1z1" : "",
+	                      archive->do_update ? " u" : (archive->do_freshen ? " -ur0w0x1z1" : " a"),
 	                      archive->do_move ? " -sdel" : "",
 	                      archive->type == XARCHIVETYPE_7ZIP ? solid : "",
 	                      " -mx=", compression,

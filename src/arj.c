@@ -334,8 +334,7 @@ void xa_arj_add (XArchive *archive, GSList *file_list)
 	files = xa_quote_filenames(file_list, "*?[]", FALSE);
 	password_str = xa_arj_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->do_update ? " u" : " a",
-	                      archive->do_freshen ? " -f" : "",
+	                      archive->do_update ? " u" : (archive->do_freshen ? " -f" : " a"),
 	                      archive->do_move ? " -d1" : "",
 	                      " -m", compression,
 	                      password_str, " -2d -i -y ",
