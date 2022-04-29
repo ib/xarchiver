@@ -521,6 +521,10 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->relative_paths_radio)))
 		xa_toggle_relative_paths_radio(NULL, dialog_data);
 
+	if ((!gtk_widget_is_sensitive(dialog_data->update) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update))) ||
+	    (!gtk_widget_is_sensitive(dialog_data->fresh) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh))))
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check), TRUE);
+
 	if (!archive->destination_path)
 	{
 		gchar *archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
