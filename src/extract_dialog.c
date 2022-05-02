@@ -330,7 +330,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	dialog_data->dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(dialog_data->dialog1));
 
 	vbox1 = gtk_vbox_new (FALSE,2);
-	gtk_container_add(GTK_CONTAINER(dialog_data->dialog_vbox1), vbox1);
+	gtk_box_pack_start(GTK_BOX(dialog_data->dialog_vbox1), vbox1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox1),2);
 
 	label1 = gtk_label_new (_("Extract to:"));
@@ -365,7 +365,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_container_add (GTK_CONTAINER (frame1),alignment1);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment1), 0, 2, 12, 2);
 
-	vbox3 = gtk_vbox_new (FALSE,0);
+	vbox3 = gtk_vbox_new(TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (alignment1),vbox3);
 
 	dialog_data->all_files_radio = gtk_radio_button_new_with_mnemonic (NULL,_("All files"));
@@ -403,7 +403,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_container_add(GTK_CONTAINER(frame1), alignment1);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment1), 0, 0, 12, 0);
 
-	vbox3 = gtk_vbox_new(FALSE, 0);
+	vbox3 = gtk_vbox_new(TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(alignment1), vbox3);
 
 	dialog_data->full_paths_radio = gtk_radio_button_new_with_mnemonic(NULL, _("With full path"));
@@ -433,7 +433,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_container_add (GTK_CONTAINER (frame2),alignment2);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment2), 0, 2, 12, 2);
 
-	vbox5 = gtk_vbox_new (FALSE,0);
+	vbox5 = gtk_vbox_new(TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (alignment2),vbox5);
 
 	dialog_data->touch = gtk_check_button_new_with_mnemonic (_("Touch files"));
@@ -462,7 +462,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_frame_set_label_widget (GTK_FRAME (frame2),label3);
 
 	hbox3 = gtk_hbox_new(FALSE, 4);
-	gtk_box_pack_start (GTK_BOX (vbox5),hbox3,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(vbox5), hbox3, FALSE, FALSE, 0);
 
 	label_password = gtk_label_new (_("Password:"));
 	gtk_box_pack_start (GTK_BOX (hbox3),label_password,FALSE,FALSE,0);
