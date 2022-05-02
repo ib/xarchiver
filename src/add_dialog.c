@@ -116,7 +116,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->filechooserwidget1, TRUE, TRUE,2);
 
 	add_dialog->frame1 = gtk_frame_new (NULL);
-	gtk_box_pack_start(GTK_BOX(vbox1), add_dialog->frame1, FALSE, TRUE, 4);
+	gtk_box_pack_start(GTK_BOX(vbox1), add_dialog->frame1, FALSE, FALSE, 4);
 	gtk_container_set_border_width(GTK_CONTAINER(add_dialog->frame1), 4);
 
 	alignment1 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -270,8 +270,8 @@ Add_dialog_data *xa_create_add_dialog()
 	alignment2 = gtk_alignment_new (0.5, 0.5, 0, 0);
 	gtk_container_add (GTK_CONTAINER (alignment2), add_dialog->add_hbox);
 
-	gtk_box_pack_start(GTK_BOX(add_dialog->add_hbox), add_dialog->add_image, FALSE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(add_dialog->add_hbox), add_dialog->add_label, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(add_dialog->add_hbox), add_dialog->add_image, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(add_dialog->add_hbox), add_dialog->add_label, FALSE, FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(add_dialog->add_button), alignment2);
 
 	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->add_button, GTK_RESPONSE_OK);
