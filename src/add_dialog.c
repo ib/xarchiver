@@ -116,12 +116,12 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->filechooserwidget1, TRUE, TRUE,2);
 
 	add_dialog->frame1 = gtk_frame_new (NULL);
-	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->frame1, FALSE, TRUE,5);
-	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->frame1),5);
+	gtk_box_pack_start(GTK_BOX(vbox1), add_dialog->frame1, FALSE, TRUE, 4);
+	gtk_container_set_border_width(GTK_CONTAINER(add_dialog->frame1), 4);
 
 	alignment1 = gtk_alignment_new (0.5, 0.5, 1, 1);
 	gtk_container_add (GTK_CONTAINER (add_dialog->frame1), alignment1);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment1), 0, 0, 20, 20);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment1), 0, 6, 48, 48);
 
 	add_dialog->label = gtk_label_new(_("File Paths"));
 	gtk_frame_set_label_widget(GTK_FRAME(add_dialog->frame1), add_dialog->label);
@@ -150,7 +150,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	hbox2 = gtk_hbox_new (TRUE, 10);
 	gtk_box_pack_start (GTK_BOX (add_dialog->option_notebook_vbox), hbox2, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (hbox2), 5);
+	gtk_container_set_border_width(GTK_CONTAINER(hbox2), 6);
 
 	frame4 = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (hbox2), frame4, TRUE, TRUE, 0);
@@ -198,9 +198,9 @@ Add_dialog_data *xa_create_add_dialog()
 	label7 = gtk_label_new(_("Actions"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame4), label7);
 
-	hbox3 = gtk_hbox_new (TRUE, 10);
+	hbox3 = gtk_hbox_new(TRUE, 8);
 	gtk_box_pack_start (GTK_BOX (add_dialog->option_notebook_vbox), hbox3, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (hbox3), 5);
+	gtk_container_set_border_width(GTK_CONTAINER(hbox3), 6);
 
 	frame2 = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (hbox3), frame2, TRUE, TRUE, 0);
@@ -211,7 +211,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->alignment2 = gtk_alignment_new(0.5, 1, 1, 0);
 	gtk_container_add(GTK_CONTAINER(vbox2), add_dialog->alignment2);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (add_dialog->alignment2), 0, 0, 5, 5);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(add_dialog->alignment2), 0, 0, 12, 12);
 
 	table = gtk_table_new(2, 2, FALSE);
 	gtk_container_add(GTK_CONTAINER(vbox2), table);
@@ -239,9 +239,9 @@ Add_dialog_data *xa_create_add_dialog()
 
 	alignment3 = gtk_alignment_new(0.5, 0.5, 1, 0);
 	gtk_container_add (GTK_CONTAINER (frame3), alignment3);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment3), 0, 0, 5, 5);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment3), 0, 0, 12, 12);
 
-	hbox4 = gtk_hbox_new (FALSE, 0);
+	hbox4 = gtk_hbox_new(FALSE, 4);
 	gtk_container_add (GTK_CONTAINER (alignment3), hbox4);
 
 	add_dialog->add_password = gtk_check_button_new_with_mnemonic (_("Password:"));
