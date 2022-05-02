@@ -729,7 +729,8 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	xa_set_xarchiver_icon(GTK_WINDOW(dialog_data->multi_extract));
 
 	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(dialog_data->multi_extract));
-	vbox1 = gtk_vbox_new (FALSE,5);
+	vbox1 = gtk_vbox_new(FALSE, 6);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 2);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1),vbox1,TRUE,TRUE,0);
 	scrolledwindow1 = gtk_scrolled_window_new (NULL,NULL);
 	gtk_box_pack_start (GTK_BOX (vbox1),scrolledwindow1,TRUE,TRUE,0);
@@ -758,8 +759,11 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_drag_dest_set(dialog_data->files_treeview, GTK_DEST_DEFAULT_ALL, drop_targets, G_N_ELEMENTS(drop_targets), GDK_ACTION_COPY);
 	g_signal_connect (G_OBJECT (dialog_data->files_treeview),"drag-data-received",G_CALLBACK (xa_multi_extract_dialog_drag_data_received),dialog_data);
 
-	hbox2 = gtk_hbox_new (TRUE,5);
-	gtk_box_pack_start (GTK_BOX (vbox1),hbox2,FALSE,TRUE,0);
+	hbox2 = gtk_hbox_new(TRUE, 0);
+	alignment1 = gtk_alignment_new(0.5, 0.5, 1, 1);
+	gtk_container_add(GTK_CONTAINER(alignment1), hbox2);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment1), 4, 0, 0, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), alignment1, FALSE, FALSE, 0);
 
 	add_button = gtk_button_new_from_stock ("gtk-add");
 	gtk_box_pack_end (GTK_BOX (hbox2),add_button,FALSE,FALSE,0);
@@ -781,11 +785,11 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1),GTK_SHADOW_OUT);
 	alignment1 = gtk_alignment_new (0.5,0.5,1,1);
 	gtk_container_add (GTK_CONTAINER (frame1),alignment1);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment1),0,0,12,0);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment1), 0, 0, 12, 2);
 
 	vbox2 = gtk_vbox_new (TRUE,0);
 	gtk_container_add (GTK_CONTAINER (alignment1),vbox2);
-	hbox3 = gtk_hbox_new (FALSE,2);
+	hbox3 = gtk_hbox_new(FALSE, 4);
 	gtk_box_pack_start (GTK_BOX (vbox2),hbox3,FALSE,FALSE,0);
 	dialog_data->extract_to = gtk_radio_button_new_with_mnemonic (NULL,_("Extract to:"));
 	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->extract_to), FALSE);
