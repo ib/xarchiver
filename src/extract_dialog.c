@@ -334,8 +334,10 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_container_set_border_width (GTK_CONTAINER (vbox1),2);
 
 	label1 = gtk_label_new (_("Extract to:"));
-	gtk_box_pack_start (GTK_BOX (vbox1),label1,FALSE,FALSE,0);
-	gtk_misc_set_alignment (GTK_MISC (label1),0,0.5);
+	alignment = gtk_alignment_new(0, 0.5, 0, 0);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 2, 2, 0, 0);
+	gtk_container_add(GTK_CONTAINER(alignment), label1);
+	gtk_box_pack_start(GTK_BOX(vbox1), alignment, FALSE, FALSE, 0);
 
 	dialog_data->destination_path_entry = GTK_COMPAT_ENTRY_ICON_NEW();
 	GTK_COMPAT_ENTRY_ICON(dialog_data->destination_path_entry, xa_select_where_to_extract, dialog_data);
@@ -379,10 +381,10 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->selected_radio,FALSE,FALSE,0);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->selected_radio));
 
-	hbox2 = gtk_hbox_new (FALSE,0);
+	hbox2 = gtk_hbox_new(FALSE, 4);
 	gtk_box_pack_start (GTK_BOX (vbox3),hbox2,FALSE,FALSE,0);
 
-	dialog_data->files_radio = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Files: "));
+	dialog_data->files_radio = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Files:"));
 	gtk_button_set_focus_on_click(GTK_BUTTON(dialog_data->files_radio), FALSE);
 	gtk_box_pack_start (GTK_BOX (hbox2),dialog_data->files_radio,FALSE,FALSE,0);
 
@@ -464,6 +466,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_box_pack_start(GTK_BOX(vbox5), hbox3, FALSE, FALSE, 0);
 
 	label_password = gtk_label_new (_("Password:"));
+	gtk_misc_set_padding(GTK_MISC(label_password), 3, 0);
 	gtk_box_pack_start (GTK_BOX (hbox3),label_password,FALSE,FALSE,0);
 
 	dialog_data->password_entry = gtk_entry_new ();
