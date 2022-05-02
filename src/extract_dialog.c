@@ -388,7 +388,6 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	dialog_data->entry2 = gtk_entry_new ();
 	gtk_box_pack_start (GTK_BOX (hbox2),dialog_data->entry2,TRUE,TRUE,0);
-	gtk_entry_set_width_chars (GTK_ENTRY (dialog_data->entry2),10);
 	gtk_widget_set_sensitive(dialog_data->entry2,FALSE);
 	g_signal_connect (G_OBJECT (dialog_data->files_radio),"toggled",G_CALLBACK(xa_activate_entry),dialog_data);
 
