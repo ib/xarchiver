@@ -273,8 +273,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 				move = g_strdup("");
 			else
 				move = g_strconcat(" mv",
-				                   archive->do_overwrite ? " -f" : " -n",
-				                   archive->do_update ? " -fu" : "",
+				                   archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
 				                   " --", *files->str ? files_str : " `ls -A`", " ",
 				                   extraction_dir, NULL);
 

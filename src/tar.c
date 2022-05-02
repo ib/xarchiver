@@ -281,8 +281,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 
 		archive->child_dir = g_strdup(extract_to);
 		command = g_strconcat("mv",
-		                      archive->do_overwrite ? " -f" : " -n",
-		                      archive->do_update ? " -fu" : "",
+		                      archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
 		                      " --", all_files->str, " ", archive->extraction_dir, NULL);
 		g_string_free(all_files, TRUE);
 

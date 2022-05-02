@@ -1023,8 +1023,7 @@ void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean stri
 		archive->child_dir = g_strconcat(extract_to, "/", archive->location_path, NULL);
 
 		command = g_strconcat("sh -c \"exec mv",
-		                      archive->do_overwrite ? " -f" : " -n",
-		                      archive->do_update ? " -fu" : "",
+		                      archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
 		                      " -- `ls -A` ", extraction_dir, "\"", NULL);
 
 		archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
