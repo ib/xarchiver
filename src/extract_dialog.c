@@ -723,7 +723,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_window_set_position (GTK_WINDOW (dialog_data->multi_extract),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->multi_extract),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog_data->multi_extract),TRUE);
-	gtk_widget_set_size_request(dialog_data->multi_extract,-1,300);
+	gtk_widget_set_size_request(dialog_data->multi_extract, -1, 310);
 	gtk_window_set_title (GTK_WINDOW (dialog_data->multi_extract),_("Multi-Extract"));
 
 	xa_set_xarchiver_icon(GTK_WINDOW(dialog_data->multi_extract));
