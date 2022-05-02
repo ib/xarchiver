@@ -779,7 +779,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 
 	/* Destination dirs frame */
 	hbox1 = gtk_hbox_new (TRUE,8);
-	gtk_box_pack_start (GTK_BOX (vbox1),hbox1,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox1, FALSE, FALSE, 0);
 	frame1 = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (hbox1),frame1,TRUE,TRUE,0);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1),GTK_SHADOW_OUT);
