@@ -42,6 +42,10 @@
 
 /* GLib compatibility */
 
+#if !GLIB_CHECK_VERSION(2,16,0)
+static inline int g_strcmp0 (const char *str1, const char *str2) { if (!str1) return -(str1 != str2); if (!str2) return (str1 != str2); return strcmp(str1, str2); }
+#endif
+
 #if !GLIB_CHECK_VERSION(2,28,0)
 #define g_list_free_full(list, free_func) do { g_list_foreach(list, (GFunc) free_func, NULL); g_list_free(list); } while (0)
 #define g_slist_free_full(list, free_func) do { g_slist_foreach(list, (GFunc) free_func, NULL); g_slist_free(list); } while (0)
