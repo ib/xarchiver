@@ -148,7 +148,7 @@ Add_dialog_data *xa_create_add_dialog()
 	label2 = gtk_label_new (_("Options"));
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (add_dialog->notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (add_dialog->notebook1), 1), label2);
 
-	hbox2 = gtk_hbox_new (TRUE, 10);
+	hbox2 = gtk_hbox_new(TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (add_dialog->option_notebook_vbox), hbox2, TRUE, TRUE, 0);
 	gtk_container_set_border_width(GTK_CONTAINER(hbox2), 6);
 
