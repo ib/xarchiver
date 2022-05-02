@@ -250,9 +250,8 @@ Add_dialog_data *xa_create_add_dialog()
 	g_signal_connect (G_OBJECT (add_dialog->add_password), "toggled",G_CALLBACK (password_toggled_cb) , add_dialog);
 
 	add_dialog->add_password_entry = gtk_entry_new ();
-	gtk_box_pack_start (GTK_BOX (hbox4), add_dialog->add_password_entry, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox4), add_dialog->add_password_entry, TRUE, TRUE, 0);
 	gtk_entry_set_visibility (GTK_ENTRY (add_dialog->add_password_entry), FALSE);
-	gtk_entry_set_width_chars (GTK_ENTRY (add_dialog->add_password_entry), 15);
 	gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
 	gtk_entry_set_activates_default(GTK_ENTRY(add_dialog->add_password_entry), TRUE);
 
