@@ -95,6 +95,7 @@ static inline void GTK_COMPAT_ENTRY_ICON (GtkWidget *entry, gpointer callback, g
 #endif
 
 #if !GTK_CHECK_VERSION(2,18,0)
+#define gtk_widget_get_sensitive(widget) GTK_WIDGET_SENSITIVE(widget)
 #define gtk_widget_get_visible(widget) GTK_WIDGET_VISIBLE(widget)
 #define gtk_widget_is_sensitive(widget) GTK_WIDGET_IS_SENSITIVE(widget)
 static inline void gtk_widget_set_can_default (GtkWidget *widget, gboolean can_default)
