@@ -492,7 +492,7 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1),cancelbutton1,GTK_RESPONSE_CANCEL);
 
 	okbutton1 = gtk_button_new();
-	tmp_image = gtk_image_new_from_stock ("gtk-ok",GTK_ICON_SIZE_BUTTON);
+	tmp_image = xa_main_window_find_image("xarchiver-select.png", GTK_ICON_SIZE_BUTTON);
 	select_hbox = gtk_hbox_new(FALSE,4);
 	select_label = gtk_label_new_with_mnemonic(_("_Select"));
 
