@@ -14959,7 +14959,7 @@ then :
 fi
 
 
-ac_config_files="$ac_config_files doc/Makefile icons/16x16/Makefile icons/24x24/Makefile icons/48x48/Makefile icons/scalable/Makefile icons/Makefile pixmaps/Makefile po/Makefile.in src/Makefile src/xdgmime/Makefile Makefile"
+ac_config_files="$ac_config_files doc/Makefile icons/16x16/Makefile icons/24x24/Makefile icons/32x32/Makefile icons/48x48/Makefile icons/scalable/Makefile icons/Makefile pixmaps/Makefile po/Makefile.in src/Makefile src/xdgmime/Makefile Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -15988,6 +15988,7 @@ do
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "icons/16x16/Makefile") CONFIG_FILES="$CONFIG_FILES icons/16x16/Makefile" ;;
     "icons/24x24/Makefile") CONFIG_FILES="$CONFIG_FILES icons/24x24/Makefile" ;;
+    "icons/32x32/Makefile") CONFIG_FILES="$CONFIG_FILES icons/32x32/Makefile" ;;
     "icons/48x48/Makefile") CONFIG_FILES="$CONFIG_FILES icons/48x48/Makefile" ;;
     "icons/scalable/Makefile") CONFIG_FILES="$CONFIG_FILES icons/scalable/Makefile" ;;
     "icons/Makefile") CONFIG_FILES="$CONFIG_FILES icons/Makefile" ;;
