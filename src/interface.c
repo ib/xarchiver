@@ -467,7 +467,7 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 	gtk_window_set_title (GTK_WINDOW (ddialog1),_("Select by Pattern"));
 	gtk_window_set_modal (GTK_WINDOW (ddialog1),TRUE);
 	gtk_window_set_type_hint (GTK_WINDOW (ddialog1),GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_widget_set_size_request(ddialog1,286,93);
+	gtk_widget_set_size_request(ddialog1, 264, -1);
 	gtk_window_set_transient_for (GTK_WINDOW (ddialog1),GTK_WINDOW (xa_main_window));
 	ddialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(ddialog1));
 	gtk_widget_show (ddialog_vbox1);
