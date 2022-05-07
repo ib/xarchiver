@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2021-01-21 13:49+0100\n"
+"POT-Creation-Date: 2022-05-06 11:30+0200\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -16,6 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/pref_dialog.c
+msgid ""
+"\n"
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
 
 #: ../src/window.c
 #, c-format
@@ -53,35 +60,17 @@ msgid_plural "%d files %s (%s)"
 msgstr[0] "%d ఫైల్ %s (%s)"
 msgstr[1] "%d ఫైళ్ళు %s (%s)"
 
+#: ../src/add_dialog.c
+#, c-format
+msgid ""
+"%hu is least compression\n"
+"%hu is default compression\n"
+"%hu is best compression"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "/tmp"
 msgstr "/tmp"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
 
 #: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
@@ -118,8 +107,8 @@ msgid "A_dd"
 msgstr "జతచేయి (_d)"
 
 #: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "చర్యలు: "
+msgid "Actions"
+msgstr "చర్యలు"
 
 #: ../src/interface.c
 #, fuzzy
@@ -142,7 +131,7 @@ msgid ""
 "                                     quit"
 msgstr ""
 
-#: ../src/add_dialog.c
+#: ../src/window.c
 msgid "Adding files to archive, please wait..."
 msgstr ""
 
@@ -159,7 +148,7 @@ msgid "All files"
 msgstr "అన్ని ఫైళ్ళు"
 
 #: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
+msgid "Allow subdirs with clipboard and drag-and-drop"
 msgstr ""
 
 #: ../src/window.c
@@ -170,13 +159,9 @@ msgstr ""
 msgid "An error occurred!"
 msgstr "ఒక దోషం సంభవించింది!"
 
-#: ../src/pref_dialog.c
+#: ../src/extract_dialog.c ../src/pref_dialog.c
 msgid "Archive"
 msgstr "సంగ్రహం"
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "సంగ్రహం పేరు"
 
 #: ../src/interface.c
 msgid "Archive Properties"
@@ -262,7 +247,7 @@ msgstr ""
 msgid "Can't create temporary directory:"
 msgstr ""
 
-#: ../src/extract_dialog.c ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Can't extract files from the archive:"
 msgstr ""
 
@@ -288,11 +273,6 @@ msgstr ""
 msgid "Can't open file \"%s\":"
 msgstr ""
 
-#: ../src/window.c
-#, c-format
-msgid "Can't open file %s:"
-msgstr ""
-
 #: ../src/main.c
 #, fuzzy
 #| msgid "Create a new archive"
@@ -316,7 +296,7 @@ msgid "Can't run the archiver executable:"
 msgstr ""
 
 #: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
+msgid "Can't write the sfx module to the archive:"
 msgstr ""
 
 #: ../src/interface.c
@@ -383,6 +363,10 @@ msgstr "కుచించబడిన పరిమాణం: "
 msgid "Compressed size:"
 msgstr "కుచింపు స్థాయి:"
 
+#: ../src/add_dialog.c
+msgid "Compression"
+msgstr "కుచింపు"
+
 #: ../src/gzip_et_al.c
 msgid "Compression ratio"
 msgstr "కుచింపు నిష్పత్తి"
@@ -391,13 +375,15 @@ msgstr "కుచింపు నిష్పత్తి"
 msgid "Compression ratio:"
 msgstr "కుచింపు నిష్పత్తి:"
 
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "కుచింపు:"
-
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
 msgstr ""
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive, please wait..."
+msgid "Converting archive, please wait..."
+msgstr "సంగ్రహం నుండి ఫైళ్ళను పొందుతున్నది, దయచేసి వేచివుండండి..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -441,16 +427,18 @@ msgstr "తొలగించు"
 msgid "Delete files after adding"
 msgstr ""
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive, please wait..."
+msgid "Deleting files from archive, please wait..."
+msgstr "సంగ్రహం నుండి ఫైళ్ళను పొందుతున్నది, దయచేసి వేచివుండండి..."
+
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "ఎంపికను రద్దుచేయి (_l)"
 
 #: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
+msgid "Destination"
 msgstr ""
 
 #: ../src/window.c
@@ -466,12 +454,16 @@ msgid "Doing so will probably corrupt your archive!"
 msgstr ""
 
 #: ../src/interface.c
+msgid "Edit"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Encrypted:"
 msgstr ""
 
 #: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "ఎన్క్రిప్షన్:"
+msgid "Encryption"
+msgstr "ఎన్క్రిప్షన్"
 
 #: ../src/extract_dialog.c
 msgid "Ensure a containing directory"
@@ -513,10 +505,6 @@ msgstr ""
 msgid "Extract files"
 msgstr "ఫైళ్ళను పొందు"
 
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr ""
-
 #: ../src/main.c
 msgid ""
 "Extract multiple archives by asking the\n"
@@ -530,18 +518,23 @@ msgid ""
 msgstr ""
 
 #: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
+msgid "Extract to directories with archive names"
 msgstr ""
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "ఇచటకు పొందు:"
 
-#: ../src/extract_dialog.c ../src/window.c
+#: ../src/extract_dialog.c
+msgid "Extract with full path"
+msgstr ""
+
+#: ../src/interface.c
+#, c-format
+msgid "Extracting \"%s\"..."
+msgstr ""
+
+#: ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "సంగ్రహం నుండి ఫైళ్ళను పొందుతున్నది, దయచేసి వేచివుండండి..."
 
@@ -553,20 +546,20 @@ msgstr ""
 msgid "Failed to launch the application!"
 msgstr ""
 
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "ఫైల్ పథాలు:"
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "File Paths"
+msgstr "ఫైల్ పథాలు"
 
 #: ../src/window.c
 msgid "Filename"
 msgstr "ఫైల్‌పేరు"
 
 #: ../src/extract_dialog.c
-msgid "Files "
-msgstr "ఫైళ్ళు "
+msgid "Files"
+msgstr "ఫైళ్ళు"
 
 #: ../src/extract_dialog.c
-msgid "Files: "
+msgid "Files:"
 msgstr "ఫైళ్ళు:"
 
 #: ../src/window.c
@@ -578,12 +571,8 @@ msgstr "ఫైళ్లు:%*s%s"
 msgid "Forward"
 msgstr "ముందుకు"
 
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Freshen existing files only"
 msgstr ""
 
 #: ../src/window.c
@@ -594,8 +583,8 @@ msgstr ""
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
+"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
 "lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
 "tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
@@ -658,6 +647,12 @@ msgstr ""
 #: ../src/window.c
 msgid "No"
 msgstr "కాదు"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Compression"
+msgid "No compression"
+msgstr "కుచింపు"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
@@ -738,17 +733,9 @@ msgstr "ఒక సంగ్రహమును తెరువు"
 msgid "Operation aborted!"
 msgstr "కార్యము మధ్యలో రద్దుచేయబడింది!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Options"
 msgstr "ఐచ్ఛికాలు"
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "ఐచ్ఛికాలు"
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "ఐచ్ఛికాలు:"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
@@ -758,7 +745,7 @@ msgstr "ఐచ్ఛికాలు:"
 msgid "Original Size"
 msgstr "అసలు"
 
-#: ../src/extract_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr ""
 
@@ -836,6 +823,12 @@ msgstr ""
 msgid "Please select the destination directory"
 msgstr ""
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Please enter it!"
+msgid "Please wait..."
+msgstr "దయచేసి దానిని ప్రవేశపెట్టండి!"
+
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr ""
@@ -885,6 +878,10 @@ msgstr "సంగ్రహం నుండి ఫైళ్ళను పొంద
 #: ../src/interface.c
 msgid "Rename"
 msgstr "పేరుమార్చు"
+
+#: ../src/interface.c
+msgid "Replace"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Root"
@@ -996,10 +993,6 @@ msgstr ""
 msgid "Store archiver output"
 msgstr ""
 
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr ""
-
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
 msgstr ""
@@ -1025,7 +1018,20 @@ msgstr "ఈ సంగ్రహం ఎన్క్రిప్ట్ చేయబ
 
 #: ../src/extract_dialog.c
 msgid ""
-"The archive's directory structure is recreated in the extraction directory"
+"The archive's complete directory structure is recreated in the extraction "
+"directory"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid ""
+"The archive's directory structure is not recreated; all files are placed in "
+"the extraction directory"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid ""
+"The archive's directory structure is recreated in the extraction directory, "
+"but with the parent directories of the selected files removed"
 msgstr ""
 
 #: ../src/add_dialog.c ../src/main.c
@@ -1046,7 +1052,8 @@ msgid "The filename column is sorted after loading the archive"
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-msgid "The proper archiver is not installed!"
+#, c-format
+msgid "The proper archiver for \"%s\" is not installed!"
 msgstr ""
 
 #: ../src/extract_dialog.c
@@ -1061,14 +1068,10 @@ msgstr ""
 msgid "This option consumes more memory with large archives"
 msgstr ""
 
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr ""
-
 #: ../src/pref_dialog.c
 msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
+"This option includes the subdirectories when you add files from the "
+"clipboard or with drag-and-drop"
 msgstr ""
 
 #: ../src/extract_dialog.c
@@ -1137,12 +1140,12 @@ msgstr ""
 msgid "Up"
 msgstr "పైకి"
 
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr ""
-
 #: ../src/extract_dialog.c
 msgid "Update existing files"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Update existing files and add new ones"
 msgstr ""
 
 #: ../src/open-with-dlg.c
@@ -1171,12 +1174,30 @@ msgstr ""
 msgid "Window"
 msgstr "విండో"
 
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "With full path"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Without any path"
+msgstr ""
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Without parent path"
+msgstr ""
+
 #: ../src/window.c
 msgid "Yes"
 msgstr "అవును"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
+msgstr ""
+
+#: ../src/window.c
+msgid ""
+"You can drop either archives to open or files to add. It is not possible to "
+"do both at the same time."
 msgstr ""
 
 #: ../src/interface.c ../src/window.c
@@ -1282,6 +1303,10 @@ msgstr "పాఠ్య ఫైల్ (_T)"
 msgid "and"
 msgstr ""
 
+#: ../src/add_dialog.c
+msgid "best"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "ఎన్నుకొను..."
@@ -1300,6 +1325,10 @@ msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "large"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "least"
 msgstr ""
 
 #: ../src/pref_dialog.c
@@ -1336,6 +1365,15 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|పరిమాణం\n"
+
+#~ msgid "Archive Name"
+#~ msgstr "సంగ్రహం పేరు"
+
+#~ msgid "Options "
+#~ msgstr "ఐచ్ఛికాలు"
+
+#~ msgid "Options:"
+#~ msgstr "ఐచ్ఛికాలు:"
 
 #, fuzzy
 #~| msgid "Date modified"

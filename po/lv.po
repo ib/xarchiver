@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2021-01-21 13:49+0100\n"
+"POT-Creation-Date: 2022-05-06 11:30+0200\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -21,6 +21,16 @@ msgstr ""
 "X-Poedit-Language: Latvian\n"
 "X-Poedit-Country: Latvia\n"
 "X-Generator: Lokalize 1.0\n"
+
+#: ../src/pref_dialog.c
+msgid ""
+"\n"
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"\n"
+"<span color='red' style='italic'>Lūdzu uzinstalējiet xdg-utils paciņu, lai\n"
+"Xarchiver var atpazīt vairāk failu tipus.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -61,41 +71,19 @@ msgstr[0] "%d fails %s (%s)"
 msgstr[1] "%d faili %s (%s)"
 msgstr[2] "%d failu %s (%s)"
 
-#: ../src/pref_dialog.c
-msgid "/tmp"
-msgstr "/tmp"
-
 #: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+#, fuzzy, c-format
+#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgid ""
+"%hu is least compression\n"
+"%hu is default compression\n"
+"%hu is best compression"
 msgstr ""
 "0 = nesaspiest, 1 = noklusētā vērtība, 4 = ātrākā, bez vismazākā saspiešana"
 
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-"0 = nesaspiest, 3 = noklusētā vērtība, 9 = labākā saspiešana, bet lēnākā"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = nesaspiest, 5 = noklusētā vērtība, 9 = labākā saspiešana, bet lēnākā"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = nesaspiest, 6 = noklusētā vērtība, 9 = labākā saspiešana, bet lēnākā"
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = noklusētā saspiešana, 7 = maksimālā saspiešana"
-
 #: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"<span color='red' style='italic'>Lūdzu uzinstalējiet xdg-utils paciņu, lai\n"
-"Xarchiver var atpazīt vairāk failu tipus.</span>"
+msgid "/tmp"
+msgstr "/tmp"
 
 #: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
@@ -132,8 +120,8 @@ msgid "A_dd"
 msgstr "_Pievienot"
 
 #: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "Darbības: "
+msgid "Actions"
+msgstr "Darbības"
 
 #: ../src/interface.c
 msgid "Add"
@@ -159,7 +147,7 @@ msgid ""
 "                                     quit"
 msgstr "Pievieno failus arhīvam, pajautājot par faila nosaukumiem un iziet."
 
-#: ../src/add_dialog.c
+#: ../src/window.c
 msgid "Adding files to archive, please wait..."
 msgstr "Pievienoju failus arhīvam, lūdzu uzgaidiet..."
 
@@ -176,7 +164,9 @@ msgid "All files"
 msgstr "Visi faili"
 
 #: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
+#, fuzzy
+#| msgid "Allow subdirs with drag and drop"
+msgid "Allow subdirs with clipboard and drag-and-drop"
 msgstr "Atļaut apakšdirektorijas ar vilkt un mest"
 
 #: ../src/window.c
@@ -187,13 +177,9 @@ msgstr "Notika kļūda piekļūstot arhīvam:"
 msgid "An error occurred!"
 msgstr "Notika kļūda!"
 
-#: ../src/pref_dialog.c
+#: ../src/extract_dialog.c ../src/pref_dialog.c
 msgid "Archive"
 msgstr "Arhīvs"
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "Arhīva nosaukums"
 
 #: ../src/interface.c
 msgid "Archive Properties"
@@ -281,7 +267,7 @@ msgstr "Nevar izveidot mapi \"%s\""
 msgid "Can't create temporary directory:"
 msgstr "Nevar izveidot pagaidu mapi:"
 
-#: ../src/extract_dialog.c ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Can't extract files from the archive:"
 msgstr "Nevar atspiest failus no arhīva:"
 
@@ -307,11 +293,6 @@ msgstr "Nevar atvērt RMP failu %s:"
 msgid "Can't open file \"%s\":"
 msgstr "Nevar atvērt failu \"%s\":"
 
-#: ../src/window.c
-#, c-format
-msgid "Can't open file %s:"
-msgstr "Nevar atvērt failu %s:"
-
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't open archive \"%s\":"
@@ -335,8 +316,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Nevar palaist arhivātora izpildāmo failu:"
 
 #: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Nevar ierakstīts unzipsfx moduli arhīvā:"
+msgid "Can't write the sfx module to the archive:"
+msgstr "Nevar ierakstīts sfx moduli arhīvā:"
 
 #: ../src/interface.c
 msgid "Cancel current operation"
@@ -402,6 +383,10 @@ msgstr "Saspiestais izmērs: "
 msgid "Compressed size:"
 msgstr "Saspiestais izmērs:"
 
+#: ../src/add_dialog.c
+msgid "Compression"
+msgstr "Saspiešana"
+
 #: ../src/gzip_et_al.c
 msgid "Compression ratio"
 msgstr "Saspiešanas attiecība"
@@ -410,13 +395,15 @@ msgstr "Saspiešanas attiecība"
 msgid "Compression ratio:"
 msgstr "Saspiešanas attiecība:"
 
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "Saspiešana: "
-
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
 msgstr "Apstiprināt faila dzēšanu"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Testing archive, please wait..."
+msgid "Converting archive, please wait..."
+msgstr "Arhīva pārbaude, lūdzu pagaidiet..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -462,17 +449,21 @@ msgstr "Dzēst"
 msgid "Delete files after adding"
 msgstr "Dzēst failus pēc pievienošanas"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive, please wait..."
+msgid "Deleting files from archive, please wait..."
+msgstr "Atspiežu failus no arhīva, lūdzu uzgaidiet..."
+
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "A_tcelt atlasi"
 
 #: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr "Mērķa direktorijas:"
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
-msgstr "Neglabāt ceļus"
+#, fuzzy
+#| msgid "destination archive"
+msgid "Destination"
+msgstr "mērķa arhīvs"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -487,12 +478,16 @@ msgid "Doing so will probably corrupt your archive!"
 msgstr "Šī darbība var sabojāt arhīvu!"
 
 #: ../src/interface.c
+msgid "Edit"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Šifrēts:"
 
 #: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "Šifrēšana: "
+msgid "Encryption"
+msgstr "Šifrēšana"
 
 #: ../src/extract_dialog.c
 #, fuzzy
@@ -542,10 +537,6 @@ msgstr "Atspiest arhīvu mērķa mapē un iziet."
 msgid "Extract files"
 msgstr "Atspiest failus"
 
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr "Atspiest failus ar pilnu ceļu"
-
 #: ../src/main.c
 #, fuzzy
 #| msgid "Extract archive by asking the extraction directory and quits."
@@ -563,18 +554,27 @@ msgstr ""
 "diska kopijas."
 
 #: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr "Atspiest ceļa nosaukumus"
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
+#, fuzzy
+#| msgid "Extract to dir \"Archive Name\""
+msgid "Extract to directories with archive names"
 msgstr "Atspiest direktorijā \"Arhīva nosaukums\""
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "Atspiest uz:"
 
-#: ../src/extract_dialog.c ../src/window.c
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Extract files with full path"
+msgid "Extract with full path"
+msgstr "Atspiest failus ar pilnu ceļu"
+
+#: ../src/interface.c
+#, fuzzy, c-format
+msgid "Extracting \"%s\"..."
+msgstr "Atspiest"
+
+#: ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Atspiežu failus no arhīva, lūdzu uzgaidiet..."
 
@@ -586,21 +586,21 @@ msgstr "Atspiežšana no arhīva:"
 msgid "Failed to launch the application!"
 msgstr "Neizdevās palaist lietotni!"
 
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "Faila ceļi: "
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "File Paths"
+msgstr "Faila ceļi"
 
 #: ../src/window.c
 msgid "Filename"
 msgstr "Faila nosaukums"
 
 #: ../src/extract_dialog.c
-msgid "Files "
-msgstr "Faili "
+msgid "Files"
+msgstr "Faili"
 
 #: ../src/extract_dialog.c
-msgid "Files: "
-msgstr "Faili: "
+msgid "Files:"
+msgstr "Faili:"
 
 #: ../src/window.c
 #, c-format
@@ -611,12 +611,10 @@ msgstr "Faili:%*s%s"
 msgid "Forward"
 msgstr "Uz priekšu"
 
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr "Atsvaidzini un aizvieto"
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Freshen existing files"
+msgid "Freshen existing files only"
 msgstr "Atsvaidzināt eksistējošos failus"
 
 #: ../src/window.c
@@ -627,8 +625,8 @@ msgstr "No faila"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
+"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
 "lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
 "tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
@@ -697,6 +695,12 @@ msgstr "Jauns"
 #: ../src/window.c
 msgid "No"
 msgstr "Nē"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Compression"
+msgid "No compression"
+msgstr "Saspiešana"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
@@ -776,17 +780,9 @@ msgstr "Atvērt arhīvu"
 msgid "Operation aborted!"
 msgstr "Operācija atcelta!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Options"
 msgstr "Uzstādījumi"
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "Uzstādījumi "
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "Uzstādījumi:"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
@@ -796,7 +792,7 @@ msgstr "Uzstādījumi:"
 msgid "Original Size"
 msgstr "Sākotnējais"
 
-#: ../src/extract_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Pārrakstīt eksistējošiem failiem"
 
@@ -874,6 +870,12 @@ msgstr "Lūdzu norādiet arhīvus, kurus vēlaties atspiest"
 msgid "Please select the destination directory"
 msgstr "Lūdzu norādiet mērķa direktoriju!"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Please enter it!"
+msgid "Please wait..."
+msgstr "Lūdzu, ievadiet!"
+
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Norāda uz"
@@ -927,6 +929,10 @@ msgstr "Arhīva atvēršana, lūdzu pagaidiet..."
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Pārdēvēt"
+
+#: ../src/interface.c
+msgid "Replace"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Root"
@@ -1040,10 +1046,6 @@ msgstr "Apturēt"
 msgid "Store archiver output"
 msgstr "Glabāt arhīva izvadu"
 
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr "Glabāt pilnus ceļus"
-
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
 msgstr ""
@@ -1068,8 +1070,30 @@ msgid "The archive is okay."
 msgstr "Arhīvs ir šifrēts!"
 
 #: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
-"The archive's directory structure is recreated in the extraction directory"
+"The archive's complete directory structure is recreated in the extraction "
+"directory"
+msgstr "Arhīva direktoriju struktūra, tiks atveidota atspiešanas mapē"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is not recreated; all files are placed in "
+"the extraction directory"
+msgstr "Arhīva direktoriju struktūra, tiks atveidota atspiešanas mapē"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is recreated in the extraction directory, "
+"but with the parent directories of the selected files removed"
 msgstr "Arhīva direktoriju struktūra, tiks atveidota atspiešanas mapē"
 
 #: ../src/add_dialog.c ../src/main.c
@@ -1092,9 +1116,9 @@ msgid "The filename column is sorted after loading the archive"
 msgstr "Faila nosaukuma kolonna tiek kārtots pēc arhīva ielādes"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy
+#, fuzzy, c-format
 #| msgid "the proper archiver is not installed!"
-msgid "The proper archiver is not installed!"
+msgid "The proper archiver for \"%s\" is not installed!"
 msgstr "atbilstošais arhivātors nav instalēts!"
 
 #: ../src/extract_dialog.c
@@ -1114,14 +1138,14 @@ msgstr ""
 msgid "This option consumes more memory with large archives"
 msgstr "Šī opcija aizņem vairāk atmiņu, ar lieliem arhīviem"
 
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr "Opcija atspiež arhīvus direktorijās, ar arhīva nosaukumu"
-
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option includes the subdirectories when you add files with drag and "
+#| "drop"
 msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
+"This option includes the subdirectories when you add files from the "
+"clipboard or with drag-and-drop"
 msgstr ""
 "Šī opcija iekļauj apakšdirektorijas, kad jūs pievienojat failus ar vilkšanu "
 "un mešanu"
@@ -1209,12 +1233,14 @@ msgstr ""
 msgid "Up"
 msgstr "Uz augšu"
 
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr "Atjaunini un pievieno"
-
 #: ../src/extract_dialog.c
 msgid "Update existing files"
+msgstr "Atjaunināt eksistējošos failus"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Update existing files"
+msgid "Update existing files and add new ones"
 msgstr "Atjaunināt eksistējošos failus"
 
 #: ../src/open-with-dlg.c
@@ -1251,6 +1277,20 @@ msgstr ""
 msgid "Window"
 msgstr "Logs"
 
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Store full paths"
+msgid "With full path"
+msgstr "Glabāt pilnus ceļus"
+
+#: ../src/extract_dialog.c
+msgid "Without any path"
+msgstr ""
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Without parent path"
+msgstr ""
+
 #: ../src/window.c
 msgid "Yes"
 msgstr "Jā"
@@ -1258,6 +1298,12 @@ msgstr "Jā"
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
 msgstr "Jūs gatavojaties dzēst ierakstus no arhīva."
+
+#: ../src/window.c
+msgid ""
+"You can drop either archives to open or files to add. It is not possible to "
+"do both at the same time."
+msgstr ""
 
 #: ../src/interface.c ../src/window.c
 #, fuzzy
@@ -1364,6 +1410,10 @@ msgstr "_Teksta fails"
 msgid "and"
 msgstr ""
 
+#: ../src/add_dialog.c
+msgid "best"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "izvēlēties..."
@@ -1387,6 +1437,10 @@ msgstr "fails1 fails2 fails3 ... failsN"
 #: ../src/pref_dialog.c
 msgid "large"
 msgstr "liels"
+
+#: ../src/add_dialog.c
+msgid "least"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "medium"
@@ -1426,6 +1480,53 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Izmērs\n"
+
+#~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = nesaspiest, 3 = noklusētā vērtība, 9 = labākā saspiešana, bet lēnākā"
+
+#~ msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = nesaspiest, 5 = noklusētā vērtība, 9 = labākā saspiešana, bet lēnākā"
+
+#~ msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = nesaspiest, 6 = noklusētā vērtība, 9 = labākā saspiešana, bet lēnākā"
+
+#~ msgid "5 = default compression, 7 = max compression"
+#~ msgstr "5 = noklusētā saspiešana, 7 = maksimālā saspiešana"
+
+#~ msgid "Archive Name"
+#~ msgstr "Arhīva nosaukums"
+
+#, c-format
+#~ msgid "Can't open file %s:"
+#~ msgstr "Nevar atvērt failu %s:"
+
+#~ msgid "Destination dirs"
+#~ msgstr "Mērķa direktorijas"
+
+#~ msgid "Do not store paths"
+#~ msgstr "Neglabāt ceļus"
+
+#~ msgid "Extract pathnames"
+#~ msgstr "Atspiest ceļa nosaukumus"
+
+#~ msgid "Freshen and replace"
+#~ msgstr "Atsvaidzini un aizvieto"
+
+#~ msgid "Options "
+#~ msgstr "Uzstādījumi "
+
+#~ msgid "Options:"
+#~ msgstr "Uzstādījumi:"
+
+#~ msgid ""
+#~ "This option extracts archives in directories named with the archive names"
+#~ msgstr "Opcija atspiež arhīvus direktorijās, ar arhīva nosaukumu"
+
+#~ msgid "Update and add"
+#~ msgstr "Atjaunini un pievieno"
 
 #, fuzzy
 #~| msgid "Date modified"
@@ -1582,10 +1683,6 @@ msgstr "|Izmērs\n"
 
 #~ msgid "Enter Archive Password"
 #~ msgstr "Ievadiet Arhīva Paroli"
-
-#, fuzzy
-#~ msgid "Extract..."
-#~ msgstr "Atspiest"
 
 #~ msgid "Archive size:"
 #~ msgstr "Arhīva izmērs:"

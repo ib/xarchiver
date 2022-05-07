@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2021-01-21 13:49+0100\n"
+"POT-Creation-Date: 2022-05-06 11:30+0200\n"
 "PO-Revision-Date: 2008-10-22 20:11+0200\n"
 "Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
 "Language-Team: Norwegian Bokmal\n"
@@ -16,6 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/pref_dialog.c
+msgid ""
+"\n"
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"\n"
+"<span color='red' style='italic'>Vennligst installer xdg-utils pakken slik\n"
+" at Xarchiver can gjenkjenne flere filtyper.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -53,41 +63,19 @@ msgid_plural "%d files %s (%s)"
 msgstr[0] "%d fil %s (%s)"
 msgstr[1] "%d filer %s (%s)"
 
-#: ../src/pref_dialog.c
-msgid "/tmp"
-msgstr "/tmp"
-
 #: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+#, fuzzy, c-format
+#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgid ""
+"%hu is least compression\n"
+"%hu is default compression\n"
+"%hu is best compression"
 msgstr ""
 "0 = ingen komprimering, 1 er forvalgt, 4 = raskest men mindre komrimering"
 
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-"0 = ingen komprimering, 3 er forvalgt, 5 = best komprimering men tregere"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = ingen komprimering, 5 er forvalgt, 9 = best komprimering men tregere"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = ingen komprimering, 6 er forvalgt, 9 = best komprimering men tregere"
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = forvalgt komprimering, 7 = maks komprimering"
-
 #: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"<span color='red' style='italic'>Vennligst installer xdg-utils pakken slik\n"
-" at Xarchiver can gjenkjenne flere filtyper.</span>"
+msgid "/tmp"
+msgstr "/tmp"
 
 #: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
@@ -124,8 +112,8 @@ msgid "A_dd"
 msgstr "_Legg til"
 
 #: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "Aksjoner: "
+msgid "Actions"
+msgstr "Aksjoner"
 
 #: ../src/interface.c
 msgid "Add"
@@ -151,7 +139,7 @@ msgid ""
 "                                     quit"
 msgstr "Legg filer til arkiv ved å spørre etter filnavn, deretter avslutt."
 
-#: ../src/add_dialog.c
+#: ../src/window.c
 msgid "Adding files to archive, please wait..."
 msgstr "Legger til filer i arkivet, vennligst vent..."
 
@@ -168,7 +156,9 @@ msgid "All files"
 msgstr "Alle filer"
 
 #: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
+#, fuzzy
+#| msgid "Allow subdirs with drag and drop"
+msgid "Allow subdirs with clipboard and drag-and-drop"
 msgstr "Tillat undermapper med dra og slipp"
 
 #: ../src/window.c
@@ -179,13 +169,9 @@ msgstr "En feil oppsto under lesing av arkivet:"
 msgid "An error occurred!"
 msgstr "En feil oppsto!"
 
-#: ../src/pref_dialog.c
+#: ../src/extract_dialog.c ../src/pref_dialog.c
 msgid "Archive"
 msgstr "Arkiv"
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "Arkivnavn"
 
 #: ../src/interface.c
 msgid "Archive Properties"
@@ -273,7 +259,7 @@ msgstr "Kan ikke opprette midlertidig mappe:"
 msgid "Can't create temporary directory:"
 msgstr "Kan ikke opprette midlertidig mappe:"
 
-#: ../src/extract_dialog.c ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Can't extract files from the archive:"
 msgstr "Kan ikke pakke ut filer fra arkivet:"
 
@@ -299,11 +285,6 @@ msgstr "Kan ikke åpne RPM fil %s"
 msgid "Can't open file \"%s\":"
 msgstr "Klarte ikke å åpne filen \"%s\":"
 
-#: ../src/window.c
-#, c-format
-msgid "Can't open file %s:"
-msgstr "Kan ikke åpne filen %s:"
-
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't add files to the archive:"
@@ -327,8 +308,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Kan ikke kjøre arkivbinæren:"
 
 #: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Kan ikke skrive 'unzipsfx' modul til arkivet:"
+msgid "Can't write the sfx module to the archive:"
+msgstr "Kan ikke skrive 'sfx' modul til arkivet:"
 
 #: ../src/interface.c
 msgid "Cancel current operation"
@@ -394,6 +375,10 @@ msgstr "Komprimert størrelse: "
 msgid "Compressed size:"
 msgstr "Komprimert størrelse:"
 
+#: ../src/add_dialog.c
+msgid "Compression"
+msgstr "Komprimering"
+
 #: ../src/gzip_et_al.c
 msgid "Compression ratio"
 msgstr "Kompresjonsgrad"
@@ -402,13 +387,15 @@ msgstr "Kompresjonsgrad"
 msgid "Compression ratio:"
 msgstr "Kompresjonsgrad:"
 
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "Komprimering: "
-
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
 msgstr "Bekreft sletting av filer"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Testing archive, please wait..."
+msgid "Converting archive, please wait..."
+msgstr "Tester arkiv, vennligst vent..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -454,17 +441,21 @@ msgstr "Slett"
 msgid "Delete files after adding"
 msgstr "Slett filer etter de er lagt til"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive, please wait..."
+msgid "Deleting files from archive, please wait..."
+msgstr "Pakker ut filer fra arkivet, vennligst vent..."
+
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "Ve_lg ingen"
 
 #: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr "Målmapper:"
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
-msgstr "Ikke lagre stien"
+#, fuzzy
+#| msgid "destination archive"
+msgid "Destination"
+msgstr "målarkiv"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -479,12 +470,16 @@ msgid "Doing so will probably corrupt your archive!"
 msgstr "Å gjøre dette vil antakeligvis gjøre arkivet ditt korrupt!"
 
 #: ../src/interface.c
+msgid "Edit"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Kryptert:"
 
 #: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "Kryptering: "
+msgid "Encryption"
+msgstr "Kryptering"
 
 #: ../src/extract_dialog.c
 #, fuzzy
@@ -534,10 +529,6 @@ msgstr "Pakk ut arkiv til målkatalogen og avslutter."
 msgid "Extract files"
 msgstr "Pakk ut filer"
 
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr "Pakk ut filer med full sti"
-
 #: ../src/main.c
 #, fuzzy
 #| msgid "Extract archive by asking the extraction directory and quits."
@@ -555,18 +546,27 @@ msgstr ""
 "filsystemet."
 
 #: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr "Pakk ut stier"
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
+#, fuzzy
+#| msgid "Extract to dir \"Archive Name\""
+msgid "Extract to directories with archive names"
 msgstr "Pakk ut i mappen \"Arkivnavn\""
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "Pakk ut til:"
 
-#: ../src/extract_dialog.c ../src/window.c
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Extract files with full path"
+msgid "Extract with full path"
+msgstr "Pakk ut filer med full sti"
+
+#: ../src/interface.c
+#, c-format
+msgid "Extracting \"%s\"..."
+msgstr ""
+
+#: ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Pakker ut filer fra arkivet, vennligst vent..."
 
@@ -578,21 +578,21 @@ msgstr "Pakker ut fra arkiv:"
 msgid "Failed to launch the application!"
 msgstr "Klarte ikke å starte programmet"
 
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "Filstier: "
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "File Paths"
+msgstr "Filstier"
 
 #: ../src/window.c
 msgid "Filename"
 msgstr "Filnavn"
 
 #: ../src/extract_dialog.c
-msgid "Files "
-msgstr "Filer "
+msgid "Files"
+msgstr "Filer"
 
 #: ../src/extract_dialog.c
-msgid "Files: "
-msgstr "Filer: "
+msgid "Files:"
+msgstr "Filer:"
 
 #: ../src/window.c
 #, c-format
@@ -603,12 +603,10 @@ msgstr "Filer:%*s%s"
 msgid "Forward"
 msgstr "Forover"
 
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr "Oppdater og erstatt"
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Freshen existing files"
+msgid "Freshen existing files only"
 msgstr "Oppdater eksisterende filer"
 
 #: ../src/window.c
@@ -619,8 +617,8 @@ msgstr "Fra fil"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
+"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
 "lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
 "tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
@@ -688,6 +686,12 @@ msgstr "Ny"
 #: ../src/window.c
 msgid "No"
 msgstr "Nei"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Compression"
+msgid "No compression"
+msgstr "Komprimering"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
@@ -767,17 +771,9 @@ msgstr "Åpne et arkiv"
 msgid "Operation aborted!"
 msgstr "Operasjon avbrutt"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Options"
 msgstr "Innstillinger"
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "Innstillinger"
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "Innstillinger:"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
@@ -787,7 +783,7 @@ msgstr "Innstillinger:"
 msgid "Original Size"
 msgstr "Original"
 
-#: ../src/extract_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Overskriv eksisterende filer"
 
@@ -865,6 +861,12 @@ msgstr "Vennligst velg arkivene du ønsker å pakke ut"
 msgid "Please select the destination directory"
 msgstr "Angi hvor filer skal pakkes ut"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Please enter it!"
+msgid "Please wait..."
+msgstr "Legg det inn!"
+
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Peker til"
@@ -918,6 +920,10 @@ msgstr "Åpner arkiv, vennligst vent..."
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Gi nytt navn"
+
+#: ../src/interface.c
+msgid "Replace"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Root"
@@ -1031,10 +1037,6 @@ msgstr "Stopp"
 msgid "Store archiver output"
 msgstr "Lagre arkivprogramlogg"
 
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr "Lagre hele stien"
-
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
 msgstr ""
@@ -1059,8 +1061,30 @@ msgid "The archive is okay."
 msgstr "Dette arkivet er kryptert"
 
 #: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
-"The archive's directory structure is recreated in the extraction directory"
+"The archive's complete directory structure is recreated in the extraction "
+"directory"
+msgstr "Arkivet sin mappestruktur er gjenskapt i målkatalogen."
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is not recreated; all files are placed in "
+"the extraction directory"
+msgstr "Arkivet sin mappestruktur er gjenskapt i målkatalogen."
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is recreated in the extraction directory, "
+"but with the parent directories of the selected files removed"
 msgstr "Arkivet sin mappestruktur er gjenskapt i målkatalogen."
 
 #: ../src/add_dialog.c ../src/main.c
@@ -1083,9 +1107,9 @@ msgid "The filename column is sorted after loading the archive"
 msgstr "Filnavn kolonnen sorteres etter lasting av arkivet"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy
+#, fuzzy, c-format
 #| msgid "the proper archiver is not installed!"
-msgid "The proper archiver is not installed!"
+msgid "The proper archiver for \"%s\" is not installed!"
 msgstr "riktig akrivprogram er ikke installert!"
 
 #: ../src/extract_dialog.c
@@ -1104,15 +1128,14 @@ msgstr "Dette er Xarchiver lysstatus. Når den blinker er Xarchiver opptatt"
 msgid "This option consumes more memory with large archives"
 msgstr "Dette valget bruker mer minne for store arkiver"
 
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr ""
-"Dette valget pakker ut arkiver i mapper navngitt etter arkivet sitt navn"
-
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option includes the subdirectories when you add files with drag and "
+#| "drop"
 msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
+"This option includes the subdirectories when you add files from the "
+"clipboard or with drag-and-drop"
 msgstr ""
 "Dette valget inkluderer undermapper når du legger til filer med dra og slipp"
 
@@ -1199,12 +1222,14 @@ msgstr ""
 msgid "Up"
 msgstr "Opp"
 
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr "Oppdater og legg til"
-
 #: ../src/extract_dialog.c
 msgid "Update existing files"
+msgstr "Oppdater eksisterende filer"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Update existing files"
+msgid "Update existing files and add new ones"
 msgstr "Oppdater eksisterende filer"
 
 #: ../src/open-with-dlg.c
@@ -1241,6 +1266,20 @@ msgstr ""
 msgid "Window"
 msgstr "Vindu"
 
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Store full paths"
+msgid "With full path"
+msgstr "Lagre hele stien"
+
+#: ../src/extract_dialog.c
+msgid "Without any path"
+msgstr ""
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Without parent path"
+msgstr ""
+
 #: ../src/window.c
 msgid "Yes"
 msgstr "Ja"
@@ -1248,6 +1287,12 @@ msgstr "Ja"
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
 msgstr "Du er i ferd med å slette elementer fra arkivet."
+
+#: ../src/window.c
+msgid ""
+"You can drop either archives to open or files to add. It is not possible to "
+"do both at the same time."
+msgstr ""
 
 #: ../src/interface.c ../src/window.c
 #, fuzzy
@@ -1354,6 +1399,10 @@ msgstr "_Tekstfil"
 msgid "and"
 msgstr ""
 
+#: ../src/add_dialog.c
+msgid "best"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "Velg..."
@@ -1377,6 +1426,10 @@ msgstr "fil1 fil2 fil3 ... filN"
 #: ../src/pref_dialog.c
 msgid "large"
 msgstr "stop"
+
+#: ../src/add_dialog.c
+msgid "least"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "medium"
@@ -1416,6 +1469,54 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Størrelse\n"
+
+#~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = ingen komprimering, 3 er forvalgt, 5 = best komprimering men tregere"
+
+#~ msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = ingen komprimering, 5 er forvalgt, 9 = best komprimering men tregere"
+
+#~ msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = ingen komprimering, 6 er forvalgt, 9 = best komprimering men tregere"
+
+#~ msgid "5 = default compression, 7 = max compression"
+#~ msgstr "5 = forvalgt komprimering, 7 = maks komprimering"
+
+#~ msgid "Archive Name"
+#~ msgstr "Arkivnavn"
+
+#, c-format
+#~ msgid "Can't open file %s:"
+#~ msgstr "Kan ikke åpne filen %s:"
+
+#~ msgid "Destination dirs"
+#~ msgstr "Målmapper"
+
+#~ msgid "Do not store paths"
+#~ msgstr "Ikke lagre stien"
+
+#~ msgid "Extract pathnames"
+#~ msgstr "Pakk ut stier"
+
+#~ msgid "Freshen and replace"
+#~ msgstr "Oppdater og erstatt"
+
+#~ msgid "Options "
+#~ msgstr "Innstillinger"
+
+#~ msgid "Options:"
+#~ msgstr "Innstillinger:"
+
+#~ msgid ""
+#~ "This option extracts archives in directories named with the archive names"
+#~ msgstr ""
+#~ "Dette valget pakker ut arkiver i mapper navngitt etter arkivet sitt navn"
+
+#~ msgid "Update and add"
+#~ msgstr "Oppdater og legg til"
 
 #, fuzzy
 #~| msgid "Date modified"

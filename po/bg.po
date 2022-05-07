@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2021-01-21 13:49+0100\n"
-"PO-Revision-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2022-05-07 22:31+0200\n"
+"PO-Revision-Date: 2021-07-25 09:33+0000\n"
 "Last-Translator: cybercop-montana <cybercop_montana@abv.bg>\n"
 "Language-Team: български\n"
 "Language: bg\n"
@@ -15,6 +15,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/pref_dialog.c
+msgid ""
+"\n"
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"\n"
+"<span color='red' style='italic'>Моля инсталирайте xdg-utils пакета, за да "
+"бъдат\n"
+"разпознавани повече типове.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -52,42 +63,19 @@ msgid_plural "%d files %s (%s)"
 msgstr[0] "%d файл %s (%s)"
 msgstr[1] "%d файлове %s (%s)"
 
-#: ../src/pref_dialog.c
-msgid "/tmp"
-msgstr "/tmp"
-
 #: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+#, fuzzy, c-format
+#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgid ""
+"%hu is least compression\n"
+"%hu is default compression\n"
+"%hu is best compression"
 msgstr ""
 "0 = без компресия, 1 е подразбираща, 4 = бавно, но с най-голяма компресия"
 
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-"0 = без компресия, 3 е подразбираща, 5 = бавно, но с най-голяма компресия"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = без компресия, 5 е подразбираща, 9 = бавно, но с най-голяма компресия"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = без компресия, 6 е подразбираща, 9 = бавно, но с най-голяма компресия"
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = компресия по подразбиране, 7 = максимална компресия"
-
 #: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"<span color='red' style='italic'>Моля инсталирайте xdg-utils пакета, за да "
-"бъдат\n"
-"разпознавани повече типове.</span>"
+msgid "/tmp"
+msgstr "/tmp"
 
 #: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
@@ -125,8 +113,8 @@ msgid "A_dd"
 msgstr "_Добави"
 
 #: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "Действия:"
+msgid "Actions"
+msgstr "Действия"
 
 #: ../src/interface.c
 msgid "Add"
@@ -152,7 +140,7 @@ msgid ""
 "                                     quit"
 msgstr "Добави файлове към архива, изисквайки имената на файловете и излез."
 
-#: ../src/add_dialog.c
+#: ../src/window.c
 msgid "Adding files to archive, please wait..."
 msgstr "Добавяне на файлове към архива, моля изчакайте..."
 
@@ -169,7 +157,9 @@ msgid "All files"
 msgstr "Всички файлове"
 
 #: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
+#, fuzzy
+#| msgid "Allow subdirs with drag and drop"
+msgid "Allow subdirs with clipboard and drag-and-drop"
 msgstr "Разреши поддиректориите с влачене и пускане"
 
 #: ../src/window.c
@@ -180,13 +170,9 @@ msgstr "Възникна грешка при достъпа до архива:"
 msgid "An error occurred!"
 msgstr "Възникна грешка!"
 
-#: ../src/pref_dialog.c
+#: ../src/extract_dialog.c ../src/pref_dialog.c
 msgid "Archive"
 msgstr "Архив"
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "Име на архива"
 
 #: ../src/interface.c
 msgid "Archive Properties"
@@ -275,7 +261,7 @@ msgstr "Не може да бъде създадена директория!"
 msgid "Can't create temporary directory:"
 msgstr "Не може да бъде създадена временна директория в /tmp:"
 
-#: ../src/extract_dialog.c ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Can't extract files from the archive:"
 msgstr "Не може да се извлекат файловете от архива:"
 
@@ -301,11 +287,6 @@ msgstr "Не може да бъде отворен файл RPM файл %s:"
 msgid "Can't open file \"%s\":"
 msgstr "Не може да бъде отворен файл \"%s\":"
 
-#: ../src/window.c
-#, c-format
-msgid "Can't open file %s:"
-msgstr "Не може да бъде отворен файл %s:"
-
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't add files to the archive:"
@@ -329,8 +310,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Не може да бъде стартиран изпълнимия файл на архиватора:"
 
 #: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Не можа да бъде записан unzipsfx модула към архива:"
+msgid "Can't write the sfx module to the archive:"
+msgstr "Не можа да бъде записан sfx модула към архива:"
 
 #: ../src/interface.c
 msgid "Cancel current operation"
@@ -397,6 +378,10 @@ msgstr "Големина в компресиран вид:"
 msgid "Compressed size:"
 msgstr "Големина в компресиран вид:"
 
+#: ../src/add_dialog.c
+msgid "Compression"
+msgstr "Компресия"
+
 #: ../src/gzip_et_al.c
 msgid "Compression ratio"
 msgstr "Коефициент на компресията"
@@ -405,13 +390,15 @@ msgstr "Коефициент на компресията"
 msgid "Compression ratio:"
 msgstr "Коефициент на компресията:"
 
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "Компресия:"
-
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
 msgstr "Потвърдете изтриването на файловете"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Testing archive, please wait..."
+msgid "Converting archive, please wait..."
+msgstr "Тестване на архива, моля изчакайте..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -457,17 +444,21 @@ msgstr "Изтрий"
 msgid "Delete files after adding"
 msgstr "Изтрий файловете след добавянето"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive, please wait..."
+msgid "Deleting files from archive, please wait..."
+msgstr "Извличане на файлове от архива, моля изчакайте..."
+
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "Д_емаркирай всички"
 
 #: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr "Крайни директории:"
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
-msgstr "Не запазвай пътищата"
+#, fuzzy
+#| msgid "destination archive"
+msgid "Destination"
+msgstr "направление"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -482,12 +473,16 @@ msgid "Doing so will probably corrupt your archive!"
 msgstr "Правейки това, вероятно ще повредите архива!"
 
 #: ../src/interface.c
+msgid "Edit"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Криптиран:"
 
 #: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "Криптиране:"
+msgid "Encryption"
+msgstr "Криптиране"
 
 #: ../src/extract_dialog.c
 #, fuzzy
@@ -537,10 +532,6 @@ msgstr "Разархивирай архива в крайната директо
 msgid "Extract files"
 msgstr "Извличане на файлове"
 
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr "Извлечи файловете с техните пълни пътища"
-
 #: ../src/main.c
 #, fuzzy
 #| msgid "Extract archive by asking the extraction directory and quits."
@@ -556,18 +547,27 @@ msgid ""
 msgstr "Извлечи само тези файлове, които съществуват на диска и са по-нови"
 
 #: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr "Извлечи имената на пътищата"
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
+#, fuzzy
+#| msgid "Extract to dir \"Archive Name\""
+msgid "Extract to directories with archive names"
 msgstr "Извлечи в директория \"Име на архива\""
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "Извлечи в:"
 
-#: ../src/extract_dialog.c ../src/window.c
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Extract files with full path"
+msgid "Extract with full path"
+msgstr "Извлечи файловете с техните пълни пътища"
+
+#: ../src/interface.c
+#, c-format
+msgid "Extracting \"%s\"..."
+msgstr "Разархивиране на \"%s\"..."
+
+#: ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Извличане на файлове от архива, моля изчакайте..."
 
@@ -579,20 +579,20 @@ msgstr "Извличане от архива:"
 msgid "Failed to launch the application!"
 msgstr "Проблем при стартирането на приложението!"
 
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "Път до файловете:"
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "File Paths"
+msgstr "Път до файловете"
 
 #: ../src/window.c
 msgid "Filename"
 msgstr "Име на файл"
 
 #: ../src/extract_dialog.c
-msgid "Files "
+msgid "Files"
 msgstr "Файлове"
 
 #: ../src/extract_dialog.c
-msgid "Files: "
+msgid "Files:"
 msgstr "Файлове:"
 
 #: ../src/window.c
@@ -604,12 +604,10 @@ msgstr "Файлове:%*s%s"
 msgid "Forward"
 msgstr "Напред"
 
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr "Опресни и замени"
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Freshen existing files"
+msgid "Freshen existing files only"
 msgstr "Опресни съществуващите файлове"
 
 #: ../src/window.c
@@ -620,17 +618,16 @@ msgstr "От файл"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
+"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
 "lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
 "tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;android;архиватор;архивиране;комикс файл;компресия;front end;графичен "
-"интерфейс;библиотека;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;"
-"compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;"
-"lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;"
-"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
-"zstd;"
+"интерфейс;библиотека;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;"
+"cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
+"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;"
+"rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -698,6 +695,12 @@ msgstr "Нов"
 #: ../src/window.c
 msgid "No"
 msgstr "Не"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Compression"
+msgid "No compression"
+msgstr "Компресия"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
@@ -777,17 +780,9 @@ msgstr "Отвори архив"
 msgid "Operation aborted!"
 msgstr "Операцията е отхвърлена!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Options"
 msgstr "Опции"
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "Опции "
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "Опции:"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
@@ -797,7 +792,7 @@ msgstr "Опции:"
 msgid "Original Size"
 msgstr "Оригинален размер"
 
-#: ../src/extract_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Замени съществуващите файлове"
 
@@ -875,6 +870,12 @@ msgstr "Моля, изберете архив, който желаете да р
 msgid "Please select the destination directory"
 msgstr "Моля, изберете крайна директория"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Please enter it!"
+msgid "Please wait..."
+msgstr "Моля, въведете!"
+
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Точки до"
@@ -928,6 +929,10 @@ msgstr "Отваряне на архива, моля изчакайте..."
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Преименувай"
+
+#: ../src/interface.c
+msgid "Replace"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Root"
@@ -1039,10 +1044,6 @@ msgstr "Спри"
 msgid "Store archiver output"
 msgstr "Съхрани изхода от архивирането"
 
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr "Съхрани пълните пътища"
-
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
 msgstr "Потоци/Блокове/Запълване"
@@ -1067,8 +1068,34 @@ msgid "The archive is okay."
 msgstr "Архива е в добро състояние!"
 
 #: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
-"The archive's directory structure is recreated in the extraction directory"
+"The archive's complete directory structure is recreated in the extraction "
+"directory"
+msgstr ""
+"Структурата на архивираната директория е пресъздадена в директорията за "
+"разархивиране"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is not recreated; all files are placed in "
+"the extraction directory"
+msgstr ""
+"Структурата на архивираната директория е пресъздадена в директорията за "
+"разархивиране"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is recreated in the extraction directory, "
+"but with the parent directories of the selected files removed"
 msgstr ""
 "Структурата на архивираната директория е пресъздадена в директорията за "
 "разархивиране"
@@ -1095,9 +1122,9 @@ msgid "The filename column is sorted after loading the archive"
 msgstr "Колоната с имената е сортирана след зареждането на архива"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy
+#, fuzzy, c-format
 #| msgid "the proper archiver is not installed!"
-msgid "The proper archiver is not installed!"
+msgid "The proper archiver for \"%s\" is not installed!"
 msgstr "Не е инсталиран подходящ архиватор!"
 
 #: ../src/extract_dialog.c
@@ -1116,15 +1143,14 @@ msgstr "Това е индикатора на Xarchiver. Когато прими
 msgid "This option consumes more memory with large archives"
 msgstr "Тази опция може да отнеме повече памет при работа с големи архиви"
 
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr ""
-"Тази опция извлича архивите в директории с имена, същите като името на архива"
-
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option includes the subdirectories when you add files with drag and "
+#| "drop"
 msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
+"This option includes the subdirectories when you add files from the "
+"clipboard or with drag-and-drop"
 msgstr ""
 "Тази опция ще включи и поддиректориите, когато добавяте файлове чрез влачене "
 "и пускане"
@@ -1212,12 +1238,14 @@ msgstr "Неподдържан двуичен формат!"
 msgid "Up"
 msgstr "Нагоре"
 
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr "Обнови и добави"
-
 #: ../src/extract_dialog.c
 msgid "Update existing files"
+msgstr "Обнови съществуващите файлове"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Update existing files"
+msgid "Update existing files and add new ones"
 msgstr "Обнови съществуващите файлове"
 
 #: ../src/open-with-dlg.c
@@ -1254,6 +1282,20 @@ msgstr ""
 msgid "Window"
 msgstr "Прозорец"
 
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Store full paths"
+msgid "With full path"
+msgstr "Съхрани пълните пътища"
+
+#: ../src/extract_dialog.c
+msgid "Without any path"
+msgstr ""
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Without parent path"
+msgstr ""
+
 #: ../src/window.c
 msgid "Yes"
 msgstr "Да"
@@ -1262,6 +1304,12 @@ msgstr "Да"
 #, fuzzy
 msgid "You are about to delete entries from the archive."
 msgstr "На път сте да изтриете елементи от архива:"
+
+#: ../src/window.c
+msgid ""
+"You can drop either archives to open or files to add. It is not possible to "
+"do both at the same time."
+msgstr ""
 
 #: ../src/interface.c ../src/window.c
 #, fuzzy
@@ -1373,6 +1421,10 @@ msgstr "Текстов файл"
 msgid "and"
 msgstr "и"
 
+#: ../src/add_dialog.c
+msgid "best"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "избор..."
@@ -1396,6 +1448,10 @@ msgstr "файл1 файл2 файл3 ... файлN"
 #: ../src/pref_dialog.c
 msgid "large"
 msgstr "голям"
+
+#: ../src/add_dialog.c
+msgid "least"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "medium"
@@ -1433,6 +1489,55 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Размер\n"
+
+#~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = без компресия, 3 е подразбираща, 5 = бавно, но с най-голяма компресия"
+
+#~ msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = без компресия, 5 е подразбираща, 9 = бавно, но с най-голяма компресия"
+
+#~ msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = без компресия, 6 е подразбираща, 9 = бавно, но с най-голяма компресия"
+
+#~ msgid "5 = default compression, 7 = max compression"
+#~ msgstr "5 = компресия по подразбиране, 7 = максимална компресия"
+
+#~ msgid "Archive Name"
+#~ msgstr "Име на архива"
+
+#, c-format
+#~ msgid "Can't open file %s:"
+#~ msgstr "Не може да бъде отворен файл %s:"
+
+#~ msgid "Destination dirs"
+#~ msgstr "Крайни директории"
+
+#~ msgid "Do not store paths"
+#~ msgstr "Не запазвай пътищата"
+
+#~ msgid "Extract pathnames"
+#~ msgstr "Извлечи имената на пътищата"
+
+#~ msgid "Freshen and replace"
+#~ msgstr "Опресни и замени"
+
+#~ msgid "Options "
+#~ msgstr "Опции "
+
+#~ msgid "Options:"
+#~ msgstr "Опции:"
+
+#~ msgid ""
+#~ "This option extracts archives in directories named with the archive names"
+#~ msgstr ""
+#~ "Тази опция извлича архивите в директории с имена, същите като името на "
+#~ "архива"
+
+#~ msgid "Update and add"
+#~ msgstr "Обнови и добави"
 
 #, fuzzy
 #~| msgid "Date modified"

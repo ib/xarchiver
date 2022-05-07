@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2021-01-21 13:49+0100\n"
+"POT-Creation-Date: 2022-05-06 11:30+0200\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -33,6 +33,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../src/pref_dialog.c
+msgid ""
+"\n"
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"\n"
+"<span color='red' style='italic'>xdg-utils パッケージをインストールして\n"
+"Xarchiver がより多くのファイル形式を認識できるようにしてください。</span>"
 
 #: ../src/window.c
 #, c-format
@@ -67,37 +77,18 @@ msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d ファイル %s (%s)"
 
+#: ../src/add_dialog.c
+#, fuzzy, c-format
+#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgid ""
+"%hu is least compression\n"
+"%hu is default compression\n"
+"%hu is best compression"
+msgstr "0 = 圧縮なし、1 = デフォルト、4 = 最も速いが圧縮率は最も低い"
+
 #: ../src/pref_dialog.c
 msgid "/tmp"
 msgstr "/tmp"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr "0 = 圧縮なし、1 = デフォルト、4 = 最も速いが圧縮率は最も低い"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = 圧縮なし、3 = デフォルト、5 = 最高圧縮だが最も遅い"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0 = 圧縮なし、5 = デフォルト、9 = 最高圧縮だが最も遅い"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = 圧縮なし、6 = デフォルト、9 = 最高圧縮だが最も遅い"
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = デフォルト圧縮、7 = 最大圧縮"
-
-#: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"<span color='red' style='italic'>xdg-utils パッケージをインストールして\n"
-"Xarchiver がより多くのファイル形式を認識できるようにしてください。</span>"
 
 #: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
@@ -134,8 +125,8 @@ msgid "A_dd"
 msgstr "追加(_D)"
 
 #: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "アクション:"
+msgid "Actions"
+msgstr "アクション"
 
 #: ../src/interface.c
 #, fuzzy
@@ -162,7 +153,7 @@ msgid ""
 "                                     quit"
 msgstr "アーカイブのファイル名を確認してアーカイブにファイルを追加し終了する。"
 
-#: ../src/add_dialog.c
+#: ../src/window.c
 msgid "Adding files to archive, please wait..."
 msgstr "ファイルをアーカイブに追加しています、お待ちください..."
 
@@ -179,7 +170,9 @@ msgid "All files"
 msgstr "全てのファイル"
 
 #: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
+#, fuzzy
+#| msgid "Allow subdirs with drag and drop"
+msgid "Allow subdirs with clipboard and drag-and-drop"
 msgstr "下位フォルダへのドラッグアンドドロップを許可する"
 
 #: ../src/window.c
@@ -190,13 +183,9 @@ msgstr "アーカイブへアクセス中にエラーが発生しました:"
 msgid "An error occurred!"
 msgstr "エラーが発生しました!"
 
-#: ../src/pref_dialog.c
+#: ../src/extract_dialog.c ../src/pref_dialog.c
 msgid "Archive"
 msgstr "アーカイブ"
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "アーカイブ名"
 
 #: ../src/interface.c
 msgid "Archive Properties"
@@ -284,7 +273,7 @@ msgstr "作業ディレクトリを作成できません:"
 msgid "Can't create temporary directory:"
 msgstr "作業ディレクトリを作成できません:"
 
-#: ../src/extract_dialog.c ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Can't extract files from the archive:"
 msgstr "アーカイブからファイルを展開できません:"
 
@@ -310,11 +299,6 @@ msgstr "RPM ファイル %s を開けません:"
 msgid "Can't open file \"%s\":"
 msgstr "ファイル \"%s\" を開けません:"
 
-#: ../src/window.c
-#, c-format
-msgid "Can't open file %s:"
-msgstr "ファイル %s を開けません:"
-
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't add files to the archive:"
@@ -338,8 +322,8 @@ msgid "Can't run the archiver executable:"
 msgstr "アーカイブツールを実行できません:"
 
 #: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "アーカイブに unzipsfx モジュールを書き込めません:"
+msgid "Can't write the sfx module to the archive:"
+msgstr "アーカイブに sfx モジュールを書き込めません:"
 
 #: ../src/interface.c
 msgid "Cancel current operation"
@@ -405,6 +389,10 @@ msgstr "圧縮後のサイズ:"
 msgid "Compressed size:"
 msgstr "圧縮後のサイズ:"
 
+#: ../src/add_dialog.c
+msgid "Compression"
+msgstr "圧縮"
+
 #: ../src/gzip_et_al.c
 msgid "Compression ratio"
 msgstr "圧縮率"
@@ -413,13 +401,15 @@ msgstr "圧縮率"
 msgid "Compression ratio:"
 msgstr "圧縮率:"
 
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "圧縮:"
-
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
 msgstr "ファイルの削除を確認する"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Testing archive, please wait..."
+msgid "Converting archive, please wait..."
+msgstr "アーカイブをテストしています、お待ちください..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -465,17 +455,21 @@ msgstr "削除"
 msgid "Delete files after adding"
 msgstr "追加後にファイルを削除する"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive, please wait..."
+msgid "Deleting files from archive, please wait..."
+msgstr "アーカイブからファイルを展開しています、お待ちください..."
+
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "全ての選択を解除(_L)"
 
 #: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr "展開先フォルダ:"
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
-msgstr "パスを保存しない"
+#, fuzzy
+#| msgid "destination archive"
+msgid "Destination"
+msgstr "展開先のアーカイブ"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -490,12 +484,16 @@ msgid "Doing so will probably corrupt your archive!"
 msgstr "これを行うとアーカイブを壊してしまうかもしれません!"
 
 #: ../src/interface.c
+msgid "Edit"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Encrypted:"
 msgstr "暗号化:"
 
 #: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "暗号化:"
+msgid "Encryption"
+msgstr "暗号化"
 
 #: ../src/extract_dialog.c
 #, fuzzy
@@ -545,10 +543,6 @@ msgstr "展開先フォルダにアーカイブを展開し終了する。"
 msgid "Extract files"
 msgstr "ファイルを展開します"
 
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr "ファイルをフルパスで展開する"
-
 #: ../src/main.c
 #, fuzzy
 #| msgid "Extract archive by asking the extraction directory and quits."
@@ -566,18 +560,27 @@ msgstr ""
 "ます。"
 
 #: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr "パス名を展開する"
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
+#, fuzzy
+#| msgid "Extract to dir \"Archive Name\""
+msgid "Extract to directories with archive names"
 msgstr "フォルダ \"アーカイブ名\" に展開する"
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "展開先:"
 
-#: ../src/extract_dialog.c ../src/window.c
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Extract files with full path"
+msgid "Extract with full path"
+msgstr "ファイルをフルパスで展開する"
+
+#: ../src/interface.c
+#, c-format
+msgid "Extracting \"%s\"..."
+msgstr ""
+
+#: ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "アーカイブからファイルを展開しています、お待ちください..."
 
@@ -589,20 +592,20 @@ msgstr "アーカイブからファイルを展開しています:"
 msgid "Failed to launch the application!"
 msgstr "アプリケーションの起動に失敗しました!"
 
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "ファイルパス:"
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "File Paths"
+msgstr "ファイルパス"
 
 #: ../src/window.c
 msgid "Filename"
 msgstr "ファイル名"
 
 #: ../src/extract_dialog.c
-msgid "Files "
+msgid "Files"
 msgstr "ファイル"
 
 #: ../src/extract_dialog.c
-msgid "Files: "
+msgid "Files:"
 msgstr "ファイル:"
 
 #: ../src/window.c
@@ -614,12 +617,10 @@ msgstr "ファイル:%*s%s"
 msgid "Forward"
 msgstr "進む"
 
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr "新しくして置き換える"
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Freshen existing files"
+msgid "Freshen existing files only"
 msgstr "既存のファイルを新しくする"
 
 #: ../src/window.c
@@ -630,8 +631,8 @@ msgstr "ファイルから"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
+"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
 "lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
 "tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
@@ -701,6 +702,12 @@ msgstr ""
 #: ../src/window.c
 msgid "No"
 msgstr "いいえ"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Compression"
+msgid "No compression"
+msgstr "圧縮"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
@@ -781,17 +788,9 @@ msgstr "アーカイブを開きます"
 msgid "Operation aborted!"
 msgstr "操作が失敗しました!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Options"
 msgstr "オプション"
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "オプション"
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "オプション:"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
@@ -801,7 +800,7 @@ msgstr "オプション:"
 msgid "Original Size"
 msgstr "オリジナル"
 
-#: ../src/extract_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "既存のファイルを上書きする"
 
@@ -881,6 +880,12 @@ msgstr "展開したいアーカイブを選択してください"
 msgid "Please select the destination directory"
 msgstr "展開先フォルダを選択してください"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Please enter it!"
+msgid "Please wait..."
+msgstr "入力してください!"
+
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "留意点"
@@ -934,6 +939,10 @@ msgstr "アーカイブを開いています、お待ちください..."
 #: ../src/interface.c
 msgid "Rename"
 msgstr "名前の変更"
+
+#: ../src/interface.c
+msgid "Replace"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Root"
@@ -1048,10 +1057,6 @@ msgstr ""
 msgid "Store archiver output"
 msgstr "アーカイブツールの出力を保存する"
 
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr "フルパスを保存する"
-
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
 msgstr ""
@@ -1076,8 +1081,30 @@ msgid "The archive is okay."
 msgstr "このアーカイブは暗号化されています!"
 
 #: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
-"The archive's directory structure is recreated in the extraction directory"
+"The archive's complete directory structure is recreated in the extraction "
+"directory"
+msgstr "アーカイブのフォルダ構造は展開フォルダに再作成されます。"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is not recreated; all files are placed in "
+"the extraction directory"
+msgstr "アーカイブのフォルダ構造は展開フォルダに再作成されます。"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is recreated in the extraction directory, "
+"but with the parent directories of the selected files removed"
 msgstr "アーカイブのフォルダ構造は展開フォルダに再作成されます。"
 
 #: ../src/add_dialog.c ../src/main.c
@@ -1100,9 +1127,9 @@ msgid "The filename column is sorted after loading the archive"
 msgstr "ファイル名列はアーカイブの読み込み後に並び替えられます。"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy
+#, fuzzy, c-format
 #| msgid "the proper archiver is not installed!"
-msgid "The proper archiver is not installed!"
+msgid "The proper archiver for \"%s\" is not installed!"
 msgstr "適切なアーカイブツールがインストールされていません!"
 
 #: ../src/extract_dialog.c
@@ -1123,15 +1150,14 @@ msgstr ""
 "大きいアーカイブでこのオプションを利用する場合、メモリ消費量が大きくなりま"
 "す。"
 
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr ""
-"このオプションでは、アーカイブ名の付いたフォルダにアーカイブを展開します。"
-
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option includes the subdirectories when you add files with drag and "
+#| "drop"
 msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
+"This option includes the subdirectories when you add files from the "
+"clipboard or with drag-and-drop"
 msgstr ""
 "このオプションを有効にすると、ドラッグアンドドロップでファイルを追加する時に"
 "下位のフォルダに対しても行えるようになります。"
@@ -1219,12 +1245,14 @@ msgstr ""
 msgid "Up"
 msgstr "上位フォルダへ"
 
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr "更新して追加する"
-
 #: ../src/extract_dialog.c
 msgid "Update existing files"
+msgstr "存在するファイルを更新する"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Update existing files"
+msgid "Update existing files and add new ones"
 msgstr "存在するファイルを更新する"
 
 #: ../src/open-with-dlg.c
@@ -1260,6 +1288,20 @@ msgstr ""
 msgid "Window"
 msgstr "ウィンドウ"
 
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Store full paths"
+msgid "With full path"
+msgstr "フルパスを保存する"
+
+#: ../src/extract_dialog.c
+msgid "Without any path"
+msgstr ""
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Without parent path"
+msgstr ""
+
 #: ../src/window.c
 msgid "Yes"
 msgstr "はい"
@@ -1267,6 +1309,12 @@ msgstr "はい"
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
 msgstr "アーカイブからエントリを削除しようとしています。"
+
+#: ../src/window.c
+msgid ""
+"You can drop either archives to open or files to add. It is not possible to "
+"do both at the same time."
+msgstr ""
 
 #: ../src/interface.c ../src/window.c
 #, fuzzy
@@ -1373,6 +1421,10 @@ msgstr "テキストファイル(_T)"
 msgid "and"
 msgstr ""
 
+#: ../src/add_dialog.c
+msgid "best"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "選択してください..."
@@ -1396,6 +1448,10 @@ msgstr "ファイル1 ファイル2 ... ファイルN"
 #: ../src/pref_dialog.c
 msgid "large"
 msgstr "大"
+
+#: ../src/add_dialog.c
+msgid "least"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "medium"
@@ -1440,6 +1496,51 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|サイズ\n"
+
+#~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+#~ msgstr "0 = 圧縮なし、3 = デフォルト、5 = 最高圧縮だが最も遅い"
+
+#~ msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+#~ msgstr "0 = 圧縮なし、5 = デフォルト、9 = 最高圧縮だが最も遅い"
+
+#~ msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+#~ msgstr "0 = 圧縮なし、6 = デフォルト、9 = 最高圧縮だが最も遅い"
+
+#~ msgid "5 = default compression, 7 = max compression"
+#~ msgstr "5 = デフォルト圧縮、7 = 最大圧縮"
+
+#~ msgid "Archive Name"
+#~ msgstr "アーカイブ名"
+
+#, c-format
+#~ msgid "Can't open file %s:"
+#~ msgstr "ファイル %s を開けません:"
+
+#~ msgid "Destination dirs"
+#~ msgstr "展開先フォルダ"
+
+#~ msgid "Do not store paths"
+#~ msgstr "パスを保存しない"
+
+#~ msgid "Extract pathnames"
+#~ msgstr "パス名を展開する"
+
+#~ msgid "Freshen and replace"
+#~ msgstr "新しくして置き換える"
+
+#~ msgid "Options "
+#~ msgstr "オプション"
+
+#~ msgid "Options:"
+#~ msgstr "オプション:"
+
+#~ msgid ""
+#~ "This option extracts archives in directories named with the archive names"
+#~ msgstr ""
+#~ "このオプションでは、アーカイブ名の付いたフォルダにアーカイブを展開します。"
+
+#~ msgid "Update and add"
+#~ msgstr "更新して追加する"
 
 #, fuzzy
 #~| msgid "Date modified"

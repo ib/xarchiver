@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2021-01-21 13:49+0100\n"
+"POT-Creation-Date: 2022-05-06 11:30+0200\n"
 "PO-Revision-Date: 2021-01-11 12:19+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lietuvių\n"
@@ -18,6 +18,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 2.0.2\n"
+
+#: ../src/pref_dialog.c
+msgid ""
+"\n"
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"\n"
+"<span color='red' style='italic'>Prašome įdiegti paketą xdg-utils, kad tokiu "
+"būdu\n"
+"Xarchiver galėtų atpažinti daugiau failo tipų.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -57,46 +68,20 @@ msgstr[0] "%d failas %s (%s)"
 msgstr[1] "%d failai %s (%s)"
 msgstr[2] "%d failų %s (%s)"
 
-#: ../src/pref_dialog.c
-msgid "/tmp"
-msgstr "/tmp"
-
 #: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+#, fuzzy, c-format
+#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgid ""
+"%hu is least compression\n"
+"%hu is default compression\n"
+"%hu is best compression"
 msgstr ""
 "0 = jokio glaudinimo, 1 yra numatytasis, 4 = greičiausias, tačiau mažiausias "
 "glaudinimas"
 
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-"0 = jokio glaudinimo, 3 yra numatytasis, 5 = geriausias, tačiau lėčiausias "
-"glaudinimas"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = jokio glaudinimo, 5 yra numatytasis, 9 = geriausias, tačiau lėčiausias "
-"glaudinimas"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = jokio glaudinimo, 6 yra numatytasis, 9 = geriausias, tačiau lėčiausias "
-"glaudinimas"
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = numatytasis glaudinimas, 7 = didžiausias glaudinimas"
-
 #: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"<span color='red' style='italic'>Prašome įdiegti paketą xdg-utils, kad tokiu "
-"būdu\n"
-"Xarchiver galėtų atpažinti daugiau failo tipų.</span>"
+msgid "/tmp"
+msgstr "/tmp"
 
 #: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
@@ -134,8 +119,8 @@ msgid "A_dd"
 msgstr "_Pridėti"
 
 #: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "Veiksmai: "
+msgid "Actions"
+msgstr "Veiksmai"
 
 #: ../src/interface.c
 msgid "Add"
@@ -161,7 +146,7 @@ msgstr ""
 "Pridėti į archyvą, užklausiant kuriuos\n"
 "                                         failus, ir išeiti"
 
-#: ../src/add_dialog.c
+#: ../src/window.c
 msgid "Adding files to archive, please wait..."
 msgstr "Failai pridedami į archyvą, prašome palaukti..."
 
@@ -178,7 +163,9 @@ msgid "All files"
 msgstr "Visi failai"
 
 #: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
+#, fuzzy
+#| msgid "Allow subdirs with drag and drop"
+msgid "Allow subdirs with clipboard and drag-and-drop"
 msgstr "Leisti pakatalogių vilkimą"
 
 #: ../src/window.c
@@ -189,13 +176,9 @@ msgstr "Gaunant prieigą prie failo, įvyko klaida:"
 msgid "An error occurred!"
 msgstr "Įvyko klaida!"
 
-#: ../src/pref_dialog.c
+#: ../src/extract_dialog.c ../src/pref_dialog.c
 msgid "Archive"
 msgstr "Archyvas"
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "Archyvo pavadinimas"
 
 #: ../src/interface.c
 msgid "Archive Properties"
@@ -278,7 +261,7 @@ msgstr "Nepavyksta sukurti katalogo!"
 msgid "Can't create temporary directory:"
 msgstr "Nepavyksta sukurti laikinąjį katalogą:"
 
-#: ../src/extract_dialog.c ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Can't extract files from the archive:"
 msgstr "Nepavyksta išskleisti failus iš archyvo:"
 
@@ -304,11 +287,6 @@ msgstr "Nepavyksta atveri RPM failą %s:"
 msgid "Can't open file \"%s\":"
 msgstr "Nepavyksta atverti failą \"%s\":"
 
-#: ../src/window.c
-#, c-format
-msgid "Can't open file %s:"
-msgstr "Nepavyksta atverti failą %s:"
-
 #: ../src/main.c
 msgid "Can't open the archive!\n"
 msgstr "Nepavyksta atverti archyvo!\n"
@@ -330,8 +308,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Nepavyksta paleisti archyvavimo programos vykdomojo:"
 
 #: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Nepavyksta į archyvą įrašyti unzipsfx modulį:"
+msgid "Can't write the sfx module to the archive:"
+msgstr "Nepavyksta į archyvą įrašyti sfx modulį:"
 
 #: ../src/interface.c
 msgid "Cancel current operation"
@@ -395,6 +373,10 @@ msgstr "Suglaudinto   dydis: "
 msgid "Compressed size:"
 msgstr "Suglaudinto dydis:"
 
+#: ../src/add_dialog.c
+msgid "Compression"
+msgstr "Glaudinimas"
+
 #: ../src/gzip_et_al.c
 msgid "Compression ratio"
 msgstr "Glaudinimo koeficientas"
@@ -403,13 +385,15 @@ msgstr "Glaudinimo koeficientas"
 msgid "Compression ratio:"
 msgstr "Glaudinimo koeficientas:"
 
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "Glaudinimas: "
-
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
 msgstr "Tvirtinti failų ištrynimą"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Testing archive, please wait..."
+msgid "Converting archive, please wait..."
+msgstr "Išbandomas archyvas, prašome palaukti..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -453,17 +437,21 @@ msgstr "Ištrinti"
 msgid "Delete files after adding"
 msgstr "Pridėjus, ištrinti failus"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive, please wait..."
+msgid "Deleting files from archive, please wait..."
+msgstr "Failai išskleidžiami iš archyvo, prašome palaukti..."
+
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "Panaikint_i visų žymėjimą"
 
 #: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr "Paskirties katalogai:"
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
-msgstr "Nesaugoti kelių"
+#, fuzzy
+#| msgid "destination"
+msgid "Destination"
+msgstr "paskirtis"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -478,12 +466,16 @@ msgid "Doing so will probably corrupt your archive!"
 msgstr "Tai atlikus, jūsų archyvas, tikriausiai, bus sugadintas!"
 
 #: ../src/interface.c
+msgid "Edit"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Šifruotas:"
 
 #: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "Šifravimas: "
+msgid "Encryption"
+msgstr "Šifravimas"
 
 #: ../src/extract_dialog.c
 msgid "Ensure a containing directory"
@@ -532,10 +524,6 @@ msgstr ""
 msgid "Extract files"
 msgstr "Išskleisti failus"
 
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr "Išskleisti su pilnu keliu"
-
 #: ../src/main.c
 msgid ""
 "Extract multiple archives by asking the\n"
@@ -553,18 +541,27 @@ msgstr ""
 "disko kopijos"
 
 #: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr "Išskleisti kelių pavadinimus"
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
+#, fuzzy
+#| msgid "Extract to dir \"Archive Name\""
+msgid "Extract to directories with archive names"
 msgstr "Išskleisti į katalogą \"Archyvo pavadinimas\""
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "Išskleisti į:"
 
-#: ../src/extract_dialog.c ../src/window.c
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Extract files with full path"
+msgid "Extract with full path"
+msgstr "Išskleisti su pilnu keliu"
+
+#: ../src/interface.c
+#, c-format
+msgid "Extracting \"%s\"..."
+msgstr ""
+
+#: ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Failai išskleidžiami iš archyvo, prašome palaukti..."
 
@@ -576,21 +573,21 @@ msgstr "Išskleidžiama iš archyvo:"
 msgid "Failed to launch the application!"
 msgstr "Nepavyko paleisti programos!"
 
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "Failų keliai: "
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "File Paths"
+msgstr "Failų keliai"
 
 #: ../src/window.c
 msgid "Filename"
 msgstr "Failo pavadinimas"
 
 #: ../src/extract_dialog.c
-msgid "Files "
-msgstr "Failai "
+msgid "Files"
+msgstr "Failai"
 
 #: ../src/extract_dialog.c
-msgid "Files: "
-msgstr "Failai: "
+msgid "Files:"
+msgstr "Failai:"
 
 #: ../src/window.c
 #, c-format
@@ -601,12 +598,10 @@ msgstr "Failai:%*s%s"
 msgid "Forward"
 msgstr "Pirmyn"
 
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr "Atnaujinti ir pakeisti"
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Freshen existing files"
+msgid "Freshen existing files only"
 msgstr "Atnaujinti esamus failus"
 
 #: ../src/window.c
@@ -617,15 +612,15 @@ msgstr "Iš failo"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lz;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
+"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
 "lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
 "tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;Android;archyvavimo programa;archyvavimas;biblioteka;glaudinimas;išorinė "
-"pusė;komiksų knyga;naudotojo sąsaja;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;"
-"bz2;bzip2;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;"
-"lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;"
+"pusė;komiksų knyga;naudotojo sąsaja;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;"
+"bzip2;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;"
 "pigz;plzip;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;"
 "zip;zst;Zstandard;zstd;"
 
@@ -689,6 +684,12 @@ msgstr "Naujas"
 #: ../src/window.c
 msgid "No"
 msgstr "Ne"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Compression"
+msgid "No compression"
+msgstr "Glaudinimas"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
@@ -766,17 +767,9 @@ msgstr "Atverti archyvą"
 msgid "Operation aborted!"
 msgstr "Operacija nutraukta!"
 
-#: ../src/add_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Options"
 msgstr "Parametrai"
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "Parametrai "
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "Parametrai:"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
@@ -784,7 +777,7 @@ msgstr "Parametrai:"
 msgid "Original Size"
 msgstr "Pradinis dydis"
 
-#: ../src/extract_dialog.c
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Perrašyti esamus failus"
 
@@ -864,6 +857,12 @@ msgstr "Pasirinkite archyvus, kuriuos norite išskleisti"
 msgid "Please select the destination directory"
 msgstr "Pasirinkite paskirties katalogą"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Please enter it!"
+msgid "Please wait..."
+msgstr "Įveskite jį!"
+
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Nurodo į"
@@ -911,6 +910,10 @@ msgstr "Archyvas įkeliamas iš naujo, palaukite..."
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Pervadinti"
+
+#: ../src/interface.c
+msgid "Replace"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Root"
@@ -1023,10 +1026,6 @@ msgstr "Stabdyti"
 msgid "Store archiver output"
 msgstr "Saugoti archyvavimo programos išvestį"
 
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr "Saugoti pilnus kelius"
-
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
 msgstr "Srautai/Blokai/Užpildas"
@@ -1049,8 +1048,30 @@ msgid "The archive is okay."
 msgstr "Archyvas yra geras."
 
 #: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
-"The archive's directory structure is recreated in the extraction directory"
+"The archive's complete directory structure is recreated in the extraction "
+"directory"
+msgstr "Archyvo katalogo struktūra bus atkurta išskleidimo kataloge"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is not recreated; all files are placed in "
+"the extraction directory"
+msgstr "Archyvo katalogo struktūra bus atkurta išskleidimo kataloge"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is recreated in the extraction directory, "
+"but with the parent directories of the selected files removed"
 msgstr "Archyvo katalogo struktūra bus atkurta išskleidimo kataloge"
 
 #: ../src/add_dialog.c ../src/main.c
@@ -1073,7 +1094,9 @@ msgid "The filename column is sorted after loading the archive"
 msgstr "Failo pavadinimo stulpelis yra surikiuojamas po archyvo įkėlimo"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-msgid "The proper archiver is not installed!"
+#, fuzzy, c-format
+#| msgid "The proper archiver is not installed!"
+msgid "The proper archiver for \"%s\" is not installed!"
 msgstr "Nėra įdiegta tinkama archyvavimo programa!"
 
 #: ../src/extract_dialog.c
@@ -1091,16 +1114,14 @@ msgid "This option consumes more memory with large archives"
 msgstr ""
 "Šis parametras naudoja daugiau atminties dirbant su dideliais archyvais"
 
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr ""
-"Šis parametras išskleidžia archyvus į katalogus su tokiais pačiais "
-"pavadinimais kaip ir archyvai"
-
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option includes the subdirectories when you add files with drag and "
+#| "drop"
 msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
+"This option includes the subdirectories when you add files from the "
+"clipboard or with drag-and-drop"
 msgstr "Šis parametras, velkant failus, įtraukia ir pakatalogius"
 
 #: ../src/extract_dialog.c
@@ -1177,12 +1198,14 @@ msgstr "Nepalaikomas dvejetainės formatas!"
 msgid "Up"
 msgstr "Aukštyn"
 
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr "Atnaujinti ir pridėti"
-
 #: ../src/extract_dialog.c
 msgid "Update existing files"
+msgstr "Atnaujinti esamus failus"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Update existing files"
+msgid "Update existing files and add new ones"
 msgstr "Atnaujinti esamus failus"
 
 #: ../src/open-with-dlg.c
@@ -1213,6 +1236,20 @@ msgstr ""
 msgid "Window"
 msgstr "Langas"
 
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Store full paths"
+msgid "With full path"
+msgstr "Saugoti pilnus kelius"
+
+#: ../src/extract_dialog.c
+msgid "Without any path"
+msgstr ""
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Without parent path"
+msgstr ""
+
 #: ../src/window.c
 msgid "Yes"
 msgstr "Taip"
@@ -1220,6 +1257,12 @@ msgstr "Taip"
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
 msgstr "Jūs ketinate ištrinti įrašus iš archyvo."
+
+#: ../src/window.c
+msgid ""
+"You can drop either archives to open or files to add. It is not possible to "
+"do both at the same time."
+msgstr ""
 
 #: ../src/interface.c ../src/window.c
 msgid "You can't add content to this archive type!"
@@ -1325,6 +1368,10 @@ msgstr "_Tekstinis failas"
 msgid "and"
 msgstr "ir"
 
+#: ../src/add_dialog.c
+msgid "best"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "pasirinkite..."
@@ -1344,6 +1391,10 @@ msgstr "failas1 ... failasN"
 #: ../src/pref_dialog.c
 msgid "large"
 msgstr "didelis"
+
+#: ../src/add_dialog.c
+msgid "least"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "medium"
@@ -1382,6 +1433,58 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Dydis\n"
+
+#~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = jokio glaudinimo, 3 yra numatytasis, 5 = geriausias, tačiau "
+#~ "lėčiausias glaudinimas"
+
+#~ msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = jokio glaudinimo, 5 yra numatytasis, 9 = geriausias, tačiau "
+#~ "lėčiausias glaudinimas"
+
+#~ msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = jokio glaudinimo, 6 yra numatytasis, 9 = geriausias, tačiau "
+#~ "lėčiausias glaudinimas"
+
+#~ msgid "5 = default compression, 7 = max compression"
+#~ msgstr "5 = numatytasis glaudinimas, 7 = didžiausias glaudinimas"
+
+#~ msgid "Archive Name"
+#~ msgstr "Archyvo pavadinimas"
+
+#, c-format
+#~ msgid "Can't open file %s:"
+#~ msgstr "Nepavyksta atverti failą %s:"
+
+#~ msgid "Destination dirs"
+#~ msgstr "Paskirties katalogai"
+
+#~ msgid "Do not store paths"
+#~ msgstr "Nesaugoti kelių"
+
+#~ msgid "Extract pathnames"
+#~ msgstr "Išskleisti kelių pavadinimus"
+
+#~ msgid "Freshen and replace"
+#~ msgstr "Atnaujinti ir pakeisti"
+
+#~ msgid "Options "
+#~ msgstr "Parametrai "
+
+#~ msgid "Options:"
+#~ msgstr "Parametrai:"
+
+#~ msgid ""
+#~ "This option extracts archives in directories named with the archive names"
+#~ msgstr ""
+#~ "Šis parametras išskleidžia archyvus į katalogus su tokiais pačiais "
+#~ "pavadinimais kaip ir archyvai"
+
+#~ msgid "Update and add"
+#~ msgstr "Atnaujinti ir pridėti"
 
 #~ msgid "Date and Time"
 #~ msgstr "Data ir laikas"
