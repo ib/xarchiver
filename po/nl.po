@@ -1,23 +1,24 @@
 # Dutch translation of the xarchiver package.
 # Copyright (C) The Xfce development team.
 # This file is distributed under the same license as the xarchiver package.
+#
 # Stephan Arts <stephan@localhost.localdomain>, 2006.
 # Pjotr, 2011.
-#
+# Heimen Stoffels <vistausss@fastmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2022-05-07 22:31+0200\n"
-"PO-Revision-Date: 2022-05-07 22:31+0200\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
-"Language-Team: Dutch\n"
+"PO-Revision-Date: 2022-05-10 13:42+0200\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
+"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Lokalize 22.04.0\n"
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -41,7 +42,7 @@ msgstr ""
 #: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr "\"%s\" is al geopend."
+msgstr "“%s” is al geopend."
 
 #: ../src/window.c
 #, c-format
@@ -107,7 +108,7 @@ msgstr "Een lichte GTK+-archiefbeheerder"
 
 #: ../src/interface.c
 msgid "A_ction"
-msgstr "A_ctie"
+msgstr "H_ulpmiddelen"
 
 #: ../src/interface.c
 msgid "A_dd"
@@ -190,7 +191,7 @@ msgstr "Archiefinhoud:\n"
 
 #: ../src/window.c
 msgid "Archive format is not recognized!"
-msgstr "Het bestandsformaat wordt niet herkend."
+msgstr "Dit bestandsformaat wordt niet herkend."
 
 #: ../xarchiver.desktop.in.h
 msgid "Archive manager"
@@ -230,7 +231,7 @@ msgstr "Bladeren"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
-msgstr "Kan bestanden niet toevoegen aan archief:"
+msgstr "De bestanden kunnen niet worden toegevoegd:"
 
 #: ../src/main.c
 msgid "Can't allocate memory for the archive structure!"
@@ -238,15 +239,15 @@ msgstr "Er kan geen geheugen worden vrijgemaakt voor de archiefstructuur."
 
 #: ../src/window.c
 msgid "Can't allocate memory for the archive structure:"
-msgstr "Kan geen geheugen vrijmaken voor de archiefstructuur:"
+msgstr "Er kan geen geheugen worden vrijgemaakt voor de archiefstructuur:"
 
 #: ../src/window.c
 msgid "Can't convert the archive to self-extracting:"
-msgstr "Kan archief niet zelf-uitpakkend maken:"
+msgstr "Het archief kan niet zelf-uitpakkend worden gemaakt:"
 
 #: ../src/new_dialog.c
 msgid "Can't create a new archive:"
-msgstr "Kan geen nieuw archief samenstellen:"
+msgstr "Er kan geen archief worden samengesteld:"
 
 #: ../src/extract_dialog.c ../src/main.c
 msgid "Can't create directory!"
@@ -258,29 +259,29 @@ msgstr "De tijdelijke map kan niet worden aangemaakt!"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Can't extract files from the archive:"
-msgstr "Kan geen bestanden uitpakken:"
+msgstr "De bestanden kunnen niet worden uitgepakt:"
 
 #: ../src/rpm.c
 msgid "Can't fseek in file:"
-msgstr "Kan fseek niet uitvoeren in bestand:"
+msgstr "fseek kan niet worden uitgevoerd in"
 
 #: ../src/rpm.c
 msgid "Can't fseek to position 104:"
-msgstr "Kan fseek niet uitvoeren naar positie 104:"
+msgstr "fseek kan niet naar positie 104 worden gestuurd:"
 
 #: ../src/extract_dialog.c
 msgid "Can't multi-extract archives:"
-msgstr "Kan geen meerdere archiefbestanden tegelijk uitpakken:"
+msgstr "Er kunnen geen meerdere archiefbestanden tegelijk worden uitgepakt:"
 
 #: ../src/rpm.c
 #, c-format
 msgid "Can't open RPM file %s:"
-msgstr "Kan RPM-bestand '%s' niet openen:"
+msgstr "Het RPM-bestand, ‘%s’, kan niet worden geopend:"
 
 #: ../src/window.c
 #, c-format
 msgid "Can't open file \"%s\":"
-msgstr "Kan bestand '%s' niet openen:"
+msgstr "‘%s’ kan niet worden geopend:"
 
 #: ../src/main.c
 msgid "Can't open the archive!\n"
@@ -292,19 +293,19 @@ msgstr "Het uitpakken is mislukt."
 
 #: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
-msgstr "Kan deze actie niet uitvoeren:"
+msgstr "De volgende actie kan niet worden uitgevoerd:"
 
 #: ../src/rpm.c
 msgid "Can't read data from file:"
-msgstr "Kan geen gegevens uitlezen:"
+msgstr "De gegevens kunnen niet worden uitgelezen:"
 
 #: ../src/archive.c
 msgid "Can't run the archiver executable:"
-msgstr "Kan archiefprogramma niet uitvoeren:"
+msgstr "Het archiefprogramma kan niet worden uitgevoerd:"
 
 #: ../src/window.c
 msgid "Can't write the sfx module to the archive:"
-msgstr "Kan de sfx-module niet toevoegen aan het archief:"
+msgstr "De sfx-module kan niet worden toegevoegd aan het archief:"
 
 #: ../src/interface.c
 msgid "Cancel current operation"
@@ -382,7 +383,7 @@ msgstr "Compressieniveau:"
 
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
-msgstr "Bestandsverwijdering bevestigen"
+msgstr "Om bevestiging vragen alvorens bestanden te verwijderen"
 
 #: ../src/window.c
 msgid "Converting archive, please wait..."
@@ -452,7 +453,7 @@ msgstr "Wilt u het overschrijven?"
 
 #: ../src/window.c
 msgid "Doing so will probably corrupt your archive!"
-msgstr "Hierdoor beschadigt u mogelijk uw archief."
+msgstr "Hiermee beschadigt u mogelijk uw archief."
 
 #: ../src/interface.c
 msgid "Edit"
@@ -474,9 +475,7 @@ msgstr "Bijbehorende map aanmaken"
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
 "directory"
-msgstr ""
-"Zorg dat de inhoud van archieven altijd naar een bijbehorende map wordt "
-"uitgepakt"
+msgstr "Pak de inhoud van archieven altijd uit naar een bijbehorende map"
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -545,7 +544,7 @@ msgstr "Uitpakken met behoud van locatiestructuur"
 #: ../src/interface.c
 #, c-format
 msgid "Extracting \"%s\"..."
-msgstr "Bezig met uitpakken van '%s'…"
+msgstr "Bezig met uitpakken van ‘%s’…"
 
 #: ../src/window.c
 msgid "Extracting files from archive, please wait..."
@@ -561,7 +560,7 @@ msgstr "Het programma kan niet worden gestart."
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "File Paths"
-msgstr "Bestandspaden"
+msgstr "Bestandslocaties"
 
 #: ../src/window.c
 msgid "Filename"
@@ -733,7 +732,7 @@ msgstr "Tekstbestanden openen met:"
 
 #: ../src/open-with-dlg.c
 msgid "Open the selected files with"
-msgstr "Geselecteerde bestanden openen met"
+msgstr "Selectie openen met"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."
@@ -779,11 +778,11 @@ msgstr "Plakken"
 
 #: ../src/extract_dialog.c
 msgid "Path"
-msgstr "Pad"
+msgstr "Locatie"
 
 #: ../src/interface.c
 msgid "Path:"
-msgstr "Pad:"
+msgstr "Locatie:"
 
 #: ../src/interface.c
 msgid "Pattern:"
@@ -797,7 +796,7 @@ msgstr "Rechten"
 #: ../src/window.c
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr ""
-"Kruis de optie 'Uitvoer van archiveerder opslaan' aan om dit te bekijken."
+"Kruis de optie ‘Uitvoer van archiveerder opslaan’ aan om dit te bekijken."
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Please enter it!"
@@ -805,7 +804,7 @@ msgstr "Voer het in."
 
 #: ../src/extract_dialog.c
 msgid "Please enter the extraction path."
-msgstr "Geef een uitpakpad op."
+msgstr "Geef een uitpaklocatie op."
 
 #: ../src/extract_dialog.c
 msgid "Please enter the password."
@@ -813,11 +812,11 @@ msgstr "Voer het wachtwoord in."
 
 #: ../src/extract_dialog.c
 msgid "Please fill the \"Extract to\" field!"
-msgstr "Geef een pad op in het veld 'Uitpakken naar'."
+msgstr "Geef een locatie op in het veld ‘Uitpakken naar’."
 
 #: ../src/window.c
 msgid "Please go to Preferences->Advanced and set it."
-msgstr "Ga naar Voorkeuren -> Geavanceerd om dit in te stellen."
+msgstr "Ga naar Voorkeuren → Geavanceerd om dit in te stellen."
 
 #: ../src/main.c
 #, c-format
@@ -906,7 +905,7 @@ msgstr "Zelf-uitpakkend archief opslaan als"
 
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
-msgstr "Vensterafmetingen opslaan"
+msgstr "Vensterafmetingen onthouden"
 
 #: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
 msgid "Saving"
@@ -915,8 +914,8 @@ msgstr "Bezig met opslaan"
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
-"Klik op 'Nieuw' om een archief samen te stellen of 'Openen' om een archief "
-"te openen"
+"Klik op ‘Nieuw’ om een archief samen te stellen of ‘Openen’ om een archief te"
+" openen"
 
 #: ../src/interface.c
 msgid "Select _all"
@@ -972,7 +971,7 @@ msgstr "Werkbalk tonen"
 
 #: ../src/main.c
 msgid "Show version and exit\n"
-msgstr "Toon versie en sluit af\n"
+msgstr "Toon het versienummer en sluit af\n"
 
 #: ../src/extract_dialog.c
 msgid "Size"
@@ -1017,7 +1016,7 @@ msgstr "Bezig met testen van archief…"
 #: ../src/new_dialog.c
 #, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr "Het archief, %s, bestaat al."
+msgstr "‘%s’ bestaat al."
 
 #: ../src/window.c
 msgid "The archive is okay."
@@ -1070,7 +1069,7 @@ msgstr "De bestandsnaamkolom wordt gesorteerd na het laden van het archief"
 #, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
 msgstr ""
-"Er is geen programma ge�nstalleerd om bestandstypen als dat van '%s' mee uit "
+"Er is geen programma geïnstalleerd om bestandstypen als dat van ‘%s’ mee uit "
 "te pakken!"
 
 #: ../src/extract_dialog.c
@@ -1080,7 +1079,8 @@ msgstr "Dit archief is versleuteld."
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
-"Dit is Xarchiver's led-status. Knipperen betekent dat Xarchiver bezig is."
+"Dit is Xarchiver's led-status. Als de led knippert, betekent het dat"
+" Xarchiver bezig is."
 
 #: ../src/pref_dialog.c
 msgid "This option consumes more memory with large archives"
@@ -1118,7 +1118,7 @@ msgid ""
 "there; unlike the update option it will not add any new files"
 msgstr ""
 "Deze optie voegt alleen bestanden toe die gewijzigd zijn sinds het "
-"samenstellen van het archief. In tegenstelling tot de optie 'Bijwerken', "
+"samenstellen van het archief. In tegenstelling tot de optie ‘Bijwerken’, "
 "worden alleen bestanden toegevoegd die al aanwezig waren."
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
@@ -1133,7 +1133,7 @@ msgstr "Totale voortgang:"
 
 #: ../src/extract_dialog.c
 msgid "Touch files"
-msgstr "Bestanden aanraken"
+msgstr "Tijdstempel aanpassen"
 
 #: ../src/interface.c
 msgid "Type:"
@@ -1145,12 +1145,12 @@ msgstr "UID/GID"
 
 #: ../src/interface.c
 msgid "Uncompressed size:"
-msgstr "Oningepakte grootte:"
+msgstr "Uitgepakte grootte:"
 
 #: ../src/window.c
 #, c-format
 msgid "Uncompressed size: "
-msgstr "Oningepakte grootte: "
+msgstr "Uitgepakte grootte: "
 
 #: ../src/rpm.c
 msgid "Unknown compression type!"
@@ -1253,7 +1253,7 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "U beschikt niet over de juiste rechten om de bestanden uit te pakken naar de "
-"map \"%s\"."
+"map ‘%s’."
 
 #: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
@@ -1297,7 +1297,7 @@ msgstr "Uitpakk_en"
 
 #: ../src/interface.c
 msgid "_HTML file"
-msgstr "_HTML-bestand"
+msgstr "_Html-bestand"
 
 #: ../src/interface.c
 msgid "_Help"
@@ -1305,7 +1305,7 @@ msgstr "_Hulp"
 
 #: ../src/interface.c
 msgid "_List as"
-msgstr "Opsommen a_ls"
+msgstr "Inhoud opsommen a_ls"
 
 #: ../src/interface.c
 msgid "_Multi-Extract"
@@ -1361,7 +1361,7 @@ msgstr "bestand1 ... bestandX"
 
 #: ../src/pref_dialog.c
 msgid "large"
-msgstr "groot"
+msgstr "Groot"
 
 #: ../src/add_dialog.c
 msgid "least"
@@ -1369,7 +1369,7 @@ msgstr "minst"
 
 #: ../src/pref_dialog.c
 msgid "medium"
-msgstr "gemiddeld"
+msgstr "Gemiddeld"
 
 #: ../src/window.c
 msgid "selected"
@@ -1377,11 +1377,11 @@ msgstr "geselecteerd"
 
 #: ../src/pref_dialog.c
 msgid "small"
-msgstr "klein"
+msgstr "Klein"
 
 #: ../src/pref_dialog.c
 msgid "small/medium"
-msgstr "klein/gemiddeld"
+msgstr "Klein/Gemiddeld"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1389,11 +1389,11 @@ msgstr ""
 "Stephan Arts <stephan@xfce.org>\n"
 "Vincent Tunru <projects@vinnl.nl>\n"
 "Pjotr\n"
-"Heimen Stoffels <vistausss@outlook.com>"
+"Heimen Stoffels <vistausss@fastmail.com>"
 
 #: ../src/pref_dialog.c
 msgid "very large"
-msgstr "enorm"
+msgstr "Enorm"
 
 #: ../src/main.c
 #, c-format
