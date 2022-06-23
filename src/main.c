@@ -103,20 +103,25 @@ static void xa_check_available_archivers ()
 
 	/* (un)compressors that can handle various types */
 
-	sevenz = g_find_program_in_path("7z");
+	sevenz = g_find_program_in_path("7zz");
 
 	if (!sevenz)
 	{
-		is7z = FALSE;
-		sevenz = g_find_program_in_path("7za");
+		sevenz = g_find_program_in_path("7z");
 
 		if (!sevenz)
 		{
-			is7za = FALSE;
-			sevenz = g_find_program_in_path("7zr");
+			is7z = FALSE;
+			sevenz = g_find_program_in_path("7za");
 
 			if (!sevenz)
-				is7zr = FALSE;
+			{
+				is7za = FALSE;
+				sevenz = g_find_program_in_path("7zr");
+
+				if (!sevenz)
+					is7zr = FALSE;
+			}
 		}
 	}
 
