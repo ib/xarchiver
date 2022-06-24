@@ -103,7 +103,10 @@ static void xa_check_available_archivers ()
 
 	/* (un)compressors that can handle various types */
 
-	sevenz = g_find_program_in_path("7z");
+	sevenz = g_find_program_in_path("7zz");
+
+	if (!sevenz)
+		sevenz = g_find_program_in_path("7z");
 
 	if (!sevenz)
 	{
