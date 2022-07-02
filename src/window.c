@@ -2620,11 +2620,7 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 
 		if (event->button == 1)
 		{
-			GdkModifierType state;
-
-			gdk_event_get_state((GdkEvent *) event, &state);
-
-			if (gtk_tree_selection_iter_is_selected(selection, &iter) && ((state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)) == 0))
+			if (gtk_tree_selection_iter_is_selected(selection, &iter) && ((event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)) == 0))
 				return TRUE;
 			else
 				return FALSE;
