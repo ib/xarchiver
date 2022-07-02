@@ -2625,10 +2625,10 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 			{
 				last_button1 = event->time;
 
-			if (gtk_tree_selection_iter_is_selected(selection, &iter) && ((event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)) == 0))
-				return TRUE;
-			else
-				return FALSE;
+				if (gtk_tree_selection_iter_is_selected(selection, &iter) && ((event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)) == 0))
+					return TRUE;
+				else
+					return FALSE;
 			}
 			else
 				event->button = 2;
