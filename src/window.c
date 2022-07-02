@@ -2597,6 +2597,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 
 gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *event, XArchive *archive)
 {
+	static guint32 last_button1;
 	XEntry *entry;
 	GtkTreePath *path;
 	GtkTreeIter iter;
@@ -2620,10 +2621,17 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 
 		if (event->button == 1)
 		{
+			if (event->time - last_button1 > 250)
+			{
+				last_button1 = event->time;
+
 			if (gtk_tree_selection_iter_is_selected(selection, &iter) && ((event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)) == 0))
 				return TRUE;
 			else
 				return FALSE;
+			}
+			else
+				event->button = 2;
 		}
 
 		if (!gtk_tree_selection_iter_is_selected(selection, &iter))
