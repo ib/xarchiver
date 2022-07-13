@@ -25,6 +25,8 @@ xarchiver_SOURCES = \
 	gzip_et_al.h \
 	interface.c \
 	interface.h \
+	iso.c \
+	iso.h \
 	lha.c \
 	lha.h \
 	main.c \

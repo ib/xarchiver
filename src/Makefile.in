@@ -110,12 +110,13 @@ am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
 	ar.c ar.h archive.c archive.h arj.c arj.h cpio.c cpio.h \
 	date_utils.c date_utils.h exe.c exe.h extract_dialog.c \
 	extract_dialog.h gzip_et_al.c gzip_et_al.h interface.c \
-	interface.h lha.c lha.h main.c main.h mime.c mime.h \
-	new_dialog.c new_dialog.h open-with-dlg.c open-with-dlg.h \
-	pref_dialog.c pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c \
-	socket.h string_utils.c string_utils.h support.h tar.c tar.h \
-	unar.c unar.h utf8-fnmatch.c utf8-fnmatch.h window.c window.h \
-	zip.c zip.h sexy-icon-entry.c sexy-icon-entry.h
+	interface.h iso.c iso.h lha.c lha.h main.c main.h mime.c \
+	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
+	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
+	rpm.h socket.c socket.h string_utils.c string_utils.h \
+	support.h tar.c tar.h unar.c unar.h utf8-fnmatch.c \
+	utf8-fnmatch.h window.c window.h zip.c zip.h sexy-icon-entry.c \
+	sexy-icon-entry.h
 @GTK_V2_16_FALSE@am__objects_1 = xarchiver-sexy-icon-entry.$(OBJEXT)
 am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-add_dialog.$(OBJEXT) xarchiver-ar.$(OBJEXT) \
@@ -123,8 +124,9 @@ am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-cpio.$(OBJEXT) xarchiver-date_utils.$(OBJEXT) \
 	xarchiver-exe.$(OBJEXT) xarchiver-extract_dialog.$(OBJEXT) \
 	xarchiver-gzip_et_al.$(OBJEXT) xarchiver-interface.$(OBJEXT) \
-	xarchiver-lha.$(OBJEXT) xarchiver-main.$(OBJEXT) \
-	xarchiver-mime.$(OBJEXT) xarchiver-new_dialog.$(OBJEXT) \
+	xarchiver-iso.$(OBJEXT) xarchiver-lha.$(OBJEXT) \
+	xarchiver-main.$(OBJEXT) xarchiver-mime.$(OBJEXT) \
+	xarchiver-new_dialog.$(OBJEXT) \
 	xarchiver-open-with-dlg.$(OBJEXT) \
 	xarchiver-pref_dialog.$(OBJEXT) xarchiver-rar.$(OBJEXT) \
 	xarchiver-rpm.$(OBJEXT) xarchiver-socket.$(OBJEXT) \
@@ -165,8 +167,8 @@ am__depfiles_remade = ./$(DEPDIR)/xarchiver-7zip.Po \
 	./$(DEPDIR)/xarchiver-extract_dialog.Po \
 	./$(DEPDIR)/xarchiver-gzip_et_al.Po \
 	./$(DEPDIR)/xarchiver-interface.Po \
-	./$(DEPDIR)/xarchiver-lha.Po ./$(DEPDIR)/xarchiver-main.Po \
-	./$(DEPDIR)/xarchiver-mime.Po \
+	./$(DEPDIR)/xarchiver-iso.Po ./$(DEPDIR)/xarchiver-lha.Po \
+	./$(DEPDIR)/xarchiver-main.Po ./$(DEPDIR)/xarchiver-mime.Po \
 	./$(DEPDIR)/xarchiver-new_dialog.Po \
 	./$(DEPDIR)/xarchiver-open-with-dlg.Po \
 	./$(DEPDIR)/xarchiver-pref_dialog.Po \
@@ -430,13 +432,13 @@ SUBDIRS = xdgmime
 xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h ar.c ar.h \
 	archive.c archive.h arj.c arj.h cpio.c cpio.h date_utils.c \
 	date_utils.h exe.c exe.h extract_dialog.c extract_dialog.h \
-	gzip_et_al.c gzip_et_al.h interface.c interface.h lha.c lha.h \
-	main.c main.h mime.c mime.h new_dialog.c new_dialog.h \
-	open-with-dlg.c open-with-dlg.h pref_dialog.c pref_dialog.h \
-	rar.c rar.h rpm.c rpm.h socket.c socket.h string_utils.c \
-	string_utils.h support.h tar.c tar.h unar.c unar.h \
-	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
-	$(am__append_1)
+	gzip_et_al.c gzip_et_al.h interface.c interface.h iso.c iso.h \
+	lha.c lha.h main.c main.h mime.c mime.h new_dialog.c \
+	new_dialog.h open-with-dlg.c open-with-dlg.h pref_dialog.c \
+	pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c socket.h \
+	string_utils.c string_utils.h support.h tar.c tar.h unar.c \
+	unar.h utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c \
+	zip.h $(am__append_1)
 xarchiver_CFLAGS = -Wall -Wextra -Wno-unused-parameter @GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" -DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\" $(am__append_2)
@@ -548,6 +550,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-extract_dialog.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-gzip_et_al.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-interface.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-iso.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-lha.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-mime.Po@am__quote@ # am--include-marker
@@ -745,6 +748,20 @@ xarchiver-interface.obj: interface.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='interface.c' object='xarchiver-interface.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-interface.obj `if test -f 'interface.c'; then $(CYGPATH_W) 'interface.c'; else $(CYGPATH_W) '$(srcdir)/interface.c'; fi`
+
+xarchiver-iso.o: iso.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-iso.o -MD -MP -MF $(DEPDIR)/xarchiver-iso.Tpo -c -o xarchiver-iso.o `test -f 'iso.c' || echo '$(srcdir)/'`iso.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-iso.Tpo $(DEPDIR)/xarchiver-iso.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='iso.c' object='xarchiver-iso.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-iso.o `test -f 'iso.c' || echo '$(srcdir)/'`iso.c
+
+xarchiver-iso.obj: iso.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-iso.obj -MD -MP -MF $(DEPDIR)/xarchiver-iso.Tpo -c -o xarchiver-iso.obj `if test -f 'iso.c'; then $(CYGPATH_W) 'iso.c'; else $(CYGPATH_W) '$(srcdir)/iso.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-iso.Tpo $(DEPDIR)/xarchiver-iso.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='iso.c' object='xarchiver-iso.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-iso.obj `if test -f 'iso.c'; then $(CYGPATH_W) 'iso.c'; else $(CYGPATH_W) '$(srcdir)/iso.c'; fi`
 
 xarchiver-lha.o: lha.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-lha.o -MD -MP -MF $(DEPDIR)/xarchiver-lha.Tpo -c -o xarchiver-lha.o `test -f 'lha.c' || echo '$(srcdir)/'`lha.c
@@ -1186,6 +1203,7 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/xarchiver-extract_dialog.Po
 	-rm -f ./$(DEPDIR)/xarchiver-gzip_et_al.Po
 	-rm -f ./$(DEPDIR)/xarchiver-interface.Po
+	-rm -f ./$(DEPDIR)/xarchiver-iso.Po
 	-rm -f ./$(DEPDIR)/xarchiver-lha.Po
 	-rm -f ./$(DEPDIR)/xarchiver-main.Po
 	-rm -f ./$(DEPDIR)/xarchiver-mime.Po
@@ -1258,6 +1276,7 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/xarchiver-extract_dialog.Po
 	-rm -f ./$(DEPDIR)/xarchiver-gzip_et_al.Po
 	-rm -f ./$(DEPDIR)/xarchiver-interface.Po
+	-rm -f ./$(DEPDIR)/xarchiver-iso.Po
 	-rm -f ./$(DEPDIR)/xarchiver-lha.Po
 	-rm -f ./$(DEPDIR)/xarchiver-main.Po
 	-rm -f ./$(DEPDIR)/xarchiver-mime.Po

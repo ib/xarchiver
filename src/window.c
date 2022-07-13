@@ -32,6 +32,7 @@
 #include "extract_dialog.h"
 #include "gzip_et_al.h"
 #include "interface.h"
+#include "iso.h"
 #include "main.h"
 #include "mime.h"
 #include "new_dialog.h"
@@ -1895,6 +1896,9 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	else if (memcmp(magic + 1, "\xb5\x2f\xfd", 3) == 0 &&
 	         (*magic == '\x1e' || (*magic >= '\x22' && *magic <= '\x28')))
 		xa.type = XARCHIVETYPE_ZSTD;
+	/* file positioning methods come next to last */
+	else if (isISO(file))
+		xa.type = XARCHIVETYPE_ISO;
 	/* partly heuristic methods must come last */
 	else if (isTar(file))
 		xa.type = XARCHIVETYPE_TAR;

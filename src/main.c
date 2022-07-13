@@ -460,6 +460,23 @@ static void xa_check_available_archivers ()
 		archiver[type].add = FUNC(standard, xa_gzip_et_al_add, is7za, xa_7zip_add, lsar, NULL);
 	}
 
+	/* ISO */
+
+	type = XARCHIVETYPE_ISO;
+	path = (is7z ? g_strconcat(sevenz, " -tiso", NULL) : NULL);
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].type = g_slist_append(archiver[type].type, "iso");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.iso");
+
+		archiver[type].ask = xa_7zip_ask;
+		archiver[type].list = xa_7zip_list;
+		archiver[type].test = xa_7zip_test;
+		archiver[type].extract = xa_7zip_extract;
+	}
+
 	/* LHA */
 
 	type = XARCHIVETYPE_LHA;
