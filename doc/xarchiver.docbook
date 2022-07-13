@@ -117,7 +117,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							Smart detection of 7zip, arj, rar and zip password encrypted archives
+							Smart detection of 7zip, arj, lrzip, rar and zip password encrypted archives
 						</para>
 					</listitem>
 					<listitem>
@@ -137,7 +137,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							Password encrypted archives are fully supported
+							Password encrypted 7zip, arj, lrzip, rar and zip archives are fully supported
 						</para>
 					</listitem>
 				</itemizedlist>
@@ -343,7 +343,7 @@
 					<title>Open</title>
 						<para>
 							Opens a new archive. If you force &app; to open an unsupported archive
-							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also.
+							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected 7zip, arj, lrzip, rar and zip archives are also supported.
 						</para>
 				</section>
 				<section id="list_as">
@@ -531,7 +531,7 @@
 		</section>
 		<section id="faq_2">
 			<title>How can I create an archive with some files password protected and others not?</title>
-			<para>First of all choose 'New' and select one of arj, 7zip, rar or zip archive formats and choose 'Add' from the Action menu. Do NOT check "Password" in the Add dialog. Add your files and then reopen the Add dialog again but this time check "Password" and
+			<para>First of all choose 'New' and select one of the 7zip, arj, lrzip, rar or zip archive formats and choose 'Add' from the Action menu. Do NOT check "Password" in the Add dialog. Add your files and then reopen the Add dialog again but this time check "Password" and
 enter your password. From now on all the files you add to the archive will be password protected.
 			</para>
 		</section>
