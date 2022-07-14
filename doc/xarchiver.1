@@ -12,12 +12,12 @@ lz4, lzip, lzma, lzop, mozlz4, oxt, rar, tar, xpi, xz, zip, zstd, tar.bz2,
 tar.gz, tar.lrz, tar.lz, tar.lz4, tar.lzma, tar.lzop, tar.xz, tar.Z, tar.zst
 and (without their package managers) deb and rpm files.
 .br
-It detects the file types by their magic header, not by their extension, and
-utilizes various (un)compressor/(un)archiver command line programs at
-runtime. It allows to list, test and create archives, add and copy files to
-them, extract, delete, cut and drag files from them, edit files in them, and
-paste and drop files into them. Password protected 7z, arj, lrzip, rar and
-zip archives are supported and will be recognized.
+It detects the file types by their file signature (magic number), not by
+their extension, and utilizes various (un)compressor/(un)archiver command
+line programs at runtime. It allows to list, test and create archives, add
+and copy files to them, extract, delete, cut and drag files from them, edit
+files in them, and paste and drop files into them. Password protected 7z,
+arj, lrzip, rar and zip archives are supported and will be recognized.
 .SH OPTIONS
 .TP
 \fB\-a\fR, \fB\-\-add\fR
