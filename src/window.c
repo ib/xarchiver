@@ -1947,7 +1947,6 @@ void xa_create_liststore (XArchive *archive, const gchar *titles[])
 	gtk_tree_view_column_set_resizable (column,TRUE);
 	gtk_tree_view_column_set_sort_column_id (column,1);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview),column);
-	gtk_tree_view_column_set_sizing (column,GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	g_signal_connect(archive->text_renderer, "editing-canceled", G_CALLBACK(xa_rename_cell_edited_canceled), archive);
 	g_signal_connect(archive->text_renderer, "edited", G_CALLBACK(xa_rename_cell_edited), archive);
 
