@@ -301,7 +301,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->store_path, full_path);
 	gtk_widget_set_sensitive(add_dialog->update, archive->can_update[1]);
 	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen[1]);
-	gtk_widget_set_sensitive(add_dialog->recurse, TRUE);
+	gtk_widget_set_sensitive(add_dialog->recurse, !archive->can_recurse);
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
 
@@ -419,7 +419,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			if (!archive->do_full_path)
 				archive->child_dir = g_path_get_dirname(list->data);
 
-			xa_execute_add_commands(archive, list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->recurse)));
+			xa_execute_add_commands(archive, list, gtk_widget_is_sensitive(add_dialog->recurse) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->recurse)));
 		}
 	}
 	gtk_widget_destroy(add_dialog->compression_scale);
