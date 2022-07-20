@@ -37,7 +37,6 @@ typedef struct Add_dialog_data
 	GtkWidget *no_store_path;
 	GtkWidget *option_notebook_vbox;
 	GtkWidget *remove_files;
-	GtkWidget *overwrite;
 	GtkWidget *update;
 	GtkWidget *freshen;
 	GtkWidget *solid_archive;

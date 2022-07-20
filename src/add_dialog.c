@@ -33,15 +33,12 @@ static gboolean no_focus (GtkWidget *widget, GtkDirectionType direction, gpointe
 	return TRUE;
 }
 
-static void toggle_overwrite_update_freshen (GtkToggleButton *button, Add_dialog_data *data)
+static void toggle_update_freshen (GtkToggleButton *button, Add_dialog_data *data)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
 
 	if (active)
 	{
-		if (button != GTK_TOGGLE_BUTTON(data->overwrite))
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->overwrite), FALSE);
-
 		if (button != GTK_TOGGLE_BUTTON(data->update))
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->update), FALSE);
 
@@ -163,24 +160,19 @@ Add_dialog_data *xa_create_add_dialog()
 	vbox3 = gtk_vbox_new (TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (alignment4),vbox3);
 
-	add_dialog->overwrite = gtk_check_button_new_with_mnemonic(_("Overwrite existing files"));
-	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->overwrite), FALSE);
-	gtk_box_pack_start(GTK_BOX(vbox3), add_dialog->overwrite, FALSE, FALSE, 0);
-	g_signal_connect(G_OBJECT(add_dialog->overwrite), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), add_dialog);
-	g_signal_connect(G_OBJECT(add_dialog->overwrite), "focus", G_CALLBACK(no_focus), NULL);
-
 	add_dialog->update = gtk_check_button_new_with_mnemonic(_("Update existing files and add new ones"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->update, _("This option will add any new files and update any files which are already in the archive but older there"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
-	g_signal_connect(G_OBJECT(add_dialog->update), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), add_dialog);
+	g_signal_connect(G_OBJECT(add_dialog->update), "toggled", G_CALLBACK(toggle_update_freshen), add_dialog);
+	g_signal_connect(G_OBJECT(add_dialog->update), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->freshen = gtk_check_button_new_with_mnemonic(_("Freshen existing files only"));
 
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->freshen), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->freshen, _("This option will only add files which are already in the archive but older there; unlike the update option it will not add any new files"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->freshen, FALSE, FALSE, 0);
-	g_signal_connect(G_OBJECT(add_dialog->freshen), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), add_dialog);
+	g_signal_connect(G_OBJECT(add_dialog->freshen), "toggled", G_CALLBACK(toggle_update_freshen), add_dialog);
 
 	add_dialog->recurse = gtk_check_button_new_with_mnemonic (_("Include subdirectories"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->recurse), FALSE);
@@ -312,10 +304,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->recurse, TRUE);
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
-
-	if ((!gtk_widget_is_sensitive(add_dialog->update) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->update))) ||
-	    (!gtk_widget_is_sensitive(add_dialog->freshen) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->freshen))))
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->overwrite), TRUE);
 
 	normal = (archive->compressor.least <= archive->compressor.best);
 
