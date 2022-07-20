@@ -1303,7 +1303,7 @@ int main (int argc, char **argv)
 				archive->do_move = FALSE;
 				archive->do_solid = FALSE;
 
-				xa_execute_add_commands(archive, files, TRUE);
+				xa_execute_add_commands(archive, files, TRUE, TRUE);
 			}
 		}
 		/* Switch -a */

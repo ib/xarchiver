@@ -45,7 +45,7 @@ GString *xa_collect_files_in_dir(const gchar *);
 gchar *xa_make_full_path(const char *);
 GString *xa_quote_filenames(GSList *, const gchar *, gboolean);
 gchar *xa_quote_shell_command(const gchar *, gboolean);
-void xa_recurse_local_directory(gchar *, GSList **, gboolean, gboolean);
+void xa_recurse_local_directory(gchar *, GSList **, gboolean, gboolean, gboolean);
 gchar *xa_remove_level_from_path(const gchar *);
 void xa_remove_slash_from_path(gchar *);
 gchar *xa_set_max_width_chars_ellipsize(const gchar *, gint, PangoEllipsizeMode);

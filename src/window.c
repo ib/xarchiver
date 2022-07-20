@@ -462,7 +462,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		archive->do_move = FALSE;
 		archive->do_solid = FALSE;
 
-		xa_execute_add_commands(archive, file_list, FALSE);
+		xa_execute_add_commands(archive, file_list, FALSE, TRUE);
 	}
 done:
 	xa_rename_cell_edited_canceled(GTK_CELL_RENDERER(cell), NULL);
@@ -2367,7 +2367,7 @@ failed:
 		archive[idx]->do_move = FALSE;
 		archive[idx]->do_solid = FALSE;
 
-		xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
+		xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)), TRUE);
 	}
 	else
 	{
@@ -2773,7 +2773,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	archive[idx]->do_move = FALSE;
 	archive[idx]->do_solid = FALSE;
 
-	xa_execute_add_commands(archive[idx], XA_Clipboard.paths, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)));
+	xa_execute_add_commands(archive[idx], XA_Clipboard.paths, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)), TRUE);
 
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
