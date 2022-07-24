@@ -163,16 +163,10 @@ gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 		extract_to = g_strdup(archive->extraction_dir);
 	else
 	{
-		if (!xa_create_working_directory(archive))
-			return FALSE;
+		extract_to = xa_create_working_subdirectory(archive);
 
-		extract_to = g_strconcat(archive->working_dir, "/xa-tmp.XXXXXX", NULL);
-
-		if (!g_mkdtemp(extract_to))
-		{
-			g_free(extract_to);
+		if (!extract_to)
 			return FALSE;
-		}
 	}
 
 	g_slist_foreach(file_list, (GFunc) relative_path, NULL);

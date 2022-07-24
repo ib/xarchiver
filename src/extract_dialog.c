@@ -999,18 +999,11 @@ void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean stri
 
 	if (strip)
 	{
-		if (!xa_create_working_directory(archive))
+		extract_to = xa_create_working_subdirectory(archive);
+
+		if (!extract_to)
 		{
 			xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't create directory!"), "");
-			return;
-		}
-
-		extract_to = g_strconcat(archive->working_dir, "/xa-tmp.XXXXXX", NULL);
-
-		if (!g_mkdtemp(extract_to))
-		{
-			xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't create directory!"), "");
-			g_free(extract_to);
 			return;
 		}
 

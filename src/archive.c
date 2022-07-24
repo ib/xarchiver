@@ -533,6 +533,24 @@ gboolean xa_create_working_directory (XArchive *archive)
 	return TRUE;
 }
 
+gchar *xa_create_working_subdirectory (XArchive *archive)
+{
+	gchar *subdir;
+
+	if (!xa_create_working_directory(archive))
+		return NULL;
+
+	subdir = g_strconcat(archive->working_dir, "/xa-tmp.XXXXXX", NULL);
+
+	if (g_mkdtemp(subdir))
+		return subdir;
+	else
+	{
+		g_free(subdir);
+		return NULL;
+	}
+}
+
 gchar *xa_create_containing_directory (XArchive *archive, const gchar *path)
 {
 	gchar *stem, *dir;
