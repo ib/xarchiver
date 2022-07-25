@@ -392,6 +392,32 @@ gchar *xa_quote_shell_command (const gchar *string, gboolean unescaped)
 	return escaped;
 }
 
+GString *xa_quote_dir_contents (const gchar *directory)
+{
+	GDir *dir;
+	const gchar *name;
+	GString *files = g_string_new("");
+
+	dir = g_dir_open(directory, 0, NULL);
+
+	if (dir)
+	{
+		while ((name = g_dir_read_name(dir)))
+		{
+			gchar *quoted = g_shell_quote(name);
+
+			files = g_string_append_c(files, ' ');
+			files = g_string_append(files, quoted);
+
+			g_free(quoted);
+		}
+
+		g_dir_close(dir);
+	}
+
+	return files;
+}
+
 GString *xa_collect_files_in_dir (const gchar *directory)
 {
 	size_t offset;
