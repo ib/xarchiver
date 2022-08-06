@@ -2184,6 +2184,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	gint length;
 	GtkTreeSelection *selection;
 	GSList *names = NULL;
+	int unesc_len;
 
 	send = "E";
 
@@ -2250,6 +2251,10 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 
 		g_free(archive->extraction_dir);
 		archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
+		g_free(archive->extraction_dir_unesc);
+		unesc_len = strlen(extraction_dir) + 1;
+		archive->extraction_dir_unesc = g_malloc0(unesc_len);
+		strncpy(archive->extraction_dir_unesc, extraction_dir, unesc_len);
 
 		xa_execute_extract_commands(archive, names, TRUE);
 

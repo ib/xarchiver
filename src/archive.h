@@ -163,6 +163,7 @@ struct _XArchive
 	gchar *working_dir;
 	gchar *destination_path;
 	gchar *extraction_dir;   // (free before use)
+	gchar *extraction_dir_unesc;
 	gchar *location_path;
 	/* properties */
 	guint files;

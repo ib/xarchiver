@@ -1014,7 +1014,21 @@ void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean stri
 			return;
 		}
 
-		extraction_dir = g_shell_quote(archive->extraction_dir);
+		if (archive->extraction_dir_unesc != NULL) {
+			extraction_dir = g_shell_quote(archive->extraction_dir_unesc);
+			g_free(archive->extraction_dir_unesc);
+			archive->extraction_dir_unesc = NULL;
+		} else {
+			xa_show_message_dialog(GTK_WINDOW(xa_main_window),
+					GTK_DIALOG_MODAL,
+					GTK_MESSAGE_ERROR,
+					GTK_BUTTONS_OK,
+					_("BUG: Unescaped path string not available!"),
+					""
+					);
+			return;
+		}
+
 		g_free(archive->extraction_dir);
 		archive->extraction_dir = xa_escape_bad_chars(extract_to, ESCAPES);
 	}
@@ -1026,9 +1040,10 @@ void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean stri
 	{
 		archive->child_dir = g_strconcat(extract_to, "/", archive->location_path, NULL);
 
-		command = g_strconcat("sh -c \"exec mv",
-		                      archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
-		                      " -- `ls -A` ", extraction_dir, "\"", NULL);
+		command = g_strconcat("sh -c \"exec find -maxdepth 1 -name '*' -exec mv",
+				archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
+				" -t ", extraction_dir, " {} +",
+				"\"", NULL);
 
 		archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
 		xa_run_command(archive, command);
