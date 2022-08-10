@@ -981,6 +981,7 @@ run:
 void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean strip)
 {
 	gchar *extract_to, *extraction_dir, *command;
+	GString *dir_contents;
 
 	if (xa_main_window)
 	{
@@ -1017,10 +1018,11 @@ void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean stri
 	if (strip)
 	{
 		archive->child_dir = g_strconcat(extract_to, "/", archive->location_path, NULL);
+		dir_contents = xa_quote_dir_contents(archive->child_dir);
 
-		command = g_strconcat("sh -c \"exec mv",
+		command = g_strconcat("mv",
 		                      archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
-		                      " -- `ls -A` ", extraction_dir, "\"", NULL);
+		                      " --", dir_contents->str, " ", extraction_dir, NULL);
 
 		archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
 		xa_run_command(archive, command);
@@ -1031,5 +1033,6 @@ void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean stri
 
 		g_free(extraction_dir);
 		g_free(extract_to);
+		g_string_free(dir_contents, TRUE);
 	}
 }
