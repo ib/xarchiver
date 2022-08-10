@@ -1007,8 +1007,7 @@ void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean stri
 			return;
 		}
 
-		extraction_dir = g_shell_quote(archive->extraction_dir);
-		g_free(archive->extraction_dir);
+		extraction_dir = archive->extraction_dir;
 		archive->extraction_dir = xa_escape_bad_chars(extract_to, ESCAPES);
 	}
 
