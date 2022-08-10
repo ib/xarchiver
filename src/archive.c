@@ -145,7 +145,12 @@ static void xa_process_exit (GPid pid, gint status, XArchive *archive)
 static void xa_delete_working_directory (XArchive *archive)
 {
 	if (xa_main_window)
-		xa_launch_external_program("rm -rf", archive->working_dir);
+	{
+		gchar *working_dir = g_shell_quote(archive->working_dir);
+
+		xa_launch_external_program("rm -rf", working_dir);
+		g_free(working_dir);
+	}
 	else
 	{
 		char *argv[4];
