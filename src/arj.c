@@ -263,10 +263,9 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	{
 		if (xa_create_working_directory(archive))
 		{
-			gchar *files_str, *extraction_dir, *archive_path, *move;
+			gchar *extraction_dir, *archive_path;
 			GString *dir_contents;
 
-			files_str = xa_escape_bad_chars(files->str, "\"");
 			extraction_dir = xa_quote_shell_command(archive->extraction_dir, FALSE);
 			archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 
@@ -295,24 +294,21 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 					dir_contents = xa_quote_dir_contents(archive->child_dir);
 
 					if (strcmp(archive->extraction_dir, archive->working_dir) == 0)
-						move = g_strdup("");
+						command = g_strdup("sh -c \"\"");
 					else
-						move = g_strconcat(" mv",
-						                   archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
-						                   " --", *files->str ? files_str : dir_contents->str, " ",
-						                   extraction_dir, NULL);
+						command = g_strconcat("mv",
+						                      archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
+						                      " --", *files->str ? files->str : dir_contents->str, " ",
+						                      extraction_dir, NULL);
 
-					command = g_strconcat("sh -c \"exec", move, "\"", NULL);
 					archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
 
-					g_free(move);
 					g_string_free(dir_contents, TRUE);
 				}
 			}
 
 			g_free(archive_path);
 			g_free(extraction_dir);
-			g_free(files_str);
 		}
 		else
 			command = g_strdup("sh -c \"\"");
