@@ -291,19 +291,19 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 
 				if (result)
 				{
-					dir_contents = xa_quote_dir_contents(archive->child_dir);
-
 					if (strcmp(archive->extraction_dir, archive->working_dir) != 0)
 					{
+						dir_contents = xa_quote_dir_contents(archive->child_dir);
+
 						command = g_strconcat("mv",
 						                      archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
 						                      " --", *files->str ? files->str : dir_contents->str, " ",
 						                      extraction_dir, NULL);
 
 					archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
-					}
 
 					g_string_free(dir_contents, TRUE);
+					}
 				}
 			}
 
