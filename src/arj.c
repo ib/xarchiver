@@ -269,14 +269,6 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 			extraction_dir = xa_quote_shell_command(archive->extraction_dir, FALSE);
 			archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 
-			if (strcmp(archive->extraction_dir, archive->working_dir) == 0)
-				move = g_strdup("");
-			else
-				move = g_strconcat(" mv",
-				                   archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
-				                   " --", *files->str ? files_str : " `ls -A`", " ",
-				                   extraction_dir, NULL);
-
 			archive->child_dir = g_strdup(archive->working_dir);
 
 			command = g_strdup("sh -c \"exec rm -f -- `ls -A`\"");
@@ -296,12 +288,21 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 
 				if (result)
 				{
+					if (strcmp(archive->extraction_dir, archive->working_dir) == 0)
+						move = g_strdup("");
+					else
+						move = g_strconcat(" mv",
+						                   archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
+						                   " --", *files->str ? files_str : " `ls -A`", " ",
+						                   extraction_dir, NULL);
+
 					command = g_strconcat("sh -c \"exec", move, "\"", NULL);
 					archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
+
+					g_free(move);
 				}
 			}
 
-			g_free(move);
 			g_free(archive_path);
 			g_free(extraction_dir);
 			g_free(files_str);
