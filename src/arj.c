@@ -299,10 +299,9 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 						                      archive->do_overwrite ? " -f" : (archive->do_update ? " -fu" : " -n"),
 						                      " --", *files->str ? files->str : dir_contents->str, " ",
 						                      extraction_dir, NULL);
+						archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
 
-					archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
-
-					g_string_free(dir_contents, TRUE);
+						g_string_free(dir_contents, TRUE);
 					}
 				}
 			}
