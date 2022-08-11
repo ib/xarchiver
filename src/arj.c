@@ -263,10 +263,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	{
 		if (xa_create_working_directory(archive))
 		{
-			gchar *archive_path;
 			GString *dir_contents;
-
-			archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 
 			archive->child_dir = g_strdup(archive->working_dir);
 			dir_contents = xa_quote_dir_contents(archive->child_dir);
@@ -281,7 +278,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 
 			if (result)
 			{
-				command = g_strconcat(archiver[archive->type].program[0], " e ", archive_path, NULL);
+				command = g_strconcat(archiver[archive->type].program[0], " e ", archive->path[1], NULL);
 				archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
 				result = xa_run_command(archive, command);
 
@@ -304,8 +301,6 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 					}
 				}
 			}
-
-			g_free(archive_path);
 		}
 		else
 			command = g_strdup("sh -c \"\"");
