@@ -21,6 +21,7 @@
 #include "tar.h"
 #include "gzip_et_al.h"
 #include "main.h"
+#include "parser.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -119,79 +120,43 @@ void xa_tar_ask (XArchive *archive)
 static void xa_tar_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
-	gchar *filename;
 	gpointer item[6];
-	gint n = 0, a = 0 ,linesize = 0;
+	gboolean dir;
+	gchar *filename, *link;
 
-	linesize = strlen(line);
+	USE_PARSER;
 
-	/* Permissions */
-	line[10] = '\0';
-	item[4] = line;
+	/* permissions */
+	NEXT_ITEM(item[4]);
 
-	/* Owner */
-	for(n=13; n < linesize; ++n)
-		if(line[n] == ' ')
-			break;
-	line[n] = '\0';
-	item[5] = line+11;
+	dir = (*(char *) item[4] == 'd');
 
-	/* Size */
-	for(++n; n < linesize; ++n)
-		if(line[n] >= '0' && line[n] <= '9')
-			break;
-	a = n;
+	/* owner/group */
+	NEXT_ITEM(item[5]);
 
-	for(; n < linesize; ++n)
-		if(line[n] == ' ')
-			break;
+	/* size */
+	NEXT_ITEM(item[1]);
 
-	line[n] = '\0';
-	item[1] = line + a;
-	a = ++n;
+	/* date */
+	NEXT_ITEM(item[2]);
 
-	/* Date */
-	for(; n < linesize; n++)
-		if(line[n] == ' ')
-			break;
+	/* time */
+	NEXT_ITEM(item[3]);
 
-	line[n] = '\0';
-	item[2] = line + a;
+	/* name */
+	LAST_ITEM(filename);
 
-	/* Time */
-	a = ++n;
-	for (; n < linesize; n++)
-		if (line[n] == ' ')
-			break;
+	/* symbolic link */
 
-	line[n] = '\0';
-	item[3] = line + a;
-	n++;
-	line[linesize-1] = '\0';
+	link = g_strrstr(filename, " -> ");
 
-	filename = line + n;
-
-	/* Symbolic link */
-	gchar *temp = g_strrstr (filename,"->");
-	if (temp)
+	if (link)
 	{
-		gint len = strlen(filename) - strlen(temp);
-		item[0] = (filename +=3) + len;
-		filename[strlen(filename) - strlen(temp)-1] = '\0';
+		*link = 0;
+		item[0] = link + 4;
 	}
 	else
 		item[0] = NULL;
-
-	if(line[0] == 'd')
-	{
-		/* Work around for gtar, which does not output / with directories */
-		if(line[linesize-2] != '/')
-			filename = g_strconcat(line + n, "/", NULL);
-		else
-			filename = g_strdup(line + n);
-	}
-	else
-		filename = g_strdup(line + n);
 
 	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
@@ -199,13 +164,14 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 	{
 		entry->is_encrypted = (archive->password != NULL);
 
+		if (dir)
+			 entry->is_dir = TRUE;
+
 		if (!entry->is_dir)
 			archive->files++;
 
 		archive->files_size += g_ascii_strtoull(item[1], NULL, 0);
 	}
-
-	g_free(filename);
 }
 
 void xa_tar_list (XArchive *archive)
