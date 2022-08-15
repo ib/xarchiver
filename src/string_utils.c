@@ -340,9 +340,11 @@ GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean sl
 {
 	GString *files;
 	GSList *list;
+	gboolean hyphen;
 
 	files = g_string_new("");
 	list= file_list;
+	hyphen = (g_strcmp0(escape, "-") == 0);
 
 	while (list)
 	{
@@ -352,13 +354,22 @@ GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean sl
 			xa_remove_slash_from_path(list->data);
 
 		if (escape)
+		{
+			if (hyphen)
+			{
+				if (*(char *) list->data == '-')
+					escaped = g_strdup_printf("./%s", (char *) list->data);
+			}
+			else
 			escaped = xa_escape_bad_chars(list->data, "\\");
+		}
 
 		shellname = g_shell_quote(escaped ? escaped : list->data);
 
 		g_free(escaped);
+		escaped = NULL;
 
-		if (escape)
+		if (escape && !hyphen)
 			escaped = xa_escape_bad_chars(shellname, escape);
 
 		g_string_prepend(files, escaped ? escaped : shellname);
