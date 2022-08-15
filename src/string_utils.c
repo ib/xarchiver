@@ -361,7 +361,7 @@ GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean sl
 					escaped = g_strdup_printf("./%s", (char *) list->data);
 			}
 			else
-			escaped = xa_escape_bad_chars(list->data, "\\");
+				escaped = xa_escape_bad_chars(list->data, "\\");
 		}
 
 		shellname = g_shell_quote(escaped ? escaped : list->data);
