@@ -771,7 +771,15 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_SQUASHFS;
 	path = g_find_program_in_path("unsquashfs");
 
-	if (path)
+	standard = (path != NULL);
+
+	if (!standard)
+	{
+		if (is7z)
+			/* alternative uncompressor */
+			path = g_strconcat(sevenz, " -tsquashfs", NULL);
+	}
+	else
 	{
 		gchar *mksquashfs = g_find_program_in_path("mksquashfs");
 
@@ -790,10 +798,10 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.sfs");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.sqfs");
 
-		archiver[type].ask = xa_squashfs_ask;
-		archiver[type].list = xa_squashfs_list;
-		archiver[type].extract = xa_squashfs_extract;
-		archiver[type].add = xa_squashfs_add;
+		archiver[type].ask = (standard ? xa_squashfs_ask : xa_7zip_ask);
+		archiver[type].list = (standard ? xa_squashfs_list : xa_7zip_list);
+		archiver[type].extract = (standard ? xa_squashfs_extract : xa_7zip_extract);
+		archiver[type].add = (standard ? xa_squashfs_add : NULL);
 	}
 
 	/* tape archive */
