@@ -113,10 +113,10 @@ am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
 	interface.h iso.c iso.h lha.c lha.h main.c main.h mime.c \
 	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
 	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
-	rpm.h socket.c socket.h string_utils.c string_utils.h \
-	support.h tar.c tar.h unar.c unar.h utf8-fnmatch.c \
-	utf8-fnmatch.h window.c window.h zip.c zip.h sexy-icon-entry.c \
-	sexy-icon-entry.h
+	rpm.h socket.c socket.h squashfs.c squashfs.h string_utils.c \
+	string_utils.h support.h tar.c tar.h unar.c unar.h \
+	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
+	sexy-icon-entry.c sexy-icon-entry.h
 @GTK_V2_16_FALSE@am__objects_1 = xarchiver-sexy-icon-entry.$(OBJEXT)
 am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-add_dialog.$(OBJEXT) xarchiver-ar.$(OBJEXT) \
@@ -130,10 +130,10 @@ am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-open-with-dlg.$(OBJEXT) \
 	xarchiver-pref_dialog.$(OBJEXT) xarchiver-rar.$(OBJEXT) \
 	xarchiver-rpm.$(OBJEXT) xarchiver-socket.$(OBJEXT) \
-	xarchiver-string_utils.$(OBJEXT) xarchiver-tar.$(OBJEXT) \
-	xarchiver-unar.$(OBJEXT) xarchiver-utf8-fnmatch.$(OBJEXT) \
-	xarchiver-window.$(OBJEXT) xarchiver-zip.$(OBJEXT) \
-	$(am__objects_1)
+	xarchiver-squashfs.$(OBJEXT) xarchiver-string_utils.$(OBJEXT) \
+	xarchiver-tar.$(OBJEXT) xarchiver-unar.$(OBJEXT) \
+	xarchiver-utf8-fnmatch.$(OBJEXT) xarchiver-window.$(OBJEXT) \
+	xarchiver-zip.$(OBJEXT) $(am__objects_1)
 xarchiver_OBJECTS = $(am_xarchiver_OBJECTS)
 xarchiver_DEPENDENCIES = xdgmime/libxdgmime.la
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -175,6 +175,7 @@ am__depfiles_remade = ./$(DEPDIR)/xarchiver-7zip.Po \
 	./$(DEPDIR)/xarchiver-rar.Po ./$(DEPDIR)/xarchiver-rpm.Po \
 	./$(DEPDIR)/xarchiver-sexy-icon-entry.Po \
 	./$(DEPDIR)/xarchiver-socket.Po \
+	./$(DEPDIR)/xarchiver-squashfs.Po \
 	./$(DEPDIR)/xarchiver-string_utils.Po \
 	./$(DEPDIR)/xarchiver-tar.Po ./$(DEPDIR)/xarchiver-unar.Po \
 	./$(DEPDIR)/xarchiver-utf8-fnmatch.Po \
@@ -436,9 +437,9 @@ xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h ar.c ar.h \
 	lha.c lha.h main.c main.h mime.c mime.h new_dialog.c \
 	new_dialog.h open-with-dlg.c open-with-dlg.h pref_dialog.c \
 	pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c socket.h \
-	string_utils.c string_utils.h support.h tar.c tar.h unar.c \
-	unar.h utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c \
-	zip.h $(am__append_1)
+	squashfs.c squashfs.h string_utils.c string_utils.h support.h \
+	tar.c tar.h unar.c unar.h utf8-fnmatch.c utf8-fnmatch.h \
+	window.c window.h zip.c zip.h $(am__append_1)
 xarchiver_CFLAGS = -Wall -Wextra -Wno-unused-parameter @GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" -DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\" $(am__append_2)
@@ -561,6 +562,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-rpm.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-sexy-icon-entry.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-socket.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-squashfs.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-string_utils.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-tar.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-unar.Po@am__quote@ # am--include-marker
@@ -889,6 +891,20 @@ xarchiver-socket.obj: socket.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-socket.obj `if test -f 'socket.c'; then $(CYGPATH_W) 'socket.c'; else $(CYGPATH_W) '$(srcdir)/socket.c'; fi`
 
+xarchiver-squashfs.o: squashfs.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-squashfs.o -MD -MP -MF $(DEPDIR)/xarchiver-squashfs.Tpo -c -o xarchiver-squashfs.o `test -f 'squashfs.c' || echo '$(srcdir)/'`squashfs.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-squashfs.Tpo $(DEPDIR)/xarchiver-squashfs.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='squashfs.c' object='xarchiver-squashfs.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-squashfs.o `test -f 'squashfs.c' || echo '$(srcdir)/'`squashfs.c
+
+xarchiver-squashfs.obj: squashfs.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-squashfs.obj -MD -MP -MF $(DEPDIR)/xarchiver-squashfs.Tpo -c -o xarchiver-squashfs.obj `if test -f 'squashfs.c'; then $(CYGPATH_W) 'squashfs.c'; else $(CYGPATH_W) '$(srcdir)/squashfs.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-squashfs.Tpo $(DEPDIR)/xarchiver-squashfs.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='squashfs.c' object='xarchiver-squashfs.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-squashfs.obj `if test -f 'squashfs.c'; then $(CYGPATH_W) 'squashfs.c'; else $(CYGPATH_W) '$(srcdir)/squashfs.c'; fi`
+
 xarchiver-string_utils.o: string_utils.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-string_utils.o -MD -MP -MF $(DEPDIR)/xarchiver-string_utils.Tpo -c -o xarchiver-string_utils.o `test -f 'string_utils.c' || echo '$(srcdir)/'`string_utils.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-string_utils.Tpo $(DEPDIR)/xarchiver-string_utils.Po
@@ -1214,6 +1230,7 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/xarchiver-rpm.Po
 	-rm -f ./$(DEPDIR)/xarchiver-sexy-icon-entry.Po
 	-rm -f ./$(DEPDIR)/xarchiver-socket.Po
+	-rm -f ./$(DEPDIR)/xarchiver-squashfs.Po
 	-rm -f ./$(DEPDIR)/xarchiver-string_utils.Po
 	-rm -f ./$(DEPDIR)/xarchiver-tar.Po
 	-rm -f ./$(DEPDIR)/xarchiver-unar.Po
@@ -1287,6 +1304,7 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/xarchiver-rpm.Po
 	-rm -f ./$(DEPDIR)/xarchiver-sexy-icon-entry.Po
 	-rm -f ./$(DEPDIR)/xarchiver-socket.Po
+	-rm -f ./$(DEPDIR)/xarchiver-squashfs.Po
 	-rm -f ./$(DEPDIR)/xarchiver-string_utils.Po
 	-rm -f ./$(DEPDIR)/xarchiver-tar.Po
 	-rm -f ./$(DEPDIR)/xarchiver-unar.Po

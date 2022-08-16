@@ -45,6 +45,8 @@ xarchiver_SOURCES = \
 	rpm.h \
 	socket.c \
 	socket.h \
+	squashfs.c \
+	squashfs.h \
 	string_utils.c \
 	string_utils.h \
 	support.h \

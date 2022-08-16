@@ -1870,6 +1870,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	}
 	else if (memcmp(magic, "\xed\xab\xee\xdb", 4) == 0)
 		xa.type = XARCHIVETYPE_RPM;
+	else if (memcmp(magic, "sqsh", 4) == 0 || memcmp(magic, "hsqs", 4) == 0)
+		xa.type = XARCHIVETYPE_SQUASHFS;
 	else if (memcmp(magic, "\xfd" "7zXZ" "\x00", 6) == 0)
 		xa.type = XARCHIVETYPE_XZ;
 	else if (memcmp(magic, "PK" "\x03\x04", 4) == 0 ||

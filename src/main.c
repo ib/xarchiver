@@ -33,6 +33,7 @@
 #include "pref_dialog.h"
 #include "rar.h"
 #include "rpm.h"
+#include "squashfs.h"
 #include "string_utils.h"
 #include "support.h"
 #include "tar.h"
@@ -763,6 +764,36 @@ static void xa_check_available_archivers ()
 		archiver[type].list = FUNC(standard, xa_rpm_list, is7z, xa_7zip_list, lsar, xa_unar_list);
 		archiver[type].test = FUNC(standard, NULL, is7z, xa_7zip_test, lsar, xa_unar_test);
 		archiver[type].extract = FUNC(standard, xa_rpm_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
+	}
+
+	/* SquashFS */
+
+	type = XARCHIVETYPE_SQUASHFS;
+	path = g_find_program_in_path("unsquashfs");
+
+	if (path)
+	{
+		gchar *mksquashfs = g_find_program_in_path("mksquashfs");
+
+		if (mksquashfs)
+		{
+			archiver[type].program[1] = mksquashfs;
+			archiver[type].is_compressor = TRUE;
+		}
+	}
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].type = g_slist_append(archiver[type].type, "squashfs");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.squashfs");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.sfs");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.sqfs");
+
+		archiver[type].ask = xa_squashfs_ask;
+		archiver[type].list = xa_squashfs_list;
+		archiver[type].extract = xa_squashfs_extract;
+		archiver[type].add = xa_squashfs_add;
 	}
 
 	/* tape archive */
