@@ -798,6 +798,12 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.sfs");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.sqfs");
 
+		/* snap package */
+		archiver[type].type = g_slist_append(archiver[type].type, "snap");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.snap");
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('s'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
+
 		archiver[type].ask = (standard ? xa_squashfs_ask : xa_7zip_ask);
 		archiver[type].list = (standard ? xa_squashfs_list : xa_7zip_list);
 		archiver[type].extract = (standard ? xa_squashfs_extract : xa_7zip_extract);
