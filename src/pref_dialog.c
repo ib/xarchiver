@@ -19,6 +19,7 @@
 
 #include <string.h>
 #include <unistd.h>
+#include <glib/gstdio.h>
 #include "pref_dialog.h"
 #include "add_dialog.h"
 #include "archive.h"
@@ -526,7 +527,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	gchar *value;
 	gsize coords_len = 0;
 	const gchar *config_dir;
-	gchar *xarchiver_config_dir = NULL;
+	gchar *xarchiver_config_dir, *old_dir, *old_config;
 	GKeyFile *xa_key_file = g_key_file_new();
 	GError *error = NULL;
 	gboolean unzip, toolbar;
@@ -542,6 +543,21 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 
 	config_file = g_strconcat(xarchiver_config_dir, "/", PACKAGE, "rc", NULL);
 	g_free (xarchiver_config_dir);
+
+	if (!g_file_test(config_file, G_FILE_TEST_EXISTS))
+	{
+		/* check legacy location of config file */
+		old_dir = g_strconcat(g_get_home_dir(), "/.config/", PACKAGE, NULL);
+		old_config = g_strconcat(old_dir, "/", PACKAGE, "rc", NULL);
+
+		/* move it if it exists */
+		if (g_file_test(old_config, G_FILE_TEST_EXISTS))
+			if (g_rename(old_config, config_file) == 0)
+				g_rmdir(old_dir);
+
+		g_free(old_dir);
+		g_free(old_config);
+	}
 
 	if ( ! g_key_file_load_from_file(xa_key_file,config_file,G_KEY_FILE_KEEP_COMMENTS,NULL) )
 	{
