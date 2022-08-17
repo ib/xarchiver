@@ -59,7 +59,9 @@ xarchiver_SOURCES = \
 	window.c \
 	window.h \
 	zip.c \
-	zip.h
+	zip.h \
+	zpaq.c \
+	zpaq.h
 
 if GTK_V2_16
 else

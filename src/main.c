@@ -40,6 +40,7 @@
 #include "unar.h"
 #include "window.h"
 #include "zip.h"
+#include "zpaq.h"
 
 #ifdef HAVE_SOCKET
 #include "socket.h"
@@ -987,6 +988,27 @@ static void xa_check_available_archivers ()
 		archiver[type].extract = FUNC(standard, xa_zip_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
 		archiver[type].add = FUNC(standard, xa_zip_add, is7za, xa_7zip_add, lsar, NULL);
 		archiver[type].delete = FUNC(standard, xa_zip_delete, is7za, xa_7zip_delete, lsar, NULL);
+	}
+
+	/* zpaq */
+
+	type = XARCHIVETYPE_ZPAQ;
+	path = g_find_program_in_path("zpaq");
+
+	if (path)
+	{
+		archiver[type].is_compressor = TRUE;
+
+		archiver[type].program[0] = path;
+		archiver[type].type = g_slist_append(archiver[type].type, "zpaq");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.zpaq");
+
+		archiver[type].ask = xa_zpaq_ask;
+		archiver[type].list = xa_zpaq_list;
+		archiver[type].test = xa_zpaq_test;
+		archiver[type].extract = xa_zpaq_extract;
+		archiver[type].add = xa_zpaq_add;
+		archiver[type].delete = xa_zpaq_delete;
 	}
 
 	/* Zstandard */

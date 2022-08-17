@@ -1900,6 +1900,9 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	}
 	else if (g_str_has_suffix(filename, ".exe") && (memcmp(magic, "MZ", 2) == 0))
 		xa = exetype(file);
+	else if (memcmp(magic, "7kSt", 4) == 0 ||
+	         (memcmp(magic, "zPQ", 3) == 0 && magic[3] >= 1))
+		xa.type = XARCHIVETYPE_ZPAQ;
 	else if (memcmp(magic + 1, "\xb5\x2f\xfd", 3) == 0 &&
 	         (*magic == '\x1e' || (*magic >= '\x22' && *magic <= '\x28')))
 		xa.type = XARCHIVETYPE_ZSTD;

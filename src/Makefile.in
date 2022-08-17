@@ -116,7 +116,7 @@ am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
 	rpm.h socket.c socket.h squashfs.c squashfs.h string_utils.c \
 	string_utils.h support.h tar.c tar.h unar.c unar.h \
 	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
-	sexy-icon-entry.c sexy-icon-entry.h
+	zpaq.c zpaq.h sexy-icon-entry.c sexy-icon-entry.h
 @GTK_V2_16_FALSE@am__objects_1 = xarchiver-sexy-icon-entry.$(OBJEXT)
 am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-add_dialog.$(OBJEXT) xarchiver-ar.$(OBJEXT) \
@@ -133,7 +133,8 @@ am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-squashfs.$(OBJEXT) xarchiver-string_utils.$(OBJEXT) \
 	xarchiver-tar.$(OBJEXT) xarchiver-unar.$(OBJEXT) \
 	xarchiver-utf8-fnmatch.$(OBJEXT) xarchiver-window.$(OBJEXT) \
-	xarchiver-zip.$(OBJEXT) $(am__objects_1)
+	xarchiver-zip.$(OBJEXT) xarchiver-zpaq.$(OBJEXT) \
+	$(am__objects_1)
 xarchiver_OBJECTS = $(am_xarchiver_OBJECTS)
 xarchiver_DEPENDENCIES = xdgmime/libxdgmime.la
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -179,7 +180,8 @@ am__depfiles_remade = ./$(DEPDIR)/xarchiver-7zip.Po \
 	./$(DEPDIR)/xarchiver-string_utils.Po \
 	./$(DEPDIR)/xarchiver-tar.Po ./$(DEPDIR)/xarchiver-unar.Po \
 	./$(DEPDIR)/xarchiver-utf8-fnmatch.Po \
-	./$(DEPDIR)/xarchiver-window.Po ./$(DEPDIR)/xarchiver-zip.Po
+	./$(DEPDIR)/xarchiver-window.Po ./$(DEPDIR)/xarchiver-zip.Po \
+	./$(DEPDIR)/xarchiver-zpaq.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -439,7 +441,7 @@ xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h ar.c ar.h \
 	pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c socket.h \
 	squashfs.c squashfs.h string_utils.c string_utils.h support.h \
 	tar.c tar.h unar.c unar.h utf8-fnmatch.c utf8-fnmatch.h \
-	window.c window.h zip.c zip.h $(am__append_1)
+	window.c window.h zip.c zip.h zpaq.c zpaq.h $(am__append_1)
 xarchiver_CFLAGS = -Wall -Wextra -Wno-unused-parameter @GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" -DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\" $(am__append_2)
@@ -569,6 +571,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-utf8-fnmatch.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-window.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-zip.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-zpaq.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -989,6 +992,20 @@ xarchiver-zip.obj: zip.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-zip.obj `if test -f 'zip.c'; then $(CYGPATH_W) 'zip.c'; else $(CYGPATH_W) '$(srcdir)/zip.c'; fi`
 
+xarchiver-zpaq.o: zpaq.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-zpaq.o -MD -MP -MF $(DEPDIR)/xarchiver-zpaq.Tpo -c -o xarchiver-zpaq.o `test -f 'zpaq.c' || echo '$(srcdir)/'`zpaq.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-zpaq.Tpo $(DEPDIR)/xarchiver-zpaq.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='zpaq.c' object='xarchiver-zpaq.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-zpaq.o `test -f 'zpaq.c' || echo '$(srcdir)/'`zpaq.c
+
+xarchiver-zpaq.obj: zpaq.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-zpaq.obj -MD -MP -MF $(DEPDIR)/xarchiver-zpaq.Tpo -c -o xarchiver-zpaq.obj `if test -f 'zpaq.c'; then $(CYGPATH_W) 'zpaq.c'; else $(CYGPATH_W) '$(srcdir)/zpaq.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-zpaq.Tpo $(DEPDIR)/xarchiver-zpaq.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='zpaq.c' object='xarchiver-zpaq.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-zpaq.obj `if test -f 'zpaq.c'; then $(CYGPATH_W) 'zpaq.c'; else $(CYGPATH_W) '$(srcdir)/zpaq.c'; fi`
+
 xarchiver-sexy-icon-entry.o: sexy-icon-entry.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-sexy-icon-entry.o -MD -MP -MF $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo -c -o xarchiver-sexy-icon-entry.o `test -f 'sexy-icon-entry.c' || echo '$(srcdir)/'`sexy-icon-entry.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo $(DEPDIR)/xarchiver-sexy-icon-entry.Po
@@ -1237,6 +1254,7 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/xarchiver-utf8-fnmatch.Po
 	-rm -f ./$(DEPDIR)/xarchiver-window.Po
 	-rm -f ./$(DEPDIR)/xarchiver-zip.Po
+	-rm -f ./$(DEPDIR)/xarchiver-zpaq.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -1311,6 +1329,7 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/xarchiver-utf8-fnmatch.Po
 	-rm -f ./$(DEPDIR)/xarchiver-window.Po
 	-rm -f ./$(DEPDIR)/xarchiver-zip.Po
+	-rm -f ./$(DEPDIR)/xarchiver-zpaq.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
