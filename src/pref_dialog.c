@@ -525,19 +525,18 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	gint *add_coords = NULL;
 	gchar *value;
 	gsize coords_len = 0;
-	gchar *config_dir = NULL;
+	const gchar *config_dir;
 	gchar *xarchiver_config_dir = NULL;
 	GKeyFile *xa_key_file = g_key_file_new();
 	GError *error = NULL;
 	gboolean unzip, toolbar;
 	gint idx, val;
 
-	config_dir = g_strconcat (g_get_home_dir(),"/.config",NULL);
+	config_dir = g_get_user_config_dir();
 	if (g_file_test(config_dir, G_FILE_TEST_EXISTS) == FALSE)
 		g_mkdir_with_parents(config_dir,0700);
 
 	xarchiver_config_dir = g_strconcat(config_dir, "/", PACKAGE, NULL);
-	g_free (config_dir);
 	if (g_file_test(xarchiver_config_dir, G_FILE_TEST_EXISTS) == FALSE)
 		g_mkdir_with_parents(xarchiver_config_dir,0700);
 
