@@ -5,14 +5,14 @@
 # Giuseppe Torelli <colossus73@gmail.com>, 2006.
 # Cristian Marchi <cri.penta@gmail.com>, 2009.
 # Gianluca Foddis <gianluca.foddis@gmail.com>, 2009.
-# Gianvito Cavasoli <gianvito@gmx.it>, 2021.
+# Gianvito Cavasoli <gianvito@gmx.it>, 2021-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-05-06 11:30+0200\n"
-"PO-Revision-Date: 2021-02-04 12:07+0100\n"
+"POT-Creation-Date: 2022-08-21 11:55+0200\n"
+"PO-Revision-Date: 2022-08-17 10:15+0200\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"X-Generator: Gtranslator 40.0\n"
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -69,15 +69,15 @@ msgstr[0] "%d file %s (%s)"
 msgstr[1] "%d file %s (%s)"
 
 #: ../src/add_dialog.c
-#, fuzzy, c-format
-#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+#, c-format
 msgid ""
 "%hu is least compression\n"
 "%hu is default compression\n"
 "%hu is best compression"
 msgstr ""
-"0 = nessuna compressione, 1 è il valore predefinito, 4 = compressione minima "
-"ma più veloce"
+"%hu è la compressione minima\n"
+"%hu è la compressione predefinita\n"
+"%hu è la compressione migliore"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -162,10 +162,8 @@ msgid "All files"
 msgstr "Tutti i file"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Allow subdirs with drag and drop"
 msgid "Allow subdirs with clipboard and drag-and-drop"
-msgstr "Permettere le sottocartelle con il trascina e rilascia"
+msgstr "Permettere le sottocartelle con gli appunti e il trascina e rilascia"
 
 #: ../src/window.c
 msgid "An error occurred while accessing the archive:"
@@ -389,10 +387,8 @@ msgid "Confirm deletion of files"
 msgstr "Confermare l'eliminazione dei file"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Testing archive, please wait..."
 msgid "Converting archive, please wait..."
-msgstr "Prova dell'archivio, attendere..."
+msgstr "Conversione dell'archivio, attendere..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -419,8 +415,8 @@ msgid "Data Frames/Skippable Frames"
 msgstr "Strutture dati/Strutture da ignorare"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
-#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
-#: ../src/zip.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Date"
 msgstr "Data"
 
@@ -437,20 +433,16 @@ msgid "Delete files after adding"
 msgstr "Eliminare i file dopo averli aggiunti"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Extracting files from archive, please wait..."
 msgid "Deleting files from archive, please wait..."
-msgstr "Estrazione dei file dall'archivio, attendere..."
+msgstr "Eliminazione dei file dall'archivio, attendere..."
 
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "Dese_leziona tutto"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "destination"
 msgid "Destination"
-msgstr "destinazione"
+msgstr "Destinazione"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -466,7 +458,7 @@ msgstr "Così facendo probabilmente l'archivio verrà corrotto."
 
 #: ../src/interface.c
 msgid "Edit"
-msgstr ""
+msgstr "Modifica"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -541,25 +533,21 @@ msgstr ""
 "disco"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract to dir \"Archive Name\""
 msgid "Extract to directories with archive names"
-msgstr "Estrai nella directory \"Nome archivio\""
+msgstr "Estrai nelle directory con i nomi degli archivi"
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "Estrai in:"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract files with full path"
 msgid "Extract with full path"
-msgstr "Estrarre i file con il percorso completo"
+msgstr "Estrarre con il percorso completo"
 
 #: ../src/interface.c
 #, c-format
 msgid "Extracting \"%s\"..."
-msgstr ""
+msgstr "Estrazione di «%s»..."
 
 #: ../src/window.c
 msgid "Extracting files from archive, please wait..."
@@ -585,6 +573,10 @@ msgstr "Nome del file"
 msgid "Files"
 msgstr "File"
 
+#: ../src/zpaq.c
+msgid "Files with absolute pathnames cannot be deleted!"
+msgstr ""
+
 #: ../src/extract_dialog.c
 msgid "Files:"
 msgstr "File:"
@@ -599,10 +591,8 @@ msgid "Forward"
 msgstr "Avanti"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Freshen existing files"
 msgid "Freshen existing files only"
-msgstr "Rinnovare i file esistenti"
+msgstr "Rinnovare solo i file esistenti"
 
 #: ../src/window.c
 msgid "From File"
@@ -612,16 +602,18 @@ msgstr "Da file"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
-"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
-"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
-"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
+"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
+"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
+"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;android;archiviatore;archiviazione;fumetti;compressione;interfaccia;"
-"raccolta;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
-"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
-"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
-"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"raccolta;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;"
+"cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;"
+"lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;"
+"plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;"
+"unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -686,10 +678,8 @@ msgid "No"
 msgstr "No"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Compression"
 msgid "No compression"
-msgstr "Compressione"
+msgstr "Nessuna compressione"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
@@ -770,12 +760,12 @@ msgid "Options"
 msgstr "Opzioni"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
-#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
-#: ../src/zip.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Original Size"
 msgstr "Dimensione originale"
 
-#: ../src/add_dialog.c ../src/extract_dialog.c
+#: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Sovrascrivere i file esistenti"
 
@@ -783,7 +773,7 @@ msgstr "Sovrascrivere i file esistenti"
 msgid "Owner"
 msgstr "Proprietario"
 
-#: ../src/tar.c
+#: ../src/squashfs.c ../src/tar.c
 msgid "Owner/Group"
 msgstr "Proprietario/Gruppo"
 
@@ -808,7 +798,7 @@ msgid "Pattern:"
 msgstr "Schema:"
 
 #: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
-#: ../src/tar.c ../src/zip.c
+#: ../src/squashfs.c ../src/tar.c ../src/zip.c ../src/zpaq.c
 msgid "Permissions"
 msgstr "Permessi"
 
@@ -856,12 +846,11 @@ msgid "Please select the destination directory"
 msgstr "Seleziona la directory di destinazione"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Please enter it!"
 msgid "Please wait..."
-msgstr "Immetterla."
+msgstr "Attendere..."
 
-#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c
 msgid "Points to"
 msgstr "Punta a"
 
@@ -911,7 +900,7 @@ msgstr "Rinomina"
 
 #: ../src/interface.c
 msgid "Replace"
-msgstr ""
+msgstr "Sostituisci"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1043,37 +1032,28 @@ msgid "The archive is okay."
 msgstr "L'archivio non ha problemi."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
 "directory"
 msgstr ""
-"La struttura delle directory dell'archivio viene ricreata nella directory di "
-"estrazione"
+"La struttura completa delle directory dell'archivio è ricreata nella "
+"directory di estrazione"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
 "the extraction directory"
 msgstr ""
-"La struttura delle directory dell'archivio viene ricreata nella directory di "
-"estrazione"
+"La struttura delle directory dell'archivio non è ricreata; tutti i file sono "
+"piazzati nella directory di estrazione"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
 "but with the parent directories of the selected files removed"
 msgstr ""
-"La struttura delle directory dell'archivio viene ricreata nella directory di "
-"estrazione"
+"La struttura delle directory dell'archivio è ricreata nella directory di "
+"estrazione, ma con le directory parenti dei file selezionati rimosse"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid ""
@@ -1097,10 +1077,9 @@ msgstr ""
 "La colonna del nome del file è ordinata dopo il caricamento dell'archivio"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy, c-format
-#| msgid "The proper archiver is not installed!"
+#, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
-msgstr "l'archiviatore necessario non è installato."
+msgstr "L'archiviatore appropriato per «%s» non è installato."
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
@@ -1117,16 +1096,12 @@ msgid "This option consumes more memory with large archives"
 msgstr "Questa opzione consuma più memoria con gli archivi grandi"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid ""
-#| "This option includes the subdirectories when you add files with drag and "
-#| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
 "clipboard or with drag-and-drop"
 msgstr ""
-"Questa opzione include le sotto-directory quando si aggiungono dei file "
-"tramite il trascina e rilascia"
+"Questa opzione include le sotto-directory quando si aggiungono file tramite "
+"gli appunti o il trascina e rilascia"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -1136,7 +1111,7 @@ msgid ""
 msgstr ""
 "Questa opzione svolge la stessa funzione del rinnovamento, estraendo i file "
 "più recenti di quelli con lo stesso nome sul disco, ed inoltre estrae quei "
-"file che non esistono già sul disco"
+"file che non sono già sul disco"
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1144,19 +1119,20 @@ msgid ""
 "the archive but older there"
 msgstr ""
 "Questa opzione aggiungerà i nuovi file e aggiornerà tutti i file già "
-"presenti nell'archivio ma più vecchi"
+"presenti nell'archivio ma che sono più vecchi"
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will only add files which are already in the archive but older "
 "there; unlike the update option it will not add any new files"
 msgstr ""
-"Questa opzione aggiungerà solo i file che sono già nell'archivio ma più "
-"vecchi; a differenza dell'opzione di aggiornamento, non aggiungerà nuovi file"
+"Questa opzione aggiungerà solo i file che sono già nell'archivio ma che sono "
+"più vecchi; a differenza dell'opzione di aggiornamento non aggiungerà nuovi "
+"file"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
-#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
-#: ../src/zip.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Time"
 msgstr "Ora"
 
@@ -1206,10 +1182,8 @@ msgid "Update existing files"
 msgstr "Aggiornare i file già esistenti"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Update existing files"
 msgid "Update existing files and add new ones"
-msgstr "Aggiornare i file già esistenti"
+msgstr "Aggiornare i file esistenti e aggiungere i nuovi"
 
 #: ../src/open-with-dlg.c
 msgid "Use a custom command:"
@@ -1235,23 +1209,25 @@ msgstr ""
 "Quando si usa questa opzione, l'orario di modifica dei file sarà quello di "
 "estrazione invece di quello registrato nell'archivio"
 
+#: ../src/zpaq.c
+msgid "Will not handle files with wildcard characters!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "Window"
 msgstr "Finestra"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Store full paths"
 msgid "With full path"
-msgstr "Memorizza i percorsi completi"
+msgstr "Con percorso completo"
 
 #: ../src/extract_dialog.c
 msgid "Without any path"
-msgstr ""
+msgstr "Senza alcun percorso"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Without parent path"
-msgstr ""
+msgstr "Senza percorso parente"
 
 #: ../src/window.c
 msgid "Yes"
@@ -1266,6 +1242,8 @@ msgid ""
 "You can drop either archives to open or files to add. It is not possible to "
 "do both at the same time."
 msgstr ""
+"È possibile prendere e rilasciare gli archivi per aprirli o per aggiungere i "
+"file. Non è possibile fare contemporaneamente entrambe le cose."
 
 #: ../src/interface.c ../src/window.c
 msgid "You can't add content to this archive type!"
@@ -1373,7 +1351,7 @@ msgstr "e"
 
 #: ../src/add_dialog.c
 msgid "best"
-msgstr ""
+msgstr "migliore"
 
 #: ../src/pref_dialog.c
 msgid "choose..."
@@ -1397,7 +1375,7 @@ msgstr "grandi"
 
 #: ../src/add_dialog.c
 msgid "least"
-msgstr ""
+msgstr "minima"
 
 #: ../src/pref_dialog.c
 msgid "medium"
@@ -1421,7 +1399,7 @@ msgstr ""
 "Giuseppe Torelli <colossus73@gmail.com>\n"
 "Cristian Marchi <cri.penta@gmail.com>, 2009\n"
 "Gianluca Foddis <gianluca.foddis@gmail.com>, 2009\n"
-"Gianvito Cavasoli <gianvito@gmx.it>, 2021"
+"Gianvito Cavasoli <gianvito@gmx.it>, 2021-2022"
 
 #: ../src/pref_dialog.c
 msgid "very large"
@@ -1440,55 +1418,3 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Dimensione\n"
-
-#~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-#~ msgstr ""
-#~ "0 = nessuna compressione, 3 è il valore predefinito, 5 = compressione "
-#~ "maggiore ma più lenta"
-
-#~ msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-#~ msgstr ""
-#~ "0 = nessuna compressione, 5 è il valore predefinito, 9 = compressione "
-#~ "maggiore ma più lenta"
-
-#~ msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-#~ msgstr ""
-#~ "0 = nessuna compressione, 6 è il valore predefinito, 9 = compressione "
-#~ "maggiore ma più lenta"
-
-#~ msgid "5 = default compression, 7 = max compression"
-#~ msgstr "5 = compressione predefinita, 7 = compressione massima"
-
-#~ msgid "Archive Name"
-#~ msgstr "Nome archivio"
-
-#, c-format
-#~ msgid "Can't open file %s:"
-#~ msgstr "Impossibile aprire il file %s:"
-
-#~ msgid "Destination dirs"
-#~ msgstr "Cartelle di destinazione"
-
-#~ msgid "Do not store paths"
-#~ msgstr "Non memorizzare i percorsi"
-
-#~ msgid "Extract pathnames"
-#~ msgstr "Estrarre i nomi dei percorsi"
-
-#~ msgid "Freshen and replace"
-#~ msgstr "Rinnovare e sostituire"
-
-#~ msgid "Options "
-#~ msgstr "Opzioni"
-
-#~ msgid "Options:"
-#~ msgstr "Opzioni:"
-
-#~ msgid ""
-#~ "This option extracts archives in directories named with the archive names"
-#~ msgstr ""
-#~ "Questa opzione estrae gli archivi nelle directory denominate con i nomi "
-#~ "degli archivi"
-
-#~ msgid "Update and add"
-#~ msgstr "Aggiornare e aggiungere"

@@ -14,9 +14,11 @@ src/open-with-dlg.c
 src/pref_dialog.c
 src/rar.c
 src/rpm.c
+src/squashfs.c
 src/tar.c
 src/unar.c
 src/window.c
 src/zip.c
+src/zpaq.c
 
 xarchiver.desktop.in

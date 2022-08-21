@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-05-06 11:30+0200\n"
+"POT-Creation-Date: 2022-08-21 11:55+0200\n"
 "PO-Revision-Date: 2019-02-26 03:12+0300\n"
 "Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -447,8 +447,8 @@ msgid "Data Frames/Skippable Frames"
 msgstr ""
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
-#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
-#: ../src/zip.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Date"
 msgstr "Датум"
 
@@ -615,6 +615,10 @@ msgstr "Датотека"
 msgid "Files"
 msgstr "Датотеке"
 
+#: ../src/zpaq.c
+msgid "Files with absolute pathnames cannot be deleted!"
+msgstr ""
+
 #: ../src/extract_dialog.c
 msgid "Files:"
 msgstr "Датотеке:"
@@ -642,10 +646,11 @@ msgstr "Из датотеке"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
-"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
-"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
-"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
+"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
+"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
+"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -806,14 +811,14 @@ msgid "Options"
 msgstr "Опције"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
-#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
-#: ../src/zip.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
 #, fuzzy
 #| msgid "Original"
 msgid "Original Size"
 msgstr "Оригинал"
 
-#: ../src/add_dialog.c ../src/extract_dialog.c
+#: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Препиши преко постојећих датотека"
 
@@ -821,7 +826,7 @@ msgstr "Препиши преко постојећих датотека"
 msgid "Owner"
 msgstr "Власник"
 
-#: ../src/tar.c
+#: ../src/squashfs.c ../src/tar.c
 msgid "Owner/Group"
 msgstr "Власник/Група"
 
@@ -846,7 +851,7 @@ msgid "Pattern:"
 msgstr "Шаблон:"
 
 #: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
-#: ../src/tar.c ../src/zip.c
+#: ../src/squashfs.c ../src/tar.c ../src/zip.c ../src/zpaq.c
 msgid "Permissions"
 msgstr "Дозволе"
 
@@ -899,7 +904,8 @@ msgstr "Изаберите одредишни директоријум"
 msgid "Please wait..."
 msgstr "Унесите је!"
 
-#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c
 msgid "Points to"
 msgstr "Веза до"
 
@@ -1225,8 +1231,8 @@ msgstr ""
 "датотеке које већ нису у архиви."
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
-#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
-#: ../src/zip.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Time"
 msgstr "Време"
 
@@ -1310,6 +1316,10 @@ msgstr ""
 "Коришћењем ове опције, подаци о времену последње измене датотеке ће бити "
 "постављани према времену распакивања датотека из архиве, а не према времену "
 "које су датотеке имале приликом додавања у архиву"
+
+#: ../src/zpaq.c
+msgid "Will not handle files with wildcard characters!"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Window"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-05-07 22:31+0200\n"
-"PO-Revision-Date: 2022-05-07 22:31+0100\n"
+"POT-Creation-Date: 2022-08-21 11:55+0200\n"
+"PO-Revision-Date: 2022-08-21 11:55+0200\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "Language: en_GB\n"
@@ -409,8 +409,8 @@ msgid "Data Frames/Skippable Frames"
 msgstr "Data Frames/Skippable Frames"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
-#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
-#: ../src/zip.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Date"
 msgstr "Date"
 
@@ -567,6 +567,10 @@ msgstr "Filename"
 msgid "Files"
 msgstr "Files"
 
+#: ../src/zpaq.c
+msgid "Files with absolute pathnames cannot be deleted!"
+msgstr "Files with absolute pathnames cannot be deleted!"
+
 #: ../src/extract_dialog.c
 msgid "Files:"
 msgstr "Files:"
@@ -592,16 +596,18 @@ msgstr "From File"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
-"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
-"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
-"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
+"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
+"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
+"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bz2;bzip2;cbz;compress;cpio;deb;"
-"epub;exe;gtar;gunzip;gz;gzip;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;"
-"lz4;lzh;lzip;lzma;lzo;lzop;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
-"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
+"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
+"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
+"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -747,12 +753,12 @@ msgid "Options"
 msgstr "Options"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
-#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
-#: ../src/zip.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Original Size"
 msgstr "Original Size"
 
-#: ../src/add_dialog.c ../src/extract_dialog.c
+#: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Overwrite existing files"
 
@@ -760,7 +766,7 @@ msgstr "Overwrite existing files"
 msgid "Owner"
 msgstr "Owner"
 
-#: ../src/tar.c
+#: ../src/squashfs.c ../src/tar.c
 msgid "Owner/Group"
 msgstr "Owner/Group"
 
@@ -785,7 +791,7 @@ msgid "Pattern:"
 msgstr "Pattern:"
 
 #: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
-#: ../src/tar.c ../src/zip.c
+#: ../src/squashfs.c ../src/tar.c ../src/zip.c ../src/zpaq.c
 msgid "Permissions"
 msgstr "Permissions"
 
@@ -834,7 +840,8 @@ msgstr "Please select the destination directory"
 msgid "Please wait..."
 msgstr "Please wait..."
 
-#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c
 msgid "Points to"
 msgstr "Points to"
 
@@ -1110,8 +1117,8 @@ msgstr ""
 "there; unlike the update option it will not add any new files"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
-#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
-#: ../src/zip.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Time"
 msgstr "Time"
 
@@ -1187,6 +1194,10 @@ msgid ""
 msgstr ""
 "When this option is used, the modification times of the files will be the "
 "times of extraction instead of the times recorded in the archive"
+
+#: ../src/zpaq.c
+msgid "Will not handle files with wildcard characters!"
+msgstr "Will not handle files with wildcard characters!"
 
 #: ../src/pref_dialog.c
 msgid "Window"
