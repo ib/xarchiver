@@ -27,8 +27,6 @@
 #include "support.h"
 #include "window.h"
 
-#define MAXWIDTH(item, width) (strlen(item) > width ? strlen(item) - width : 0)
-
 static gboolean data_line, last_line;
 
 void xa_unar_ask (XArchive *archive)
@@ -51,9 +49,8 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[6];
-	gchar *index, *flags, *filename;
+	gchar *flags, *filename;
 	gboolean dir, encrypted, link;
-	guint shift;
 
 	USE_PARSER;
 
@@ -88,9 +85,8 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 		return;
 	}
 
-	/* index (may exceed column width) */
-	NEXT_ITEM(index);
-	shift = MAXWIDTH(index, 4);
+	/* index */
+	SKIP_ITEM;
 
 	/* flags */
 	NEXT_ITEM(flags);
@@ -105,9 +101,8 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 	/* file size */
 	NEXT_ITEM(item[1]);
 
-	/* ratio (may exceed column width) */
+	/* ratio */
 	NEXT_ITEM(item[2]);
-	shift += MAXWIDTH(item[2], 6);
 
 	/* mode */
 	NEXT_ITEM(item[5]);
@@ -126,9 +121,9 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 	else
 		NEXT_ITEM(item[4]);
 
-	/* name */
+	/* name (follows with two characters spacing instead of one) */
 	LAST_ITEM(filename);
-	filename += shift;
+	filename++;            // skip the additional spacing character
 
 	item[0] = NULL;
 

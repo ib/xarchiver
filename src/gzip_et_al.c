@@ -340,7 +340,7 @@ static void xa_gzip_et_al_parse_lrzip (gchar *line, XArchive *archive)
 		}
 
 		/* since v0.650 */
-		IF_ITEM_LINE("File:")
+		IF_ITEM_LINE("File: ")
 		{
 filename:
 			LAST_ITEM(filename);

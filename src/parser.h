@@ -38,22 +38,9 @@ do                                                           \
 while (0)
 
 #define USE_PARSER         \
-static void *_archive;     \
-static int _pos;           \
 unsigned int _len;         \
-char *_start = line;       \
                            \
-(void) _len;               \
-                           \
-do                         \
-{                          \
-  if (_archive != archive) \
-  {                        \
-    _archive = archive;    \
-    _pos = -1;             \
-  }                        \
-}                          \
-while (0)
+(void) _len
 
 #define NEXT_ITEMS(parts, item) GRAB_ITEMS(parts, item, *line != ' ' && *line != '\t' && *line != '\n')
 #define NEXT_ITEM(item) NEXT_ITEMS(1, item)
@@ -61,13 +48,9 @@ while (0)
 #define LAST_ITEM(item)   /* for filenames */ \
 do                                            \
 {                                             \
-  int pos;                                    \
-                                              \
-  GRAB_ITEMS(1, item, *line != '\n');         \
-  pos = item - _start;                        \
-                                              \
-  if (_pos < 0 || pos < _pos) _pos = pos;     \
-  else if (pos > _pos) item = _start + _pos;  \
+  item = line;                                \
+  while (*line && (*line != '\n')) line++;    \
+  if (*line) *line++ = 0;                     \
 }                                             \
 while (0)
 
