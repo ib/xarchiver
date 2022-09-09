@@ -20,6 +20,11 @@
 #ifndef XARCHIVER_PARSER_H
 #define XARCHIVER_PARSER_H
 
+#define USE_PARSER \
+unsigned int _len; \
+                   \
+(void) _len
+
 #define GRAB_ITEMS(parts, item, cond)                        \
 do                                                           \
 {                                                            \
@@ -37,14 +42,10 @@ do                                                           \
 }                                                            \
 while (0)
 
-#define USE_PARSER         \
-unsigned int _len;         \
-                           \
-(void) _len
-
 #define NEXT_ITEMS(parts, item) GRAB_ITEMS(parts, item, *line != ' ' && *line != '\t' && *line != '\n')
 #define NEXT_ITEM(item) NEXT_ITEMS(1, item)
 #define SKIP_ITEM NEXT_ITEM(line)
+
 #define LAST_ITEM(item)   /* for filenames */ \
 do                                            \
 {                                             \
