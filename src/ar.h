@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
  *  Copyright (C) 2006 Lukasz 'Sil2100' Zemczak - <sil2100@vexillium.org>
+ *  Copyright (C) 2019 Ingo Brückl
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
