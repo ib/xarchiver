@@ -85,7 +85,7 @@ static void xa_squashfs_parse_output (gchar *line, XArchive *archive)
 	if (entry)
 	{
 		if (dir)
-			 entry->is_dir = TRUE;
+			entry->is_dir = TRUE;
 
 		if (!entry->is_dir)
 			archive->files++;
