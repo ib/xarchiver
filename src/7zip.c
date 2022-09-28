@@ -24,6 +24,7 @@
 #include "gzip_et_al.h"
 #include "interface.h"
 #include "main.h"
+#include "parser.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -271,10 +272,12 @@ static gchar *xa_7zip_password_str (XArchive *archive)
 static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
-	gchar *filename;
 	gpointer item[5];
-	gint linesize = 0,a = 0;
 	gboolean dir;
+	guint n;
+	gchar *filename;
+
+	USE_PARSER;
 
 	if (last_line)
 		return;
@@ -292,56 +295,50 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 			data_line = TRUE;
 			return;
 		}
+
 		return;
 	}
+
 	if (line[0] == '-')
 	{
 		last_line = TRUE;
 		return;
 	}
 
-	linesize = strlen(line);
+	/* date */
+	NEXT_ITEM(item[2]);
 
-	/* Date */
-	line[10] = '\0';
-	item[2] = line;
+	/* time */
+	NEXT_ITEM(item[3]);
 
-	/* Time */
-	line[19] = '\0';
-	item[3] = line + 11;
-
-	/* Permissions */
-	line[25] = '\0';
-	item[4] = line + 20;
+	/* attributes */
+	NEXT_ITEM(item[4]);
 
 	dir = (*(char *) item[4] == 'D');
 
-	/* Size */
-	for(a=26; a < linesize; ++a)
-		if(line[a] >= '0' && line[a] <= '9')
-			break;
+	/* size */
+	NEXT_ITEM(item[0]);
 
-	line[38] = '\0';
-	item[0] = line + a;
+	/* compressed */
 
-	/* Compressed */
-	/* Is this item solid? */
-	if (line[50] == ' ')
+	for (n = 0; (n < 11) && line[n]; n++);
+
+	if (line[n] == ' ')
 	{
-		line[linesize-1] = '\0';
+		line += n + 1;
+
+		if (*line)
+			*line++ = 0;
+
 		item[1] = "0";
 	}
 	else
-	{
-		for(a=39; a < linesize; ++a)
-			if(line[a] >= '0' && line[a] <= '9')
-				break;
-		line[51] = '\0';
-		item[1] = line + a;
-		line[linesize-1] = '\0';
-	}
+		NEXT_ITEM(item[1]);
 
-	filename = g_strdup(line + 53);
+	/* name (follows with two characters spacing instead of one) */
+	LAST_ITEM(filename);
+	filename++;            // skip the additional spacing character
+
 	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
 	if (entry)
@@ -356,8 +353,6 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 
 		archive->files_size += g_ascii_strtoull(item[0], NULL, 0);
 	}
-
-	g_free(filename);
 }
 
 void xa_7zip_list (XArchive *archive)
