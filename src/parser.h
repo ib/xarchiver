@@ -61,5 +61,6 @@ while (0)
 #define DUPE_ITEM(item) item = g_strdup(g_strstrip(line))
 
 #define LINE_PEEK(n) for (peek = 0; (peek < (n)) && line[peek]; peek++)
+#define LINE_SKIP(n) for (_len = 0; (_len < (n)) && *line; _len++, line++)
 
 #endif
