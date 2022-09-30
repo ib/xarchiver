@@ -48,13 +48,13 @@ while (0)
 #define NEXT_ITEM(item) NEXT_ITEMS(1, item)
 #define SKIP_ITEM NEXT_ITEM(line)
 
-#define LAST_ITEM(item)   /* for filenames */ \
-do                                            \
-{                                             \
-  item = line;                                \
-  while (*line && (*line != '\n')) line++;    \
-  if (*line) *line++ = 0;                     \
-}                                             \
+#define LAST_ITEM(item)                    \
+do                                         \
+{                                          \
+  item = line;                             \
+  while (*line && (*line != '\n')) line++; \
+  if (*line) *line++ = 0;                  \
+}                                          \
 while (0)
 
 #define IF_ITEM_LINE(string) if ((_len = strlen(string)) && (strncmp(line, string, _len) == 0) && (line += _len))
