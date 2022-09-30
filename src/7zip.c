@@ -274,7 +274,6 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[5];
 	gboolean dir;
-	guint n;
 	gchar *filename;
 
 	USE_PARSER;
@@ -321,11 +320,11 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 
 	/* compressed */
 
-	for (n = 0; (n < 11) && line[n]; n++);
+	LINE_PEEK(11);
 
-	if (line[n] == ' ')
+	if (line[peek] == ' ')
 	{
-		line += n + 1;
+		line += peek + 1;
 
 		if (*line)
 			*line++ = 0;

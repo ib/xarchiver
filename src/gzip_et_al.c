@@ -209,8 +209,9 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 
 	if (archive->type == XARCHIVETYPE_GZIP)
 	{
+		LINE_PEEK(9);
 		/* heading? */
-		if (line[9] == 'c' || line[0] == 'c')   // genuine gzip or pigz
+		if (line[peek] == 'c' || line[0] == 'c')   // genuine gzip or pigz
 			return;
 	}
 	else if (archive->type == XARCHIVETYPE_LZIP)
@@ -226,8 +227,9 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 	}
 	else if (archive->type == XARCHIVETYPE_LZOP)
 	{
+		LINE_PEEK(12);
 		/* heading? */
-		if (line[12] == 'c')
+		if (line[peek] == 'c')
 			return;
 		else
 			/* method */

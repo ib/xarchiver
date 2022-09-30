@@ -22,8 +22,10 @@
 
 #define USE_PARSER \
 unsigned int _len; \
+unsigned int peek; \
                    \
-(void) _len
+(void) _len;       \
+(void) peek
 
 #define GRAB_ITEMS(parts, item, cond)                        \
 do                                                           \
@@ -57,5 +59,7 @@ while (0)
 
 #define IF_ITEM_LINE(string) if ((_len = strlen(string)) && (strncmp(line, string, _len) == 0) && (line += _len))
 #define DUPE_ITEM(item) item = g_strdup(g_strstrip(line))
+
+#define LINE_PEEK(n) for (peek = 0; (peek < (n)) && line[peek]; peek++)
 
 #endif
