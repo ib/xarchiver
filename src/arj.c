@@ -60,6 +60,12 @@ static gchar *xa_arj_password_str (XArchive *archive)
 		return g_strdup("");
 }
 
+/*
+ * Note: Windows archives with directory structure cannot be displayed
+ * correctly with the open source version of the archiver because both
+ * directory attributes and directory flags are missing in its output.
+ */
+
 static void xa_arj_parse_output (gchar *line, XArchive *archive)
 {
 	static gchar *filename;
@@ -329,6 +335,14 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 
 	return result;
 }
+
+/*
+ * Note: The open source version of the archiver stores timestamps for
+ * Unix files by default in Unix format unless the DOS compatibility
+ * mode is specified. Not storing them in DOS format as required by
+ * the specifications will result in incorrect and sometimes senseless
+ * dates and times with standard-compliant programs.
+ */
 
 void xa_arj_add (XArchive *archive, GSList *file_list)
 {
