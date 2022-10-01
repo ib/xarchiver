@@ -22,6 +22,7 @@
 #include "arj.h"
 #include "date_utils.h"
 #include "main.h"
+#include "parser.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -61,11 +62,15 @@ static gchar *xa_arj_password_str (XArchive *archive)
 
 static void xa_arj_parse_output (gchar *line, XArchive *archive)
 {
+	static gchar *filename;
 	XEntry *entry;
 	gpointer item[7];
-	unsigned int linesize,n,a;
-	static gchar *filename;
 	gboolean unarj, lfn, dir, encrypted;
+	gint linesize;
+	gchar *attr, *flags;
+	guint len;
+
+	USE_PARSER;
 
 	unarj = !archiver[archive->type].is_compressor;
 
@@ -76,105 +81,110 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 			data_line = TRUE;
 			return;
 		}
+
 		return;
 	}
 
 	if (!fname_line)
 	{
-		linesize = strlen(line);
-		line[linesize - 1] = '\0';
+		linesize = strlen(line) - 1;
 
-		if (!unarj && (*line == ' '))
+		if (!unarj && (line[0] == ' '))
 			return;
 
-		if (line[0] == '-' && linesize == (unarj ? 59 : 41))
+		if (line[0] == '-' && linesize == (unarj ? 58 : 40))
 		{
 			data_line = FALSE;
 			return;
 		}
 
+		/* name */
+
 		if (unarj)
 		{
 			/* simple column separator check */
-			lfn = (linesize < 76 || line[34] != ' ' || line[40] != ' ' || line[49] != ' ' || line[58] != ' ' || line[67] != ' ');
+			lfn = (linesize < 68 || line[34] != ' ' || line[40] != ' ' || line[49] != ' ' || line[58] != ' ' || line[67] != ' ');
 
 			if (lfn)
-				filename = g_strdup(line);
+			{
+				LAST_ITEM(filename);
+				filename = g_strdup(filename);
+			}
 			else
 			{
 				filename = g_strchomp(g_strndup(line, 12));
 
 				if (!*filename)
-				{
-					g_free(filename);
-					filename = g_strdup(" ");   // just a wild guess in order to have an entry
-				}
+					strcpy(filename, " ");   // just a wild guess in order to have an entry
 			}
 		}
 		else
 		{
 			lfn = TRUE;
-			filename = g_strdup(line + 5);
+			SKIP_ITEM;
+			LAST_ITEM(filename);
+			filename = g_strdup(filename);
 		}
 
 		fname_line = TRUE;
+
 		if (lfn)
 			return;
 	}
 
 	if (fname_line)
 	{
-		linesize = strlen(line);
-		/* Size */
-		for(n=12; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n]='\0';
-		item[0] = line + a;
-		n++;
+		LINE_SKIP(12);
 
-		/* Compressed */
-		for(; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n]='\0';
-		item[1] = line + a;
-		n++;
+		/* size */
+		NEXT_ITEM(item[0]);
 
-		/* Ratio */
-    	line[40] = '\0';
-    	item[2] = line + 35;
+		/* compressed */
+		NEXT_ITEM(item[1]);
 
-		/* Date */
-		line[49] = '\0';
-		item[3] = date_YY_MM_DD(line + 41);
+		/* ratio */
+		NEXT_ITEM(item[2]);
 
-		/* Time */
-		line[58] = '\0';
-		item[4] = line + 50;
+		/* date */
+		NEXT_ITEM(item[3]);
+		item[3] = date_YY_MM_DD(item[3]);
+
+		/* time */
+		NEXT_ITEM(item[4]);
 
 		/* CRC */
 		if (unarj)
-		{
-			line[67] = '\0';
-			item[6] = line + 59;
-		}
+			NEXT_ITEM(item[6]);
 
-		/* Permissions */
-		line[unarj ? 72 : 69] = '\0';
-		item[5] = line + (unarj ? 68 : 59);
+		/* attributes (and perhaps GUA) */
+		attr = line;
+
+		LINE_SKIP(unarj ? 4 : 15);
+
+		/* BTPMGVX / BPMGS */
+		LAST_ITEM(flags);
+		len = strlen(flags);
+
+		/* attributes */
+
+		line = attr;
+
+		if (*line != ' ')
+			NEXT_ITEM(item[5]);
+		else
+			item[5] = NULL;
 
 		/* BTPMGVX */
 		if (unarj)
 		{
-			dir = (line[73] == 'D');
-			encrypted = (line[76] == 'G');
+			dir = (len > 1 && flags[1] == 'D');
+			encrypted = (len > 4 && flags[4] != ' ');
 		}
 		/* BPMGS */
 		else
 		{
-			dir = (line[59] == 'd');
-			encrypted = (line[77] == '1');
+			dir = (item[5] && (*(char *) item[5] == 'd'));
+			encrypted = (len > 3 && flags[3] != ' ');
 		}
 
 		if (encrypted)
