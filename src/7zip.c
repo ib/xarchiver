@@ -304,11 +304,18 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 		return;
 	}
 
-	/* date */
-	NEXT_ITEM(item[2]);
-
-	/* time */
-	NEXT_ITEM(item[3]);
+	if (line[0] != ' ')
+	{
+		/* date */
+		NEXT_ITEM(item[2]);
+		/* time */
+		NEXT_ITEM(item[3]);
+	}
+	else /* invalid date/time */
+	{
+		item[2] = NULL;
+		item[3] = NULL;
+	}
 
 	/* attributes */
 	NEXT_ITEM(item[4]);
