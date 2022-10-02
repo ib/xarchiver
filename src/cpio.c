@@ -77,11 +77,13 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	else
 		NEXT_ITEM(item[1]);
 
+	LINE_PEEK(9);
+
 	/* date and time */
 	NEXT_ITEMS(3, item[2]);
 
 	/* time */
-	if (((char *) item[2])[9] == ':')
+	if (((char *) item[2])[peek] == ':')
 	{
 		memcpy(time, item[2] + 7, 5);
 		time[5] = 0;
