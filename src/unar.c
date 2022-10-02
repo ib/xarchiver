@@ -50,6 +50,7 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[6];
 	gchar *flags, *filename;
+	guint len;
 	gboolean dir, encrypted, link;
 
 	USE_PARSER;
@@ -90,10 +91,11 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 
 	/* flags */
 	NEXT_ITEM(flags);
+	len = strlen(flags);
 
 	dir = (flags[0] == 'D');
-	link = (flags[2] == 'L');
-	encrypted = (flags[3] == 'E');
+	link = (len > 2 && flags[2] == 'L');
+	encrypted = (len > 3 && flags[3] == 'E');
 
 	if (encrypted)
 		archive->has_password = TRUE;
