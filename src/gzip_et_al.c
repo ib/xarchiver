@@ -238,9 +238,9 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 	else if (archive->type == XARCHIVETYPE_XZ)
 	{
 		/* heading? */
-		if (*line == 't')
+		if (line[0] == 't')
 			return;
-		else if (*line == 'n')
+		else if (line[0] == 'n')
 		{
 			/* "name" */
 			SKIP_ITEM;
@@ -332,7 +332,7 @@ static void xa_gzip_et_al_parse_lrzip (gchar *line, XArchive *archive)
 			first_line = FALSE;
 
 			/* pre-v0.650 */
-			if (*line != '\n')
+			if (line[0] != '\n')
 			{
 				gchar *colon = g_strrstr(line, ":\n");
 

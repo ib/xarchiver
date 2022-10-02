@@ -57,7 +57,7 @@ static void xa_zpaq_parse_output (gchar *line, XArchive *archive)
 
 	if (!data_line)
 	{
-		if (*line == '\n')
+		if (line[0] == '\n')
 		{
 			data_line = TRUE;
 			return;
@@ -66,7 +66,7 @@ static void xa_zpaq_parse_output (gchar *line, XArchive *archive)
 		return;
 	}
 
-	if (*line == '\n')
+	if (line[0] == '\n')
 	{
 		last_line = TRUE;
 		return;

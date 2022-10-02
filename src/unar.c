@@ -79,7 +79,7 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 		return;
 	}
 
-	if (*line == '(')
+	if (line[0] == '(')
 	{
 		last_line = TRUE;
 		return;
