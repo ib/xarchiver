@@ -78,7 +78,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 		}
 		return;
 	}
-	if (strncmp(line,"----",4) == 0)
+	if (strncmp(line, "---------- -", 12) == 0)
 	{
 		last_line = TRUE;
 		return;
