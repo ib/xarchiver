@@ -122,8 +122,8 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[6];
-	gboolean dir;
 	gchar *filename, *link;
+	gboolean dir;
 
 	USE_PARSER;
 

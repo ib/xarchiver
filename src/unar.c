@@ -49,9 +49,9 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[6];
-	gchar *flags, *filename;
+	gchar *filename, *flags;
 	guint len;
-	gboolean dir, encrypted, link;
+	gboolean dir, link, encrypted;
 
 	USE_PARSER;
 
@@ -131,12 +131,12 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 
 	if (link)
 	{
-		char *l = strstr(filename, " -> ");
+		char *lnk = strstr(filename, " -> ");
 
-		if (l)
+		if (lnk)
 		{
-			item[0] = l + 4;
-			*l = 0;
+			item[0] = lnk + 4;
+			*lnk = 0;
 		}
 	}
 

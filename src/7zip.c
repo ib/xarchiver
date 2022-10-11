@@ -273,8 +273,8 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[5];
-	gboolean dir;
 	gchar *filename;
+	gboolean dir;
 
 	USE_PARSER;
 

@@ -415,8 +415,8 @@ filename:
 static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 {
 	static gchar *zstdframes;
-	gchar *skipframes;
 	XEntry *entry;
+	gchar *skipframes;
 	char *pos;
 
 	USE_PARSER;
@@ -425,13 +425,13 @@ static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 		return;
 
 	if (first_line)
-		/* post-v1.3.2? (no header any more) */
+		/* post-v1.3.2 (no header any more) */
 		data_line = (strncmp(line, "===========================================", 43) != 0);
 
 	if (!data_line)
 	{
 		first_line = FALSE;
-		/* pre-v1.3.2? (end of header) */
+		/* pre-v1.3.2 (end of header) */
 		data_line = (strncmp(line, "Number of files listed:", 23) == 0);
 		return;
 	}
