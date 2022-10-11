@@ -289,7 +289,7 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 			archive->has_password = TRUE;
 		}
 
-		if (strncmp(line, "-----", 5) == 0)
+		if (strncmp(line, "------------------- ", 20) == 0)
 		{
 			data_line = TRUE;
 			return;
