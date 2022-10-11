@@ -23,6 +23,7 @@
 #include "lha.h"
 #include "date_utils.h"
 #include "main.h"
+#include "parser.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -64,11 +65,13 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[7];
 	gchar *filename, time[6];
-	unsigned int linesize,n,a;
-	gboolean dir;
+	gboolean dir, link;
+
+	USE_PARSER;
 
 	if (last_line)
 		return;
+
 	if (!data_line)
 	{
 		if (line[0] == '-')
@@ -76,48 +79,38 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 			data_line = TRUE;
 			return;
 		}
+
 		return;
 	}
+
 	if (strncmp(line, "---------- -", 12) == 0)
 	{
 		last_line = TRUE;
 		return;
 	}
-	linesize = strlen(line);
 
-	/* Permission */
-	line[10] = '\0';
-	item[5] = line;
-	dir = (line[0] == 'd');
+	/* permissions */
+	NEXT_ITEM(item[5]);
 
-	/* UID/GID */
-	line[22] = '\0';
-	item[6] = line + 11;
+	dir = (*(char *) item[5] == 'd');
+	link = (*(char *) item[5] == 'l');
 
-	//TODO verify the len of the size column with a big archive
-	/* Size */
-	for(n = 23;n < linesize;n++)
-	if(line[n] != ' ')
-		break;
+	/* uid/gid */
+	NEXT_ITEM(item[6]);
 
-	a = n;
-	for(;n < linesize;n++)
-	if(line[n] == ' ')
-		break;
+	/* size */
+	NEXT_ITEM(item[1]);
 
-	line[a+(n-a)] = '\0';
-	item[1] = line + a;
+	/* ratio */
+	NEXT_ITEM(item[2]);
 
-    /* Ratio */
-    line[37] = '\0';
-    item[2] = line + 31;
+	LINE_PEEK(9);
 
-    /* Date and Time */
-    line[50] = '\0';
-    item[3] = line + 38;
+	/* date and time */
+	NEXT_ITEMS(3, item[3]);
 
-	/* Time */
-	if (((char *) item[3])[9] == ':')
+	/* time */
+	if (((char *) item[3])[peek] == ':')
 	{
 		memcpy(time, item[3] + 7, 5);
 		time[5] = 0;
@@ -128,20 +121,21 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	item[3] = date_MMM_dD_HourYear(item[3]);
 	item[4] = time;
 
-	line[(linesize- 1)] = '\0';
-	filename = line + 51;
+	/* name */
+	LAST_ITEM(filename);
 
-	/* Symbolic link */
-	gchar *temp = g_strrstr (filename,"->");
-	if (temp)
+	item[0] = NULL;
+
+	if (link)
 	{
-		gint len = strlen(filename) - strlen(temp);
-		item[0] = (filename +=3) + len;
-		filename -= 3;
-		filename[strlen(filename) - strlen(temp)-1] = '\0';
+		char *lnk = strstr(filename, " -> ");
+
+		if (lnk)
+		{
+			item[0] = lnk + 4;
+			*lnk = 0;
+		}
 	}
-	else
-		item[0] = NULL;
 
 	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
