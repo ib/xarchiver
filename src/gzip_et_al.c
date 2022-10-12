@@ -754,7 +754,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 			if (archive->type == XARCHIVETYPE_LRZIP)
 			{
 				if (archive->has_password)
-					/* no further information will be available then */
+					/* lrzip won't list content then, even if password has been given */
 					break;
 
 				first_line = TRUE;
