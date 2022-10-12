@@ -74,7 +74,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 	gboolean unarj, lfn, dir, encrypted;
 	gint linesize;
 	gchar *attr, *flags;
-	guint len;
+	size_t len;
 
 	USE_PARSER;
 

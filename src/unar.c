@@ -50,7 +50,7 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[6];
 	gchar *filename, *flags;
-	guint len;
+	size_t len;
 	gboolean dir, link, encrypted;
 
 	USE_PARSER;
