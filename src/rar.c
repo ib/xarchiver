@@ -23,6 +23,7 @@
 #include "date_utils.h"
 #include "interface.h"
 #include "main.h"
+#include "parser.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -92,13 +93,14 @@ static gchar *xa_rar_password_str (XArchive *archive)
 
 static void xa_rar_parse_output (gchar *line, XArchive *archive)
 {
+	static gchar *filename;
+	static gboolean encrypted;
 	XEntry *entry;
 	gpointer item[9];
-	unsigned short int i = 0;
-	unsigned int linesize,n,a;
-	gboolean dir = FALSE;
-	static gboolean encrypted;
-	static gchar *filename;
+	size_t len;
+	gboolean dir;
+
+	USE_PARSER;
 
 	if (last_line)
 		return;
@@ -135,120 +137,73 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 
 				archive->comment = g_string_append(archive->comment, line);
 			}
+
 			return;
 		}
+
 		if (line[0] == '-')
 		{
 			data_line = TRUE;
 			return;
 		}
+
 		return;
 	}
 
 	if (!fname_line)
 	{
-		encrypted = FALSE;
-		linesize = strlen(line);
-		if(line[0] == '*')
-		{
-			archive->has_password = TRUE;
-			encrypted = TRUE;
-		}
-		else if (line[0] == '-')
+		if (line[0] == '-')
 		{
 			last_line = TRUE;
 			return;
 		}
-		else if (line[0] != ' ')
-			return;
-		line[linesize - 1] = '\0';
-		filename = g_strdup(line+1);
+
 		fname_line = TRUE;
+
+		encrypted = (line[0] == '*');
+
+		if (encrypted)
+			archive->has_password = TRUE;
+
+		if (line[0])
+			line++;
+
+		LAST_ITEM(filename);
+		filename = g_strdup(filename);
 	}
 	else
 	{
-		linesize = strlen(line);
-		/* Size */
-		for(n=0; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n]='\0';
-		item[i] = line + a;
-		i++;
-		n++;
+		/* size */
+		NEXT_ITEM(item[0]);
 
-		/* Compressed */
-		for(; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n]='\0';
-		item[i] = line + a;
-		i++;
-		n++;
+		/* packed */
+		NEXT_ITEM(item[1]);
 
-		/* Ratio */
-		for(; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n] = '\0';
-		item[i] = line + a;
-		i++;
-		n++;
+		/* ratio */
+		NEXT_ITEM(item[2]);
 
-		/* Date */
-		for(; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n] = '\0';
-		item[i] = date_DD_MM_YY(line + a);
-		i++;
-		n++;
+		/* date */
+		NEXT_ITEM(item[3]);
+		item[3] = date_DD_MM_YY(item[3]);
 
-		/* Time */
-		for(; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n] = '\0';
-		item[i] = line + a;
-		i++;
-		n++;
+		/* time */
+		NEXT_ITEM(item[4]);
 
-		/* Permissions */
-		for(; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n] = '\0';
+		/* attributes */
+		NEXT_ITEM(item[5]);
+		len = strlen(item[5]);
+
 		/* archive may originate from Unix or Windows type OS */
-		if (*(line + a) == 'd' || *(line + a + 1) == 'D')
-			dir = TRUE;
-		item[i] = line + a;
-		i++;
-		n++;
+		dir = (*(char *) item[5] == 'd' || (len > 1 && ((char *) item[5])[1] == 'D'));
 
 		/* CRC */
-		for(; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n] = '\0';
-		item[i] = line + a;
-		i++;
-		n++;
+		NEXT_ITEM(item[6]);
 
-		/* Method */
-		for(; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' '; n++);
-		line[n] = '\0';
-		item[i] = line + a;
-		i++;
-		n++;
+		/* method */
+		NEXT_ITEM(item[7]);
 
 		/* version */
-		for(; n < linesize && line[n] == ' '; n++);
-		a = n;
-		for(; n < linesize && line[n] != ' ' && line[n] != '\n'; n++);
-		line[n] = '\0';
-		item[i] = line + a;
+		NEXT_ITEM(item[8]);
 
 		entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
@@ -274,10 +229,11 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[7];
-	unsigned short int i = 0;
-	unsigned int linesize, n, a;
-	gboolean encrypted = FALSE, dir = FALSE;
-	static gchar *filename, *end;
+	gchar *filename;
+	size_t len;
+	gboolean encrypted, dir;
+
+	USE_PARSER;
 
 	if (last_line)
 		return;
@@ -312,103 +268,64 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 
 				archive->comment = g_string_append(archive->comment, line);
 			}
+
 			return;
 		}
+
 		if (line[0] == '-')
 		{
 			data_line = TRUE;
 			return;
 		}
+
 		return;
 	}
 
-	linesize = strlen(line);
-	line[linesize - 1] = '\0';
-
-	if(line[0] == '*')
-	{
-		archive->has_password = TRUE;
-		encrypted = TRUE;
-	}
-	else if (line[0] == '-')
+	if (line[0] == '-')
 	{
 		last_line = TRUE;
 		return;
 	}
 
-	/* Permissions */
-	for (n = encrypted ? 1 : 0; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n] = '\0';
+	encrypted = (line[0] == '*');
+
+	if (encrypted)
+	{
+		line++;
+		archive->has_password = TRUE;
+	}
+
+	/* attributes */
+	NEXT_ITEM(item[5]);
+	len = strlen(item[5]);
+
 	/* archive may originate from Unix or Windows type OS */
-	if (*(line + a) == 'd' || *(line + a + 3) == 'D')
-		dir = TRUE;
-	item[5] = line + a;
-	n++;
+	dir = (*(char *) item[5] == 'd' || (len > 3 && ((char *) item[5])[3] == 'D'));
 
-	/* Size */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n]='\0';
-	item[i] = line + a;
-	i++;
-	n++;
+	/* size */
+	NEXT_ITEM(item[0]);
 
-	/* Compressed */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n]='\0';
-	item[i] = line + a;
-	i++;
-	n++;
+	/* packed */
+	NEXT_ITEM(item[1]);
 
-	/* Ratio */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n] = '\0';
-	item[i] = line + a;
-	i++;
-	n++;
+	/* ratio */
+	NEXT_ITEM(item[2]);
 
-	/* Date */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n] = '\0';
-	item[i] = line + a;          // date is YYYY-MM-DD since v5.30
-	if (strlen(item[i]) != 10)   // and was DD-MM-YY before
-		item[i] = date_DD_MM_YY(item[i]);
-	i++;
-	n++;
+	/* date */
+	NEXT_ITEM(item[3]);          // date is YYYY-MM-DD since v5.30
 
-	/* Time */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n] = '\0';
-	item[i] = line + a;
-	i+=2;
-	n++;
+	if (strlen(item[3]) != 10)   // and was DD-MM-YY before
+		item[3] = date_DD_MM_YY(item[3]);
 
-	/* CRC */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n] = '\0';
-	item[i] = line + a;
+	/* time */
+	NEXT_ITEM(item[4]);
 
-	/* FileName */
-	line[linesize - 1] = '\0';
-	filename = g_strdup(line + n + 2);
+	/* checksum */
+	NEXT_ITEM(item[6]);
 
-	/* Strip trailing whitespace */
-	end = filename + strlen(filename) - 1;
-	while(end >= filename && *end == ' ') end--;
-	*(end + 1) = '\0';
+	/* name (follows with two characters spacing instead of one) */
+	LAST_ITEM(filename);
+	filename++;            // skip the additional spacing character
 
 	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
@@ -424,8 +341,6 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 
 		archive->files_size += g_ascii_strtoull(item[0], NULL, 0);
 	}
-
-	g_free(filename);
 }
 
 void xa_rar_list (XArchive *archive)
