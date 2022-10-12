@@ -231,7 +231,7 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	gpointer item[7];
 	gchar *filename;
 	size_t len;
-	gboolean encrypted, dir;
+	gboolean encrypted, dir, legacy;
 
 	USE_PARSER;
 
@@ -314,7 +314,9 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	/* date */
 	NEXT_ITEM(item[3]);          // date is YYYY-MM-DD since v5.30
 
-	if (strlen(item[3]) != 10)   // and was DD-MM-YY before
+	legacy = (strlen(item[3]) != 10);
+
+	if (legacy)                         // and was DD-MM-YY before
 		item[3] = date_DD_MM_YY(item[3]);
 
 	/* time */
@@ -326,6 +328,18 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	/* name (follows with two characters spacing instead of one) */
 	LAST_ITEM(filename);
 	filename++;            // skip the additional spacing character
+
+	/* fix filename by stripping trailing whitespace */
+	if (legacy && ((len = strlen(filename)) == 12))
+	{
+		while (len--)
+		{
+			if (filename[len] == ' ')
+				filename[len] = 0;
+			else
+				break;
+		}
+	}
 
 	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
