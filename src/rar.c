@@ -410,7 +410,7 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	while(end >= filename && *end == ' ') end--;
 	*(end + 1) = '\0';
 
-	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
 	if (entry)
 	{
