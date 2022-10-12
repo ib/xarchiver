@@ -312,9 +312,9 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	NEXT_ITEM(item[2]);
 
 	/* date */
-	NEXT_ITEM(item[3]);          // date is YYYY-MM-DD since v5.30
+	NEXT_ITEM(item[3]);
 
-	legacy = (strlen(item[3]) != 10);
+	legacy = (strlen(item[3]) != 10);   // date is YYYY-MM-DD since v5.30
 
 	if (legacy)                         // and was DD-MM-YY before
 		item[3] = date_DD_MM_YY(item[3]);
