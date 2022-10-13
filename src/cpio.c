@@ -42,7 +42,7 @@ void xa_cpio_ask (XArchive *archive)
 	archive->can_overwrite = TRUE;
 }
 
-static void xa_cpio_parse_output (gchar *line, XArchive *archive)
+void xa_cpio_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[7];

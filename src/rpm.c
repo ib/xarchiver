@@ -19,10 +19,9 @@
  */
 
 #include <errno.h>
-#include <string.h>
 #include <glib/gprintf.h>
 #include "rpm.h"
-#include "date_utils.h"
+#include "cpio.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
@@ -158,109 +157,6 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 	g_free(command);
 
 	return (success ? NULL : g_strdup(""));
-}
-
-static void xa_cpio_parse_output (gchar *line, XArchive *archive)
-{
-	XEntry *entry;
-	gchar *filename, time[6];
-	gpointer item[7];
-	gint n = 0, a = 0 ,linesize = 0;
-
-	linesize = strlen(line);
-
-	/* Permissions */
-	line[10] = '\0';
-	item[4] = line;
-	a = 11;
-
-	/* Hard Link */
-	for(n=a; n < linesize && line[n] == ' '; ++n);
-	line[++n] = '\0';
-	//item[5] = line + a;
-	n++;
-	a = n;
-
-	/* Owner */
-	for(; n < linesize && line[n] != ' '; ++n);
-	line[n] = '\0';
-	item[5] = line + a;
-	n++;
-
-	/* Group */
-	for(; n < linesize && line[n] == ' '; ++n);
-	a = n;
-
-	for(; n < linesize && line[n] != ' '; ++n);
-	line[n] = '\0';
-	item[6] = line + a;
-	n++;
-
-	/* Size */
-	for(; n < linesize && line[n] == ' '; ++n);
-	a = n;
-
-	for(; n < linesize && line[n] != ' '; ++n);
-	line[n] = '\0';
-	item[1] = line + a;
-	n++;
-
-	/* Date and Time */
-	line[54] = '\0';
-	item[2] = line + n;
-	n = 55;
-
-	/* Time */
-	if (((char *) item[2])[9] == ':')
-	{
-		memcpy(time, item[2] + 7, 5);
-		time[5] = 0;
-	}
-	else
-		strcpy(time, "-----");
-
-	item[2] = date_MMM_dD_HourYear(item[2]);
-	item[3] = time;
-
-	line[linesize-1] = '\0';
-	filename = line + n;
-
-	/* Symbolic link */
-	gchar *temp = g_strrstr (filename,"->");
-	if (temp)
-	{
-		a = 3;
-		gint len = strlen(filename) - strlen(temp);
-		item[0] = filename + a + len;
-		filename[strlen(filename) - strlen(temp)] = '\0';
-	}
-	else
-		item[0] = NULL;
-
-	if(line[0] == 'd')
-	{
-		/* Work around for cpio, which does
-		 * not output / with directories */
-
-		if(line[linesize-2] != '/')
-			filename = g_strconcat(line + n, "/", NULL);
-		else
-			filename = g_strdup(line + n);
-	}
-	else
-		filename = g_strdup(line + n);
-
-	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
-
-	if (entry)
-	{
-		if (!entry->is_dir)
-			archive->files++;
-
-		archive->files_size += g_ascii_strtoull(item[1], NULL, 0);
-	}
-
-	g_free (filename);
 }
 
 void xa_rpm_list (XArchive *archive)
