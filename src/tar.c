@@ -122,8 +122,8 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[6];
-	gchar *filename, *link;
-	gboolean dir;
+	gchar *filename;
+	gboolean dir, link;
 
 	USE_PARSER;
 
@@ -131,6 +131,7 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 	NEXT_ITEM(item[4]);
 
 	dir = (*(char *) item[4] == 'd');
+	link = (*(char *) item[4] == 'l');
 
 	/* owner/group */
 	NEXT_ITEM(item[5]);
@@ -147,17 +148,18 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 	/* name */
 	LAST_ITEM(filename);
 
-	/* symbolic link */
-
-	link = g_strrstr(filename, " -> ");
+	item[0] = NULL;
 
 	if (link)
 	{
-		*link = 0;
-		item[0] = link + 4;
+		gchar *lnk = g_strrstr(filename, " -> ");
+
+		if (lnk)
+		{
+			item[0] = lnk + 4;
+			*lnk = 0;
+		}
 	}
-	else
-		item[0] = NULL;
 
 	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
