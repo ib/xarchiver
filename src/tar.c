@@ -165,7 +165,7 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 
 	if (entry)
 	{
-		entry->is_encrypted = (archive->password != NULL);
+		entry->is_encrypted = archive->has_password;
 
 		if (dir)
 			 entry->is_dir = TRUE;
