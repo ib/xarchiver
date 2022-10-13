@@ -134,7 +134,7 @@ void xa_cpio_list (XArchive *archive)
 	archive->files = 0;
 	archive->files_size = 0;
 
-	command = g_strconcat(archiver[archive->type].program[0], " -tv -F ", archive->path[1], NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " -tv -I ", archive->path[1], NULL);
 	archive->parse_output = xa_cpio_parse_output;
 	xa_spawn_async_process(archive, command);
 	g_free(command);
@@ -177,7 +177,7 @@ gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
 	                      archive->do_overwrite ? " -u" : "",
-	                      " --no-absolute-filenames -F ", archive->path[1],
+	                      " --no-absolute-filenames -I ", archive->path[1],
 	                      " --", files->str, NULL);
 	result = xa_run_command(archive, command);
 	g_free(command);
@@ -220,7 +220,7 @@ void xa_cpio_add (XArchive *archive, GSList *file_list)
 	command = g_strconcat("sh -c \"", "exec ls -d --", files->str, " | ",
 	                      archiver[archive->type].program[0], " -o",
 	                      g_file_test(archive->path[0], G_FILE_TEST_EXISTS) ? " -A" : "",
-	                      " -F ", archive_path, "\"", NULL);
+	                      " -O ", archive_path, "\"", NULL);
 	g_free(archive_path);
 	g_string_free(files, TRUE);
 
