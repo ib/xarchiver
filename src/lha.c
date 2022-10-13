@@ -128,7 +128,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 
 	if (link)
 	{
-		char *lnk = strstr(filename, " -> ");
+		gchar *lnk = g_strrstr(filename, " -> ");
 
 		if (lnk)
 		{
