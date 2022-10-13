@@ -22,6 +22,7 @@
 #include "zip.h"
 #include "date_utils.h"
 #include "main.h"
+#include "parser.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -65,118 +66,65 @@ static gchar *xa_zip_password_str (XArchive *archive)
 
 static void xa_zip_parse_output (gchar *line, XArchive *archive)
 {
-	XEntry *entry = NULL;
-
-	gchar *filename;
+	XEntry *entry;
 	gpointer item[9];
-	unsigned int linesize,n,a;
-	gboolean encrypted,dir;
+	gchar *filename, *attr;
+	gboolean dir, encrypted;
 	guint64 size;
 
-	encrypted = dir = FALSE;
-	if ((line[0] != '-') && (line[0] != 'd') && (line[0] != 'l') && (line[0] != '?'))
+	USE_PARSER;
+
+	if (line[0] != '-' && line[0] != 'd' && line[0] != 'l')
 	{
-		/* unzip can compensate a central directory length reported as too long,
-		   but then exits with status (aka error level) 2, which is why we accept
-		   this exit status as okay in this case */
-		if (strcmp(line, "  zipfile?).  Compensating...\n") == 0) archive->exitstatus_ok = 2;
+		/*
+		 * Unzip can compensate a central directory length reported as too long,
+		 * but then exits with status (aka error level) 2, which is why we accept
+		 * this exit status as okay in this case.
+		 */
+		if (strcmp(line, "  zipfile?).  Compensating...\n") == 0)
+			archive->exitstatus_ok = 2;
 
 		return;
 	}
 
-	linesize = strlen(line);
-
 	/* permissions */
-	for(n=0; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
+	NEXT_ITEM(item[5]);
 
-	line[n]='\0';
-	item[5] = line + a;
-	if ( (line+a)[0] == 'd')
-		dir = TRUE;
-	n++;
+	dir = (*(char *) item[5] == 'd');
 
 	/* version */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-
-	line[n] = '\0';
-	item[8] = line + a;
-	n++;
+	NEXT_ITEM(item[8]);
 
 	/* OS */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-
-	line[n]='\0';
-	item[7] = line + a;
-	n++;
+	NEXT_ITEM(item[7]);
 
 	/* size */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-
-	line[n]='\0';
-	item[0] = line + a;
+	NEXT_ITEM(item[0]);
 	size = g_ascii_strtoull(item[0], NULL, 0);
-	n++;
 
-	/* text/binary */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
+	/* internal file attributes */
+	NEXT_ITEM(attr);
 
-	line[n]='\0';
-	if ((line+a)[0] == 'B' || (line+a)[0] == 'T')
-	{
+	encrypted = (*attr == 'B' || *attr == 'T');
+
+	if (encrypted)
 		archive->has_password = TRUE;
-		encrypted = TRUE;
-	}
-	n++;
 
 	/* compressed size */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-
-	line[n]='\0';
-	item[1] = line + a;
-	n++;
+	NEXT_ITEM(item[1]);
 
 	/* method */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-
-	line[n]='\0';
-	item[6] = line + a;
-	n++;
+	NEXT_ITEM(item[6]);
 
 	/* date */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-
-	line[n]='\0';
-	item[3] = date_YY_MMM_DD(line + a);
-	n++;
+	NEXT_ITEM(item[3]);
+	item[3] = date_YY_MMM_DD(item[3]);
 
 	/* time */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
+	NEXT_ITEM(item[4]);
 
-	line[n]='\0';
-	item[4] = line + a;
-	n++;
-
-	/* filename */
-	line[linesize-1] = '\0';
-	filename = line + n;
+	/* name */
+	LAST_ITEM(filename);
 
 	/* saving */
 	if (size)
@@ -189,7 +137,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	if (entry)
 	{
 		if (dir)
-			 entry->is_dir = TRUE;
+			entry->is_dir = TRUE;
 
 		entry->is_encrypted = encrypted;
 
