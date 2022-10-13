@@ -508,7 +508,7 @@ static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 	g_free(zstdframes);
 }
 
-static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
+static void xa_gzip_et_al_prepared_items (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gchar *filename;
@@ -855,7 +855,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 		/* trigger pseudo-parser once */
 		command = g_strdup("sh -c echo");
-		archive->parse_output = xa_gzip_et_al_globally_stored_entry;
+		archive->parse_output = xa_gzip_et_al_prepared_items;
 	}
 
 	g_free(workfile);
