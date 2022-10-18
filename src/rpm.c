@@ -19,7 +19,6 @@
  */
 
 #include <errno.h>
-#include <glib/gprintf.h>
 #include "rpm.h"
 #include "cpio.h"
 #include "main.h"
