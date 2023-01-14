@@ -35,22 +35,22 @@ msgstr "\"%s\" вече е отворен!"
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d директория %s (%s)"
-msgstr[1] "%d директория %s (%s)"
+msgstr[1] "%d директории %s (%s)"
 
 #: ../src/window.c
 #, fuzzy, c-format
 #| msgid "Add files"
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] "Добави файлове"
-msgstr[1] "Добави файлове"
+msgstr[0] ""%d файл"
+msgstr[1] "%d файла"
 
 #: ../src/window.c
 #, fuzzy, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d файл %s (%s)"
-msgstr[1] "%d файл %s (%s)"
+msgstr[1] "%d файла %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -105,7 +105,7 @@ msgstr "<th>Файлове:</th>"
 #: ../src/window.c
 #, c-format
 msgid "<th>Size:</th>"
-msgstr "<th>Големина:</th>"
+msgstr "<th>Размер:</th>"
 
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
@@ -114,7 +114,7 @@ msgstr "GTK+ архивен управител"
 #: ../src/window.c
 #, fuzzy
 msgid "A GTK+ only lightweight archive manager"
-msgstr "GTK+ архивен управител"
+msgstr "Лек GTK+ архивен управител"
 
 #: ../src/interface.c
 msgid "A_ction"
@@ -142,7 +142,9 @@ msgstr "Добави файлове"
 msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
-msgstr "Добави дадените файлове, изисквайки наименованието на архива и излез."
+msgstr ""
+"Добави дадените файлове, изисквайки наименованието на\n"
+"                                           архива и излез"
 
 #: ../src/main.c
 #, fuzzy
@@ -150,7 +152,9 @@ msgstr "Добави дадените файлове, изисквайки на�
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
-msgstr "Добави файлове към архива, изисквайки имената на файловете и излез."
+msgstr ""
+"Добави файлове към архива, изисквайки имената на файловете и\n"
+"                                                       излез."
 
 #: ../src/add_dialog.c
 msgid "Adding files to archive, please wait..."
@@ -174,7 +178,7 @@ msgstr "Разреши поддиректориите с влачене и пу�
 
 #: ../src/window.c
 msgid "An error occurred while accessing the archive:"
-msgstr "Нстъпи грешка при достъпа до архива:"
+msgstr "Възникна грешка при достъпа до архива:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -484,12 +488,12 @@ msgstr "Криптиран:"
 
 #: ../src/add_dialog.c
 msgid "Encryption: "
-msgstr "Декриптиране:"
+msgstr "Декриптиране: "
 
 #: ../src/extract_dialog.c
 #, fuzzy
 msgid "Ensure a containing directory"
-msgstr "Осигурете съдържаща директория:"
+msgstr "Осигурете съдържаща директория"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -511,7 +515,9 @@ msgstr "Извлечи"
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
-msgstr "Разархивирайте архива, като заявите директорията за извличане и излизане"
+msgstr "" 
+"Разархивирайте архива, като заявите директорията за извличане\n"
+"                                                     и излизане"
 
 #: ../src/main.c
 #, fuzzy
@@ -543,13 +549,15 @@ msgstr "Извлечи файловете с техните пълни пъти�
 msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
-msgstr "Разархивирайте множество архиви, като заявите директорията за извличане и излизане"
+msgstr ""
+"Разархивирайте множество архиви, като заявите\n"
+"                         директорията за извличане и излизане"
 
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
-msgstr "Извлечи само тези файлове, които съществуват на диска и са по-нови"
+msgstr "Извлечи само тези файлове, които съществуват на диска и са по- нови"
 
 #: ../src/extract_dialog.c
 msgid "Extract pathnames"
@@ -577,7 +585,7 @@ msgstr "Проблем при стартирането на приложение
 
 #: ../src/add_dialog.c
 msgid "File Paths: "
-msgstr "Път до файловете:"
+msgstr "Път до файловете: "
 
 #: ../src/window.c
 msgid "Filename"
@@ -585,7 +593,7 @@ msgstr "Име на файл"
 
 #: ../src/extract_dialog.c
 msgid "Files "
-msgstr "Файлове"
+msgstr "Файлове "
 
 #: ../src/extract_dialog.c
 msgid "Files: "
@@ -947,11 +955,11 @@ msgstr "Избери по Шаблон"
 
 #: ../src/extract_dialog.c
 msgid "Selected files"
-msgstr "избрани файлове"
+msgstr "Избрани файлове"
 
 #: ../src/add_dialog.c
 msgid "Selection"
-msgstr "избрани"
+msgstr "Избрани"
 
 #: ../src/pref_dialog.c
 msgid "Show archive comment"
@@ -971,7 +979,9 @@ msgstr "Покажи дървото на архива в страничната 
 msgid ""
 "Show found command line programs to be\n"
 "                                     used and exit"
-msgstr "Показване на намерени програми от командния ред, които да се използват и изход"
+msgstr ""
+"Показване на намерени програми от командния ред, които да\n"
+"                                             се използват и изход"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
@@ -1040,8 +1050,7 @@ msgstr "Архива е ОК!"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
-"Структурата на архивираната директория е пресъздадена в директорията за "
-"разархивиране"
+"Структурата на архивираната директория е пресъздадена в директорията за разархивиране"
 
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
@@ -1069,13 +1078,13 @@ msgstr "Архива е кодиран!"
 #, fuzzy
 #| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
-msgstr "Това е индикатора на Xarchiver. Когато примигва, Xarchiver е зает"
+msgstr "Това е индикатора на Xarchiver. Когато примигва, Xarchiver е зает."
 
 #: ../src/pref_dialog.c
 #, fuzzy
 #| msgid "This option takes more memory with large archives"
 msgid "This option consumes more memory with large archives"
-msgstr "Тази опция може да отнеме повече памет при работа с големи архиви"
+msgstr "Тази опция може да употреби повече памет при работа с големи архиви"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -1206,7 +1215,7 @@ msgid ""
 "times of extraction instead of the times recorded in the archive"
 msgstr ""
 "Когато се използва тази опция, времената за модификация на файловете ще бъдат "
-"времената на извличане вместо времената назаписване в архива"
+"времената на извличане вместо времената на записване в архива"
 
 #: ../src/pref_dialog.c
 msgid "Window"
@@ -1444,7 +1453,7 @@ msgstr "|Размер\n"
 
 #, fuzzy
 #~ msgid "_Donate"
-#~ msgstr "дарете"
+#~ msgstr "Дарете"
 
 #~ msgid "_Thanks to"
 #~ msgstr "Благодарности на"
