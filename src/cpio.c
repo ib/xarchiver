@@ -162,7 +162,7 @@ gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 	gboolean result;
 
 	if (archive->do_full_path)
-		extract_to = g_strdup(archive->extraction_dir);
+		extract_to = xa_unescape_bad_chars(archive->extraction_dir, ESCAPES);
 	else
 	{
 		extract_to = xa_create_working_subdirectory(archive);
