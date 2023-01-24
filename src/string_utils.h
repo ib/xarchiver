@@ -53,5 +53,6 @@ void xa_remove_slash_from_path(gchar *);
 gchar *xa_set_max_width_chars_ellipsize(const gchar *, gint, PangoEllipsizeMode);
 void xa_set_window_title(GtkWidget *, gchar *);
 GSList *xa_slist_copy(GSList *);
+gchar *xa_unescape_bad_chars(const gchar *, const gchar *);
 
 #endif

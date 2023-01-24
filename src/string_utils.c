@@ -151,6 +151,40 @@ static char *xa_escape_common_chars (const char *str, const char *meta_chars, co
   return escaped;
 }
 
+static char *xa_unescape_common_chars (const char *str, const char *meta_chars, const char prefix)
+{
+	char *dest, *unescaped;
+
+	if (!str)
+		return NULL;
+
+	dest = g_malloc0(strlen(str) + 1);
+	unescaped = dest;
+
+	while (*str)
+	{
+		if (*str == prefix)
+		{
+			str++;
+
+			if (!meta_chars || !strchr(meta_chars, *str))
+				*dest++ = prefix;
+
+			*dest = *str;
+
+			if (*str)
+			{
+				str++;
+				dest++;
+			}
+		}
+		else
+			*dest++ = *str++;
+	}
+
+	return unescaped;
+}
+
 static gchar *xa_strip_current_working_dir_from_path (gchar *working_dir, gchar *filename)
 {
 	gchar *slash;
@@ -177,6 +211,11 @@ void xa_remove_slash_from_path (gchar *path)
 gchar *xa_escape_bad_chars (const gchar *string, const gchar *pattern)
 {
 	return xa_escape_common_chars(string, pattern, '\\');
+}
+
+gchar *xa_unescape_bad_chars (const gchar *string, const gchar *pattern)
+{
+	return xa_unescape_common_chars(string, pattern, '\\');
 }
 
 gchar *xa_remove_level_from_path (const gchar *path)
