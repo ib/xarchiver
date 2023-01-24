@@ -119,7 +119,7 @@ static int count_chars_to_escape (const char *str, const char *meta_chars)
 }
 /* End code from File-Roller */
 
-static char *xa_escape_common_chars (const char *str, const char *meta_chars, const char  prefix, const char postfix)
+static char *xa_escape_common_chars (const char *str, const char *meta_chars, const char prefix)
 {
   int         meta_chars_n = strlen (meta_chars);
   char       *escaped;
@@ -131,8 +131,6 @@ static char *xa_escape_common_chars (const char *str, const char *meta_chars, co
           return NULL;
 
   if (prefix)
-          extra_chars++;
-  if (postfix)
           extra_chars++;
 
   new_l = strlen (str) + (count_chars_to_escape (str, meta_chars) * extra_chars);
@@ -147,8 +145,6 @@ static char *xa_escape_common_chars (const char *str, const char *meta_chars, co
           if (is_bad && prefix)
                   *t++ = prefix;
           *t++ = *s++;
-          if (is_bad && postfix)
-                  *t++ = postfix;
   }
   *t = 0;
 
@@ -180,7 +176,7 @@ void xa_remove_slash_from_path (gchar *path)
 
 gchar *xa_escape_bad_chars (const gchar *string, const gchar *pattern)
 {
-	return xa_escape_common_chars (string, pattern, '\\', 0);
+	return xa_escape_common_chars(string, pattern, '\\');
 }
 
 gchar *xa_remove_level_from_path (const gchar *path)
