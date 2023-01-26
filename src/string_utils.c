@@ -121,34 +121,27 @@ static int count_chars_to_escape (const char *str, const char *meta_chars)
 
 static char *xa_escape_common_chars (const char *str, const char *meta_chars, const char prefix)
 {
-  int         meta_chars_n = strlen (meta_chars);
-  char       *escaped;
-  int         i, new_l, extra_chars = 0;
-  const char *s;
-  char       *t;
+	char *dest, *escaped;
+	int extra_chars = 0;
 
-  if (str == NULL)
-          return NULL;
+	if (!str)
+		return NULL;
 
-  if (prefix)
-          extra_chars++;
+	if (prefix && meta_chars)
+		extra_chars = count_chars_to_escape(str, meta_chars);
 
-  new_l = strlen (str) + (count_chars_to_escape (str, meta_chars) * extra_chars);
-  escaped = g_malloc0 (new_l + 1);
+	dest = g_malloc0(strlen(str) + extra_chars + 1);
+	escaped = dest;
 
-  s = str;
-  t = escaped;
-  while (*s) {
-          gboolean is_bad = FALSE;
-          for (i = 0; (i < meta_chars_n) && !is_bad; i++)
-                  is_bad = (*s == meta_chars[i]);
-          if (is_bad && prefix)
-                  *t++ = prefix;
-          *t++ = *s++;
-  }
-  *t = 0;
+	while (*str)
+	{
+		if (prefix && meta_chars && strchr(meta_chars, *str))
+			*dest++ = prefix;
 
-  return escaped;
+		*dest++ = *str++;
+	}
+
+	return escaped;
 }
 
 static char *xa_unescape_common_chars (const char *str, const char *meta_chars, const char prefix)
