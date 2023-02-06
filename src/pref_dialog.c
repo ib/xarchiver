@@ -228,7 +228,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->store_output = gtk_check_button_new_with_mnemonic (_("Store archiver output"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->store_output, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->store_output), FALSE);
-	gtk_widget_set_tooltip_text(prefs_data->store_output, _("This option consumes more memory with large archives"));
+	gtk_widget_set_tooltip_text(prefs_data->store_output, _("Command line output is captured and can be reviewed, but this consumes additional memory"));
 
 	label1 = gtk_label_new ("");
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_data->prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_data->prefs_notebook), 0), label1);
