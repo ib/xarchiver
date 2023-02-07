@@ -215,6 +215,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->prefer_unzip = gtk_check_button_new_with_mnemonic(_("Prefer unzip for zip files (requires restart)"));
 	gtk_box_pack_start(GTK_BOX(vbox4), prefs_data->prefer_unzip, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_data->prefer_unzip), FALSE);
+	gtk_widget_set_tooltip_text(prefs_data->prefer_unzip, _("Even if other, perhaps more powerful programs are installed to handle zip archives, the traditional \"unzip\" and \"zip\" will still be used"));
 
 	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);
