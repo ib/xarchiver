@@ -168,13 +168,15 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 	const gchar * const *langs, * const *l;
 	gint size;
 
-	filename = g_strconcat(path,"/",name,NULL);
-	file = g_io_channel_new_file(filename,"r",NULL);
+	filename = g_strconcat(path, "/", name, NULL);
+	file = g_io_channel_new_file(filename, "r", NULL);
 	g_free(filename);
+
 	if (file == NULL)
 		return;
+
 	langs = g_get_language_names();
-	g_io_channel_set_encoding(file,NULL,NULL);
+	g_io_channel_set_encoding(file, NULL, NULL);
 
 	while (g_io_channel_read_line(file, &line, NULL, NULL, NULL) == G_IO_STATUS_NORMAL)
 	{
@@ -183,10 +185,13 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			group_line = TRUE;
 			continue;
 		}
+
 		if (group_line && *line == '[')
 			break;
+
 		if (!group_line)
 			continue;
+
 		if (g_str_has_prefix(line, "Name["))
 		{
 			l = langs;
@@ -207,14 +212,17 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 				l++;
 			}
 		}
+
 		if (!app_name && g_str_has_prefix(line, "Name="))
 		{
 			app_name = g_strndup(line + 5, strlen(line) - 5);
 			continue;
 		}
-		if (g_str_has_prefix(line,"Exec="))
+
+		if (g_str_has_prefix(line, "Exec="))
 		{
 			app_exec = strstr(line, " %");
+
 			if (app_exec)
 			{
 				app_multiple = (app_exec[2] == 'F' || app_exec[2] == 'U');
@@ -222,19 +230,25 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			}
 			else
 				app_exec = g_strndup(line + 5, strlen(line) - 5);
+
 			continue;
 		}
-		if (g_str_has_prefix(line,"Icon="))
+
+		if (g_str_has_prefix(line, "Icon="))
 		{
 			app_icon = strrchr(line, '.');
+
 			if (app_icon)
-				app_icon = g_strndup(line + 5,app_icon - (line+5));
+				app_icon = g_strndup(line + 5, app_icon - (line+5));
 			else
 				app_icon = g_strndup(line + 5, strlen(line) - 5);
+
 			continue;
 		}
-		if (g_str_has_prefix(line,"MimeType="))
+
+		if (g_str_has_prefix(line, "MimeType="))
 			has_mimetype = TRUE;
+
 		g_free(line);
 	}
 
