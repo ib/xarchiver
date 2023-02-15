@@ -178,64 +178,64 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 
 	while (g_io_channel_read_line(file, &line, NULL, NULL, NULL) == G_IO_STATUS_NORMAL)
 	{
-			if (strcmp(g_strchomp(line), "[Desktop Entry]") == 0)
-			{
-				group_line = TRUE;
-				continue;
-			}
-			if (group_line && *line == '[')
-				break;
-			if (!group_line)
-				continue;
-			if (g_str_has_prefix(line, "Name["))
-			{
-				l = langs;
+		if (strcmp(g_strchomp(line), "[Desktop Entry]") == 0)
+		{
+			group_line = TRUE;
+			continue;
+		}
+		if (group_line && *line == '[')
+			break;
+		if (!group_line)
+			continue;
+		if (g_str_has_prefix(line, "Name["))
+		{
+			l = langs;
 
-				while (*l)
+			while (*l)
+			{
+				key = g_strconcat("Name[", *l, "]=", NULL);
+
+				if (g_str_has_prefix(line, key))
 				{
-					key = g_strconcat("Name[", *l, "]=", NULL);
-
-					if (g_str_has_prefix(line, key))
-					{
-						g_free(app_name);
-						app_name = g_strndup(line + strlen(key), strlen(line) - strlen(key));
-						g_free(key);
-						break;
-					}
-
+					g_free(app_name);
+					app_name = g_strndup(line + strlen(key), strlen(line) - strlen(key));
 					g_free(key);
-					l++;
+					break;
 				}
+
+				g_free(key);
+				l++;
 			}
-			if (!app_name && g_str_has_prefix(line, "Name="))
+		}
+		if (!app_name && g_str_has_prefix(line, "Name="))
+		{
+			app_name = g_strndup(line + 5, strlen(line) - 5);
+			continue;
+		}
+		if (g_str_has_prefix(line,"Exec="))
+		{
+			app_exec = strstr(line, " %");
+			if (app_exec)
 			{
-				app_name = g_strndup(line + 5, strlen(line) - 5);
-				continue;
+				app_multiple = (app_exec[2] == 'F' || app_exec[2] == 'U');
+				app_exec = g_strndup(line + 5, app_exec - (line + 5));
 			}
-			if (g_str_has_prefix(line,"Exec="))
-			{
-				app_exec = strstr(line, " %");
-				if (app_exec)
-				{
-					app_multiple = (app_exec[2] == 'F' || app_exec[2] == 'U');
-					app_exec = g_strndup(line + 5, app_exec - (line + 5));
-				}
-				else
-					app_exec = g_strndup(line + 5, strlen(line) - 5);
-				continue;
-			}
-			if (g_str_has_prefix(line,"Icon="))
-			{
-				app_icon = strrchr(line, '.');
-				if (app_icon)
-					app_icon = g_strndup(line + 5,app_icon - (line+5));
-				else
-					app_icon = g_strndup(line + 5, strlen(line) - 5);
-				continue;
-			}
-			if (g_str_has_prefix(line,"MimeType="))
-				has_mimetype = TRUE;
-			g_free(line);
+			else
+				app_exec = g_strndup(line + 5, strlen(line) - 5);
+			continue;
+		}
+		if (g_str_has_prefix(line,"Icon="))
+		{
+			app_icon = strrchr(line, '.');
+			if (app_icon)
+				app_icon = g_strndup(line + 5,app_icon - (line+5));
+			else
+				app_icon = g_strndup(line + 5, strlen(line) - 5);
+			continue;
+		}
+		if (g_str_has_prefix(line,"MimeType="))
+			has_mimetype = TRUE;
+		g_free(line);
 	}
 
 	g_io_channel_shutdown(file, FALSE, NULL);
