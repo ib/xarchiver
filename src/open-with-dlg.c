@@ -163,7 +163,6 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 {
 	gchar *filename, *line, *key;
 	gchar *app_name = NULL, *app_exec = NULL, *app_icon = NULL;
-	GIOStatus status;
 	GIOChannel *file;
 	gboolean group_line = FALSE, app_multiple = FALSE, has_mimetype = FALSE;
 	const gchar * const *langs, * const *l;
@@ -176,9 +175,9 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 		return;
 	langs = g_get_language_names();
 	g_io_channel_set_encoding(file,NULL,NULL);
-	do
+
+	while (g_io_channel_read_line(file, &line, NULL, NULL, NULL) == G_IO_STATUS_NORMAL)
 	{
-		status = g_io_channel_read_line (file, &line, NULL, NULL, NULL);
 		if (line != NULL)
 		{
 			if (strcmp(g_strchomp(line), "[Desktop Entry]") == 0)
@@ -241,7 +240,6 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			g_free(line);
 		}
 	}
-	while (status != G_IO_STATUS_EOF);
 
 	g_io_channel_shutdown(file, FALSE, NULL);
 
