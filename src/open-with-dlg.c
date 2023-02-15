@@ -162,21 +162,21 @@ static void xa_open_with_dialog_browse_custom_command (GtkButton *button, Open_w
 static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_with_data *data)
 {
 	gchar *filename, *line, *key;
-	gchar *app_name = NULL, *app_exec = NULL, *app_icon = NULL;
 	GIOChannel *file;
-	gboolean group_line = FALSE, app_multiple = FALSE, has_mimetype = FALSE;
 	const gchar * const *langs, * const *l;
+	gboolean group_line = FALSE, app_multiple = FALSE, has_mimetype = FALSE;
+	gchar *app_name = NULL, *app_exec = NULL, *app_icon = NULL;
 	gint size;
 
 	filename = g_strconcat(path, "/", name, NULL);
 	file = g_io_channel_new_file(filename, "r", NULL);
 	g_free(filename);
 
-	if (file == NULL)
+	if (!file)
 		return;
 
-	langs = g_get_language_names();
 	g_io_channel_set_encoding(file, NULL, NULL);
+	langs = g_get_language_names();
 
 	while (g_io_channel_read_line(file, &line, NULL, NULL, NULL) == G_IO_STATUS_NORMAL)
 	{
