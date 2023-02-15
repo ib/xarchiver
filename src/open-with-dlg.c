@@ -178,8 +178,6 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 
 	while (g_io_channel_read_line(file, &line, NULL, NULL, NULL) == G_IO_STATUS_NORMAL)
 	{
-		if (line != NULL)
-		{
 			if (strcmp(g_strchomp(line), "[Desktop Entry]") == 0)
 			{
 				group_line = TRUE;
@@ -238,7 +236,6 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			if (g_str_has_prefix(line,"MimeType="))
 				has_mimetype = TRUE;
 			g_free(line);
-		}
 	}
 
 	g_io_channel_shutdown(file, FALSE, NULL);
