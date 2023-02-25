@@ -67,6 +67,40 @@ void xa_gzip_et_al_check_lrzip (const gchar *path)
 	g_free(output);
 }
 
+static gboolean xa_gzip_et_al_zstd_option (const gchar *output, const gchar *option)
+{
+	const gchar *nl, *delim;
+	size_t op;
+
+	if (!output)
+		return FALSE;
+
+	nl = output;
+	op = strlen(option);
+
+	while ((nl = strchr(nl, '\n')))
+	{
+		nl++;
+
+		/* skip multiple leading spaces added since v1.5.4 */
+		while (*nl && (*nl == ' '))
+			nl++;
+
+		if (!*nl)
+			break;
+
+		if (strncmp(nl, option, op) == 0)
+		{
+			delim = nl + op;
+
+			if (*delim && (*delim == ' ' || (*delim == ',' && *++delim == ' ')))
+				return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
 gchar *xa_gzip_et_al_check_zstd (const gchar *compressor, const gchar *decompressor, gboolean *is_compressor)
 {
 	gchar *path, *command, *output = NULL;
@@ -82,18 +116,18 @@ gchar *xa_gzip_et_al_check_zstd (const gchar *compressor, const gchar *decompres
 	if (!path)
 		return NULL;
 
-	command = g_strconcat(path, " -h", NULL);
+	command = g_strconcat(path, " -H", NULL);
 	g_spawn_command_line_sync(command, &output, NULL, NULL, NULL);
 	g_free(command);
 
 	/* check whether decompression is available */
-	if (output && strstr(output, "\n -d "))
+	if (xa_gzip_et_al_zstd_option(output, "-d"))
 	{
 		if (found_compressor)
-			*is_compressor = (strstr(output, "\n -# ") != NULL);
+			*is_compressor = xa_gzip_et_al_zstd_option(output, "-#");
 
-		zstd_can_list = (strstr(output, "\n -l ") || strstr(output, "\n--list "));
-		zstd_can_test = (strstr(output, "\n -t ") || strstr(output, "\n--test "));
+		zstd_can_list = xa_gzip_et_al_zstd_option(output, "-l");
+		zstd_can_test = (xa_gzip_et_al_zstd_option(output, "--test") || /* check short test option just in case */ xa_gzip_et_al_zstd_option(output, "-t"));
 	}
 	else   // useless
 	{
