@@ -73,6 +73,7 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/vnd.oasis.opendocument.presentation") == 0)
 		return "x-office-presentation";
 	else if (strcmp(mime,"application/gzip") == 0 ||
+	         strcmp(mime,"application/java-archive") == 0 || /* legacy */ strcmp(mime,"application/x-java-archive") == 0 ||
 	         strcmp(mime,"application/vnd.android.package-archive") == 0 ||
 	         strcmp(mime,"application/vnd.debian.binary-package") == 0 ||
 	         strcmp(mime,"application/vnd.ms-cab-compressed") == 0 ||
@@ -90,7 +91,6 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/x-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-cpio") == 0 ||
 	         strcmp(mime,"application/x-cpio-compressed") == 0 ||
-	         strcmp(mime,"application/x-java-archive") == 0 ||
 	         strcmp(mime,"application/x-lha") == 0 ||
 	         strcmp(mime,"application/x-lrzip") == 0 ||
 	         strcmp(mime,"application/x-lrzip-compressed-tar") == 0 ||
