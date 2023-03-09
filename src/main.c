@@ -250,6 +250,28 @@ static void xa_check_available_archivers ()
 		archiver[type].delete = FUNC(standard, xa_arj_delete, is7z, NULL, lsar, NULL);
 	}
 
+	/* bzip */
+
+	type = XARCHIVETYPE_BZIP;
+	path = g_find_program_in_path("bzip");
+
+	if (path)
+		archiver[type].is_compressor = TRUE;
+	else
+		path = g_find_program_in_path("bunzip");
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].type = g_slist_append(archiver[type].type, "bzip");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.bz");
+
+		archiver[type].ask = xa_gzip_et_al_ask;
+		archiver[type].list = xa_gzip_et_al_list;
+		archiver[type].extract = xa_gzip_et_al_extract;
+		archiver[type].add = xa_gzip_et_al_add;
+	}
+
 	/* bzip2 */
 
 	type = XARCHIVETYPE_BZIP2;
@@ -1064,6 +1086,7 @@ static void xa_check_available_archivers ()
 			gchar *glob[2];
 		} compressed_tar_infos[] =
 		{
+			{XARCHIVETYPE_BZIP, {"tar.bzip", NULL}, {"*.tar.bz", "*.tbz"}},
 			{XARCHIVETYPE_BZIP2, {"tar.bzip2", NULL}, {"*.tar.bz2", "*.tbz2"}},
 			{XARCHIVETYPE_BZIP3, {"tar.bzip3", NULL}, {"*.tar.bz3", "*.tbz3"}},
 			{XARCHIVETYPE_COMPRESS, {"tar.compress", NULL}, {"*.tar.Z", ""}},

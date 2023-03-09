@@ -1813,6 +1813,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	}
 	else if (memcmp(magic, "\x60\xea", 2) == 0)
 		xa.type = XARCHIVETYPE_ARJ;
+	else if (memcmp(magic, "BZ0", 3) == 0)
+		xa.type = XARCHIVETYPE_BZIP;
 	else if (memcmp(magic, "BZh", 3) == 0)
 		xa.type = XARCHIVETYPE_BZIP2;
 	else if (memcmp(magic, "BZ3v1", 5) == 0)

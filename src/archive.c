@@ -295,6 +295,10 @@ gboolean xa_get_compressed_tar_type (XArchiveType *type)
 {
 	switch (*type)
 	{
+		case XARCHIVETYPE_BZIP:
+			*type = XARCHIVETYPE_TAR_BZIP;
+			break;
+
 		case XARCHIVETYPE_BZIP2:
 			*type = XARCHIVETYPE_TAR_BZIP2;
 			break;

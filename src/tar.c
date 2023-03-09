@@ -62,6 +62,9 @@ static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
 {
 	switch (archive->type)
 	{
+		case XARCHIVETYPE_TAR_BZIP:
+			return XARCHIVETYPE_BZIP;
+
 		case XARCHIVETYPE_TAR_BZIP2:
 			return XARCHIVETYPE_BZIP2;
 
