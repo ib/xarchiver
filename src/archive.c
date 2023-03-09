@@ -299,6 +299,10 @@ gboolean xa_get_compressed_tar_type (XArchiveType *type)
 			*type = XARCHIVETYPE_TAR_BZIP2;
 			break;
 
+		case XARCHIVETYPE_BZIP3:
+			*type = XARCHIVETYPE_TAR_BZIP3;
+			break;
+
 		case XARCHIVETYPE_COMPRESS:
 			*type = XARCHIVETYPE_TAR_COMPRESS;
 			break;

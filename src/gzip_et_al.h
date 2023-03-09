@@ -25,6 +25,7 @@
 #include "archive.h"
 
 #define SINGLE_FILE_COMPRESSOR(archive) (archive->type == XARCHIVETYPE_BZIP2    || \
+                                         archive->type == XARCHIVETYPE_BZIP3    || \
                                          archive->type == XARCHIVETYPE_COMPRESS || \
                                          archive->type == XARCHIVETYPE_GZIP     || \
                                          archive->type == XARCHIVETYPE_LRZIP    || \

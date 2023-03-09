@@ -43,6 +43,7 @@
 #include "tar.h"
 #include "window.h"
 
+#define bzip3    (archive->type == XARCHIVETYPE_BZIP3)
 #define compress (archive->type == XARCHIVETYPE_COMPRESS)
 #define lrzip    (archive->type == XARCHIVETYPE_LRZIP)
 #define lz4      (archive->type == XARCHIVETYPE_LZ4)
@@ -167,6 +168,7 @@ gchar *xa_gzip_et_al_get_command (const gchar *program, gchar *workfile, gchar *
 static compressor_t xa_gzip_et_al_compressor (XArchive *archive)
 {
 	compressor_t bzip2_compressor = {FALSE, 1, 9, 9, 1};
+	compressor_t bzip3_compressor = {FALSE, 1, 16, 511, 1};
 	compressor_t compress_compressor = {FALSE, 9, 16, 16, 1};
 	compressor_t gzip_compressor = {FALSE, 1, 6, 9, 1};
 	compressor_t lrzip_compressor = {TRUE, 1, 7, 9, 1};
@@ -181,6 +183,9 @@ static compressor_t xa_gzip_et_al_compressor (XArchive *archive)
 	{
 		case XARCHIVETYPE_BZIP2:
 			return bzip2_compressor;
+
+		case XARCHIVETYPE_BZIP3:
+			return bzip3_compressor;
 
 		case XARCHIVETYPE_COMPRESS:
 			return compress_compressor;
@@ -859,6 +864,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 			break;
 
 		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_BZIP3:
 		case XARCHIVETYPE_COMPRESS:
 		case XARCHIVETYPE_LZ4:
 		case XARCHIVETYPE_LZMA:
@@ -997,7 +1003,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 	else
 		out = g_strconcat(" -c --", files_str, " > ", archive_path, NULL);
 
-	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress ? "b " : (lrzip ? (*compression == '0' ? "n" : "L ") : ""), lrzip && (*compression == '0') ? "" : compression, password_str, out, "\"", NULL);
+	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress || bzip3 ? "b " : (lrzip ? (*compression == '0' ? "n" : "L ") : ""), lrzip && (*compression == '0') ? "" : compression, password_str, out, "\"", NULL);
 	success = xa_run_command(archive, command);
 
 	g_free(command);
