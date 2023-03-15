@@ -323,7 +323,20 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	dir = (*(char *) item[4] == 'D');
 
 	/* size */
-	NEXT_ITEM(item[0]);
+
+	LINE_PEEK(11);
+
+	if (line[peek] == ' ')
+	{
+		line += peek + 1;
+
+		if (*line)
+			*line++ = 0;
+
+		item[0] = "0";
+	}
+	else
+		NEXT_ITEM(item[0]);
 
 	/* compressed */
 
