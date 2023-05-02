@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-08-21 11:55+0200\n"
-"PO-Revision-Date: 2023-01-15 15:43+0200\n"
+"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"PO-Revision-Date: 2023-02-24 08:40+0100\n"
 "Last-Translator: cybercop-montana <cybercop_montana@abv.bg>\n"
 "Language-Team: български\n"
 "Language: bg\n"
@@ -150,6 +150,10 @@ msgstr "Добавяне към архива:"
 #: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "Разширени"
+
+#: ../src/pref_dialog.c
+msgid "Advanced incremental search (requires restart)"
+msgstr "Разширено търсене стъпка по стъпка (изисква рестартиране)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
@@ -341,6 +345,14 @@ msgstr "Изход от командния ред"
 msgid "Command"
 msgstr "Команда"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Command line output is captured and can be reviewed, but this consumes "
+"additional memory"
+msgstr ""
+"Изходът от командния ред е прихванат и може да бъде прегледан, но, това "
+"изразходва допълнителна памет."
+
 #: ../src/window.c
 msgid "Comment"
 msgstr "Коментар"
@@ -476,12 +488,19 @@ msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
 "directory"
 msgstr ""
-"Уверете се, че съдържанието на извлечения архив винаги съдържа "
-"директория"
+"Уверете се, че съдържанието на извлечения архив винаги съдържа директория"
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Въведете парола"
+
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used"
+msgstr ""
+"Дори ако са инсталирани други, вероятно по-мощни програми за работа със zip "
+"архиви, традиционните „unzip“ и „zip“ ще продължат да се използват."
 
 #: ../src/interface.c
 msgid "Extract"
@@ -491,14 +510,16 @@ msgstr "Извличане"
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
-msgstr "Разархиварайте архива, като изискате\n"
+msgstr ""
+"Разархиварайте архива, като изискате\n"
 "                         директорията за извличане и излизане"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
-msgstr "Разархивирай архива в съдържащата директория\n"
+msgstr ""
+"Разархивирай архива в съдържащата директория\n"
 "                                             и излизане"
 
 #: ../src/main.c
@@ -599,18 +620,19 @@ msgstr "От файл"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
-"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
-"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
-"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
+"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
+"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
+"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;android;архиватор;архивиране;комикс файл;компресия;front end;графичен "
-"интерфейс;библиотека;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;"
-"compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;"
-"lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;"
-"pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;"
-"unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"интерфейс;библиотека;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;"
+"bzip2;bzip3;cab;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;"
+"jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;"
+"mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;"
+"unar;unarchiver;unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;"
+"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -622,15 +644,16 @@ msgstr "Размер на иконите (изискване рестарт)"
 
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr "Ако е отметнато, коментарът на архива се показва след зареждането на архива"
+msgstr ""
+"Ако е отметнато, коментарът на архива се показва след зареждането на архива"
 
 #: ../src/add_dialog.c
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
 "compression ratio"
 msgstr ""
-"В тежкия архив, файловете са групирани заедно, което води до по-добра "
-"степен на компресия"
+"В тежкия архив, файловете са групирани заедно, което води до по-добра степен "
+"на компресия"
 
 #: ../src/add_dialog.c
 msgid "Include subdirectories"
@@ -1038,21 +1061,22 @@ msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
 "the extraction directory"
 msgstr ""
-"Структурата на архивираната директория не е пресъздадена; всички файлове са поставени в "
-"директорията за разархивиране"
+"Структурата на архивираната директория не е пресъздадена; всички файлове са "
+"поставени в директорията за разархивиране"
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
 "but with the parent directories of the selected files removed"
 msgstr ""
-"Структурата на архивираната директория е пресъздадена в директорията за разархивиране, "
-"но с премахнати родителски директории на избраните файлове"
+"Структурата на архивираната директория е пресъздадена в директорията за "
+"разархивиране, но с премахнати родителски директории на избраните файлове"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid ""
 "The archiver doesn't support compression of directories or multiple files!"
-msgstr "Архиваторът не поддържа компресирането на директории или множество файлове!"
+msgstr ""
+"Архиваторът не поддържа компресирането на директории или множество файлове!"
 
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
@@ -1060,13 +1084,24 @@ msgstr "Архиватора не поддържа тази опция!"
 
 #: ../src/gzip_et_al.c
 msgid "The archiver lacks necessary support for password protected decryption!"
-msgstr "Архиватора няма необходимата поддръжка за декриптиране на защитено съдържание!"
+msgstr ""
+"Архиватора няма необходимата поддръжка за декриптиране на защитено "
+"съдържание!"
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Колоната с имената е сортирана след зареждането на архива"
 
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them"
+msgstr ""
+"Търсенето стъпка по стъпка се извършва в имената на файловете, вместо само в "
+"тяхното начало."
+
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
+#, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
 msgstr "Подходящият архиватор за \"%s\" не е инсталиран!"
 
@@ -1079,16 +1114,12 @@ msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr "Това е LED индикатора на Xarchiver. Когато примигва, Xarchiver е зает."
 
 #: ../src/pref_dialog.c
-msgid "This option consumes more memory with large archives"
-msgstr "Тази опция консумира повече памет при работа с големи архиви"
-
-#: ../src/pref_dialog.c
 msgid ""
 "This option includes the subdirectories when you add files from the "
 "clipboard or with drag-and-drop"
 msgstr ""
-"Тази опция ще включи и поддиректориите, когато добавяте файлове от "
-"клипборда или с влачене и пускане"
+"Тази опция ще включи и поддиректориите, когато добавяте файлове от клипборда "
+"или с влачене и пускане"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -1105,16 +1136,16 @@ msgid ""
 "This option will add any new files and update any files which are already in "
 "the archive but older there"
 msgstr ""
-"Тази опция ще добави всички нови файлове и ще актуализира всички файлове, които вече са в "
-"архива, но са по- стари"
+"Тази опция ще добави всички нови файлове и ще актуализира всички файлове, "
+"които вече са в архива, но са по- стари"
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will only add files which are already in the archive but older "
 "there; unlike the update option it will not add any new files"
 msgstr ""
-"Тази опция ще добави само файлове, които вече са в архива, но са "
-"по- стари; за разлика от опцията за актуализиране, тя няма да добавя нови файлове"
+"Тази опция ще добави само файлове, които вече са в архива, но са по- стари; "
+"за разлика от опцията за актуализиране, тя няма да добавя нови файлове"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
@@ -1192,8 +1223,8 @@ msgid ""
 "When this option is used, the modification times of the files will be the "
 "times of extraction instead of the times recorded in the archive"
 msgstr ""
-"Когато се използва тази опция, времената за модификация на файловете ще бъдат "
-"времената на извличане вместо времената, записани в архива"
+"Когато се използва тази опция, времената за модификация на файловете ще "
+"бъдат времената на извличане вместо времената, записани в архива"
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
@@ -1228,8 +1259,8 @@ msgid ""
 "You can drop either archives to open or files to add. It is not possible to "
 "do both at the same time."
 msgstr ""
-"Можете да пуснете архиви за отваряне или файлове за добавяне. Не е възможно да "
-"се правят и двете едновременно."
+"Можете да пуснете архиви за отваряне или файлове за добавяне. Не е възможно "
+"да се правят и двете едновременно."
 
 #: ../src/interface.c ../src/window.c
 msgid "You can't add content to this archive type!"
@@ -1249,7 +1280,8 @@ msgstr ""
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
-msgstr "Нямате достатъчно права за да извлечете файловете в директорията \"%s\"."
+msgstr ""
+"Нямате достатъчно права за да извлечете файловете в директорията \"%s\"."
 
 #: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
@@ -1399,6 +1431,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Размер\n"
+
+#~ msgid "This option consumes more memory with large archives"
+#~ msgstr "Тази опция консумира повече памет при работа с големи архиви"
 
 #~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 #~ msgstr ""

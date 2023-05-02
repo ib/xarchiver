@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-08-21 11:55+0200\n"
+"POT-Creation-Date: 2023-05-02 17:57+0200\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -158,6 +158,12 @@ msgstr "Pievienošana arhīvam:"
 #: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "Paplašināti"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Advanced incremental search (requires restart)"
+msgstr "Ikonas izmērs (restarts nepieciešams)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
@@ -357,6 +363,12 @@ msgstr "_Kmd-rindas izvads"
 msgid "Command"
 msgstr "Komentārs"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Command line output is captured and can be reviewed, but this consumes "
+"additional memory"
+msgstr ""
+
 #: ../src/window.c
 msgid "Comment"
 msgstr "Komentārs"
@@ -505,6 +517,12 @@ msgstr ""
 msgid "Enter passwo_rd"
 msgstr "Ievadiet pa_roli"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Extract"
 msgstr "Atspiest"
@@ -629,11 +647,11 @@ msgstr "No faila"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
-"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
-"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
-"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
+"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
+"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
+"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -1121,6 +1139,12 @@ msgstr ""
 msgid "The filename column is sorted after loading the archive"
 msgstr "Faila nosaukuma kolonna tiek kārtots pēc arhīva ielādes"
 
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them"
+msgstr ""
+
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy, c-format
 #| msgid "the proper archiver is not installed!"
@@ -1137,12 +1161,6 @@ msgstr "Arhīvs ir šifrēts!"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
 "Šis ir Xarhivātora gaismas statuss. Kad tas mirgo, Xarhivātors ir aizņemts"
-
-#: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "This option takes more memory with large archives"
-msgid "This option consumes more memory with large archives"
-msgstr "Šī opcija aizņem vairāk atmiņu, ar lieliem arhīviem"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1490,6 +1508,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Izmērs\n"
+
+#, fuzzy
+#~| msgid "This option takes more memory with large archives"
+#~ msgid "This option consumes more memory with large archives"
+#~ msgstr "Šī opcija aizņem vairāk atmiņu, ar lieliem arhīviem"
 
 #~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 #~ msgstr ""

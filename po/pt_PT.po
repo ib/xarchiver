@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-08-21 11:55+0200\n"
-"PO-Revision-Date: 2022-08-21 11:55+0200\n"
+"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"PO-Revision-Date: 2023-05-02 17:57+0200\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://www.transifex.com/xfce/teams/16840/pt/>\n"
 "Language: pt_PT\n"
@@ -155,6 +155,10 @@ msgstr "Adicionando ao arquivo:"
 #: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "Avançado"
+
+#: ../src/pref_dialog.c
+msgid "Advanced incremental search (requires restart)"
+msgstr "Pesquisa incremental avançada (requer reinício)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
@@ -343,6 +347,14 @@ msgstr "Saída da linha de co_mandos"
 msgid "Command"
 msgstr "Comando"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Command line output is captured and can be reviewed, but this consumes "
+"additional memory"
+msgstr ""
+"O resultado da linha de comandos é capturado e pode ser revisto, mas isto "
+"consome memória adicional"
+
 #: ../src/window.c
 msgid "Comment"
 msgstr "Comentário"
@@ -483,6 +495,15 @@ msgstr ""
 msgid "Enter passwo_rd"
 msgstr "Introduzir palav_ra-passe"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used"
+msgstr ""
+"Mesmo que outros programas, talvez mais poderosos, estejam instalados para "
+"lidar com arquivos zip, os tradicionais \"unzip\" e \"zip\" continuarão a "
+"ser utilizados"
+
 #: ../src/interface.c
 msgid "Extract"
 msgstr "Extrair"
@@ -601,18 +622,19 @@ msgstr "Do ficheiro"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
-"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
-"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
-"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
+"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
+"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
+"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;android;arquivadorr;arquivo;banda desenhada;compressão;interface;"
-"frontend;biblioteca;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;"
-"compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;"
-"lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;"
-"pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;"
-"unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"frontend;biblioteca;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;"
+"bzip2;bzip3;cab;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;"
+"jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;"
+"mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;"
+"unar;unarchiver;unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;"
+"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1072,6 +1094,14 @@ msgstr ""
 msgid "The filename column is sorted after loading the archive"
 msgstr "A coluna do nome de ficheiro é ordenada após carregar o arquivo"
 
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them"
+msgstr ""
+"A pesquisa incremental também é efetuada dentro dos nomes dos ficheiros, em "
+"vez de apenas no início dos mesmos"
+
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
@@ -1086,10 +1116,6 @@ msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
 "Este é o estado do LED do Xarchiver. Quando está a piscar, o Xarchiver está "
 "ocupado."
-
-#: ../src/pref_dialog.c
-msgid "This option consumes more memory with large archives"
-msgstr "Esta opção consome mais memória com grandes arquivos"
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -1410,6 +1436,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamanho\n"
+
+#~ msgid "This option consumes more memory with large archives"
+#~ msgstr "Esta opção consome mais memória com grandes arquivos"
 
 #~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 #~ msgstr ""

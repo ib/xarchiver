@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-08-21 11:55+0200\n"
+"POT-Creation-Date: 2023-05-02 17:57+0200\n"
 "PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -146,6 +146,10 @@ msgstr "Архивке қосу:"
 #: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "Кеңейтілген"
+
+#: ../src/pref_dialog.c
+msgid "Advanced incremental search (requires restart)"
+msgstr ""
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
@@ -349,6 +353,12 @@ msgstr ""
 msgid "Command"
 msgstr "Түсіндірме"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Command line output is captured and can be reviewed, but this consumes "
+"additional memory"
+msgstr ""
+
 #: ../src/window.c
 msgid "Comment"
 msgstr "Түсіндірме"
@@ -497,6 +507,12 @@ msgstr ""
 msgid "Enter passwo_rd"
 msgstr "_Парольді енгізіңіз"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Extract"
 msgstr "Тарқату"
@@ -611,11 +627,11 @@ msgstr "Файлдан"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
-"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
-"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
-"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
+"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
+"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
+"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -1083,6 +1099,12 @@ msgstr ""
 msgid "The filename column is sorted after loading the archive"
 msgstr ""
 
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them"
+msgstr ""
+
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
@@ -1097,10 +1119,6 @@ msgstr ""
 #| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr "Бұл Xarchiver-дің қалып күйі. Жыпылқтайтын болса, Xarchiver бос емес"
-
-#: ../src/pref_dialog.c
-msgid "This option consumes more memory with large archives"
-msgstr ""
 
 #: ../src/pref_dialog.c
 #, fuzzy

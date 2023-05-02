@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-08-21 11:55+0200\n"
-"PO-Revision-Date: 2021-10-21 01:29+0000\n"
+"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"PO-Revision-Date: 2023-03-05 15:58+0100\n"
 "Last-Translator: Сергей Казорин <translation-team@basealt.ru>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -164,15 +164,18 @@ msgstr "Добавление в архив:"
 msgid "Advanced"
 msgstr "Дополнительно"
 
+#: ../src/pref_dialog.c
+msgid "Advanced incremental search (requires restart)"
+msgstr "Расширенный инкрементальный поиск (требуется перезапуск)"
+
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
 msgstr "Все файлы"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Allow subdirs with drag and drop"
 msgid "Allow subdirs with clipboard and drag-and-drop"
-msgstr "Разрешить перетаскивание подкаталогов"
+msgstr ""
+"Разрешить перетаскивание подкаталогов, а также их добавление из буфера обмена"
 
 #: ../src/window.c
 msgid "An error occurred while accessing the archive:"
@@ -353,6 +356,14 @@ msgstr "Вывод _командной строки"
 msgid "Command"
 msgstr "Команда"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Command line output is captured and can be reviewed, but this consumes "
+"additional memory"
+msgstr ""
+"Вывод командной строки сохраняется и может быть просмотрен (требует "
+"дополнительной памяти)"
+
 #: ../src/window.c
 msgid "Comment"
 msgstr "Комментарий"
@@ -396,10 +407,8 @@ msgid "Confirm deletion of files"
 msgstr "Подтверждать удаление файлов"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Testing archive, please wait..."
 msgid "Converting archive, please wait..."
-msgstr "Проверка архива, подождите..."
+msgstr "Преобразование архива, подождите..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -444,20 +453,16 @@ msgid "Delete files after adding"
 msgstr "Удалить файлы после добавления"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Extracting files from archive, please wait..."
 msgid "Deleting files from archive, please wait..."
-msgstr "Извлечение файлов из архива, подождите..."
+msgstr "Удаление файлов из архива, подождите..."
 
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "О_тменить выделение"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "destination"
 msgid "Destination"
-msgstr "целевое местоположение"
+msgstr "Извлечь в"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -496,6 +501,14 @@ msgstr "Содержимое архива извлекается во вложе
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "_Введите пароль"
+
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used"
+msgstr ""
+"Даже если другая, возможно, более эффективная программа установлена для "
+"обработки zip-архивов, стандартные \"unzip\" и \"zip\" будут использованы"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -545,20 +558,16 @@ msgid ""
 msgstr "Извлечь только более свежие версии существующих на диске файлов"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract to dir \"Archive Name\""
 msgid "Extract to directories with archive names"
-msgstr "Извлечь в каталог «Имя архива»"
+msgstr "Извлечь в каталоги с именеми, совпадающими с именами архивов"
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "Извлечь в:"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract files with full path"
 msgid "Extract with full path"
-msgstr "Извлечь файлы с полным путём"
+msgstr "Извлечь файлы, сохраняя полный путь"
 
 #: ../src/interface.c
 #, c-format
@@ -607,10 +616,8 @@ msgid "Forward"
 msgstr "Вперёд"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Freshen existing files"
 msgid "Freshen existing files only"
-msgstr "Обновить существующие файлы"
+msgstr "Только обновить существующие файлы"
 
 #: ../src/window.c
 msgid "From File"
@@ -620,19 +627,19 @@ msgstr "Из файла"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
-"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
-"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
-"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
+"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
+"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
+"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
 "library;андроид;архиватор;архивирование;библиотека;комиксы;сжатие;"
-"интерфейс;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;"
-"cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;"
-"lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;"
-"plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;"
-"unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"интерфейс;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;"
+"cab;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;"
+"lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;"
+"mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;"
+"unarchiver;unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -865,10 +872,8 @@ msgid "Please select the destination directory"
 msgstr "Укажите целевой каталог"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Please enter it!"
 msgid "Please wait..."
-msgstr "Введите пароль!"
+msgstr "Подождите..."
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c
@@ -1056,31 +1061,28 @@ msgid "The archive is okay."
 msgstr "Этот архив в порядке."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
 "directory"
-msgstr "При извлечении будет воссоздана полная структура папок"
+msgstr ""
+"При извлечении, в результирующем каталоге будет воссоздана полная структура "
+"каталогов"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
 "the extraction directory"
-msgstr "При извлечении будет воссоздана полная структура папок"
+msgstr ""
+"При извлечении, структура каталогов не воссоздается, все файлы будут "
+"размещены в результирующем каталоге"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
 "but with the parent directories of the selected files removed"
-msgstr "При извлечении будет воссоздана полная структура папок"
+msgstr ""
+"При извлечении, в результирующем каталоге будет воссоздана структура "
+"каталогов, но с удалением родительских каталогов выбранных файлов"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid ""
@@ -1099,11 +1101,18 @@ msgstr "Архиватор не поддерживает расшифровку 
 msgid "The filename column is sorted after loading the archive"
 msgstr "Столбец имён файлов отсортирован после загрузки архива"
 
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them"
+msgstr ""
+"Инкрементный поиск также выполняется внутри имен файлов, а не только в их "
+"начале"
+
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy, c-format
-#| msgid "The proper archiver is not installed!"
+#, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
-msgstr "Не установлен соответствующий архиватор!"
+msgstr "Соответствующий архиватор \"%s\" не установлен!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
@@ -1116,20 +1125,12 @@ msgstr ""
 "Xarchiver занят."
 
 #: ../src/pref_dialog.c
-msgid "This option consumes more memory with large archives"
-msgstr "Этот параметр требует больше памяти при работе с большими архивами"
-
-#: ../src/pref_dialog.c
-#, fuzzy
-#| msgid ""
-#| "This option includes the subdirectories when you add files with drag and "
-#| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
 "clipboard or with drag-and-drop"
 msgstr ""
-"Этот параметр позволяет включать в архив подкаталоги при добавлении "
-"файловпутём перетаскивания"
+"Этот параметр позволяет включать в архив подкаталоги путём перетаскивания "
+"или из буфера обмена"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -1210,10 +1211,8 @@ msgid "Update existing files"
 msgstr "Обновить существующие файлы"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Update existing files"
 msgid "Update existing files and add new ones"
-msgstr "Обновить существующие файлы"
+msgstr "Обновить существующие файлы, добавить новые"
 
 #: ../src/open-with-dlg.c
 msgid "Use a custom command:"
@@ -1249,10 +1248,8 @@ msgid "Window"
 msgstr "Окно"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Store full paths"
 msgid "With full path"
-msgstr "Сохранять полные пути файлов"
+msgstr "С полными путями файлов"
 
 #: ../src/extract_dialog.c
 msgid "Without any path"
@@ -1446,6 +1443,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Размер\n"
+
+#~ msgid "This option consumes more memory with large archives"
+#~ msgstr "Этот параметр требует больше памяти при работе с большими архивами"
 
 #~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 #~ msgstr ""

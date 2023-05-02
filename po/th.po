@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-08-21 11:55+0200\n"
+"POT-Creation-Date: 2023-05-02 17:57+0200\n"
 "PO-Revision-Date: 2019-02-26 03:13+0300\n"
 "Last-Translator: Nudjaree <poonim_p@hotmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -162,6 +162,12 @@ msgstr "เพิ่มไปยังแฟ้มจัดเก็บ:"
 #: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "ขั้นสูง"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Advanced incremental search (requires restart)"
+msgstr "ขนาดไอคอน (ต้องรีสตาร์ท)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
@@ -369,6 +375,12 @@ msgstr "เอาท์พุท บรรทัดคำสั่ง"
 msgid "Command"
 msgstr "ความคิดเห็น"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Command line output is captured and can be reviewed, but this consumes "
+"additional memory"
+msgstr ""
+
 #: ../src/window.c
 msgid "Comment"
 msgstr "ความคิดเห็น"
@@ -517,6 +529,12 @@ msgstr ""
 msgid "Enter passwo_rd"
 msgstr "ใส่รหัส_ผ่าน"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Extract"
 msgstr "ดำเนินการ"
@@ -641,11 +659,11 @@ msgstr "จากแฟ้ม"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
-"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
-"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
-"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
+"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
+"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
+"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -1141,6 +1159,12 @@ msgstr ""
 msgid "The filename column is sorted after loading the archive"
 msgstr "คอลัมน์ชื่อแฟ้มจะถูกจัดเรียงหลังจากโหลดแฟ้มจัดเก็บ"
 
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them"
+msgstr ""
+
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy, c-format
 #| msgid "the proper archiver is not installed!"
@@ -1156,12 +1180,6 @@ msgstr "แฟ้มจัดเก็บนี้จะถูกเข้าร
 #| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr "นี้เป็นไฟแสดงสถานะ Xarchiver  เมื่อมีการกระพริบ Xarchiver คือไม่ว่าง"
-
-#: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "This option takes more memory with large archives"
-msgid "This option consumes more memory with large archives"
-msgstr "ตัวเลือกนี้จะใช้หน่วยความจำมากขึ้นเนื่องด้วยแฟ้มจัดเก็บมีขนาดใหญ่"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1515,6 +1533,11 @@ msgstr ""
 #| msgid "Size"
 msgid "|Size\n"
 msgstr "ขนาด"
+
+#, fuzzy
+#~| msgid "This option takes more memory with large archives"
+#~ msgid "This option consumes more memory with large archives"
+#~ msgstr "ตัวเลือกนี้จะใช้หน่วยความจำมากขึ้นเนื่องด้วยแฟ้มจัดเก็บมีขนาดใหญ่"
 
 #~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 #~ msgstr "0 = ไม่มีการบีบอัด, 3 เป็นค่าเริ่มต้น, 5 = การบีบอัดที่ดีที่สุด แต่ช้าที่สุด"

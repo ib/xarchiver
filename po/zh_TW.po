@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-08-21 11:55+0200\n"
+"POT-Creation-Date: 2023-05-02 17:57+0200\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -155,6 +155,12 @@ msgstr "加入封存檔中："
 #: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "進階"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Advanced incremental search (requires restart)"
+msgstr "圖示大小 (須重新啟動程式)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
@@ -354,6 +360,12 @@ msgstr "命令列輸出訊息(_U)"
 msgid "Command"
 msgstr "註解"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Command line output is captured and can be reviewed, but this consumes "
+"additional memory"
+msgstr ""
+
 #: ../src/window.c
 msgid "Comment"
 msgstr "註解"
@@ -502,6 +514,12 @@ msgstr ""
 msgid "Enter passwo_rd"
 msgstr "輸入密碼(_R)"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Extract"
 msgstr "展開"
@@ -624,11 +642,11 @@ msgstr "從檔案"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
-"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
-"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
-"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
+"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
+"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
+"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -1114,6 +1132,12 @@ msgstr ""
 msgid "The filename column is sorted after loading the archive"
 msgstr "載入封存檔後按檔名排序"
 
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them"
+msgstr ""
+
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy, c-format
 #| msgid "the proper archiver is not installed!"
@@ -1129,12 +1153,6 @@ msgstr "封存檔已被加密！"
 #| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr "這是 Xarchiver 狀態燈號，閃爍時表示程式忙碌中"
-
-#: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "This option takes more memory with large archives"
-msgid "This option consumes more memory with large archives"
-msgstr "此選項用於大型封存檔時會耗較多記憶體"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1473,6 +1491,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|大小\n"
+
+#, fuzzy
+#~| msgid "This option takes more memory with large archives"
+#~ msgid "This option consumes more memory with large archives"
+#~ msgstr "此選項用於大型封存檔時會耗較多記憶體"
 
 #~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 #~ msgstr "0 = 不壓縮，3 = 預設壓縮率，5 = 最高壓縮率但最慢"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-08-21 11:55+0200\n"
+"POT-Creation-Date: 2023-05-02 17:57+0200\n"
 "PO-Revision-Date: 2021-10-22 04:23+0000\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -153,6 +153,12 @@ msgstr "正在归档文件中添加："
 #: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "高级"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Advanced incremental search (requires restart)"
+msgstr "图标大小(需要重启)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
@@ -349,6 +355,12 @@ msgstr "命令行输出(_U)"
 msgid "Command"
 msgstr "注释"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Command line output is captured and can be reviewed, but this consumes "
+"additional memory"
+msgstr ""
+
 #: ../src/window.c
 msgid "Comment"
 msgstr "注释"
@@ -493,6 +505,12 @@ msgstr "确保归档文件解压后的内容始终被包含在一个目录中"
 msgid "Enter passwo_rd"
 msgstr "输入密码(_R)"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Extract"
 msgstr "解压"
@@ -616,17 +634,17 @@ msgstr "从文件"
 #, fuzzy
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
-"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
+"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
+"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
+"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+msgstr ""
+"库;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;cbz;"
+"compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;lbzip2;lha;lrz;lrzip;"
+"lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;oxt;pbzip2;pigz;plzip;"
 "rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
 "unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
-"库;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;deb;"
-"epub;exe;gtar;gunzip;gz;gzip;iso;jar;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;lz4;"
-"lzh;lzip;lzma;lzo;lzop;mksquashfs;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;"
-"snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;unzip;xpi;xz;zip;"
-"zpaq;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1104,6 +1122,12 @@ msgstr "归档管理器不支持使用密码解密！"
 msgid "The filename column is sorted after loading the archive"
 msgstr "载入归档文件后排列文件名栏"
 
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them"
+msgstr ""
+
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy, c-format
 #| msgid "the proper archiver is not installed!"
@@ -1119,12 +1143,6 @@ msgstr "此归档文件已加密！"
 #| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr "此为 Xarchiver 状态灯，闪烁时 Xarchiver 忙"
-
-#: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "This option takes more memory with large archives"
-msgid "This option consumes more memory with large archives"
-msgstr "此项对于大的归档文件占用更多内存"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1468,6 +1486,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|大小\n"
+
+#, fuzzy
+#~| msgid "This option takes more memory with large archives"
+#~ msgid "This option consumes more memory with large archives"
+#~ msgstr "此项对于大的归档文件占用更多内存"
 
 #~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 #~ msgstr "0 为不压缩；3 为默认压缩率；5 为最高压缩率但最慢"

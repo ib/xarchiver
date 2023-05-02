@@ -5,14 +5,14 @@
 # Giuseppe Torelli <colossus73@gmail.com>, 2006.
 # Cristian Marchi <cri.penta@gmail.com>, 2009.
 # Gianluca Foddis <gianluca.foddis@gmail.com>, 2009.
-# Gianvito Cavasoli <gianvito@gmx.it>, 2021-2022.
+# Gianvito Cavasoli <gianvito@gmx.it>, 2021-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2022-08-21 11:55+0200\n"
-"PO-Revision-Date: 2022-08-17 10:15+0200\n"
+"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"PO-Revision-Date: 2023-05-02 17:57+0200\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 40.0\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -156,6 +156,10 @@ msgstr "Aggiunta all'archivio:"
 #: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "Avanzate"
+
+#: ../src/pref_dialog.c
+msgid "Advanced incremental search (requires restart)"
+msgstr "Ricerca incrementale avanzata (richiede il riavvio)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
@@ -344,6 +348,14 @@ msgstr "Outp_ut della linea di comando"
 msgid "Command"
 msgstr "Comando"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Command line output is captured and can be reviewed, but this consumes "
+"additional memory"
+msgstr ""
+"L'output della riga di comando viene catturato e può essere verificato, ma "
+"questo consuma ulteriore memoria"
+
 #: ../src/window.c
 msgid "Comment"
 msgstr "Commento"
@@ -484,6 +496,14 @@ msgstr ""
 msgid "Enter passwo_rd"
 msgstr "Inserisci passwo_rd"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used"
+msgstr ""
+"Anche se sono installati altri programmi forse più potenti per gestire gli "
+"archivi zip, saranno comunque usati i tradizionali «unzip» e «zip»"
+
 #: ../src/interface.c
 msgid "Extract"
 msgstr "Estrai"
@@ -575,7 +595,7 @@ msgstr "File"
 
 #: ../src/zpaq.c
 msgid "Files with absolute pathnames cannot be deleted!"
-msgstr ""
+msgstr "I file con un nome del percorso assoluto non posso essere eliminati."
 
 #: ../src/extract_dialog.c
 msgid "Files:"
@@ -602,18 +622,18 @@ msgstr "Da file"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;cpio;"
-"deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;"
-"lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;"
-"rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;"
-"unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
+"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
+"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
+"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
+"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;android;archiviatore;archiviazione;fumetti;compressione;interfaccia;"
-"raccolta;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz2;bzip2;cab;cbz;compress;"
-"cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;"
-"lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;"
-"plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;unarj;unrar;"
-"unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
+"raccolta;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;"
+"cab;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;"
+"lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;"
+"mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;"
+"unarchiver;unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1076,6 +1096,14 @@ msgid "The filename column is sorted after loading the archive"
 msgstr ""
 "La colonna del nome del file è ordinata dopo il caricamento dell'archivio"
 
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them"
+msgstr ""
+"La ricerca incrementale viene anche eseguita nei nomi dei file invece che "
+"solo al loro inizio"
+
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
@@ -1090,10 +1118,6 @@ msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
 "Questo è il led di stato di Xarchiver. Quando lampeggia l'applicazione è "
 "occupata."
-
-#: ../src/pref_dialog.c
-msgid "This option consumes more memory with large archives"
-msgstr "Questa opzione consuma più memoria con gli archivi grandi"
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -1211,7 +1235,7 @@ msgstr ""
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
-msgstr ""
+msgstr "I file con caratteri speciali non sono gestiti."
 
 #: ../src/pref_dialog.c
 msgid "Window"
@@ -1418,3 +1442,6 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Dimensione\n"
+
+#~ msgid "This option consumes more memory with large archives"
+#~ msgstr "Questa opzione consuma più memoria con gli archivi grandi"
