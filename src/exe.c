@@ -110,7 +110,7 @@ ArchiveType exetype (FILE *file)
 				    search(file, "Nullsoft", 32))
 				{
 					xa.type = XARCHIVETYPE_7ZIP;
-					xa.tag = 'n';
+					xa.tag = TAG('x','n');
 					goto done;
 				}
 
@@ -119,6 +119,7 @@ ArchiveType exetype (FILE *file)
 				    fread(buffer, 6, 1, file) == 1 && memcmp(buffer, "7z" "\xbc\xaf\x27\x1c", 6) == 0)
 				{
 					xa.type = XARCHIVETYPE_7ZIP;
+					xa.tag = 'x';
 					goto done;
 				}
 
@@ -127,6 +128,7 @@ ArchiveType exetype (FILE *file)
 				    fread(buffer, 4, 1, file) == 1 && memcmp(buffer, "Rar!", 4) == 0)
 				{
 					xa.type = XARCHIVETYPE_RAR;
+					xa.tag = 'x';
 					goto done;
 				}
 			}
@@ -144,6 +146,7 @@ ArchiveType exetype (FILE *file)
 				    fread(buffer, 4, 1, file) == 1 && memcmp(buffer, "PK" "\x03\x04", 4) == 0)
 				{
 					xa.type = XARCHIVETYPE_ZIP;
+					xa.tag = 'x';
 					goto done;
 				}
 			}
@@ -153,6 +156,7 @@ ArchiveType exetype (FILE *file)
 		if (fseek(file, 0x20, SEEK_SET) == 0 && search(file, "aRJsfX", 0xe0))
 		{
 			xa.type = XARCHIVETYPE_ARJ;
+			xa.tag = 'x';
 			goto done;
 		}
 
@@ -161,6 +165,7 @@ ArchiveType exetype (FILE *file)
 		    g_ascii_strncasecmp("LHA's SFX", buffer, 9) == 0)
 		{
 			xa.type = XARCHIVETYPE_LHA;
+			xa.tag = 'x';
 			goto done;
 		}
 	}

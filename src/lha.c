@@ -44,12 +44,15 @@ gboolean xa_lha_check_program (gchar *path)
 
 void xa_lha_ask (XArchive *archive)
 {
+	gboolean read_only;
 	compressor_t lha_compressor = {FALSE, 5, 5, 7, 1};
+
+	read_only = (archive->tag == 'x');   // exe
 
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
-	archive->can_add = archiver[archive->type].is_compressor;
-	archive->can_delete = archiver[archive->type].is_compressor;
+	archive->can_add = (archiver[archive->type].is_compressor && !read_only);
+	archive->can_delete = (archiver[archive->type].is_compressor && !read_only);
 	archive->can_full_path[0] = TRUE;
 	archive->can_full_path[1] = archiver[archive->type].is_compressor;   // n.b.: adds leading slash
 	archive->can_overwrite = TRUE;

@@ -29,15 +29,18 @@
 
 void xa_zip_ask (XArchive *archive)
 {
+	gboolean read_only;
 	gchar *sfx;
 	compressor_t zip_compressor = {TRUE, 1, 6, 9, 1};
+
+	read_only = (archive->tag == 'x');   // exe
 
 	sfx = g_find_program_in_path("unzipsfx");
 
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
-	archive->can_add = archiver[archive->type].is_compressor;
-	archive->can_delete = archiver[archive->type].is_compressor;
+	archive->can_add = (archiver[archive->type].is_compressor && !read_only);
+	archive->can_delete = (archiver[archive->type].is_compressor && !read_only);
 	archive->can_sfx = (sfx && archiver[archive->type].is_compressor);
 	archive->can_password = TRUE;
 	archive->can_full_path[0] = TRUE;

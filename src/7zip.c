@@ -30,6 +30,7 @@
 #include "window.h"
 
 #define INDEX (archive->type == XARCHIVETYPE_RAR ? (archive->tag == 5 ? 1 : 0) : 0)
+#define READ_ONLY (TAGTYPE(archive->tag) == 'x')   // exe
 
 static gboolean data_line, encrypted, last_line;
 
@@ -246,8 +247,8 @@ void xa_7zip_ask (XArchive *archive)
 
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
-	archive->can_add = archiver[archive->type].is_compressor;
-	archive->can_delete = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive));
+	archive->can_add = (archiver[archive->type].is_compressor && !READ_ONLY);
+	archive->can_delete = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive) && !READ_ONLY);
 	archive->can_sfx = (archive->type == XARCHIVETYPE_7ZIP);
 	archive->can_password = (archive->type == XARCHIVETYPE_7ZIP);
 	archive->can_full_path[0] = TRUE;
@@ -394,7 +395,7 @@ void xa_7zip_list (XArchive *archive)
 			return;
 
 	/* a single file compressor archive is no longer new and empty now */
-	archive->can_add = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive));
+	archive->can_add = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive) && !READ_ONLY);
 
 	data_line = FALSE;
 	last_line = FALSE;

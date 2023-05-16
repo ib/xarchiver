@@ -31,12 +31,15 @@ static gboolean data_line, fname_line;
 
 void xa_arj_ask (XArchive *archive)
 {
+	gboolean read_only;
 	compressor_t arj_compressor = {TRUE, 4, 1, 1, 1};
+
+	read_only = (archive->tag == 'x');   // exe
 
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
-	archive->can_add = archiver[archive->type].is_compressor;
-	archive->can_delete = archiver[archive->type].is_compressor;
+	archive->can_add = (archiver[archive->type].is_compressor && !read_only);
+	archive->can_delete = (archiver[archive->type].is_compressor && !read_only);
 	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_password = archiver[archive->type].is_compressor;
 	archive->can_full_path[0] = archiver[archive->type].is_compressor;

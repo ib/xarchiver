@@ -60,12 +60,15 @@ void xa_rar_check_version (gchar *path)
 
 void xa_rar_ask (XArchive *archive)
 {
+	gboolean read_only;
 	compressor_t rar_compressor = {TRUE, 1, 3, 5, 1};
+
+	read_only = (archive->tag == 'x');   // exe
 
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
-	archive->can_add = archiver[archive->type].is_compressor;
-	archive->can_delete = archiver[archive->type].is_compressor;
+	archive->can_add = (archiver[archive->type].is_compressor && !read_only);
+	archive->can_delete = (archiver[archive->type].is_compressor && !read_only);
 	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_password = archiver[archive->type].is_compressor;
 	archive->can_full_path[0] = TRUE;
