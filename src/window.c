@@ -2698,7 +2698,7 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 			gtk_widget_set_sensitive(copy, archive->can_extract);
 			gtk_widget_set_sensitive(paste, (selected == 1) && pasteable && archive->can_add);
 			gtk_widget_set_sensitive(ddelete, archive->can_delete);
-			gtk_widget_set_sensitive(edit, (selected == 1) && !entry->is_dir && archive->can_extract);
+			gtk_widget_set_sensitive(edit, (selected == 1) && !entry->is_dir && archive->can_extract && archive->can_add);
 			gtk_widget_set_sensitive(replace, (selected == 1) && replaceable && archive->can_add);
 			gtk_menu_popup(GTK_MENU(xa_popup_menu), NULL, NULL, NULL, xa_main_window, event->button, event->time);
 		}
