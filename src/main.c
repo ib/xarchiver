@@ -1025,7 +1025,7 @@ static void xa_check_available_archivers ()
 		/* XPInstall */
 		archiver[type].type = g_slist_append(archiver[type].type, "xpi");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xpi");
-		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('x'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('p'));
 		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 
 		archiver[type].ask = FUNC(standard, xa_zip_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);

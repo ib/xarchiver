@@ -1901,7 +1901,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		else if (g_str_has_suffix(filename, ".oxt"))
 			xa.tag = 'o';
 		else if (g_str_has_suffix(filename, ".xpi"))
-			xa.tag = 'x';
+			xa.tag = 'p';
 	}
 	else if (g_str_has_suffix(filename, ".exe") && (memcmp(magic, "MZ", 2) == 0))
 		xa = exetype(file);
