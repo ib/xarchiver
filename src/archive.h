@@ -121,6 +121,9 @@ typedef struct
 	gushort tag;
 } ArchiveType;
 
+#define TAG(t1,t2) ((t2 << 8) + t1)
+#define TAGTYPE(t) (t & 0xff)
+
 typedef struct _XEntry XEntry;
 
 struct _XEntry
