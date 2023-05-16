@@ -33,7 +33,7 @@ void xa_zip_ask (XArchive *archive)
 	gchar *sfx;
 	compressor_t zip_compressor = {TRUE, 1, 6, 9, 1};
 
-	read_only = (archive->tag == 'x');   // exe
+	read_only = (archive->tag == 'a' || archive->tag == 'x');   // apk, exe
 
 	sfx = g_find_program_in_path("unzipsfx");
 
