@@ -1853,7 +1853,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		if (magic[3] == 'L')
 			xa.tag = 'm';
 		else if (magic[3] == 'J')
-			xa.tag = 'm' + 0x100;
+			xa.tag = TAG('m',1);
 	}
 	else if (memcmp(magic, "LZIP", 4) == 0)
 		xa.type = XARCHIVETYPE_LZIP;

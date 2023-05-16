@@ -606,7 +606,7 @@ static void xa_check_available_archivers ()
 		/* Mozilla's proprietary LZ4 Frame Formats */
 		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('m'));
 		archiver[type].tags = g_slist_append(archiver[type].tags, "mozlz4");
-		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('m' + 0x100));
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER(TAG('m',1)));
 		archiver[type].tags = g_slist_append(archiver[type].tags, "mozJSSClz4");
 
 		archiver[type].ask = xa_gzip_et_al_ask;

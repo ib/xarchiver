@@ -619,7 +619,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 		}
 	}
 
-	if (archive->type == XARCHIVETYPE_LZ4 && (archive->tag & 0xff) == 'm')
+	if (archive->type == XARCHIVETYPE_LZ4 && TAGTYPE(archive->tag) == 'm')
 	{
 		int skip, offset;
 		uint32_t uncompressed, blocksize;
