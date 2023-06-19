@@ -28,7 +28,7 @@ AC_CANONICAL_HOST
 dnl ***************************
 dnl *** Initialize automake ***
 dnl ***************************
-AM_INIT_AUTOMAKE([1.13 dist-xz])
+AM_INIT_AUTOMAKE([1.13 dist-xz foreign])
 AM_PROG_CC_C_O
 AM_SILENT_RULES([yes])
 AM_MAINTAINER_MODE
