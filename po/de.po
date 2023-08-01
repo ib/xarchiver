@@ -5,7 +5,7 @@
 # Fabian Nowak <timystery@arcor.de>, 2006, 2007, 2008.
 # Nico Schümann <nico@prog.nico22.de>
 # Simon Schneider <simon@schneiderimtal.de>, 2009
-# Ingo Brückl <ib@wupperonline.de>
+# Ingo Brückl
 #
 msgid ""
 msgstr ""
@@ -1431,7 +1431,7 @@ msgstr ""
 "Enrico Tröger <enrico.troeger@uvena.de>\n"
 "Nico Schümann <nico@prog.nico22.de>\n"
 "Fabian Nowak <timystery@arcor.de>\n"
-"Ingo Brückl <ib@wupperonline.de>"
+"Ingo Brückl"
 
 #: ../src/pref_dialog.c
 msgid "very large"

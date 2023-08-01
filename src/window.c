@@ -1681,7 +1681,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
     {
         "",
         "This version:",
-        MAINTAINER " <ib@wupperonline.de>",
+        MAINTAINER,
         "",
         "Original developer:",
         "Giuseppe Torelli <colossus73@gmail.com>",
