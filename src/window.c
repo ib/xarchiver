@@ -1872,6 +1872,9 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		/* a rar5 archive without a rar v5 compatible executable can't be opened */
 		if ((xa.tag == 5) && !g_slist_find(archiver[xa.type].tags, GUINT_TO_POINTER(xa.tag)))
 			archiver[xa.type].list = NULL;
+
+		if (g_str_has_suffix(filename, ".cbr"))
+			xa.tag += 'c' << 8;
 	}
 	else if (memcmp(magic, "\xed\xab\xee\xdb", 4) == 0)
 		xa.type = XARCHIVETYPE_RPM;

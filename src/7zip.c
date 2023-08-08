@@ -29,7 +29,7 @@
 #include "support.h"
 #include "window.h"
 
-#define INDEX (archive->type == XARCHIVETYPE_RAR ? (archive->tag == 5 ? 1 : 0) : 0)
+#define INDEX (archive->type == XARCHIVETYPE_RAR ? (TAGTYPE(archive->tag) == 5 ? 1 : 0) : 0)
 #define READ_ONLY (TAGTYPE(archive->tag) == 'x')   // exe
 
 static gboolean data_line, encrypted, last_line;

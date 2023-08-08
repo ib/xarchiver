@@ -761,12 +761,22 @@ static void xa_check_available_archivers ()
 		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "rar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rar");
+		/* comic book */
+		archiver[type].type = g_slist_append(archiver[type].type, "cbr");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.cbr");
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('c' << 8));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 
 		if (!standard || (rar_version >= 5))
 		{
 			archiver[type].type = g_slist_append(archiver[type].type, "rar5");
 			archiver[type].glob = g_slist_append(archiver[type].glob, " .rar");
 			archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER(5));
+			archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
+			/* comic book */
+			archiver[type].type = g_slist_append(archiver[type].type, "cbr5");
+			archiver[type].glob = g_slist_append(archiver[type].glob, " .cbr");
+			archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER(('c' << 8) + 5));
 			archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		}
 
