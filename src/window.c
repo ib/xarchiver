@@ -1909,7 +1909,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		else if (g_str_has_suffix(filename, ".jar"))
 			xa.tag = 'j';
 		else if (g_str_has_suffix(filename, ".oxt"))
-			xa.tag = 'o';
+			xa.tag = 't';
 		else if (g_str_has_suffix(filename, ".xpi"))
 			xa.tag = 'p';
 	}

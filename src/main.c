@@ -1045,7 +1045,7 @@ static void xa_check_available_archivers ()
 		/* OpenOffice.org extension */
 		archiver[type].type = g_slist_append(archiver[type].type, "oxt");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.oxt");
-		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('o'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('t'));
 		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		/* XPInstall */
 		archiver[type].type = g_slist_append(archiver[type].type, "xpi");
