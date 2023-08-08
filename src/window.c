@@ -1908,6 +1908,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 			xa.tag = 'f';
 		else if (g_str_has_suffix(filename, ".jar"))
 			xa.tag = 'j';
+		else if (g_str_has_suffix(filename, ".odt"))
+			xa.tag = TAG('o','t');
 		else if (g_str_has_suffix(filename, ".oxt"))
 			xa.tag = 't';
 		else if (g_str_has_suffix(filename, ".xpi"))

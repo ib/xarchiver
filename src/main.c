@@ -1042,6 +1042,11 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
 		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('j'));
 		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
+		/* OpenDocument Format text */
+		archiver[type].type = g_slist_append(archiver[type].type, "odt");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.odt");
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER(TAG('o','t')));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		/* OpenOffice.org extension */
 		archiver[type].type = g_slist_append(archiver[type].type, "oxt");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.oxt");
