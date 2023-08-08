@@ -1904,6 +1904,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 			xa.tag = 'c';
 		else if (g_str_has_suffix(filename, ".epub"))
 			xa.tag = 'e';
+		else if (g_str_has_suffix(filename, ".fbz"))
+			xa.tag = 'f';
 		else if (g_str_has_suffix(filename, ".jar"))
 			xa.tag = 'j';
 		else if (g_str_has_suffix(filename, ".oxt"))

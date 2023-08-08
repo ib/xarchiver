@@ -1032,6 +1032,11 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.epub");
 		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('e'));
 		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
+		/* FictionBook */
+		archiver[type].type = g_slist_append(archiver[type].type, "fbz");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.fbz");
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('f'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		/* java archive */
 		archiver[type].type = g_slist_append(archiver[type].type, "jar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
