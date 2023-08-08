@@ -904,6 +904,11 @@ static void xa_check_available_archivers ()
 		archiver[type].is_compressor = (standard || is7za);
 		archiver[type].type = g_slist_append(archiver[type].type, "tar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar");
+		/* comic book */
+		archiver[type].type = g_slist_append(archiver[type].type, "cbt");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.cbt");
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('c'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 
 		archiver[type].ask = FUNC(standard, xa_tar_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
 		archiver[type].list = FUNC(standard, xa_tar_list, is7za, xa_7zip_list, lsar, xa_unar_list);

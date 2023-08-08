@@ -1924,7 +1924,12 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_ISO;
 	/* partly heuristic methods must come last */
 	else if (isTar(file))
+	{
 		xa.type = XARCHIVETYPE_TAR;
+
+		if (g_str_has_suffix(filename, ".cbt"))
+			xa.tag = 'c';
+	}
 
 	fclose(file);
 
