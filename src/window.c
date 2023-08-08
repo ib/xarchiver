@@ -1803,7 +1803,12 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	}
 
 	if (memcmp(magic, "7z" "\xbc\xaf\x27\x1c", 6) == 0)
+	{
 		xa.type = XARCHIVETYPE_7ZIP;
+
+		if (g_str_has_suffix(filename, ".cb7"))
+			xa.tag = 'c';
+	}
 	else if (memcmp(magic, "!<arch>\n", 8) == 0)
 	{
 		xa.type = XARCHIVETYPE_AR;
