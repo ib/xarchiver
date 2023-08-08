@@ -1027,6 +1027,11 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.cbz");
 		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('c'));
 		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
+		/* Office Open XML document */
+		archiver[type].type = g_slist_append(archiver[type].type, "docx");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.docx");
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER(TAG('w','d')));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		/* electronic publication */
 		archiver[type].type = g_slist_append(archiver[type].type, "epub");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.epub");
