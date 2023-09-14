@@ -908,6 +908,20 @@ void xa_multi_extract_dialog (Multi_extract_data *dialog)
 	gint response;
 	double percent = 0.0;
 
+	if (!*gtk_entry_get_text(GTK_ENTRY(dialog->entry1)))
+	{
+		path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
+
+		if (!path || !*path)
+		{
+			g_free(path);
+			path = g_strdup("/tmp");
+		}
+
+		gtk_entry_set_text(GTK_ENTRY(dialog->entry1), path);
+		g_free(path);
+	}
+
 	gtk_widget_show_all(dialog->multi_extract);
 run:
 	response = gtk_dialog_run(GTK_DIALOG(dialog->multi_extract));
