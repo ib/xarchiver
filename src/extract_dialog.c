@@ -721,7 +721,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	dialog_data = g_new0 (Multi_extract_data,1);
 	dialog_data->multi_extract = gtk_dialog_new();
 
-	gtk_window_set_position (GTK_WINDOW (dialog_data->multi_extract),GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_window_set_position (GTK_WINDOW (dialog_data->multi_extract),GTK_WIN_POS_CENTER);
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->multi_extract),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog_data->multi_extract),TRUE);
 	gtk_widget_set_size_request(dialog_data->multi_extract, -1, 310);
