@@ -5,6 +5,11 @@ desktopdir = $(datadir)/applications
 desktop_in_files = xarchiver.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
+	$(SED_V) $(SED) -i "/^Keywords[^_]/ s:$$:`sed -n "s:^Keywords_=\(.*\)$$:\1:p" $<`:; /^Keywords_/d" $@
+
+SED_V = $(SED__v_$(V))
+SED__v_ = $(SED__v_$(AM_DEFAULT_VERBOSITY))
+SED__v_0 = @echo "  KWORD " $@;
 
 plugindir = $(PLUGINDIR)
 plugin_SCRIPTS = $(PLUGINSCRIPT)
