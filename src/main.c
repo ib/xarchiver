@@ -104,7 +104,7 @@ static void xa_check_available_archivers ()
 	gchar *path, *cpio, *lbzip2, *lsar, *pbzip2, *pigz, *plzip, *sevenz, *unar, *xz, *zstd;
 	gboolean is7z = TRUE, is7za = TRUE, is7zr = TRUE, standard;
 
-	/* (un)compressors that can handle various types */
+	/* (de)compressors that can handle various types */
 
 	sevenz = g_find_program_in_path("7zz");
 
@@ -149,7 +149,7 @@ static void xa_check_available_archivers ()
 			/* alternative ... */
 			path = g_strdup(lsar);
 		if (unar)
-			/* ... uncompressor */
+			/* ... decompressor */
 			archiver[type].program[1] = g_strdup(unar);
 	}
 
@@ -189,11 +189,11 @@ static void xa_check_available_archivers ()
 		{
 			/* alternative ... */
 			path = g_strdup(lsar);
-			/* ... uncompressor */
+			/* ... decompressor */
 			archiver[type].program[1] = g_strdup(unar);
 		}
 		else if (is7z)
-			/* alternative uncompressor */
+			/* alternative decompressor */
 			path = g_strconcat(sevenz, " -tar", NULL);
 	}
 
@@ -228,7 +228,7 @@ static void xa_check_available_archivers ()
 	if (!standard)
 	{
 		if (is7z)
-			/* alternative uncompressor */
+			/* alternative decompressor */
 			path = g_strconcat(sevenz, " -tarj", NULL);
 		else
 		{
@@ -236,7 +236,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 	}
@@ -320,7 +320,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 		else
@@ -395,7 +395,7 @@ static void xa_check_available_archivers ()
 	if (!standard)
 	{
 		if (is7za)
-			/* alternative uncompressor */
+			/* alternative decompressor */
 			path = g_strconcat(sevenz, " -tZ", NULL);
 		else
 		{
@@ -403,7 +403,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 	}
@@ -431,7 +431,7 @@ static void xa_check_available_archivers ()
 	if (!standard)
 	{
 		if (is7z)
-			/* alternative uncompressor */
+			/* alternative decompressor */
 			path = g_strconcat(sevenz, " -tcpio", NULL);
 		else
 		{
@@ -439,7 +439,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 	}
@@ -493,7 +493,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 		else
@@ -540,7 +540,7 @@ static void xa_check_available_archivers ()
 	if (!standard)
 	{
 		if (is7z)
-			/* alternative uncompressor */
+			/* alternative decompressor */
 			path = g_strconcat(sevenz, " -tlzh", NULL);
 		else
 		{
@@ -548,7 +548,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 	}
@@ -669,7 +669,7 @@ static void xa_check_available_archivers ()
 	if (!standard)
 	{
 		if (is7zr)
-			/* alternative uncompressor */
+			/* alternative decompressor */
 			path = g_strconcat(sevenz, " -tlzma", NULL);
 		else
 		{
@@ -677,7 +677,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 	}
@@ -746,7 +746,7 @@ static void xa_check_available_archivers ()
 	{
 		if (is7z)
 		{
-			/* alternative uncompressor */
+			/* alternative decompressor */
 			path = g_strconcat(sevenz, " -trar", NULL);
 			archiver[type].program[1] = g_strconcat(sevenz, " -trar5", NULL);
 		}
@@ -756,7 +756,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 	}
@@ -803,7 +803,7 @@ static void xa_check_available_archivers ()
 	if (!standard)
 	{
 		if (is7z)
-			/* alternative uncompressor */
+			/* alternative decompressor */
 			path = g_strconcat(sevenz, " -trpm", NULL);
 		else
 		{
@@ -811,7 +811,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 	}
@@ -838,7 +838,7 @@ static void xa_check_available_archivers ()
 	if (!standard)
 	{
 		if (is7z)
-			/* alternative uncompressor */
+			/* alternative decompressor */
 			path = g_strconcat(sevenz, " -tsquashfs", NULL);
 	}
 	else
@@ -893,7 +893,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 	}
@@ -945,7 +945,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 		else
@@ -1005,7 +1005,7 @@ static void xa_check_available_archivers ()
 				/* alternative ... */
 				path = g_strdup(lsar);
 			if (unar)
-				/* ... uncompressor */
+				/* ... decompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
 		else

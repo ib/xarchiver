@@ -217,7 +217,7 @@ struct _XArchive
 	gint child_fderr;
 	gchar *command;     // (free before use)
 	GSList *output;
-	/* (un)compressor interface */
+	/* (de)compressor interface */
 	XArchiver *archiver;
 	parse_output_func parse_output;
 	guint8 exitstatus_ok;
