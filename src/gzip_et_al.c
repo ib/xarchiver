@@ -48,6 +48,7 @@
 #define compress (archive->type == XARCHIVETYPE_COMPRESS)
 #define lrzip    (archive->type == XARCHIVETYPE_LRZIP)
 #define lz4      (archive->type == XARCHIVETYPE_LZ4)
+#define rzip     (archive->type == XARCHIVETYPE_RZIP)
 #define xz       (archive->type == XARCHIVETYPE_XZ)
 #define zstd     (archive->type == XARCHIVETYPE_ZSTD)
 
@@ -158,7 +159,7 @@ gchar *xa_gzip_et_al_get_command (const gchar *program, gchar *workfile, gchar *
 	password_str = xa_gzip_et_al_password_str(password, type);
 	workfile = xa_escape_bad_chars(workfile, "\"");
 	archive = xa_quote_shell_command(archive, TRUE);
-	command = g_strconcat("sh -c \"exec ", program, " ", workfile, password_str, type == XARCHIVETYPE_LRZIP ? " -fo " : " -c > ", archive, "\"", NULL);
+	command = g_strconcat("sh -c \"exec ", program, " ", workfile, password_str, type == XARCHIVETYPE_LRZIP ? " -fo " : (type == XARCHIVETYPE_RZIP ? " -kfo " : " -c > "), archive, "\"", NULL);
 	g_free(archive);
 	g_free(workfile);
 	g_free(password_str);
@@ -177,6 +178,7 @@ static compressor_t xa_gzip_et_al_compressor (XArchive *archive)
 	compressor_t lz4_compressor = {FALSE, 1, 1, 9, 1};
 	compressor_t lzma_compressor = {FALSE, 1, 7, 9, 1};
 	compressor_t lzop_compressor = {FALSE, 1, 3, 9, 1};
+	compressor_t rzip_compressor = {TRUE, 1, 6, 9, 1};
 	compressor_t xz_compressor = {FALSE, 0, 6, 9, 1};
 	compressor_t zstd_compressor = {FALSE, 1, 3, 19, 1};
 	compressor_t void_compressor = {FALSE, 0, 0, 0, 0};
@@ -214,6 +216,9 @@ static compressor_t xa_gzip_et_al_compressor (XArchive *archive)
 		case XARCHIVETYPE_LZOP:
 			return lzop_compressor;
 
+		case XARCHIVETYPE_RZIP:
+			return rzip_compressor;
+
 		case XARCHIVETYPE_ZSTD:
 			return zstd_compressor;
 
@@ -224,7 +229,7 @@ static compressor_t xa_gzip_et_al_compressor (XArchive *archive)
 
 static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 {
-	archive->can_test = (can && !bzip && !compress && (!zstd || zstd_can_test));
+	archive->can_test = (can && !bzip && !compress && !rzip && (!zstd || zstd_can_test));
 	archive->can_extract = can;
 	archive->can_password = (can && lrzip && lrzip_can_password);
 	archive->can_overwrite = can;
@@ -726,7 +731,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 	archive_path = xa_quote_shell_command(archive->path[2], TRUE);
 
 	archive->child_dir = g_strdup(archive->working_dir);
-	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -d", password_str, " ", archive_path, lrzip ? " -fo " : " -c > ", decompfile, "\"", NULL);
+	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -d", password_str, " ", archive_path, lrzip ? " -fo " : (rzip ? " -kfo " : " -c > "), decompfile, "\"", NULL);
 	xa_run_command(archive, command);
 	g_free(command);
 
@@ -874,6 +879,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 		case XARCHIVETYPE_COMPRESS:
 		case XARCHIVETYPE_LZ4:
 		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_RZIP:
 			break;
 
 		default:
@@ -965,7 +971,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	if (archive->do_overwrite || !g_file_test(out_file, G_FILE_TEST_EXISTS))
 	{
 		password_str = xa_gzip_et_al_password_str(archive->password, archive->type);
-		command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -d", password_str, " ", archive_path, lrzip ? " -fo " : " -c > ", extraction_dir, "/", files_str, "\"", NULL);
+		command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -d", password_str, " ", archive_path, lrzip ? " -fo " : (rzip ? " -kfo " : " -c > "), extraction_dir, "/", files_str, "\"", NULL);
 		g_free(password_str);
 	}
 	else
@@ -1004,8 +1010,8 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 
 	password_str = xa_gzip_et_al_password_str(archive->password, archive->type);
 
-	if (lrzip)
-		out = g_strconcat(" -fo ", archive_path, " --", files_str, NULL);
+	if (lrzip || rzip)
+		out = g_strconcat(lrzip ? " -fo " : " -kfo ", archive_path, " --", files_str, NULL);
 	else
 		out = g_strconcat(" -c", bzip ? "" : " --", files_str, " > ", archive_path, NULL);
 

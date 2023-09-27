@@ -828,6 +828,24 @@ static void xa_check_available_archivers ()
 		archiver[type].extract = FUNC(standard, xa_rpm_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
 	}
 
+	/* rzip */
+
+	type = XARCHIVETYPE_RZIP;
+	path = g_find_program_in_path("rzip");
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].is_compressor = TRUE;
+		archiver[type].type = g_slist_append(archiver[type].type, "rzip");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rz");
+
+		archiver[type].ask = xa_gzip_et_al_ask;
+		archiver[type].list = xa_gzip_et_al_list;
+		archiver[type].extract = xa_gzip_et_al_extract;
+		archiver[type].add = xa_gzip_et_al_add;
+	}
+
 	/* SquashFS */
 
 	type = XARCHIVETYPE_SQUASHFS;
@@ -1131,6 +1149,7 @@ static void xa_check_available_archivers ()
 			{XARCHIVETYPE_LZIP, {"tar.lzip", NULL}, {"*.tar.lz", ""}},
 			{XARCHIVETYPE_LZMA, {"tar.lzma", NULL}, {"*.tar.lzma", "*.tlz"}},
 			{XARCHIVETYPE_LZOP, {"tar.lzop", NULL}, {"*.tar.lzo", "*.tzo"}},
+			{XARCHIVETYPE_RZIP, {"tar.rzip", NULL}, {"*.tar.rz", ""}},
 			{XARCHIVETYPE_XZ, {"tar.xz", NULL}, {"*.tar.xz", "*.txz"}},
 			{XARCHIVETYPE_ZSTD, {"tar.zstd", NULL}, {"*.tar.zst", "*.tzst"}},
 			{XARCHIVETYPE_UNKNOWN, {NULL, NULL}, {NULL, NULL}}

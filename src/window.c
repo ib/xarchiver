@@ -1866,6 +1866,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_LZMA;
 	else if (memcmp(magic, "\211LZO", 4) == 0)
 		xa.type = XARCHIVETYPE_LZOP;
+	else if (memcmp(magic, "RZIP", 4) == 0)
+		xa.type = XARCHIVETYPE_RZIP;
 	else if (memcmp(magic, "Rar!" "\x1a\x07\x00", 7) == 0 ||
 	         memcmp(magic, "Rar!" "\x1a\x07\x01", 7) == 0)
 	{

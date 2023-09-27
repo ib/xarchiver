@@ -34,6 +34,7 @@
                                          archive->type == XARCHIVETYPE_LZIP     || \
                                          archive->type == XARCHIVETYPE_LZMA     || \
                                          archive->type == XARCHIVETYPE_LZOP     || \
+                                         archive->type == XARCHIVETYPE_RZIP     || \
                                          archive->type == XARCHIVETYPE_XZ       || \
                                          archive->type == XARCHIVETYPE_ZSTD)
 

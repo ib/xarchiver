@@ -335,6 +335,10 @@ gboolean xa_get_compressed_tar_type (XArchiveType *type)
 			*type = XARCHIVETYPE_TAR_LZOP;
 			break;
 
+		case XARCHIVETYPE_RZIP:
+			*type = XARCHIVETYPE_TAR_RZIP;
+			break;
+
 		case XARCHIVETYPE_XZ:
 			*type = XARCHIVETYPE_TAR_XZ;
 			break;

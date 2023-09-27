@@ -92,6 +92,9 @@ static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
 		case XARCHIVETYPE_TAR_LZOP:
 			return XARCHIVETYPE_LZOP;
 
+		case XARCHIVETYPE_TAR_RZIP:
+			return XARCHIVETYPE_RZIP;
+
 		case XARCHIVETYPE_TAR_XZ:
 			return XARCHIVETYPE_XZ;
 
