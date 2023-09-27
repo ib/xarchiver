@@ -516,7 +516,8 @@ void xa_clean_archive_structure (XArchive *archive)
 gboolean xa_create_working_directory (XArchive *archive)
 {
 	gchar *tmp_dir;
-	gchar *value;
+	gchar *value, *value_local = NULL;
+	const gchar *tmp;
 
 	if (archive->working_dir != NULL)
 		return TRUE;
@@ -525,13 +526,15 @@ gboolean xa_create_working_directory (XArchive *archive)
 
 	if (value && *value)
 	{
-		gchar *value_local = g_filename_from_utf8(value, -1, NULL, NULL, NULL);
-		tmp_dir = g_strconcat(value_local, "/xa-XXXXXX", NULL);
-		g_free(value_local);
+		value_local = g_filename_from_utf8(value, -1, NULL, NULL, NULL);
+		tmp = value_local;
 	}
 	else
-		tmp_dir = g_strdup("");
+		tmp = g_get_tmp_dir();
 
+	tmp_dir = g_strconcat(tmp, "/xa-XXXXXX", NULL);
+
+	g_free(value_local);
 	g_free(value);
 
 	if (!g_mkdtemp(tmp_dir))
