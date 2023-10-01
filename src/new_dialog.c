@@ -219,7 +219,6 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(xa_file_chooser), filename);
 	g_free(filename);
 
-	gtk_window_set_modal (GTK_WINDOW (xa_file_chooser),TRUE);
 	if (current_new_directory != NULL)
 	{
 		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser),current_new_directory);

@@ -123,8 +123,6 @@ static gchar *xa_open_file_dialog ()
 		}
 
 		g_slist_free(sorted);
-
-		gtk_window_set_modal (GTK_WINDOW (File_Selector),TRUE);
 	}
 	if (open_file_filter != NULL)
 		gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (File_Selector) ,open_file_filter);
