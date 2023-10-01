@@ -1427,7 +1427,7 @@ int main (int argc, char **argv)
 				goto leave;
 			}
 
-			archive = xa_new_archive_dialog(opt_compress, NULL);
+			archive = xa_new_archive_dialog(argc == 1 ? opt_compress : NULL, NULL);
 
 			if (archive == NULL)
 			{
