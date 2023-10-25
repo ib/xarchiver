@@ -513,7 +513,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *compression, *password_str, *command, *version_switch;
 
-	if (rar_version >= 5)
+	if (rar_version == 5 || rar_version == 6)
 	{
 		if (TAGTYPE(archive->tag) == 5)
 			version_switch = " -ma5";

@@ -24,6 +24,7 @@
 #include "add_dialog.h"
 #include "main.h"
 #include "pref_dialog.h"
+#include "rar.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -1771,6 +1772,21 @@ void xa_combo_box_text_append_compressor_types (GtkComboBoxText *combo_box_text)
 					/* only zip can create epub compliant with the standards */
 					if (strcmp(list->data, "epub") == 0 && archiver[i].ask != xa_zip_ask)
 						goto next;
+
+					/* rar program version 7 can only create rar v5 type archives */
+					if (archiver[i].ask == xa_rar_ask && rar_version >= 7)
+					{
+						gint pos;
+						gushort tag = 0;
+
+						pos = g_slist_index(archiver[i].tags, list->data);
+
+						if (pos > 0)
+							tag = (gushort) GPOINTER_TO_UINT(g_slist_nth_data(archiver[i].tags, pos - 1));
+
+						if (TAGTYPE(tag) != 5)
+							goto next;
+					}
 
 					sorted = g_slist_prepend(sorted, list->data);
 				}
