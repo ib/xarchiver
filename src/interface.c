@@ -1767,10 +1767,15 @@ void xa_combo_box_text_append_compressor_types (GtkComboBoxText *combo_box_text)
 			while (list)
 			{
 				if (list->data)
+				{
 					/* only zip can create epub compliant with the standards */
-					if (strcmp(list->data, "epub") != 0 || archiver[i].ask == xa_zip_ask)
-						sorted = g_slist_append(sorted, list->data);
+					if (strcmp(list->data, "epub") == 0 && archiver[i].ask != xa_zip_ask)
+						goto next;
 
+					sorted = g_slist_append(sorted, list->data);
+				}
+
+next:
 				list = list->next;
 			}
 		}
