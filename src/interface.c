@@ -1772,7 +1772,7 @@ void xa_combo_box_text_append_compressor_types (GtkComboBoxText *combo_box_text)
 					if (strcmp(list->data, "epub") == 0 && archiver[i].ask != xa_zip_ask)
 						goto next;
 
-					sorted = g_slist_append(sorted, list->data);
+					sorted = g_slist_prepend(sorted, list->data);
 				}
 
 next:
