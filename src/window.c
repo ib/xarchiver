@@ -1870,11 +1870,9 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	         memcmp(magic, "Rar!" "\x1a\x07\x01", 7) == 0)
 	{
 		xa.type = XARCHIVETYPE_RAR;
+		xa.tag = (magic[6] == 1 ? 5 : 4);
 
-		if (magic[6] == 1)
-			xa.tag = 5;
-
-		/* a rar5 archive without a rar v5 compatible executable can't be opened */
+		/* a rar v5 type archive without a rar v5 compatible executable can't be opened */
 		if ((xa.tag == 5) && !g_slist_find(archiver[xa.type].tags, GUINT_TO_POINTER(xa.tag)))
 			archiver[xa.type].list = NULL;
 

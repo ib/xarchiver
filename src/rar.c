@@ -94,7 +94,7 @@ static gchar *xa_rar_password_str (XArchive *archive)
 		return g_strdup("");
 }
 
-static void xa_rar_parse_output (gchar *line, XArchive *archive)
+static void xa_rar_v4_parse_output (gchar *line, XArchive *archive)
 {
 	static gchar *filename;
 	static gboolean encrypted;
@@ -228,7 +228,7 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 	}
 }
 
-static void xa_rar5_parse_output (gchar *line, XArchive *archive)
+static void xa_rar_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[7];
@@ -435,7 +435,7 @@ void xa_rar_list (XArchive *archive)
 		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 		const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Occupancy"), _("Date"), _("Time"), _("Attributes"), _("Checksum")};
 
-		archive->parse_output = xa_rar5_parse_output;
+		archive->parse_output = xa_rar_parse_output;
 		xa_spawn_async_process (archive,command);
 		g_free ( command );
 
@@ -453,7 +453,7 @@ void xa_rar_list (XArchive *archive)
 		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 		const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Occupancy"), _("Date"), _("Time"), _("Attributes"), _("Checksum"), _("Method"), _("Version")};
 
-		archive->parse_output = xa_rar_parse_output;
+		archive->parse_output = xa_rar_v4_parse_output;
 		xa_spawn_async_process (archive,command);
 		g_free ( command );
 
@@ -515,10 +515,10 @@ void xa_rar_add (XArchive *archive, GSList *file_list)
 
 	if (rar_version == 5 || rar_version == 6)
 	{
-		if (TAGTYPE(archive->tag) == 5)
-			version_switch = " -ma5";
-		else
+		if (TAGTYPE(archive->tag) == 4)
 			version_switch = " -ma4";
+		else
+			version_switch = " -ma5";
 	}
 	else
 		version_switch = "";
