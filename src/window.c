@@ -1877,7 +1877,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 			archiver[xa.type].list = NULL;
 
 		if (g_str_has_suffix(filename, ".cbr"))
-			xa.tag += 'c' << 8;
+			xa.tag += TAG(0,'c');
 	}
 	else if (memcmp(magic, "\xed\xab\xee\xdb", 4) == 0)
 		xa.type = XARCHIVETYPE_RPM;
