@@ -61,8 +61,16 @@ void xa_zip_ask (XArchive *archive)
 
 static gchar *xa_zip_password_str (XArchive *archive)
 {
+	gchar *escaped, *password_str;
+
 	if (archive->password)
-		return g_strconcat(" -P", archive->password, NULL);
+	{
+		escaped = xa_escape_bad_chars(archive->password, ESCAPES);
+		password_str = g_strconcat(" -P", escaped, NULL);
+		g_free(escaped);
+
+		return password_str;
+	}
 	else
 		return g_strdup("");
 }

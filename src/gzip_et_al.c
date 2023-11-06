@@ -145,9 +145,21 @@ gchar *xa_gzip_et_al_check_zstd (const gchar *compressor, const gchar *decompres
 
 static gchar *xa_gzip_et_al_password_str (const gchar *password, XArchiveType type)
 {
+	gchar *escaped, *quoted, *password_str;
+
 	if (password)
+	{
 		if (type == XARCHIVETYPE_LRZIP)
-			return g_strconcat(" --encrypt=", password, NULL);
+		{
+			escaped = xa_escape_bad_chars(password, "\"");
+			quoted = g_shell_quote(escaped);
+			password_str = g_strconcat(" --encrypt=", quoted, NULL);
+			g_free(quoted);
+			g_free(escaped);
+
+			return password_str;
+		}
+	}
 
 	return g_strdup("");
 }
