@@ -84,10 +84,10 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/x-7z-compressed") == 0 ||
 	         strcmp(mime,"application/x-archive") == 0 ||
 	         strcmp(mime,"application/x-arj") == 0 ||
-	         strcmp(mime,"application/x-bzip") == 0 ||
-	         strcmp(mime,"application/x-bzip-compressed-tar") == 0 ||
-	         strcmp(mime,"application/x-bzip2") == 0 ||
-	         strcmp(mime,"application/x-bzip2-compressed-tar") == 0 ||
+	         strcmp(mime,"application/x-bzip1") == 0 ||
+	         strcmp(mime,"application/x-bzip1-compressed-tar") == 0 ||
+	         strcmp(mime,"application/x-bzip2") == 0 || /* legacy */ strcmp(mime,"application/x-bzip") == 0 ||
+	         strcmp(mime,"application/x-bzip2-compressed-tar") == 0 || /* legacy */ strcmp(mime,"application/x-bzip-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-bzip3") == 0 ||
 	         strcmp(mime,"application/x-bzip3-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-cd-image") == 0 ||
