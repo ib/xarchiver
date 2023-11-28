@@ -130,6 +130,10 @@ static inline void gtk_widget_set_can_focus (GtkWidget *widget, gboolean can_foc
 #define GDK_KEY_x GDK_x
 #define GDK_KEY_Delete GDK_Delete
 #define GDK_KEY_F1 GDK_F1
+#define GDK_KEY_Home GDK_Home
+#define GDK_KEY_Left GDK_Left
+#define GDK_KEY_Right GDK_Right
+#define GDK_KEY_Up GDK_Up
 #define GTK_COMPAT_SWITCH_PAGE_TYPE GtkNotebookPage *
 #define gdk_drag_context_get_source_window(context) context->source_window
 #define gdk_drag_context_get_suggested_action(context) context->suggested_action

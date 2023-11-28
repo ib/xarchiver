@@ -992,6 +992,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (back_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),back_button);
 	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(back_button), _("Back"));
+	gtk_widget_add_accelerator(back_button, "clicked", accel_group, GDK_KEY_Left, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-go-up",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
@@ -1001,6 +1002,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (up_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),up_button);
 	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(up_button), _("Up"));
+	gtk_widget_add_accelerator(up_button, "clicked", accel_group, GDK_KEY_Up, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-go-forward",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
@@ -1010,6 +1012,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (forward_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),forward_button);
 	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(forward_button), _("Forward"));
+	gtk_widget_add_accelerator(forward_button, "clicked", accel_group, GDK_KEY_Right, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-goto-top",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
@@ -1019,6 +1022,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (home_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),home_button);
 	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(home_button), _("Root"));
+	gtk_widget_add_accelerator(home_button, "clicked", accel_group, GDK_KEY_Home, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 
 	separatortoolitem3 = (GtkWidget*) gtk_separator_tool_item_new ();
 	gtk_widget_show (separatortoolitem3);
