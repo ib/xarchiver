@@ -864,7 +864,6 @@ void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_dat
 	XEntry *entry;
 	GtkTreeIter iter;
 	GtkTreeIter parent;
-	GtkTreePath *path;
 	GtkTreeModel *model;
 	GString *string = g_string_new("");
 	gchar *dir;
@@ -874,10 +873,18 @@ void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_dat
 
 	if ((idx != -1) && gtk_tree_selection_get_selected(selection, &model, &iter))
 	{
-		path = gtk_tree_model_get_path(model,&iter);
-		if ( ! gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview),path))
-			gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview),path);
-		gtk_tree_path_free(path);
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->auto_expand)))
+		{
+			GtkTreePath *path;
+
+			path = gtk_tree_model_get_path(model, &iter);
+
+			if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview), path))
+				gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview), path);
+
+			gtk_tree_path_free(path);
+		}
+
 		/* Let get the last selected dir */
 		gtk_tree_model_get(model,&iter,1,&dir,-1);
 		g_string_prepend_c(string,'/');

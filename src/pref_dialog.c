@@ -80,6 +80,7 @@ static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->prefer_unzip), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),TRUE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->advanced_isearch), TRUE);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->auto_expand), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),FALSE);
 
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
@@ -231,6 +232,11 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_box_pack_start(GTK_BOX(vbox4), prefs_data->advanced_isearch, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_data->advanced_isearch), FALSE);
 	gtk_widget_set_tooltip_text(prefs_data->advanced_isearch, _("The incremental search is also performed within filenames rather than just at the beginning of them"));
+
+	prefs_data->auto_expand = gtk_check_button_new_with_mnemonic(_("Automatically expand archive tree nodes on selection"));
+	gtk_box_pack_start(GTK_BOX(vbox4), prefs_data->auto_expand, FALSE, FALSE, 0);
+	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_data->auto_expand), FALSE);
+	gtk_widget_set_tooltip_text(prefs_data->auto_expand, _("Archive tree nodes already expand when the node name is selected by mouse click or keyboard shortcut."));
 
 	prefs_data->store_output = gtk_check_button_new_with_mnemonic (_("Store archiver output"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->store_output, FALSE, FALSE, 0);
@@ -425,6 +431,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"confirm_deletion",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"sort_filename_content",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_sort_filename_column)));
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "advanced_isearch", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->advanced_isearch)));
+	g_key_file_set_boolean(xa_key_file, PACKAGE, "auto_expand", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->auto_expand)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"store_output",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->store_output)));
 
 	g_key_file_set_integer(xa_key_file, PACKAGE, "icon_size", gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_data->combo_icon_size)) + 2);
@@ -539,7 +546,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	gchar *xarchiver_config_dir, *old_dir, *old_config;
 	GKeyFile *xa_key_file = g_key_file_new();
 	GError *error = NULL;
-	gboolean unzip, aisearch, toolbar;
+	gboolean unzip, aisearch, aexpand, toolbar;
 	gint idx, val;
 
 	config_dir = g_get_user_config_dir();
@@ -616,7 +623,20 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			error = NULL;
 		}
 
+		aexpand = g_key_file_get_boolean(xa_key_file, PACKAGE, "auto_expand", &error);
+
+		if (error)
+		{
+			if (error->code == G_KEY_FILE_ERROR_KEY_NOT_FOUND)
+				/* preserve default setting with existing, old config file */
+				aexpand = TRUE;
+
+			g_error_free(error);
+			error = NULL;
+		}
+
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->advanced_isearch), aisearch);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->auto_expand), aexpand);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_sidebar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_sidebar",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_location_bar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_location_bar",NULL));
 		toolbar = g_key_file_get_boolean(xa_key_file,PACKAGE,"show_toolbar",&error);
