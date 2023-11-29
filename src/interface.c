@@ -375,6 +375,52 @@ static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *c
 	return TRUE;
 }
 
+static gboolean xa_dir_sidebar_key_pressed (GtkWidget *widget, GdkEventKey *event)
+{
+	guint key;
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreePath *path;
+
+	key = event->keyval;
+
+	if (key == GDK_KEY_Left || key == GDK_KEY_Right)
+	{
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview));
+
+		if (!gtk_tree_selection_get_selected(selection, &model, &iter))
+			return FALSE;
+
+		path = gtk_tree_model_get_path(model, &iter);
+
+		switch (key)
+		{
+			case GDK_KEY_Left:
+				if (gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview), path))
+				{
+					gtk_tree_view_collapse_row(GTK_TREE_VIEW(archive_dir_treeview), path);
+					gtk_tree_path_free(path);
+					return TRUE;
+				}
+				break;
+
+			case GDK_KEY_Right:
+				if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview), path))
+				{
+					gtk_tree_view_expand_row(GTK_TREE_VIEW(archive_dir_treeview), path, FALSE);
+					gtk_tree_path_free(path);
+					return TRUE;
+				}
+				break;
+		}
+
+		gtk_tree_path_free(path);
+	}
+
+	return FALSE;
+}
+
 static void xa_restore_navigation (int idx)
 {
 	gboolean back = FALSE,up = FALSE,forward = FALSE,home=FALSE;
@@ -1102,6 +1148,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "row-expanded", G_CALLBACK(xa_dir_sidebar_row_expanded), archive_dir_treestore);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-data-received", G_CALLBACK(xa_dir_sidebar_drag_data_received), NULL);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-motion", G_CALLBACK(xa_dir_sidebar_drag_motion), NULL);
+	g_signal_connect(G_OBJECT(archive_dir_treeview), "key-press-event", G_CALLBACK(xa_dir_sidebar_key_pressed), NULL);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
 	changed = g_signal_connect(G_OBJECT(sel), "changed", G_CALLBACK(xa_dir_sidebar_row_selected), NULL);
 
