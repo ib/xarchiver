@@ -200,7 +200,7 @@ struct _XArchive
 	gboolean can_freshen[2];     // can limit activity to only changed files
 	gboolean can_move;           // can delete files after adding
 	gboolean can_solid;          // can create a solid archive
-	gboolean can_recurse;        // can automatically recurse through subdirectories
+	gint can_recurse;            // can automatically recurse through subdirectories
 	gboolean can_compress;       // can compress at different levels
 	/* instructions */
 	gboolean do_full_path;   // extract_func, (xa_execute_add_commands)
@@ -228,6 +228,7 @@ struct _XArchive
 extern XArchive *archive[];
 
 #define can_rename(archive) ((archive)->can_extract && (archive)->can_delete && (archive)->can_add)
+#define FORCED (TRUE + TRUE)   // third value for can_recurse, meaning that recursion is not optional
 
 typedef enum
 {
