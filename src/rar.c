@@ -81,6 +81,7 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_solid = archiver[archive->type].is_compressor;
+	archive->can_recurse = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
 	archive->compressor = rar_compressor;
 	archive->compression = archive->compressor.preset;
@@ -540,6 +541,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list)
 	                      archive->do_update ? " u" : (archive->do_freshen ? " u -f" : " a"),
 	                      archive->do_move ? " -df" : "",
 	                      archive->do_solid ? " -s" : "",
+	                      archive->do_recurse ? "" : " -r-",
 	                      " -m", compression,
 	                      password_str, " -idp -y ",
 	                      archive->path[1], " --", files->str, NULL);
