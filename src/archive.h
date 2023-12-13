@@ -209,6 +209,7 @@ struct _XArchive
 	gboolean do_update;      // extract_func, add_func
 	gboolean do_freshen;     // extract_func, add_func
 	gboolean do_move;        // add_func
+	gboolean do_recurse;     // add_func
 	gboolean do_solid;       // add_func
 	/* child process */
 	guint timeout;

@@ -252,6 +252,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	GtkTreeModel *model;
 	GtkTreeIter iter, parent;
 	GString *pathname;
+	gboolean recurse;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 	path = g_object_get_data(G_OBJECT(context), "tree_path");
@@ -317,9 +318,18 @@ failed:
 	archive[idx]->do_update = FALSE;
 	archive[idx]->do_freshen = FALSE;
 	archive[idx]->do_move = FALSE;
+	archive[idx]->do_recurse = FALSE;
 	archive[idx]->do_solid = FALSE;
 
-	xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)), TRUE);
+	recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));
+
+	if (archive[idx]->can_recurse)
+	{
+		archive[idx]->do_recurse = (recurse || (archive[idx]->can_recurse == FORCED));
+		recurse = FALSE;
+	}
+
+	xa_execute_add_commands(archive[idx], list, recurse, !archive[idx]->do_recurse);
 
 	g_string_free(pathname, TRUE);
 	g_slist_free_full(list, g_free);

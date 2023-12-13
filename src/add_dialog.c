@@ -347,7 +347,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 {
 	gchar *temp_password = NULL;
-	gboolean done = FALSE;
+	gboolean done = FALSE, recurse;
 	GSList *list = NULL;
 
 	while ( ! done )
@@ -420,7 +420,16 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			if (!archive->do_full_path)
 				archive->child_dir = g_path_get_dirname(list->data);
 
-			xa_execute_add_commands(archive, list, gtk_widget_is_sensitive(add_dialog->recurse) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->recurse)), gtk_widget_is_sensitive(add_dialog->recurse));
+			recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->recurse));
+			archive->do_recurse = FALSE;
+
+			if (archive->can_recurse)
+			{
+				archive->do_recurse = (recurse || (archive->can_recurse == FORCED));
+				recurse = FALSE;
+			}
+
+			xa_execute_add_commands(archive, list, recurse, !archive->do_recurse);
 		}
 	}
 	gtk_widget_destroy(add_dialog->compression_scale);

@@ -459,6 +459,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		archive->do_update = FALSE;
 		archive->do_freshen = FALSE;
 		archive->do_move = FALSE;
+		archive->do_recurse = FALSE;
 		archive->do_solid = FALSE;
 
 		xa_execute_add_commands(archive, file_list, FALSE, TRUE);
@@ -2302,7 +2303,7 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 	GSList *list = NULL, *flist;
 	ArchiveType xa;
 	gint idx;
-	gboolean archives = FALSE, files = FALSE;
+	gboolean archives = FALSE, files = FALSE, recurse;
 
 	uris = gtk_selection_data_get_uris(data);
 
@@ -2397,9 +2398,18 @@ failed:
 		archive[idx]->do_update = FALSE;
 		archive[idx]->do_freshen = FALSE;
 		archive[idx]->do_move = FALSE;
+		archive[idx]->do_recurse = FALSE;
 		archive[idx]->do_solid = FALSE;
 
-		xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)), TRUE);
+		recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));
+
+		if (archive[idx]->can_recurse)
+		{
+			archive[idx]->do_recurse = (recurse || (archive[idx]->can_recurse == FORCED));
+			recurse = FALSE;
+		}
+
+		xa_execute_add_commands(archive[idx], list, recurse, !archive[idx]->do_recurse);
 	}
 	else
 	{
@@ -2783,6 +2793,7 @@ void xa_clipboard_edit (GtkMenuItem *item, gpointer user_data)
 void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 {
 	gint idx;
+	gboolean recurse;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
@@ -2803,9 +2814,18 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	archive[idx]->do_update = (XA_Clipboard.mode == XA_CLIPBOARD_EDIT);
 	archive[idx]->do_freshen = FALSE;
 	archive[idx]->do_move = FALSE;
+	archive[idx]->do_recurse = FALSE;
 	archive[idx]->do_solid = FALSE;
 
-	xa_execute_add_commands(archive[idx], XA_Clipboard.paths, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)), TRUE);
+	recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));
+
+	if (archive[idx]->can_recurse)
+	{
+		archive[idx]->do_recurse = (recurse || (archive[idx]->can_recurse == FORCED));
+		recurse = FALSE;
+	}
+
+	xa_execute_add_commands(archive[idx], XA_Clipboard.paths, recurse, !archive[idx]->do_recurse);
 
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;

@@ -1440,7 +1440,7 @@ int main (int argc, char **argv)
 			if (archive->path[0] != NULL)
 			{
 				gchar *fname;
-				gboolean is_dir;
+				gboolean is_dir, recurse;
 				GSList *files = NULL;
 
 				fname = xa_make_full_path(opt_compress);
@@ -1472,9 +1472,18 @@ int main (int argc, char **argv)
 				archive->do_update = FALSE;
 				archive->do_freshen = FALSE;
 				archive->do_move = FALSE;
+				archive->do_recurse = FALSE;
 				archive->do_solid = FALSE;
 
-				xa_execute_add_commands(archive, files, TRUE, TRUE);
+				recurse = TRUE;
+
+				if (archive->can_recurse)
+				{
+					archive->do_recurse = (recurse || (archive->can_recurse == FORCED));
+					recurse = FALSE;
+				}
+
+				xa_execute_add_commands(archive, files, recurse, !archive->do_recurse);
 			}
 		}
 		/* Switch -a */
