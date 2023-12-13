@@ -1475,7 +1475,7 @@ int main (int argc, char **argv)
 				archive->do_recurse = FALSE;
 				archive->do_solid = FALSE;
 
-				recurse = TRUE;
+				recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));
 
 				if (archive->can_recurse)
 				{
