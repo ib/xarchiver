@@ -58,6 +58,7 @@ void xa_lha_ask (XArchive *archive)
 	archive->can_overwrite = TRUE;
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
+	archive->can_recurse = (archiver[archive->type].is_compressor ? FORCED : FALSE);
 	archive->can_compress = archiver[archive->type].is_compressor;
 	archive->compressor = lha_compressor;
 	archive->compression = archive->compressor.preset;
