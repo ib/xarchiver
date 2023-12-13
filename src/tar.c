@@ -118,6 +118,7 @@ void xa_tar_ask (XArchive *archive)
 	archive->can_update[0] = TRUE;
 	archive->can_update[1] = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_move = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
+	archive->can_recurse = TRUE;
 
 	/* this is solely for display with the archive properties */
 	if (!archiver[archive->type].program[0])
@@ -299,15 +300,17 @@ void xa_tar_add (XArchive *archive, GSList *file_list)
 		}
 
 		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
-		                      " -c --no-recursion --no-wildcards",
+		                      " -c --no-wildcards",
 		                      archive->do_move ? " --remove-files" : "",
+		                      archive->do_recurse ? "" : " --no-recursion",
 		                      " -f ", archive->path[2], " --", files->str, NULL);
 	}
 	else
 		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
 		                      archive->do_update ? " -u" : " -r",
-		                      " --no-recursion --no-wildcards",
+		                      " --no-wildcards",
 		                      archive->do_move ? " --remove-files" : "",
+		                      archive->do_recurse ? "" : " --no-recursion",
 		                      " -f ", archive->path[2], " --", files->str, NULL);
 
 	if (archive->type != XARCHIVETYPE_TAR)
