@@ -200,6 +200,7 @@ struct _XArchive
 	gboolean can_freshen[2];     // can limit activity to only changed files
 	gboolean can_move;           // can delete files after adding
 	gboolean can_solid;          // can create a solid archive
+	gboolean can_descend;        // can automatically descend to directories
 	gint can_recurse;            // can automatically recurse through subdirectories
 	gboolean can_compress;       // can compress at different levels
 	/* instructions */

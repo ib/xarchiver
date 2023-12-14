@@ -523,6 +523,9 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse,
 
 	while (list)
 	{
+		if (archive->can_descend)
+			all = FALSE;
+
 		xa_recurse_local_directory((gchar*) list->data, &dirlist, archive->do_full_path, recurse, all);
 		list = list->next;
 	}
