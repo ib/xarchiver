@@ -380,6 +380,23 @@ static void xa_check_available_archivers ()
 		archiver[type].extract = xa_7zip_extract;
 	}
 
+	/* chm */
+
+	type = XARCHIVETYPE_CHM;
+	path = (is7z ? g_strconcat(sevenz, " -tchm", NULL) : NULL);
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].type = g_slist_append(archiver[type].type, "chm");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.chm");
+
+		archiver[type].ask = xa_7zip_ask;
+		archiver[type].list = xa_7zip_list;
+		archiver[type].test = xa_7zip_test;
+		archiver[type].extract = xa_7zip_extract;
+	}
+
 	/* compress */
 
 	type = XARCHIVETYPE_COMPRESS;

@@ -1825,6 +1825,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_BZIP3;
 	else if (memcmp(magic, "MSCF\x00\x00\x00\x00", 8) == 0)
 		xa.type = XARCHIVETYPE_CAB;
+	else if (memcmp(magic, "ITSF", 4) == 0)
+		xa.type = XARCHIVETYPE_CHM;
 	else if (memcmp(magic, "\x1f\x9d", 2) == 0)
 		xa.type = XARCHIVETYPE_COMPRESS;
 	else if (memcmp(magic, "070701", 6) == 0 ||

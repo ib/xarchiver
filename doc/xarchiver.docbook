@@ -127,7 +127,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							All common formats are supported: 7z, a (libraries), apk, arj, bzip, bzip2, bzip3, cab, cb7, cbr, cbt, cbz, compress, cpio, docx, epub, exe (self-extracting Windows archives), fbz, gzip, iso, jar, jsonlz4, lha, lrzip, lz4, lzip, lzma, lzop, mozlz4, odt, oxt, rar, rzip, snap, squashfs, tar, xpi, xz, zip, zpaq, zstd, tar.bz, tar.bz2, tar.bz3, tar.gz, tar.lrz, tar.lz, tar.lz4, tar.lzma, tar.lzo, tar.rz, tar.xz, tar.Z, tar.zst, deb and rpm packages
+							All common formats are supported: 7z, a (libraries), apk, arj, bzip, bzip2, bzip3, cab, cb7, cbr, cbt, cbz, chm, compress, cpio, docx, epub, exe (self-extracting Windows archives), fbz, gzip, iso, jar, jsonlz4, lha, lrzip, lz4, lzip, lzma, lzop, mozlz4, odt, oxt, rar, rzip, snap, squashfs, tar, xpi, xz, zip, zpaq, zstd, tar.bz, tar.bz2, tar.bz3, tar.gz, tar.lrz, tar.lz, tar.lz4, tar.lzma, tar.lzo, tar.rz, tar.xz, tar.Z, tar.zst, deb and rpm packages
 						</para>
 					</listitem>
 					<listitem>
