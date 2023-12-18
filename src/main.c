@@ -443,7 +443,7 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_CPIO;
 	path = cpio;
 
-	standard = (path != NULL);
+	standard = (path && xa_cpio_check_version(path));
 
 	if (!standard)
 	{

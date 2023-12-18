@@ -25,6 +25,7 @@
 
 void xa_cpio_add(XArchive *, GSList *);
 void xa_cpio_ask(XArchive *);
+gboolean xa_cpio_check_version(gchar *);
 gboolean xa_cpio_extract(XArchive *, GSList *);
 void xa_cpio_list(XArchive *);
 void xa_cpio_parse_output(gchar *, XArchive *);

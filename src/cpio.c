@@ -17,6 +17,7 @@
  *  MA 02110-1301 USA.
  */
 
+#include <stdio.h>
 #include <string.h>
 #include "cpio.h"
 #include "date_utils.h"
@@ -30,6 +31,29 @@ static void relative_path (char *filename, gpointer user_data)
 {
 	if (*filename == '/')
 		strcpy(filename, filename + 1);
+}
+
+gboolean xa_cpio_check_version (gchar *path)
+{
+	gchar *command, *output = NULL;
+	int major, minor;
+	gboolean result = FALSE;
+
+	command = g_strconcat(path, " --version", NULL);
+	g_spawn_command_line_sync(command, &output, NULL, NULL, NULL);
+	g_free(command);
+
+	if (output)
+	{
+		if (strncmp(output, "cpio (GNU cpio) ", 16) == 0)
+			if (sscanf(output + 16, "%d.%d", &major, &minor) == 2)
+				/* cpio as of version 2.13 is safe */
+				result = ((major == 2 && minor > 12) || major > 2);
+
+		g_free(output);
+	}
+
+	return result;
 }
 
 void xa_cpio_ask (XArchive *archive)
