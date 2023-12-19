@@ -255,9 +255,9 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_overwrite = TRUE;
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_freshen[1] = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive));
+	archive->can_recurse[1] = (archiver[archive->type].is_compressor ? FORCED : FALSE);
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_solid = (archive->type == XARCHIVETYPE_7ZIP);
-	archive->can_recurse[1] = (archiver[archive->type].is_compressor ? FORCED : FALSE);
 	archive->can_compress = archiver[archive->type].is_compressor;
 	archive->compressor = (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_ZIP ? sevenz_compressor : sevenz_gzip_et_al_compressor);
 	archive->compression = archive->compressor.preset;

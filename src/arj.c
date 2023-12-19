@@ -49,9 +49,9 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_freshen[0] = archiver[archive->type].is_compressor;
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
+	archive->can_recurse[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_descend = archiver[archive->type].is_compressor;
-	archive->can_recurse[1] = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
 	archive->compressor = arj_compressor;
 	archive->compression = archive->compressor.preset;
@@ -368,8 +368,8 @@ void xa_arj_add (XArchive *archive, GSList *file_list)
 	password_str = xa_arj_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_update ? " u" : (archive->do_freshen ? " f" : " a"),
-	                      archive->do_move ? " -d1" : "",
 	                      archive->do_recurse ? " -r" : "",
+	                      archive->do_move ? " -d1" : "",
 	                      " -m", compression,
 	                      password_str, " -2d -i -y ",
 	                      archive->path[1], " --", files->str, NULL);

@@ -317,8 +317,8 @@ failed:
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->do_update = FALSE;
 	archive[idx]->do_freshen = FALSE;
-	archive[idx]->do_move = FALSE;
 	archive[idx]->do_recurse = FALSE;
+	archive[idx]->do_move = FALSE;
 	archive[idx]->do_solid = FALSE;
 
 	recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));

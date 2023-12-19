@@ -199,10 +199,10 @@ struct _XArchive
 	gboolean can_overwrite;      // can overwrite files on extraction
 	gboolean can_update[2];      // can limit activity to only changed or new files
 	gboolean can_freshen[2];     // can limit activity to only changed files
+	gint can_recurse[2];         // can automatically recurse through subdirectories
 	gboolean can_move;           // can delete files after adding
 	gboolean can_solid;          // can create a solid archive
 	gboolean can_descend;        // can automatically descend to directories
-	gint can_recurse[2];         // can automatically recurse through subdirectories
 	gboolean can_compress;       // can compress at different levels
 	/* instructions */
 	gboolean do_full_path;   // extract_func, (xa_execute_add_commands)
@@ -210,8 +210,8 @@ struct _XArchive
 	gboolean do_overwrite;   // extract_func
 	gboolean do_update;      // extract_func, add_func
 	gboolean do_freshen;     // extract_func, add_func
-	gboolean do_move;        // add_func
 	gboolean do_recurse;     // extract_func, add_func
+	gboolean do_move;        // add_func
 	gboolean do_solid;       // add_func
 	/* child process */
 	guint timeout;
