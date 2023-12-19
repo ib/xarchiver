@@ -117,6 +117,7 @@ void xa_tar_ask (XArchive *archive)
 	archive->can_overwrite = TRUE;
 	archive->can_update[0] = TRUE;
 	archive->can_update[1] = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
+	archive->can_recurse[0] = TRUE;
 	archive->can_recurse[1] = TRUE;
 	archive->can_move = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 
@@ -238,7 +239,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 
 	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
-	                      " -x --no-recursion --no-wildcards",
+	                      " -x --no-wildcards",
 	                      " -f ", archive->path[2],
 	                      archive->do_touch ? " -m" : "",
 	                      archive->do_overwrite ? "" : (archive->do_update ? " --keep-newer-files" : " -k"),
@@ -341,7 +342,7 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 	gboolean success;
 
 	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
-	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-recursion --no-wildcards -f ", archive->path[2], " --", files->str, NULL);
+	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-wildcards -f ", archive->path[2], " --", files->str, NULL);
 
 	if (archive->type != XARCHIVETYPE_TAR)
 	{
