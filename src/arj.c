@@ -49,6 +49,7 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_freshen[0] = archiver[archive->type].is_compressor;
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
+	archive->can_recurse[0] = TRUE;
 	archive->can_recurse[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_descend = archiver[archive->type].is_compressor;
@@ -276,7 +277,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	gchar *command;
 	gboolean result = FALSE;
 
-	files = xa_quote_filenames(file_list, "*?[]", DIR_WITHOUT_SLASH);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITH_ASTERISK);
 
 	if (archiver[archive->type].is_compressor)
 	{
@@ -284,6 +285,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 		command = g_strconcat(archiver[archive->type].program[0],
 		                      archive->do_full_path ? " x" : " e",
 		                      archive->do_overwrite ? "" : (archive->do_update ? " -u" : (archive->do_freshen ? " -f" : " -n")),
+		                      archive->do_recurse ? " -p1" : "",
 		                      password_str, " -i -y ",
 		                      archive->path[1], " ",
 		                      archive->extraction_dir, " --", files->str, NULL);
@@ -386,8 +388,8 @@ void xa_arj_delete (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command;
 
-	files = xa_quote_filenames(file_list, "*?[]", DIR_WITHOUT_SLASH);
-	command = g_strconcat(archiver[archive->type].program[0], " d -i -y ", archive->path[1], " --", files->str, NULL);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITH_ASTERISK);
+	command = g_strconcat(archiver[archive->type].program[0], " d", archive->do_recurse ? " -p1" : "", " -i -y ", archive->path[1], " --", files->str, NULL);
 	g_string_free(files,TRUE);
 
 	xa_run_command(archive, command);
