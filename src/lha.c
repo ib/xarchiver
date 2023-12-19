@@ -57,6 +57,7 @@ void xa_lha_ask (XArchive *archive)
 	archive->can_full_path[1] = archiver[archive->type].is_compressor;   // n.b.: adds leading slash
 	archive->can_overwrite = TRUE;
 	archive->can_update[1] = archiver[archive->type].is_compressor;
+	archive->can_recurse[0] = TRUE;
 	archive->can_recurse[1] = (archiver[archive->type].is_compressor ? FORCED : FALSE);
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
@@ -201,7 +202,7 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 	gchar *command;
 	gboolean result;
 
-	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_ASTERISK);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? " x" : " xi",
 	                      archive->do_overwrite ? "f" : "",
@@ -240,7 +241,7 @@ void xa_lha_delete (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command;
 
-	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_ASTERISK);
 	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
 
