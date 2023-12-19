@@ -499,7 +499,7 @@ gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 	gchar *password_str, *command;
 	gboolean result;
 
-	files = xa_quote_filenames(file_list, NULL, FALSE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITHOUT_SLASH);
 	password_str = xa_rar_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? " x" : " e",
@@ -534,7 +534,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list)
 
 	compression = g_strdup_printf("%hu", archive->compression);
 
-	files = xa_quote_filenames(file_list, NULL, FALSE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITHOUT_SLASH);
 	password_str = xa_rar_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      version_switch,
@@ -558,7 +558,7 @@ void xa_rar_delete (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command;
 
-	files = xa_quote_filenames(file_list, NULL, FALSE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITHOUT_SLASH);
 	command = g_strconcat(archiver[archive->type].program[0], " d -idp -y ", archive->path[1], " --", files->str, NULL);
 	g_string_free(files,TRUE);
 

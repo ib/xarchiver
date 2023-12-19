@@ -133,7 +133,7 @@ gboolean xa_squashfs_extract (XArchive *archive, GSList *file_list)
 	if (!extract_to)
 		return FALSE;
 
-	files = xa_quote_filenames(file_list, "*?[]", TRUE);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITH_SLASH);
 	archive->child_dir = extract_to;
 	command = g_strconcat(archiver[archive->type].program[0],
 	/* do_overwrite can be ignored in new temporary directory */
@@ -175,7 +175,7 @@ void xa_squashfs_add (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command;
 
-	files = xa_quote_filenames(file_list, "-", TRUE);
+	files = xa_quote_filenames(file_list, "-", DIR_WITH_SLASH);
 	command = g_strconcat(archiver[archive->type].program[1],
 	                      files->str, " ", archive->path[1],
 	                      " -no-strip -no-progress", NULL);

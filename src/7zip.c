@@ -463,7 +463,7 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 	gchar *password_str, *command;
 	gboolean result;
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	password_str = xa_7zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[INDEX],
 	                      archive->do_full_path ? " x" : " e",
@@ -487,7 +487,7 @@ void xa_7zip_add (XArchive *archive, GSList *file_list)
 
 	compression = g_strdup_printf("%hu", archive->compression);
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	password_str = xa_7zip_password_str(archive);
 	solid = g_strconcat(" -ms=", archive->do_solid ? "on" : "off", NULL);
 	command = g_strconcat(archiver[archive->type].program[0],
@@ -511,7 +511,7 @@ void xa_7zip_delete (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *password_str, *command;
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	password_str = xa_7zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0], " d", password_str, " -bd -spd -y ", archive->path[1], " --", files->str, NULL);
 	g_free(password_str);

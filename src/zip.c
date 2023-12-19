@@ -203,7 +203,7 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	gchar *password_str, *command;
 	gboolean result;
 
-	files = xa_quote_filenames(file_list, "*?[]", TRUE);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITH_SLASH);
 	password_str = xa_zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? "" : " -j",
@@ -265,7 +265,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list)
 		}
 	}
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);   // no escaping for adding!
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);   // no escaping for adding!
 	password_str = xa_zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[1], " -q",
 	                      archive->do_update ? " -ou" : (archive->do_freshen ? " -of" : ""),
@@ -288,7 +288,7 @@ void xa_zip_delete (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command;
 
-	files = xa_quote_filenames(file_list, "*?[]", TRUE);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITH_SLASH);
 	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->path[1], " --", files->str, NULL);
 	g_string_free(files,TRUE);
 

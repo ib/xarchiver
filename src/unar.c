@@ -232,7 +232,7 @@ gboolean xa_unar_extract (XArchive *archive, GSList *file_list)
 			return FALSE;
 	}
 
-	files = xa_quote_filenames(file_list, "*?[]\"", TRUE);
+	files = xa_quote_filenames(file_list, "*?[]\"", DIR_WITH_SLASH);
 	password_str = xa_unar_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[1],
 	                      password_str, " -D -q",

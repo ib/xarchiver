@@ -107,7 +107,7 @@ gboolean xa_ar_extract (XArchive *archive, GSList *file_list)
 	gchar *command;
 	gboolean result;
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	archive->child_dir = g_strdup(archive->extraction_dir);
 	command = g_strconcat(archiver[archive->type].program[0], " x",
 	                      archive->do_touch ? " " : "o ",

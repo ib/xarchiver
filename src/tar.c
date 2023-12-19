@@ -236,7 +236,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 			return FALSE;
 	}
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
 	                      " -x --no-recursion --no-wildcards",
 	                      " -f ", archive->path[2],
@@ -278,7 +278,7 @@ void xa_tar_add (XArchive *archive, GSList *file_list)
 	gchar *command;
 	gboolean success;
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 
 	if (!g_file_test(archive->path[0], G_FILE_TEST_EXISTS))
 	{
@@ -340,7 +340,7 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 	gchar *command;
 	gboolean success;
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-recursion --no-wildcards -f ", archive->path[2], " --", files->str, NULL);
 
 	if (archive->type != XARCHIVETYPE_TAR)

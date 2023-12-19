@@ -215,7 +215,7 @@ gboolean xa_zpaq_extract (XArchive *archive, GSList *file_list)
 		list = list->next;
 	}
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	archive->child_dir = extract_to;
 	command = g_strconcat(archiver[archive->type].program[0], " x ",
 	/* do_overwrite can be ignored in new temporary directory */
@@ -263,7 +263,7 @@ void xa_zpaq_add (XArchive *archive, GSList *file_list)
 
 	compression = g_strdup_printf("%hu", archive->compression);
 
-	files = xa_quote_filenames(file_list, "-", TRUE);
+	files = xa_quote_filenames(file_list, "-", DIR_WITH_SLASH);
 	command = g_strconcat(archiver[archive->type].program[0], " a ",
 	                      archive->path[1], files->str,
 	                      " -m", compression, NULL);
@@ -306,7 +306,7 @@ void xa_zpaq_delete (XArchive *archive, GSList *file_list)
 
 	if (!command)
 	{
-		files = xa_quote_filenames(file_list, NULL, TRUE);
+		files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 		archive->child_dir = workdir;
 		command = g_strconcat(archiver[archive->type].program[0], " a ", archive->path[1], files->str, NULL);
 		g_string_free(files, TRUE);

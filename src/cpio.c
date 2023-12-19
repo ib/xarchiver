@@ -196,7 +196,7 @@ gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 	}
 
 	g_slist_foreach(file_list, (GFunc) relative_path, NULL);
-	files = xa_quote_filenames(file_list, "*?[]\"", FALSE);
+	files = xa_quote_filenames(file_list, "*?[]\"", DIR_WITHOUT_SLASH);
 	archive->child_dir = g_strdup(extract_to);
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
@@ -239,7 +239,7 @@ void xa_cpio_add (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *archive_path, *command;
 
-	files = xa_quote_filenames(file_list, "\"", FALSE);
+	files = xa_quote_filenames(file_list, "\"", DIR_WITHOUT_SLASH);
 	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 	command = g_strconcat("sh -c \"", "exec ls -d --", files->str, " | ",
 	                      archiver[archive->type].program[0], " -o",

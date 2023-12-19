@@ -231,6 +231,15 @@ struct _XArchive
 extern XArchive *archive[];
 
 #define can_rename(archive) ((archive)->can_extract && (archive)->can_delete && (archive)->can_add)
+
+/* how to specify the directory for can_recurse[0] */
+enum
+{
+	DIR_WITHOUT_SLASH,
+	DIR_WITH_SLASH,
+	DIR_WITH_ASTERISK
+};
+
 #define FORCED (TRUE + TRUE)   // third value for can_recurse[1], meaning that recursion is not optional
 
 typedef enum

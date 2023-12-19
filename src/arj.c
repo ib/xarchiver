@@ -276,7 +276,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	gchar *command;
 	gboolean result = FALSE;
 
-	files = xa_quote_filenames(file_list, "*?[]", FALSE);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITHOUT_SLASH);
 
 	if (archiver[archive->type].is_compressor)
 	{
@@ -364,7 +364,7 @@ void xa_arj_add (XArchive *archive, GSList *file_list)
 
 	compression = g_strdup_printf("%hu", archive->compression);
 
-	files = xa_quote_filenames(file_list, "*?[]", FALSE);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITHOUT_SLASH);
 	password_str = xa_arj_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_update ? " u" : (archive->do_freshen ? " f" : " a"),
@@ -386,7 +386,7 @@ void xa_arj_delete (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command;
 
-	files = xa_quote_filenames(file_list, "*?[]", FALSE);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITHOUT_SLASH);
 	command = g_strconcat(archiver[archive->type].program[0], " d -i -y ", archive->path[1], " --", files->str, NULL);
 	g_string_free(files,TRUE);
 

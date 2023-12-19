@@ -954,7 +954,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	gchar *command, *filename, *files_str, *out_dir, *out_file, *archive_path, *extraction_dir, *password_str;
 	gboolean result;
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 
 	if (*files->str)
 	{
@@ -1011,7 +1011,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 
 	compression = g_strdup_printf("%hu", archive->compression);
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	files_str = xa_escape_bad_chars(files->str, "\"");
 	archive_path = xa_quote_shell_command(archive->path[2] ? archive->path[2] : archive->path[0], TRUE);
 

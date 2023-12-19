@@ -218,7 +218,7 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 			return FALSE;
 	}
 
-	files = xa_quote_filenames(file_list, "*?[]\"", FALSE);
+	files = xa_quote_filenames(file_list, "*?[]\"", DIR_WITHOUT_SLASH);
 	archive->child_dir = g_strdup(extract_to);
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
