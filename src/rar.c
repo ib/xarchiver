@@ -79,6 +79,7 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_freshen[0] = TRUE;
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
+	archive->can_recurse[0] = TRUE;
 	archive->can_recurse[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_solid = archiver[archive->type].is_compressor;
