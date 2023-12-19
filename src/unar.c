@@ -35,6 +35,7 @@ void xa_unar_ask (XArchive *archive)
 	archive->can_extract = (archiver[archive->type].program[1] != NULL);
 	archive->can_full_path[0] = (archiver[archive->type].program[1] != NULL);
 	archive->can_overwrite = (archiver[archive->type].program[1] != NULL);
+	archive->can_recurse[0] = TRUE;
 }
 
 static gchar *xa_unar_password_str (XArchive *archive)
@@ -232,7 +233,7 @@ gboolean xa_unar_extract (XArchive *archive, GSList *file_list)
 			return FALSE;
 	}
 
-	files = xa_quote_filenames(file_list, "*?[]\"", DIR_WITH_SLASH);
+	files = xa_quote_filenames(file_list, "*?[]\"", DIR_WITH_ASTERISK);
 	password_str = xa_unar_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[1],
 	                      password_str, " -D -q",
