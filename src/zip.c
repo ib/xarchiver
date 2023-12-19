@@ -51,6 +51,7 @@ void xa_zip_ask (XArchive *archive)
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_freshen[0] = TRUE;
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
+	archive->can_recurse[0] = TRUE;
 	archive->can_recurse[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
@@ -203,7 +204,7 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	gchar *password_str, *command;
 	gboolean result;
 
-	files = xa_quote_filenames(file_list, "*?[]", DIR_WITH_SLASH);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITH_ASTERISK);
 	password_str = xa_zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? "" : " -j",
@@ -288,7 +289,7 @@ void xa_zip_delete (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command;
 
-	files = xa_quote_filenames(file_list, "*?[]", DIR_WITH_SLASH);
+	files = xa_quote_filenames(file_list, "*?[]", DIR_WITH_ASTERISK);
 	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->path[1], " --", files->str, NULL);
 	g_string_free(files,TRUE);
 
