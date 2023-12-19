@@ -329,7 +329,7 @@ void xa_recurse_local_directory (gchar *path, GSList **list, gboolean full_path,
 
 	if (g_file_test(path, G_FILE_TEST_IS_DIR))
 	{
-		*list = g_slist_prepend(*list, g_strdup(path));
+		*list = g_slist_prepend(*list, g_strconcat(path, "/", NULL));
 
 		dir = opendir(path);
 
