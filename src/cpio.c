@@ -64,6 +64,7 @@ void xa_cpio_ask (XArchive *archive)
 	archive->can_full_path[1] = TRUE;   // n.b.: adds leading slash
 	archive->can_touch = TRUE;
 	archive->can_overwrite = TRUE;
+	archive->can_recurse[0] = TRUE;
 }
 
 void xa_cpio_parse_output (gchar *line, XArchive *archive)
@@ -196,7 +197,7 @@ gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 	}
 
 	g_slist_foreach(file_list, (GFunc) relative_path, NULL);
-	files = xa_quote_filenames(file_list, "*?[]\"", DIR_WITHOUT_SLASH);
+	files = xa_quote_filenames(file_list, "*?[]\"", DIR_WITH_ASTERISK);
 	archive->child_dir = g_strdup(extract_to);
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
