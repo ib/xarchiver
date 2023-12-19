@@ -461,31 +461,6 @@ void xa_spawn_async_process (XArchive *archive, const gchar *command)
 		g_child_watch_add_full(G_PRIORITY_LOW, archive->child_pid, (GChildWatchFunc) xa_process_exit, archive, NULL);
 }
 
-/*	TODO: workaround for bug #3235
- *
- * gchar *xa_split_command_line(XArchive *archive,GSList *list)
-{
-	gchar *command = NULL;
-	GSList *chunks = NULL;
-	GSList *scan = NULL;
-	int length;
-
-	for (scan = list; scan != NULL;)
-	{
-		length = 0;
-		while ((scan != NULL) && (length < 5000)) //MAX_CMD_LEN
-		{
-			length += strlen (scan->data);
-			chunks = g_slist_prepend(chunks,scan->data);
-			scan = scan->next;
-		}
-		chunks = g_slist_prepend(chunks,"****** ");
-	}
-	chunks = g_slist_reverse(chunks);
-	return command;
-}
-*/
-
 void xa_clean_archive_structure (XArchive *archive)
 {
 	xa_free_entry(archive, archive->root_entry);
