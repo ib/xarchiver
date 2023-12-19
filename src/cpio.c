@@ -240,7 +240,7 @@ void xa_cpio_add (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *archive_path, *command;
 
-	files = xa_quote_filenames(file_list, "\"", DIR_WITHOUT_SLASH);
+	files = xa_quote_filenames(file_list, "\"", DIR_WITH_SLASH);
 	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 	command = g_strconcat("sh -c \"", "exec ls -d --", files->str, " | ",
 	                      archiver[archive->type].program[0], " -o",
