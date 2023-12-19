@@ -38,7 +38,7 @@ void xa_zpaq_ask (XArchive *archive)
 	archive->can_full_path[0] = TRUE;
 	archive->can_full_path[1] = TRUE;   // n.b.: adds leading slash
 	archive->can_overwrite = TRUE;
-	archive->can_recurse = FORCED;
+	archive->can_recurse[1] = FORCED;
 	archive->can_compress = TRUE;
 	archive->compressor = zpaq_compressor;
 	archive->compression = archive->compressor.preset;

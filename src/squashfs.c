@@ -32,7 +32,7 @@ void xa_squashfs_ask (XArchive *archive)
 	archive->can_full_path[0] = TRUE;
 	archive->can_full_path[1] = archiver[archive->type].is_compressor;
 	archive->can_overwrite = TRUE;
-	archive->can_recurse = (archiver[archive->type].is_compressor ? FORCED : FALSE);
+	archive->can_recurse[1] = (archiver[archive->type].is_compressor ? FORCED : FALSE);
 }
 
 static void xa_squashfs_parse_output (gchar *line, XArchive *archive)

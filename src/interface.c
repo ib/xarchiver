@@ -323,9 +323,9 @@ failed:
 
 	recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));
 
-	if (archive[idx]->can_recurse)
+	if (archive[idx]->can_recurse[1])
 	{
-		archive[idx]->do_recurse = (recurse || (archive[idx]->can_recurse == FORCED));
+		archive[idx]->do_recurse = (recurse || (archive[idx]->can_recurse[1] == FORCED));
 		recurse = FALSE;
 	}
 

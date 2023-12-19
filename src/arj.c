@@ -51,7 +51,7 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 	archive->can_descend = archiver[archive->type].is_compressor;
-	archive->can_recurse = archiver[archive->type].is_compressor;
+	archive->can_recurse[1] = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
 	archive->compressor = arj_compressor;
 	archive->compression = archive->compressor.preset;

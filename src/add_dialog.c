@@ -302,7 +302,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->store_path, full_path);
 	gtk_widget_set_sensitive(add_dialog->update, archive->can_update[1]);
 	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen[1]);
-	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse != FORCED);
+	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse[1] != FORCED);
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
 
@@ -423,9 +423,9 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->recurse));
 			archive->do_recurse = FALSE;
 
-			if (archive->can_recurse)
+			if (archive->can_recurse[1])
 			{
-				archive->do_recurse = (recurse || (archive->can_recurse == FORCED));
+				archive->do_recurse = (recurse || (archive->can_recurse[1] == FORCED));
 				recurse = FALSE;
 			}
 

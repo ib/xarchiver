@@ -118,7 +118,7 @@ void xa_tar_ask (XArchive *archive)
 	archive->can_update[0] = TRUE;
 	archive->can_update[1] = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_move = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
-	archive->can_recurse = TRUE;
+	archive->can_recurse[1] = TRUE;
 
 	/* this is solely for display with the archive properties */
 	if (!archiver[archive->type].program[0])
