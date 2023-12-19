@@ -365,7 +365,7 @@ void xa_recurse_local_directory (gchar *path, GSList **list, gboolean full_path,
 	}
 }
 
-GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean slash)
+GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gint dir_pattern)
 {
 	GString *files;
 	GSList *list;
@@ -377,9 +377,10 @@ GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean sl
 
 	while (list)
 	{
-		gchar *shellname, *escaped = NULL;
+		gchar *shellname, *escaped = NULL, *fname;
+		size_t len;
 
-		if (!slash)
+		if (dir_pattern == DIR_WITHOUT_SLASH)
 			xa_remove_slash_from_path(list->data);
 
 		if (escape)
@@ -401,7 +402,19 @@ GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean sl
 		if (escape && !hyphen)
 			escaped = xa_escape_bad_chars(shellname, escape);
 
-		g_string_prepend(files, escaped ? escaped : shellname);
+		fname = (escaped ? escaped : shellname);
+		len = strlen(fname);
+
+		if (dir_pattern == DIR_WITH_ASTERISK && len > 1 && strcmp(fname + len - 2, "/'") == 0)
+		{
+			fname = g_strndup(fname, len + 1);
+			strcpy(fname + len - 1, "*'");
+			g_string_prepend(files, fname);
+			g_free(fname);
+		}
+		else
+			g_string_prepend(files, fname);
+
 		g_string_prepend_c(files, ' ');
 
 		g_free(escaped);

@@ -2434,8 +2434,15 @@ void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,Gtk
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	gtk_tree_model_get(model, iter, archive[idx]->columns - 1, &entry, -1);
+
 	if (entry->is_dir)
-		xa_fill_list_with_recursed_entries(entry->child,data);
+	{
+		if (archive[idx]->can_recurse[0])
+			archive[idx]->do_recurse = TRUE;
+		else
+			xa_fill_list_with_recursed_entries(entry->child, data);
+	}
+
 	filename = xa_build_full_path_name_from_entry(entry);
 	*data = g_slist_prepend (*data,filename);
 }

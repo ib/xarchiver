@@ -45,7 +45,7 @@ GSList *xa_collect_filenames(XArchive *, GSList *);
 GString *xa_collect_files_in_dir(const gchar *);
 gchar *xa_make_full_path(const char *);
 GString *xa_quote_dir_contents(const gchar *);
-GString *xa_quote_filenames(GSList *, const gchar *, gboolean);
+GString *xa_quote_filenames(GSList *, const gchar *, gint);
 gchar *xa_quote_shell_command(const gchar *, gboolean);
 void xa_recurse_local_directory(gchar *, GSList **, gboolean, gboolean, gboolean);
 gchar *xa_remove_level_from_path(const gchar *);
