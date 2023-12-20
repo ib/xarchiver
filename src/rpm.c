@@ -196,62 +196,18 @@ void xa_rpm_list (XArchive *archive)
 	g_free(command);
 }
 
-/*
- * Note: cpio lists ' ' as '\ ', '"' as '\"' and '\' as '\\' while it
- * extracts ' ', '"' and '\' respectively, i.e. file names containing
- * one of these three characters can't be handled entirely.
- */
-
 gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 {
-	GString *files;
-	gchar *extract_to, *command;
+	gchar *path;
 	gboolean result;
 
-	if (archive->do_full_path)
-		extract_to = xa_unescape_bad_chars(archive->extraction_dir, ESCAPES);
-	else
-	{
-		extract_to = xa_create_working_subdirectory(archive);
+	path = archive->path[1];
+	archive->path[1] = g_strconcat(archive->working_dir, "/xa-tmp.cpio", NULL);
 
-		if (!extract_to)
-			return FALSE;
-	}
+	result = xa_cpio_extract(archive, file_list);
 
-	files = xa_quote_filenames(file_list, "*?[]\"", DIR_WITHOUT_SLASH);
-	archive->child_dir = g_strdup(extract_to);
-	command = g_strconcat(archiver[archive->type].program[0], " -id",
-	                      archive->do_touch ? "" : " -m",
-	                      archive->do_overwrite ? " -u" : "",
-	                      " -I ", archive->working_dir, "/xa-tmp.cpio",
-	                      " --", files->str, NULL);
-	result = xa_run_command(archive, command);
-	g_free(command);
-
-	g_free(archive->child_dir);
-	archive->child_dir = NULL;
-
-	/* collect all files that have been extracted to move them without full path */
-	if (result && !archive->do_full_path)
-	{
-		GString *all_files = xa_collect_files_in_dir(extract_to);
-
-		archive->child_dir = g_strdup(extract_to);
-		command = g_strconcat("mv",
-		                      archive->do_overwrite ? " -f" : " -n",
-		                      " --", all_files->str, " ", archive->extraction_dir, NULL);
-		g_string_free(all_files, TRUE);
-
-		archive->status = XARCHIVESTATUS_EXTRACT;   // restore status
-		result = xa_run_command(archive, command);
-		g_free(command);
-
-		g_free(archive->child_dir);
-		archive->child_dir = NULL;
-	}
-
-	g_free(extract_to);
-	g_string_free(files,TRUE);
+	g_free(archive->path[1]);
+	archive->path[1] = path;
 
 	return result;
 }
