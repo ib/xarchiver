@@ -21,11 +21,11 @@ How to install (as root)
 ========================
 make install
 
-Contact
-=======
-Author of Xarchiver is Giuseppe Torelli <colossus73@gmail.com>,
-author of this continuation of the Xfce master branch and
-maintainer of Xarchiver is Ingo Brückl.
+Author
+======
+First author of Xarchiver (until 2014) was Giuseppe Torelli,
+current author of this continuation of the Xfce master branch
+and maintainer of Xarchiver is Ingo Brückl.
 
 Bug reports
 ===========
