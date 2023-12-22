@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -89,10 +89,6 @@ msgstr "<th>ఫైళ్ళు:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>పరిమాణం:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr ""
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -193,6 +189,12 @@ msgstr "సంగ్రహ నిర్వాహకం"
 msgid "Archive tree"
 msgstr ""
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "సంగ్రహ రకం:"
@@ -214,6 +216,10 @@ msgstr ""
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "ఆపాదనలు"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -280,7 +286,7 @@ msgstr ""
 #: ../src/main.c
 #, fuzzy
 #| msgid "Create a new archive"
-msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
 msgstr "ఒక కొత్త సంగ్రహాన్ని సృష్టించు"
 
 #: ../src/extract_dialog.c ../src/window.c
@@ -343,7 +349,7 @@ msgstr "వ్యాఖ్య"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -410,6 +416,12 @@ msgstr "ఒక కొత్త సంగ్రహాన్ని సృష్ట
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
 msgstr ""
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a new archive"
+msgid "Create, extract and modify archives"
+msgstr "ఒక కొత్త సంగ్రహాన్ని సృష్టించు"
 
 #: ../src/interface.c
 msgid "Cut"
@@ -597,17 +609,6 @@ msgstr ""
 
 #: ../src/window.c
 msgid "From File"
-msgstr ""
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -973,7 +974,7 @@ msgstr "సంగ్రహం వ్యాఖ్యని చూపించు"
 
 #: ../src/main.c
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
 
@@ -1256,7 +1257,7 @@ msgid "You haven't selected any files to add!"
 msgstr ""
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
+msgid "You missed the archive name!"
 msgstr ""
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
@@ -1331,6 +1332,10 @@ msgstr "పాఠ్య ఫైల్ (_T)"
 msgid "and"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr ""
@@ -1387,7 +1392,7 @@ msgstr ""
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 
 #: ../src/window.c

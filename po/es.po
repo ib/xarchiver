@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
-"PO-Revision-Date: 2023-02-22 10:52+0100\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"PO-Revision-Date: 2023-12-22 12:08+0100\n"
 "Last-Translator: micrococo\n"
 "Language-Team: Español\n"
 "Language: es\n"
@@ -98,10 +98,6 @@ msgstr "<th>Archivos:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>Tamaño:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "Un gestor de archivos comprimidos basado solo en GTK+"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -204,6 +200,14 @@ msgstr "Gestor de archivos comprimidos"
 msgid "Archive tree"
 msgstr "Árbol de archivos"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+"Los nodos del árbol de archivos se expanden al seleccionar el nombre del "
+"nodo haciendo clic con el ratón o con un atajo de teclado."
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Tipo de archivo:"
@@ -223,6 +227,11 @@ msgstr "¿Seguro que desea hacer eso?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atributos"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
+"Expandir automáticamente los nodos del árbol de archivos al seleccionarlos"
 
 #: ../src/interface.c
 msgid "Back"
@@ -288,8 +297,8 @@ msgid "Can't open file \"%s\":"
 msgstr "No se puede abrir el archivo \"%s\":"
 
 #: ../src/main.c
-msgid "Can't open the archive!\n"
-msgstr "¡No se puede abrir el archivo!\n"
+msgid "Can't open the archive!"
+msgstr "¡No se puede abrir el archivo!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -349,7 +358,7 @@ msgstr "Orden"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 "La salida de la línea de comandos se captura y se puede revisar, aunque esto "
@@ -416,6 +425,10 @@ msgstr "Crear un nuevo archivo"
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
 msgstr "Crear un archivo sólido"
+
+#: ../xarchiver.desktop.in.h
+msgid "Create, extract and modify archives"
+msgstr "Crear, extraer y modificar archivos comprimidos"
 
 #: ../src/interface.c
 msgid "Cut"
@@ -596,7 +609,7 @@ msgstr "Ficheros"
 
 #: ../src/zpaq.c
 msgid "Files with absolute pathnames cannot be deleted!"
-msgstr ""
+msgstr "¡No se pueden eliminar archivos con rutas absolutas!"
 
 #: ../src/extract_dialog.c
 msgid "Files:"
@@ -618,23 +631,6 @@ msgstr "Actualizar solo los archivos existentes"
 #: ../src/window.c
 msgid "From File"
 msgstr "Desde archivo"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
-"GTK;Android;archivado;archivador;biblioteca;compresión;compresor;interfaz;"
-"libro de cómic;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;"
-"bzip3;cab;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;"
-"lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;"
-"mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;"
-"unarchiver;unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -989,7 +985,7 @@ msgstr "Mostrar la orden"
 
 #: ../src/main.c
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
 "Mostrar los programas de línea de\n"
@@ -1239,7 +1235,7 @@ msgstr ""
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
-msgstr ""
+msgstr "¡No se tratarán los archivos con caracteres comodín!"
 
 #: ../src/pref_dialog.c
 msgid "Window"
@@ -1303,8 +1299,8 @@ msgid "You haven't selected any files to add!"
 msgstr "¡No ha seleccionado ningún fichero para ser añadido!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "¡Ha olvidado el nombre del archivo!\n"
+msgid "You missed the archive name!"
+msgstr "¡Ha olvidado el nombre del archivo!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1378,6 +1374,12 @@ msgstr "Archivo de _texto"
 msgid "and"
 msgstr "y"
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+"archivo;comprimido;archivar;comprimir;descomprimir;extraer;empaquetar;"
+"desempaquetar;"
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr "máxima"
@@ -1436,7 +1438,7 @@ msgstr "muy grande"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "Pruebe xarchiver --help para ver una lista completa de opciones de línea de "
@@ -1445,6 +1447,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaño\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "Un gestor de archivos comprimidos basado solo en GTK+"
 
 #~ msgid "This option consumes more memory with large archives"
 #~ msgstr "Esta opción requiere más memoria con archivos grandes"

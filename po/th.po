@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2019-02-26 03:13+0300\n"
 "Last-Translator: Nudjaree <poonim_p@hotmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -100,12 +100,6 @@ msgstr "<th>แฟ้ม:</th>"
 #| msgid "<th>Files:</th>"
 msgid "<th>Size:</th>"
 msgstr "<th>แฟ้ม:</th>"
-
-#: ../xarchiver.desktop.in.h
-#, fuzzy
-#| msgid "A GTK+2 only archive manager"
-msgid "A GTK+ only archive manager"
-msgstr "การจัดการแฟ้มจัดเก็บแบบ GTK+2 เท่านั้น"
 
 #: ../src/window.c
 #, fuzzy
@@ -221,6 +215,12 @@ msgstr "การจัดการแฟ้มจัดเก็บ"
 msgid "Archive tree"
 msgstr "โครงสร้างแผนผังต้นไม้"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "ประเภทของแฟ้มจัดเก็บ:"
@@ -242,6 +242,10 @@ msgstr "คุณแน่ใจว่าคุณต้องการที่
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "คุณลักษณะ"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -312,7 +316,7 @@ msgstr "ไม่สามารถเปิดแฟ้ม \"%s\":"
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't add files to the archive:"
-msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
 msgstr "ไม่สามารถเพิ่มแฟ้มไปยังแฟ้มจัดเก็บ:"
 
 #: ../src/extract_dialog.c ../src/window.c
@@ -377,7 +381,7 @@ msgstr "ความคิดเห็น"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -445,6 +449,12 @@ msgstr "สร้างแฟ้มจัดเก็บใหม่"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
+msgstr "สร้างแฟ้มจัดเก็บที่มั่นคง"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
 msgstr "สร้างแฟ้มจัดเก็บที่มั่นคง"
 
 #: ../src/interface.c
@@ -654,17 +664,6 @@ msgstr "ทำแฟ้มที่มีอยู่ให้ใหม่"
 #: ../src/window.c
 msgid "From File"
 msgstr "จากแฟ้ม"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1042,7 +1041,7 @@ msgstr "แสดงความคิดเห็นของแฟ้มจั
 
 #: ../src/main.c
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
 
@@ -1380,8 +1379,8 @@ msgid "You haven't selected any files to add!"
 msgstr "คุณยังไม่ได้เลือกแฟ้มใด ๆ เพื่อเพิ่ม!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "คุณไม่ได้ใส่ชื่อของแฟ้มจัดเก็บ! \n"
+msgid "You missed the archive name!"
+msgstr "คุณไม่ได้ใส่ชื่อของแฟ้มจัดเก็บ!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1461,6 +1460,10 @@ msgstr "แฟ้มข้อความ"
 msgid "and"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr ""
@@ -1523,7 +1526,7 @@ msgstr "ใหญ่"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "ลองใช้ xarchiver --help เพื่อดูรายการตัวเลือกของคำสั่งที่มีอยู่ทั้งหมด\n"
@@ -1533,6 +1536,11 @@ msgstr ""
 #| msgid "Size"
 msgid "|Size\n"
 msgstr "ขนาด"
+
+#, fuzzy
+#~| msgid "A GTK+2 only archive manager"
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "การจัดการแฟ้มจัดเก็บแบบ GTK+2 เท่านั้น"
 
 #, fuzzy
 #~| msgid "This option takes more memory with large archives"

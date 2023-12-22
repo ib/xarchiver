@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2021-11-07 09:54+0000\n"
 "Last-Translator: Asier Iturralde Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: Euskara <librezale@librezale.eus>\n"
@@ -98,10 +98,6 @@ msgstr "<th>Fitxategiak:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>Tamaina:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "GTK+-rako bakarrik artxibo-kudeatzailea"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -208,6 +204,12 @@ msgstr "Artxibo-kudeatzailea"
 msgid "Archive tree"
 msgstr "Artxibo-zuhaitza"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Artxibo-mota:"
@@ -227,6 +229,10 @@ msgstr "Ziur zaude hau egin nahi duzula?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atributuak"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -291,8 +297,8 @@ msgid "Can't open file \"%s\":"
 msgstr "Ezin da \"%s\" fitxategia ireki:"
 
 #: ../src/main.c
-msgid "Can't open the archive!\n"
-msgstr "Ezin da artxiboa ireki!\n"
+msgid "Can't open the archive!"
+msgstr "Ezin da artxiboa ireki!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -352,7 +358,7 @@ msgstr "Komandoa"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -418,6 +424,12 @@ msgstr "Sortu artxibo berria"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
+msgstr "Sortu artxibo sendoa"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
 msgstr "Sortu artxibo sendoa"
 
 #: ../src/interface.c
@@ -627,24 +639,6 @@ msgstr "Freskatu lehendik dauden fitxategiak"
 #: ../src/window.c
 msgid "From File"
 msgstr "Fitxategitik"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
-"GTK;android;konprimatzailea;artxibatzea;komiki liburua;konpresioa;front end;"
-"frontend;liburutegia;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;"
-"bzip2;bzip3;cab;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;"
-"jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;"
-"mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;"
-"unar;unarchiver;unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;"
-"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -999,7 +993,7 @@ msgstr "Erakutsi komandoa"
 
 #: ../src/main.c
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
 "Erakutsi erabiltzeko aurkitutako komando-\n"
@@ -1315,8 +1309,8 @@ msgid "You haven't selected any files to add!"
 msgstr "Ez duzu gehitzeko fitxategirik hautatu!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "Artxibo izena falta da!\n"
+msgid "You missed the archive name!"
+msgstr "Artxibo izena falta da!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1390,6 +1384,10 @@ msgstr "_Testu-fitxategia"
 msgid "and"
 msgstr "eta"
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr "onena"
@@ -1448,7 +1446,7 @@ msgstr "oso handia"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "Erabili xarchiver --help komando lerroko aukera guztien zerrenda ikusteko.\n"
@@ -1456,6 +1454,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaina\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "GTK+-rako bakarrik artxibo-kudeatzailea"
 
 #~ msgid "This option consumes more memory with large archives"
 #~ msgstr "Aukera honek memoria gehiago erabiltzen du artxibo handiekin"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2010-11-02 18:09+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -99,10 +99,6 @@ msgstr "<th>Ficheiros:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>Tamaño:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "Un xestor de arquivos só en GTK+"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -211,6 +207,12 @@ msgstr "Xestor de arquivos"
 msgid "Archive tree"
 msgstr "Árbore do arquivo"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Tipo de arquivo:"
@@ -232,6 +234,10 @@ msgstr "Está seguro de que desexa facer isto?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atributos"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -299,7 +305,7 @@ msgstr "Non se puido abrir o ficheiro \"%s\":"
 
 #: ../src/main.c
 #, fuzzy
-msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
 msgstr "Non se puido abrir o ficheiro"
 
 #: ../src/extract_dialog.c ../src/window.c
@@ -362,7 +368,7 @@ msgstr "Comentario"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -428,6 +434,12 @@ msgstr "Crear un novo arquivo"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
+msgstr "Crear un arquivo sólido"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
 msgstr "Crear un arquivo sólido"
 
 #: ../src/interface.c
@@ -639,17 +651,6 @@ msgstr "Actualizar os ficheiros existentes"
 #: ../src/window.c
 msgid "From File"
 msgstr "Do ficheiro"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1026,7 +1027,7 @@ msgstr "Borrar Comentario"
 #, fuzzy
 #| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
 "Engade os ficheiros proporcionados preguntando o nome do arquivo e sae."
@@ -1371,8 +1372,8 @@ msgid "You haven't selected any files to add!"
 msgstr "Non seleccionou ningún ficheiro para engadir!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "Esqueceu o nome do arquivo!\n"
+msgid "You missed the archive name!"
+msgstr "Esqueceu o nome do arquivo!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1446,6 +1447,10 @@ msgstr "Ficheiro de _texto"
 msgid "and"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr ""
@@ -1511,7 +1516,7 @@ msgstr "grande"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "Execute 'xarchiver --help' para ver unha lista completa das opcións de liña "
@@ -1520,6 +1525,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaño\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "Un xestor de arquivos só en GTK+"
 
 #, fuzzy
 #~| msgid "This option takes more memory with large archives"
@@ -1685,7 +1693,7 @@ msgstr "|Tamaño\n"
 #~ msgid "Operation failed."
 #~ msgstr "Non se puido executa-la operación"
 
-#~ msgid "Do you want to view the command line output?"
+#~ msgid "Do you want to view the command-line output?"
 #~ msgstr "Desexa ver a saída da liña de comandos?"
 
 #~ msgid "Operation completed."
@@ -1702,7 +1710,7 @@ msgstr "|Tamaño\n"
 #~ msgstr "Engadindo ficheiros ó arquivo, agarde..."
 
 #, fuzzy
-#~ msgid "Command line output"
+#~ msgid "Command-line output"
 #~ msgstr "Usar a liña de comandos"
 
 #, fuzzy

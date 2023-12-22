@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -89,10 +89,6 @@ msgstr "<th>Файлдар:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>Өлшемі:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "Тек GTK+ талап ететін архивтер басқарушысы"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -199,6 +195,12 @@ msgstr "Архивтерді басқарушысы"
 msgid "Archive tree"
 msgstr "Архив ағашы"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Архив түрі:"
@@ -220,6 +222,10 @@ msgstr "Осыны істеуді шынымен қалайсыз ба?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Атрибуттары"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -290,7 +296,7 @@ msgstr "\"%s\" файлын ашу мүмкін емес:"
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't add files to the archive:"
-msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
 msgstr "Файлдарды архивке қосу мүмкін емес:"
 
 #: ../src/extract_dialog.c ../src/window.c
@@ -355,7 +361,7 @@ msgstr "Түсіндірме"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -421,6 +427,12 @@ msgstr "Жаңа архивті құру"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
+msgstr "Бүтін архивті жасау"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
 msgstr "Бүтін архивті жасау"
 
 #: ../src/interface.c
@@ -622,17 +634,6 @@ msgstr "Бар файлдарды үстінен жазу"
 #: ../src/window.c
 msgid "From File"
 msgstr "Файлдан"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -999,7 +1000,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr "Көрсетілген файлдарды архив атын сұрап, архивке қосу мен шығу."
 
@@ -1292,8 +1293,8 @@ msgid "You haven't selected any files to add!"
 msgstr "Қосу үшін файлдарды көрсеткен жоқсыз!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "Архив атын көрсеткен жоқсыз!\n"
+msgid "You missed the archive name!"
+msgstr "Архив атын көрсеткен жоқсыз!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1367,6 +1368,10 @@ msgstr "_Мәтін файлы"
 msgid "and"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr ""
@@ -1429,7 +1434,7 @@ msgstr "үлкен"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "Командалық жолда қолжетерлік барлық опцияларды қарап шығу үшін xarchiver --"
@@ -1438,6 +1443,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Өлшемі\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "Тек GTK+ талап ететін архивтер басқарушысы"
 
 #~ msgid "Archive Name"
 #~ msgstr "[архив аты]"

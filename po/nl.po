@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
-"PO-Revision-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"PO-Revision-Date: 2023-12-22 12:08+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
@@ -97,10 +97,6 @@ msgstr "<th>Bestanden:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>Grootte:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "Een GTK+-archiefbeheerder"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -205,6 +201,14 @@ msgstr "Archiefbeheerder"
 msgid "Archive tree"
 msgstr "Boomweergave"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+"De boomstructuur wordt al automatisch uitgeklapt door een naam aan te "
+"klikken of een sneltoets te gebruiken."
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Soort archief:"
@@ -224,6 +228,10 @@ msgstr "Weet u zeker dat u dit wilt doen?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Attributen"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr "Boomstructuur automatisch uitklappen na selecteren"
 
 #: ../src/interface.c
 msgid "Back"
@@ -288,8 +296,8 @@ msgid "Can't open file \"%s\":"
 msgstr "‘%s’ kan niet worden geopend:"
 
 #: ../src/main.c
-msgid "Can't open the archive!\n"
-msgstr "Het archief kan niet worden geopend!\n"
+msgid "Can't open the archive!"
+msgstr "Het archief kan niet worden geopend!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -349,7 +357,7 @@ msgstr "Opdracht"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 "De opdrachtregeluitvoer wordt vastgelegd en kan worden nagelopen, maar dit "
@@ -416,6 +424,10 @@ msgstr "Nieuw archief samenstellen"
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
 msgstr "Compact archief maken"
+
+#: ../xarchiver.desktop.in.h
+msgid "Create, extract and modify archives"
+msgstr "Maak, bewerk en extraheer archieven"
 
 #: ../src/interface.c
 msgid "Cut"
@@ -614,23 +626,6 @@ msgstr "Alleen aanwezige bestanden herladen"
 #: ../src/window.c
 msgid "From File"
 msgstr "Uit bestand"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
-"GTK;android;archiveerder;archieven;stripboek;compressie;frontend;bibliotheek;"
-"archief;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -986,7 +981,7 @@ msgstr "Opdracht tonen"
 
 #: ../src/main.c
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
 "Toon aangetroffen opdrachtregelprogramma's\n"
@@ -1299,8 +1294,8 @@ msgid "You haven't selected any files to add!"
 msgstr "U heeft geen toe te voegen bestanden geselecteerd."
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "U bent de archiefnaam vergeten.\n"
+msgid "You missed the archive name!"
+msgstr "U bent de archiefnaam vergeten."
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1374,6 +1369,10 @@ msgstr "_Tekstbestand"
 msgid "and"
 msgstr "en"
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr "archief;archiveren;compressie;inpakken;uitpakken;extraheren;"
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr "meest"
@@ -1434,7 +1433,7 @@ msgstr "Enorm"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "Voer xarchiver --help uit om een lijst met beschikbare opties voor de "
@@ -1443,6 +1442,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Grootte\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "Een GTK+-archiefbeheerder"
 
 #~ msgid "This option consumes more memory with large archives"
 #~ msgstr "Deze optie verbruikt bij grote archieven meer geheugen"
@@ -1616,7 +1618,7 @@ msgstr "|Grootte\n"
 #~ msgid "Can't create directory \"%s\""
 #~ msgstr "Kan map \"%s\" niet maken"
 
-#~ msgid "Do you want to view the command line output?"
+#~ msgid "Do you want to view the command-line output?"
 #~ msgstr "Wilt u de uitvoer van de opdrachtregel zien?"
 
 #~ msgid "Operation completed."
@@ -1642,7 +1644,7 @@ msgstr "|Grootte\n"
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Archief zelf-uitpakkend maken, even wachten a.u.b..."
 
-#~ msgid "Command line output"
+#~ msgid "Command-line output"
 #~ msgstr "Uitvoer van opdrachtregel"
 
 #~ msgid "Waiting for the process to abort..."

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
-"PO-Revision-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"PO-Revision-Date: 2023-12-22 12:08+0100\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "Language: en_GB\n"
@@ -94,10 +94,6 @@ msgstr "<th>Files:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>Size:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "A GTK+ only archive manager"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -200,6 +196,14 @@ msgstr "Archive manager"
 msgid "Archive tree"
 msgstr "Archive tree"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Archive type:"
@@ -219,6 +223,10 @@ msgstr "Are you sure you want to do this?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Attributes"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr "Automatically expand archive tree nodes on selection"
 
 #: ../src/interface.c
 msgid "Back"
@@ -283,8 +291,8 @@ msgid "Can't open file \"%s\":"
 msgstr "Can't open file \"%s\":"
 
 #: ../src/main.c
-msgid "Can't open the archive!\n"
-msgstr "Can't open the archive!\n"
+msgid "Can't open the archive!"
+msgstr "Can't open the archive!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -344,10 +352,10 @@ msgstr "Command"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 
 #: ../src/window.c
@@ -411,6 +419,10 @@ msgstr "Create a new archive"
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
 msgstr "Create a solid archive"
+
+#: ../xarchiver.desktop.in.h
+msgid "Create, extract and modify archives"
+msgstr "Create, extract and modify archives"
 
 #: ../src/interface.c
 msgid "Cut"
@@ -611,23 +623,6 @@ msgstr "Freshen existing files only"
 #: ../src/window.c
 msgid "From File"
 msgstr "From File"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -979,10 +974,10 @@ msgstr "Show command"
 
 #: ../src/main.c
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 
 #: ../src/pref_dialog.c
@@ -1285,8 +1280,8 @@ msgid "You haven't selected any files to add!"
 msgstr "You haven't selected any files to add!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "You missed the archive name!\n"
+msgid "You missed the archive name!"
+msgstr "You missed the archive name!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1360,6 +1355,10 @@ msgstr "_Text file"
 msgid "and"
 msgstr "and"
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr "archive;compress;decompress;extract;pack;uncompress;unpack;"
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr "best"
@@ -1416,14 +1415,17 @@ msgstr "very large"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Size\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "A GTK+ only archive manager"
 
 #~ msgid "This option consumes more memory with large archives"
 #~ msgstr "This option consumes more memory with large archives"
@@ -1584,8 +1586,8 @@ msgstr "|Size\n"
 #~ msgid "Operation failed."
 #~ msgstr "Operation failed."
 
-#~ msgid "Do you want to view the command line output?"
-#~ msgstr "Do you want to view the command line output?"
+#~ msgid "Do you want to view the command-line output?"
+#~ msgstr "Do you want to view the command-line output?"
 
 #~ msgid "Operation completed."
 #~ msgstr "Operation completed."
@@ -1608,8 +1610,8 @@ msgstr "|Size\n"
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Converting archive to self-extracting, please wait..."
 
-#~ msgid "Command line output"
-#~ msgstr "Command line output"
+#~ msgid "Command-line output"
+#~ msgstr "Command-line output"
 
 #~ msgid "Waiting for the process to abort..."
 #~ msgstr "Waiting for the process to abort..."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Gheyret T.Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -91,10 +91,6 @@ msgstr "<th>ھۆججەتلەر:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>چوڭلۇقى:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "GTK+ دىلا ئىشلەتكىلى بولىدىغان ئارخىپ باشقۇرغۇ"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -201,6 +197,12 @@ msgstr "ئارخىپ باشقۇرغۇ"
 msgid "Archive tree"
 msgstr "ئارخىپ دەرىخى"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "ئارخىپ تىپى:"
@@ -222,6 +224,10 @@ msgstr "بۇنى راستتىنلا قىلامسىز؟"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "خاسلىق"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -290,7 +296,7 @@ msgstr "ھۆججەت \"%s\" نى ئاچقىلى بولمىدى:"
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't add files to the archive:"
-msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
 msgstr "ھۆججەتلەرنى ئارخىپقا قوشقىلى بولمىدى:"
 
 #: ../src/extract_dialog.c ../src/window.c
@@ -353,7 +359,7 @@ msgstr "ئىزاھات"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -419,6 +425,12 @@ msgstr "يېڭى ئارخىپ قۇر"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
+msgstr "قاتتىق ئارخىپ تۇرغۇز"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
 msgstr "قاتتىق ئارخىپ تۇرغۇز"
 
 #: ../src/interface.c
@@ -628,17 +640,6 @@ msgstr "مەۋجۇت ھۆججەتنى يېڭىلا"
 #: ../src/window.c
 msgid "From File"
 msgstr "ھۆججەتتىن"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1010,7 +1011,7 @@ msgstr "ئارخىپ ئىزاھاتىنى كۆرسەت"
 #, fuzzy
 #| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr "بېكىتىلگەن ئارخىپقا ھۆججەتنى قوشىدۇ ۋە ئاخىرلاشتۇرىدۇ."
 
@@ -1311,8 +1312,8 @@ msgid "You haven't selected any files to add!"
 msgstr "قوشىدىغان ھېچقانداق ھۆججەت تاللىمىدىڭىز!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "ئارخىپ نامىنى ئۇنتۇدىڭىز!\n"
+msgid "You missed the archive name!"
+msgstr "ئارخىپ نامىنى ئۇنتۇدىڭىز!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1386,6 +1387,10 @@ msgstr "تەكىت ھۆججىتى(_T)"
 msgid "and"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr ""
@@ -1448,7 +1453,7 @@ msgstr "چوڭ"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "xarchiver --help نى كىرگۈزسە بۇيرۇق قۇرىدا ئىشلەتكىلى بولىدىغان بارلىق "
@@ -1457,6 +1462,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|چوڭلۇقى\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "GTK+ دىلا ئىشلەتكىلى بولىدىغان ئارخىپ باشقۇرغۇ"
 
 #, fuzzy
 #~| msgid "This option takes more memory with large archives"

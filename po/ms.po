@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2019-02-26 03:11+0300\n"
 "Last-Translator: abuyop <abuyop@gmail.com>\n"
 "Language-Team: Malay (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -97,12 +97,6 @@ msgstr "<th>Fail:</th>"
 #| msgid "<th>Files:</th>"
 msgid "<th>Size:</th>"
 msgstr "<th>Fail:</th>"
-
-#: ../xarchiver.desktop.in.h
-#, fuzzy
-#| msgid "A GTK+2 only archive manager"
-msgid "A GTK+ only archive manager"
-msgstr "Pengurus arkib GTK+2 sahaja"
 
 #: ../src/window.c
 #, fuzzy
@@ -218,6 +212,12 @@ msgstr "Pengurus arkib"
 msgid "Archive tree"
 msgstr "Pepohon arkib"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Jenis arkib:"
@@ -239,6 +239,10 @@ msgstr "Anda pasti ingin membuatnya?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atribut"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -309,7 +313,7 @@ msgstr "Tidak dapat buka fail \"%s\":"
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't add files to the archive:"
-msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
 msgstr "Tidak dapat tambah fail ke arkib:"
 
 #: ../src/extract_dialog.c ../src/window.c
@@ -374,7 +378,7 @@ msgstr "Ulasan"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -442,6 +446,12 @@ msgstr "Cipta arkib baharu"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
+msgstr "Jana arkib padat"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
 msgstr "Jana arkib padat"
 
 #: ../src/interface.c
@@ -653,17 +663,6 @@ msgstr "Segarkan fail sedia ada"
 #: ../src/window.c
 msgid "From File"
 msgstr "Dari Fail"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1043,7 +1042,7 @@ msgstr "Tunjuk ulasan arkib"
 
 #: ../src/main.c
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
 
@@ -1394,8 +1393,8 @@ msgid "You haven't selected any files to add!"
 msgstr "Anda tidak memilih sebarang fail untuk ditambah!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "Anda tertinggal nama arkib!\n"
+msgid "You missed the archive name!"
+msgstr "Anda tertinggal nama arkib!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1475,6 +1474,10 @@ msgstr "Fail teks"
 msgid "and"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr ""
@@ -1539,7 +1542,7 @@ msgstr "besar"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "Cuba xarchiver --help untuk melihat senarai penuh baris perintah yang "
@@ -1550,6 +1553,11 @@ msgstr ""
 #| msgid "Size"
 msgid "|Size\n"
 msgstr "Saiz"
+
+#, fuzzy
+#~| msgid "A GTK+2 only archive manager"
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "Pengurus arkib GTK+2 sahaja"
 
 #, fuzzy
 #~| msgid "This option takes more memory with large archives"

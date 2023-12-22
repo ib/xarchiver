@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2009-10-16 19:47+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -99,10 +99,6 @@ msgstr "<th>Soubory:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>Velikost:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "Správce archivů pouze pro GTK+"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -210,6 +206,12 @@ msgstr "Správce archivů"
 msgid "Archive tree"
 msgstr "Strom archivu:"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Typ archivu:"
@@ -231,6 +233,10 @@ msgstr "Opravdu chcete provést tuto akci?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atributy"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -299,7 +305,7 @@ msgstr "Nelze otevřít soubor \"%s\":"
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't open archive \"%s\":"
-msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
 msgstr "Nelze otevřít archiv \"%s\":"
 
 #: ../src/extract_dialog.c ../src/window.c
@@ -362,7 +368,7 @@ msgstr "Komentář"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -428,6 +434,12 @@ msgstr "Vytvořit nový archiv"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
+msgstr "Vytvořit archiv typu solid"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
 msgstr "Vytvořit archiv typu solid"
 
 #: ../src/interface.c
@@ -638,17 +650,6 @@ msgstr "Aktualizovat existující soubory"
 #: ../src/window.c
 msgid "From File"
 msgstr "Ze souboru"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1024,7 +1025,7 @@ msgstr "_Zobrazovat komentář"
 #, fuzzy
 #| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr "Zeptá se název archivu, přidá do něj soubory a ukončí se."
 
@@ -1368,8 +1369,8 @@ msgid "You haven't selected any files to add!"
 msgstr "Nevybrali jste žádné soubory pro přidání!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "Zapomněli jste zadat název archivu!\n"
+msgid "You missed the archive name!"
+msgstr "Zapomněli jste zadat název archivu!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1443,6 +1444,10 @@ msgstr "_Textový soubor"
 msgid "and"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr ""
@@ -1505,7 +1510,7 @@ msgstr "velký"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "Úplný seznam dostupných voleb příkazové řádky získáte příkazem xarchiver --"
@@ -1514,6 +1519,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Velikost\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "Správce archivů pouze pro GTK+"
 
 #, fuzzy
 #~| msgid "This option takes more memory with large archives"
@@ -1696,7 +1704,7 @@ msgstr "|Velikost\n"
 #~ msgid "Operation failed."
 #~ msgstr "Operace se nezdařila."
 
-#~ msgid "Do you want to view the command line output?"
+#~ msgid "Do you want to view the command-line output?"
 #~ msgstr "Chcete si prohlédnout výstup příkazové řádky?"
 
 #~ msgid "Operation completed."
@@ -1723,7 +1731,7 @@ msgstr "|Velikost\n"
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Konvertuji archiv na samorozbalitelný, prosím čekejte..."
 
-#~ msgid "Command line output"
+#~ msgid "Command-line output"
 #~ msgstr "Výstup příkazové řádky"
 
 #~ msgid "Waiting for the process to abort..."

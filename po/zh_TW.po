@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -99,10 +99,6 @@ msgstr "<th>檔案：</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>大小：</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "GTK+ 介面的封存檔管理程式"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -210,6 +206,12 @@ msgstr "封存管理程式"
 msgid "Archive tree"
 msgstr "封存檔樹狀圖"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "封存檔類型："
@@ -231,6 +233,10 @@ msgstr "您確定要這麼做？"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "屬性"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -299,7 +305,7 @@ msgstr "無法開啟檔案 %s："
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't open archive \"%s\":"
-msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
 msgstr "無法開啟封存檔「%s」:"
 
 #: ../src/extract_dialog.c ../src/window.c
@@ -362,7 +368,7 @@ msgstr "註解"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -428,6 +434,12 @@ msgstr "建立新的封存檔"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
+msgstr "建立實體封存檔"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
 msgstr "建立實體封存檔"
 
 #: ../src/interface.c
@@ -637,17 +649,6 @@ msgstr "只更新已存在的檔案"
 #: ../src/window.c
 msgid "From File"
 msgstr "從檔案"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1021,7 +1022,7 @@ msgstr "顯示註釋(_S)"
 #, fuzzy
 #| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr "詢問封存檔檔名、加入檔案，然後離開。"
 
@@ -1344,8 +1345,8 @@ msgid "You haven't selected any files to add!"
 msgstr "尚未選取要加入的檔案！"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "封存檔檔名錯誤！\n"
+msgid "You missed the archive name!"
+msgstr "封存檔檔名錯誤！"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1419,6 +1420,10 @@ msgstr "文字檔(_T)"
 msgid "and"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr ""
@@ -1483,7 +1488,7 @@ msgstr "大"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "以指令 xarchiver --help 列出所有命令列選項與參數。\n"
@@ -1491,6 +1496,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|大小\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "GTK+ 介面的封存檔管理程式"
 
 #, fuzzy
 #~| msgid "This option takes more memory with large archives"
@@ -1707,7 +1715,7 @@ msgstr "|大小\n"
 #~ msgstr "無法建立目錄「%s」"
 
 #, fuzzy
-#~ msgid "Do you want to view the command line output?"
+#~ msgid "Do you want to view the command-line output?"
 #~ msgstr "檢視命令列輸出？"
 
 #~ msgid "Operation completed."
@@ -1733,7 +1741,7 @@ msgstr "|大小\n"
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "轉換封存檔為自解封存檔, 請稍候..."
 
-#~ msgid "Command line output"
+#~ msgid "Command-line output"
 #~ msgstr "命令列輸出"
 
 #~ msgid "Waiting for the process to abort..."

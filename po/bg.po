@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
-"PO-Revision-Date: 2023-02-24 08:40+0100\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"PO-Revision-Date: 2023-12-22 12:08+0100\n"
 "Last-Translator: cybercop-montana <cybercop_montana@abv.bg>\n"
 "Language-Team: български\n"
 "Language: bg\n"
@@ -95,10 +95,6 @@ msgstr "<th>Файлове:</th>"
 msgid "<th>Size:</th>"
 msgstr "<th>Размер:</th>"
 
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "GTK+ архивен управител"
-
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
 msgstr "Лек GTK+ архивен управител"
@@ -160,10 +156,8 @@ msgid "All files"
 msgstr "Всички файлове"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Allow subdirs with drag and drop"
 msgid "Allow subdirs with clipboard and drag-and-drop"
-msgstr "Разреши поддиректориите с копиране, влачене и пускане"
+msgstr "Разрешаване на поддиректории с клипборда и влачене и пускане"
 
 #: ../src/window.c
 msgid "An error occurred while accessing the archive:"
@@ -202,6 +196,14 @@ msgstr "Архивен управител"
 msgid "Archive tree"
 msgstr "Дърво на архива"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+"Възлите на дървото на архива, вече се разширяват, когато името на възела е "
+"избрано чрез щракване с мишката или клавишна комбинация."
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Тип на архива:"
@@ -221,6 +223,10 @@ msgstr "Сигурни ли сте, че желаете да продължит�
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Атрибути"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr "Автоматично разширяване на възлите на дървото на архива при избор"
 
 #: ../src/interface.c
 msgid "Back"
@@ -285,8 +291,8 @@ msgid "Can't open file \"%s\":"
 msgstr "Не може да бъде отворен файл \"%s\":"
 
 #: ../src/main.c
-msgid "Can't open the archive!\n"
-msgstr "Не може да бъде отворен архива!\n"
+msgid "Can't open the archive!"
+msgstr "Не може да бъде отворен архива!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -329,9 +335,8 @@ msgid "Choose the archive type to create"
 msgstr "Изберете тип на архива"
 
 #: ../src/pref_dialog.c
-#, fuzzy
 msgid "Choose the directory to use"
-msgstr "Изберете директория за използване"
+msgstr "Изберете директорията, която да използвате"
 
 #: ../src/interface.c
 msgid "Close archive"
@@ -347,7 +352,7 @@ msgstr "Команда"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 "Изходът от командния ред е прихванат и може да бъде прегледан, но, това "
@@ -415,6 +420,10 @@ msgstr "Създай нов архив"
 msgid "Create a solid archive"
 msgstr "Създай тежък архив"
 
+#: ../xarchiver.desktop.in.h
+msgid "Create, extract and modify archives"
+msgstr "Създаване, извличане и промяна на архиви"
+
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Изрежи"
@@ -442,10 +451,8 @@ msgid "Delete files after adding"
 msgstr "Изтрий файловете след добавянето"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Extracting files from archive, please wait..."
 msgid "Deleting files from archive, please wait..."
-msgstr "Извличане на файлове от архива, моля изчакайте..."
+msgstr "Изтриване на файлове от архива, моля изчакайте..."
 
 #: ../src/interface.c
 msgid "Dese_lect all"
@@ -593,7 +600,7 @@ msgstr "Файлове"
 
 #: ../src/zpaq.c
 msgid "Files with absolute pathnames cannot be deleted!"
-msgstr "Файловете с абсолютни имена на пътищата не могат да бъдат изтривани!"
+msgstr "Файлове с абсолютни имена на пътища не могат да бъдат изтривани!"
 
 #: ../src/extract_dialog.c
 msgid "Files:"
@@ -615,24 +622,6 @@ msgstr "Опресни само съществуващите файлове"
 #: ../src/window.c
 msgid "From File"
 msgstr "От файл"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
-"GTK;android;архиватор;архивиране;комикс файл;компресия;front end;графичен "
-"интерфейс;библиотека;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;"
-"bzip2;bzip3;cab;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;"
-"jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;"
-"mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;"
-"unar;unarchiver;unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;"
-"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -985,7 +974,7 @@ msgstr "Покажи команда"
 
 #: ../src/main.c
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
 "Покажи намерени програми от командния ред, които да се\n"
@@ -1228,7 +1217,7 @@ msgstr ""
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
-msgstr "Няма да обработва файлове със заместващи знаци!"
+msgstr "Няма да се обработват файлове със заместващи знаци!"
 
 #: ../src/pref_dialog.c
 msgid "Window"
@@ -1292,8 +1281,8 @@ msgid "You haven't selected any files to add!"
 msgstr "Не сте избрали файлове за добавяне!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "Пропуснали сте името на архива!\n"
+msgid "You missed the archive name!"
+msgstr "Пропуснали сте името на архива!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1367,6 +1356,12 @@ msgstr "Текстов файл"
 msgid "and"
 msgstr "и"
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+"архив;компресиране;декомпресиране;извличане;опаковане;декомпресиране;"
+"разопаковане;"
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr "най-добро"
@@ -1423,7 +1418,7 @@ msgstr "много голям"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "Опитайте xarchiver --help за да видите пълен списък с възможните команди.\n"
@@ -1431,6 +1426,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Размер\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "GTK+ архивен управител"
 
 #~ msgid "This option consumes more memory with large archives"
 #~ msgstr "Тази опция консумира повече памет при работа с големи архиви"

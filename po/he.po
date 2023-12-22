@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -98,10 +98,6 @@ msgstr "<th>קבצים:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>גודל:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "מנהל ארכיונים ב־GTK+ בלבד"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -209,6 +205,12 @@ msgstr "מנהל ארכיונים"
 msgid "Archive tree"
 msgstr "עץ הארכיון"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "סוג הארכיון:"
@@ -230,6 +232,10 @@ msgstr "האם ברצונך למחוק קבצים אלה מהארכיון?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "מאפיינים"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Back"
@@ -298,7 +304,7 @@ msgstr "אין אפשרות לפתוח את הקובץ \"%s\":"
 #: ../src/main.c
 #, fuzzy
 #| msgid "Can't open archive \"%s\":"
-msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
 msgstr "אין אפשרות לפתוח את ארכיון \"%s\""
 
 #: ../src/extract_dialog.c ../src/window.c
@@ -361,7 +367,7 @@ msgstr "הערה"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 
@@ -427,6 +433,12 @@ msgstr "יצירת ארכיון חדש"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
+msgstr "יצירת ארכיון אחיד"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
 msgstr "יצירת ארכיון אחיד"
 
 #: ../src/interface.c
@@ -637,17 +649,6 @@ msgstr "רענון קבצים קיימים"
 #: ../src/window.c
 msgid "From File"
 msgstr "מהקובץ"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -1021,7 +1022,7 @@ msgstr "_הצג הערות"
 #, fuzzy
 #| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr "Add the given files by asking the name of the archive and quits."
 
@@ -1352,8 +1353,8 @@ msgid "You haven't selected any files to add!"
 msgstr "לא בחרת אף קובץ להוספה!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "You missed the archive name!\n"
+msgid "You missed the archive name!"
+msgstr ""
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1427,6 +1428,10 @@ msgstr "קובץ _טקסט"
 msgid "and"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr ""
@@ -1491,14 +1496,17 @@ msgstr "גדול"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|גודל\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "מנהל ארכיונים ב־GTK+ בלבד"
 
 #, fuzzy
 #~| msgid "This option takes more memory with large archives"
@@ -1657,7 +1665,7 @@ msgstr "|גודל\n"
 #~ msgid "Can't create directory \"%s\""
 #~ msgstr "אין אפשרות ליצור ספרייה \"%s\""
 
-#~ msgid "Do you want to view the command line output?"
+#~ msgid "Do you want to view the command-line output?"
 #~ msgstr "האם ברצונך לראות את פלט שורת הפקודה?"
 
 #~ msgid "Operation completed."
@@ -1681,7 +1689,7 @@ msgstr "|גודל\n"
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "ממיר את הארכיון לסוג חילוץ-עצמי, אנא המתן..."
 
-#~ msgid "Command line output"
+#~ msgid "Command-line output"
 #~ msgstr "פלט שורת פקודה"
 
 #~ msgid "Waiting for the process to abort..."

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-05-02 17:57+0200\n"
-"PO-Revision-Date: 2023-05-02 17:57+0200\n"
+"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"PO-Revision-Date: 2023-12-22 12:08+0100\n"
 "Last-Translator: welaq\n"
 "Language-Team: Lietuvių\n"
 "Language: lt\n"
@@ -101,10 +101,6 @@ msgstr "<th>Failai:</th>"
 #, c-format
 msgid "<th>Size:</th>"
 msgstr "<th>Dydis:</th>"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "Tik GTK+ archyvų tvarkytuvė"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
@@ -207,6 +203,14 @@ msgstr "Archyvų tvarkytuvė"
 msgid "Archive tree"
 msgstr "Archyvo medis"
 
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+"Archyvo medžio mazgai jau išsiplečia, kai mazgo pavadinimas yra pažymimas "
+"spustelėjant pėle ar naudojant spartųjį klavišą"
+
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Archyvo tipas:"
@@ -226,6 +230,10 @@ msgstr "Ar tikrai norite tai atlikti?"
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Požymiai"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr "Pažymint, automatiškai išplėsti archyvo medžio mazgus"
 
 #: ../src/interface.c
 msgid "Back"
@@ -290,8 +298,8 @@ msgid "Can't open file \"%s\":"
 msgstr "Nepavyksta atverti failo „%s“:"
 
 #: ../src/main.c
-msgid "Can't open the archive!\n"
-msgstr "Nepavyksta atverti archyvo!\n"
+msgid "Can't open the archive!"
+msgstr "Nepavyksta atverti archyvo!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -351,7 +359,7 @@ msgstr "Komanda"
 
 #: ../src/pref_dialog.c
 msgid ""
-"Command line output is captured and can be reviewed, but this consumes "
+"Command-line output is captured and can be reviewed, but this consumes "
 "additional memory"
 msgstr ""
 "Komandų eilutės išvestis yra registruojama ir gali būti peržiūrėta, bet tai "
@@ -418,6 +426,10 @@ msgstr "Sukurti naują archyvą"
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
 msgstr "Sukurti vientisą archyvą"
+
+#: ../xarchiver.desktop.in.h
+msgid "Create, extract and modify archives"
+msgstr "Kurti, išskleisti ir modifikuoti archyvus"
 
 #: ../src/interface.c
 msgid "Cut"
@@ -617,24 +629,6 @@ msgstr "Atnaujinti tik esamus failus"
 #: ../src/window.c
 msgid "From File"
 msgstr "Iš failo"
-
-# Only the keywords after GTK and before 7-zip need to be translated.
-#: ../xarchiver.desktop.in.h
-msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
-"library;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;bz2;bz3;bzip;bzip2;bzip3;cab;"
-"cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;iso;jar;jsonlz4;lbzip2;"
-"lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;lzo;lzop;mksquashfs;mozlz4;"
-"oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;squashfs;tar;unar;unarchiver;"
-"unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;zst;Zstandard;zstd;"
-msgstr ""
-"GTK;Android;archyvavimo programa;archyvavimas;biblioteka;glaudinimas;išorinė "
-"pusė;komiksų knyga;naudotojo sąsaja;7-zip;7z;7za;7zip;7zr;7zz;apk;ar;arj;bz;"
-"bz2;bz3;bzip;bzip2;bzip3;cab;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;"
-"gzip;iso;jar;jsonlz4;lbzip2;lha;lrz;lrzip;lsar;lunzip;lz;lz4;lzh;lzip;lzma;"
-"lzo;lzop;mksquashfs;mozlz4;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;snap;"
-"squashfs;tar;unar;unarchiver;unarj;unrar;unsquashfs;unzip;xpi;xz;zip;zpaq;"
-"zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -991,7 +985,7 @@ msgstr "Rodyti komandą"
 
 #: ../src/main.c
 msgid ""
-"Show found command line programs to be\n"
+"Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
 "Rodyti rastas komandų eilutės prog-\n"
@@ -1298,8 +1292,8 @@ msgid "You haven't selected any files to add!"
 msgstr "Jūs nepasirinkote jokių pridedamų failų!"
 
 #: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "Jūs nenurodėte archyvo pavadinimo!\n"
+msgid "You missed the archive name!"
+msgstr "Jūs nenurodėte archyvo pavadinimo!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
@@ -1373,6 +1367,12 @@ msgstr "_Tekstinis failas"
 msgid "and"
 msgstr "ir"
 
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+"archyvas;archyvuoti;glaudinti;suspausti;suskleisti;išglaudinti;išskleisti;"
+"paketas;supakuoti;pakuoti;išpakuoti;"
+
 #: ../src/add_dialog.c
 msgid "best"
 msgstr "geriausias"
@@ -1429,7 +1429,7 @@ msgstr "labai didelis"
 #, c-format
 msgid ""
 "xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
 "Norėdami pamatyti visą prieinamų komandų eilutės parametrų sąrašą, "
@@ -1438,6 +1438,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Dydis\n"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "Tik GTK+ archyvų tvarkytuvė"
 
 #~ msgid "This option consumes more memory with large archives"
 #~ msgstr ""
