@@ -90,7 +90,7 @@ static GOptionEntry entries[] =
 		NULL
 	},
 	{	"info", 'i', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_info,
-		N_("Show found command line programs to be\n                                     used and exit"),
+		N_("Show found command-line programs to be\n                                     used and exit"),
 		NULL
 	},
 	{	"version", 'v', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version,
@@ -1289,7 +1289,7 @@ int main (int argc, char **argv)
 
 	if ( cli_error != NULL )
 	{
-		g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cli_error->message);
+		g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command-line options.\n"),cli_error->message);
 		g_error_free (cli_error);
 		return 0;
 	}

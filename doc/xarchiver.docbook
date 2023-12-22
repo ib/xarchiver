@@ -67,7 +67,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							The most used archiver's command line options are supported in the Add and Extract dialogs
+							The most used archiver's command-line options are supported in the Add and Extract dialogs
 						</para>
 					</listitem>
 					<listitem>
@@ -122,7 +122,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							All the the output of the command line archiver is displayed in the &app; window
+							All the the output of the command-line archiver is displayed in the &app; window
 						</para>
 					</listitem>
 					<listitem>
@@ -224,10 +224,10 @@
 			</para>
 		</section>
 		<section id="usage_options">
-			<title>Command line options</title>
+			<title>Command-line options</title>
 			<para>
 				<table id="table_options" frame="all">
-					<title>Command line options</title>
+					<title>Command-line options</title>
 					<tgroup cols="3">
 						<?dbhtml cellpadding="4" ?>
 						<?dbhtml cellspacing="0" ?>
@@ -280,7 +280,7 @@
 							<row>
 								<entry>-i</entry>
 								<entry>--info</entry>
-								<entry>Show found command line programs to be used and exit.
+								<entry>Show found command-line programs to be used and exit.
 								</entry>
 							</row>
 							<row>
@@ -305,13 +305,13 @@
 			<section id="general_startup">
 				<title>Startup</title>
 				<para>
-					At startup, &app; detects the available installed archivers (tar,rar,zip etc) and the script <emphasis>xdg-open</emphasis> for handling different file types. Since &app; is a front end (a graphic user interface to the command line executables) it can't create archives whose archiver is not available. For instance if you have the free edition of rar, unrar, &app; can't create rar archives since unrar allows rar archives to be opened, tested and extracted but not to be created.
+					At startup, &app; detects the available installed archivers (tar,rar,zip etc) and the script <emphasis>xdg-open</emphasis> for handling different file types. Since &app; is a front end (a graphic user interface to the command-line executables) it can't create archives whose archiver is not available. For instance if you have the free edition of rar, unrar, &app; can't create rar archives since unrar allows rar archives to be opened, tested and extracted but not to be created.
 				</para>
 			</section>
 			<section id="how_it_works">
 				<title>How it works</title>
 				<para>
-					&app; will run in the background the command line executable of the archiver with the archiver's proper switches to perform the selected operation. If something goes wrong &app; reports the full output of the archiver executable in the command line output window. Starting with release 0.5 the files in the archive can be opened within &app;. The script <emphasis>xdg-open</emphasis> will detect the file type and run the proper application to handle it. If you don't have such script installed in your system (it's found in the xdg-utils package) &app; will recognize HTML, txt and images files only. The Preferences dialog will notify this to you when you click the Advanced section inside it.
+					&app; will run in the background the command-line executable of the archiver with the archiver's proper switches to perform the selected operation. If something goes wrong &app; reports the full output of the archiver executable in the command-line output window. Starting with release 0.5 the files in the archive can be opened within &app;. The script <emphasis>xdg-open</emphasis> will detect the file type and run the proper application to handle it. If you don't have such script installed in your system (it's found in the xdg-utils package) &app; will recognize HTML, txt and images files only. The Preferences dialog will notify this to you when you click the Advanced section inside it.
 				</para>
 			</section>
 			<section id="dnd">
@@ -395,7 +395,7 @@
 				<section id="add">
 					<title>Add</title>
 						<para>
-							Shows the add dialog featuring the most used archiver command line options. The password entry is disabled when the archive doesn't support encryption.
+							Shows the add dialog featuring the most used archiver command-line options. The password entry is disabled when the archive doesn't support encryption.
 						</para>
 						<para>
 							<figure id="add_dialog">
@@ -407,7 +407,7 @@
 				<section id="extract">
 					<title>Extract</title>
 						<para>
-							Shows the extract dialog featuring the most used archiver command line options. The password entry is disabled when the current archive is not encrypted; instead if the archive is encrypted and you don't fill this field, &app; will request you the password to extract the archive.
+							Shows the extract dialog featuring the most used archiver command-line options. The password entry is disabled when the current archive is not encrypted; instead if the archive is encrypted and you don't fill this field, &app; will request you the password to extract the archive.
 						</para>
 						<para>
 							<figure id="extract_dialog">
@@ -477,7 +477,7 @@
 						</para>
 				</section>
 				<section id="cmd_line_output">
-					<title>Command line output</title>
+					<title>Command-line output</title>
 						<para>
 							Opens a window containing the last archiver output.
 						</para>
