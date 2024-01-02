@@ -1023,7 +1023,7 @@ uninstall-man: uninstall-man1
 .PRECIOUS: Makefile
 
 @INTLTOOL_DESKTOP_RULE@
-	$(SED_V) $(SED) -i "/^Keywords[^_]/ s:$$:`sed -n "s:^Keywords_=\(.*\)$$:\1:p" $<`:; /^Keywords_/d" $@
+	$(SED_V) $(SED) -i.tmp "/^Keywords[^_]/ s:$$:`sed -n "s:^Keywords_=\(.*\)$$:\1:p" $<`:; /^Keywords_/d" $@ && rm $@.tmp
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
