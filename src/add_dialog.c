@@ -81,11 +81,8 @@ static void fix_adjustment_value (GtkAdjustment *adjustment, XArchive *archive)
 Add_dialog_data *xa_create_add_dialog()
 {
 	GTK_COMPAT_TOOLTIPS;
-	GtkWidget *dialog_vbox1,*label1,*label2,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
-	GtkWidget *alignment1, *alignment2, *alignment3, *vbox3, *frame1, *frame2, *frame3, *frame4, *alignment4;
-	GtkWidget *vbox1, *vbox2, *table;
-	GtkWidget *option_notebook_vbox, *add_image, *add_hbox, *add_label, *cancel_button, *add_button;
 	Add_dialog_data *add_dialog;
+	GtkWidget *vbox, *vbox2, *label, *frame, *hbox, *alignment, *table, *button, *image;
 	GSList *group;
 
 	add_dialog = g_new0 (Add_dialog_data, 1);
@@ -97,75 +94,73 @@ Add_dialog_data *xa_create_add_dialog()
 
 	xa_set_xarchiver_icon(GTK_WINDOW(add_dialog->dialog));
 
-	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(add_dialog->dialog));
-
 	add_dialog->notebook = gtk_notebook_new();
 	gtk_widget_set_can_focus(add_dialog->notebook, FALSE);
-	gtk_container_add(GTK_CONTAINER(dialog_vbox1), add_dialog->notebook);
+	gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(add_dialog->dialog))), add_dialog->notebook);
 	gtk_container_set_border_width(GTK_CONTAINER(add_dialog->notebook), 4);
 
 	/* Selection page */
-	vbox1 = gtk_vbox_new (FALSE,2);
-	gtk_container_add(GTK_CONTAINER(add_dialog->notebook), vbox1);
+	vbox = gtk_vbox_new(FALSE, 2);
+	gtk_container_add(GTK_CONTAINER(add_dialog->notebook), vbox);
 
-	label1 = gtk_label_new (_("Selection"));
-	gtk_notebook_set_tab_label(GTK_NOTEBOOK(add_dialog->notebook), gtk_notebook_get_nth_page(GTK_NOTEBOOK(add_dialog->notebook), 0), label1);
+	label = gtk_label_new(_("Selection"));
+	gtk_notebook_set_tab_label(GTK_NOTEBOOK(add_dialog->notebook), gtk_notebook_get_nth_page(GTK_NOTEBOOK(add_dialog->notebook), 0), label);
 
 	add_dialog->filechooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_OPEN);
-	gtk_box_pack_start(GTK_BOX(vbox1), add_dialog->filechooser, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->filechooser, TRUE, TRUE, 2);
 
-	frame1 = gtk_frame_new(NULL);
-	gtk_box_pack_start(GTK_BOX(vbox1), frame1, FALSE, FALSE, 4);
-	gtk_container_set_border_width(GTK_CONTAINER(frame1), 4);
+	frame = gtk_frame_new(NULL);
+	gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, FALSE, 4);
+	gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
 
-	alignment1 = gtk_alignment_new (0.5, 0.5, 1, 1);
-	gtk_container_add(GTK_CONTAINER(frame1), alignment1);
-	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment1), 0, 6, 48, 48);
+	alignment = gtk_alignment_new(0.5, 0.5, 1, 1);
+	gtk_container_add(GTK_CONTAINER(frame), alignment);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 6, 48, 48);
 
 	add_dialog->label_paths = gtk_label_new(_("File Paths"));
-	gtk_frame_set_label_widget(GTK_FRAME(frame1), add_dialog->label_paths);
+	gtk_frame_set_label_widget(GTK_FRAME(frame), add_dialog->label_paths);
 
-	hbox1 = gtk_hbox_new (TRUE, 0);
-	gtk_container_add (GTK_CONTAINER (alignment1), hbox1);
+	hbox = gtk_hbox_new(TRUE, 0);
+	gtk_container_add(GTK_CONTAINER(alignment), hbox);
 
 	add_dialog->store_path = gtk_radio_button_new_with_mnemonic(NULL, _("With full path"));
-	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->store_path, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->store_path, FALSE, FALSE, 0);
 	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(add_dialog->store_path));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->store_path), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->store_path), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic(group, _("Without parent path"));
-	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->no_store_path, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->no_store_path, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->no_store_path), FALSE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path),TRUE);
 	g_signal_connect(G_OBJECT(add_dialog->no_store_path), "focus", G_CALLBACK(no_focus), NULL);
 
 	/* Options page */
-	option_notebook_vbox = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(add_dialog->notebook), option_notebook_vbox);
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(add_dialog->notebook), vbox);
 
-	label2 = gtk_label_new (_("Options"));
-	gtk_notebook_set_tab_label(GTK_NOTEBOOK(add_dialog->notebook), gtk_notebook_get_nth_page(GTK_NOTEBOOK(add_dialog->notebook), 1), label2);
+	label = gtk_label_new(_("Options"));
+	gtk_notebook_set_tab_label(GTK_NOTEBOOK(add_dialog->notebook), gtk_notebook_get_nth_page(GTK_NOTEBOOK(add_dialog->notebook), 1), label);
 
-	hbox2 = gtk_hbox_new(TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(option_notebook_vbox), hbox2, TRUE, TRUE, 0);
-	gtk_container_set_border_width(GTK_CONTAINER(hbox2), 6);
+	hbox = gtk_hbox_new(TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+	gtk_container_set_border_width(GTK_CONTAINER(hbox), 6);
 
-	frame4 = gtk_frame_new (NULL);
-	gtk_box_pack_start (GTK_BOX (hbox2), frame4, TRUE, TRUE, 0);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame4), GTK_SHADOW_OUT);
+	frame = gtk_frame_new(NULL);
+	gtk_box_pack_start(GTK_BOX(hbox), frame, TRUE, TRUE, 0);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_OUT);
 
-	alignment4 = gtk_alignment_new (0.5, 0.5, 1, 1);
-	gtk_container_add (GTK_CONTAINER (frame4),alignment4);
-	gtk_alignment_set_padding (GTK_ALIGNMENT(alignment4), 0, 0, 12, 0);
+	alignment = gtk_alignment_new(0.5, 0.5, 1, 1);
+	gtk_container_add(GTK_CONTAINER(frame), alignment);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 12, 0);
 
-	vbox3 = gtk_vbox_new (TRUE, 0);
-	gtk_container_add (GTK_CONTAINER (alignment4),vbox3);
+	vbox2 = gtk_vbox_new(TRUE, 0);
+	gtk_container_add(GTK_CONTAINER(alignment), vbox2);
 
 	add_dialog->update = gtk_check_button_new_with_mnemonic(_("Update existing files and add new ones"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->update, _("This option will add any new files and update any files which are already in the archive but older there"));
-	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox2), add_dialog->update, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(add_dialog->update), "toggled", G_CALLBACK(toggle_update_freshen), add_dialog);
 	g_signal_connect(G_OBJECT(add_dialog->update), "focus", G_CALLBACK(no_focus), NULL);
 
@@ -173,42 +168,42 @@ Add_dialog_data *xa_create_add_dialog()
 
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->freshen), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->freshen, _("This option will only add files which are already in the archive but older there; unlike the update option it will not add any new files"));
-	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->freshen, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox2), add_dialog->freshen, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(add_dialog->freshen), "toggled", G_CALLBACK(toggle_update_freshen), add_dialog);
 
 	add_dialog->recurse = gtk_check_button_new_with_mnemonic (_("Include subdirectories"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->recurse), FALSE);
-	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->recurse, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox2), add_dialog->recurse, FALSE, FALSE, 0);
 
 	add_dialog->remove = gtk_check_button_new_with_mnemonic(_("Delete files after adding"));
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->remove), FALSE);
-	gtk_box_pack_start(GTK_BOX(vbox3), add_dialog->remove, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox2), add_dialog->remove, FALSE, FALSE, 0);
 
 	add_dialog->solid = gtk_check_button_new_with_mnemonic(_("Create a solid archive"));
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->solid), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->solid, _("In a solid archive the files are grouped together resulting in a better compression ratio"));
-	gtk_box_pack_start(GTK_BOX(vbox3), add_dialog->solid, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox2), add_dialog->solid, FALSE, FALSE, 0);
 
-	label7 = gtk_label_new(_("Actions"));
-	gtk_frame_set_label_widget (GTK_FRAME (frame4), label7);
+	label = gtk_label_new(_("Actions"));
+	gtk_frame_set_label_widget(GTK_FRAME(frame), label);
 
-	hbox3 = gtk_hbox_new(TRUE, 8);
-	gtk_box_pack_start(GTK_BOX(option_notebook_vbox), hbox3, TRUE, TRUE, 0);
-	gtk_container_set_border_width(GTK_CONTAINER(hbox3), 6);
+	hbox = gtk_hbox_new(TRUE, 8);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+	gtk_container_set_border_width(GTK_CONTAINER(hbox), 6);
 
-	frame2 = gtk_frame_new (NULL);
-	gtk_box_pack_start (GTK_BOX (hbox3), frame2, TRUE, TRUE, 0);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_OUT);
+	frame = gtk_frame_new(NULL);
+	gtk_box_pack_start(GTK_BOX(hbox), frame, TRUE, TRUE, 0);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_OUT);
 
-	vbox2 = gtk_vbox_new(TRUE, 0);
-	gtk_container_add(GTK_CONTAINER(frame2), vbox2);
+	vbox = gtk_vbox_new(TRUE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
 	add_dialog->alignment = gtk_alignment_new(0.5, 1, 1, 0);
-	gtk_container_add(GTK_CONTAINER(vbox2), add_dialog->alignment);
+	gtk_container_add(GTK_CONTAINER(vbox), add_dialog->alignment);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(add_dialog->alignment), 0, 0, 12, 12);
 
 	table = gtk_table_new(2, 2, FALSE);
-	gtk_container_add(GTK_CONTAINER(vbox2), table);
+	gtk_container_add(GTK_CONTAINER(vbox), table);
 	add_dialog->label_least = gtk_label_new(_("least"));
 	gtk_misc_set_alignment(GTK_MISC(add_dialog->label_least), 0, 0);
 	gtk_misc_set_padding(GTK_MISC(add_dialog->label_least), 10, 0);
@@ -224,51 +219,51 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_table_attach(GTK_TABLE(table), add_dialog->uncompressed, 0, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 24);
 	g_signal_connect(G_OBJECT(add_dialog->uncompressed), "toggled", G_CALLBACK(toggle_compression), add_dialog);
 
-	label4 = gtk_label_new(_("Compression"));
-	gtk_frame_set_label_widget (GTK_FRAME (frame2), label4);
+	label = gtk_label_new(_("Compression"));
+	gtk_frame_set_label_widget(GTK_FRAME(frame), label);
 
-	frame3 = gtk_frame_new (NULL);
-	gtk_box_pack_start (GTK_BOX (hbox3), frame3, TRUE, TRUE, 0);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame3), GTK_SHADOW_OUT);
+	frame = gtk_frame_new(NULL);
+	gtk_box_pack_start(GTK_BOX(hbox), frame, TRUE, TRUE, 0);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_OUT);
 
-	alignment3 = gtk_alignment_new(0.5, 0.5, 1, 0);
-	gtk_container_add (GTK_CONTAINER (frame3), alignment3);
-	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment3), 0, 0, 12, 12);
+	alignment = gtk_alignment_new(0.5, 0.5, 1, 0);
+	gtk_container_add(GTK_CONTAINER(frame), alignment);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 12, 12);
 
-	hbox4 = gtk_hbox_new(FALSE, 4);
-	gtk_container_add (GTK_CONTAINER (alignment3), hbox4);
+	hbox = gtk_hbox_new(FALSE, 4);
+	gtk_container_add(GTK_CONTAINER(alignment), hbox);
 
 	add_dialog->password = gtk_check_button_new_with_mnemonic(_("Password:"));
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->password), FALSE);
-	gtk_box_pack_start(GTK_BOX(hbox4), add_dialog->password, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->password, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(add_dialog->password), "toggled", G_CALLBACK(password_toggled_cb), add_dialog);
 
 	add_dialog->password_entry = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox4), add_dialog->password_entry, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->password_entry, TRUE, TRUE, 0);
 	gtk_entry_set_visibility(GTK_ENTRY(add_dialog->password_entry), FALSE);
 	gtk_widget_set_sensitive(add_dialog->password_entry, FALSE);
 	gtk_entry_set_activates_default(GTK_ENTRY(add_dialog->password_entry), TRUE);
 
-	label5 = gtk_label_new(_("Encryption"));
-	gtk_frame_set_label_widget (GTK_FRAME (frame3), label5);
+	label = gtk_label_new(_("Encryption"));
+	gtk_frame_set_label_widget(GTK_FRAME(frame), label);
 
-	cancel_button = gtk_button_new_from_stock("gtk-cancel");
-	gtk_dialog_add_action_widget(GTK_DIALOG(add_dialog->dialog), cancel_button, GTK_RESPONSE_CANCEL);
+	button = gtk_button_new_from_stock("gtk-cancel");
+	gtk_dialog_add_action_widget(GTK_DIALOG(add_dialog->dialog), button, GTK_RESPONSE_CANCEL);
 
-	add_button = gtk_button_new();
-	add_image = xa_main_window_find_image("xarchiver-add.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
-	add_hbox = gtk_hbox_new(FALSE, 4);
-	add_label = gtk_label_new_with_mnemonic(_("_Add"));
+	button = gtk_button_new();
+	image = xa_main_window_find_image("xarchiver-add.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
+	hbox = gtk_hbox_new(FALSE, 4);
+	label = gtk_label_new_with_mnemonic(_("_Add"));
 
-	alignment2 = gtk_alignment_new (0.5, 0.5, 0, 0);
-	gtk_container_add(GTK_CONTAINER(alignment2), add_hbox);
+	alignment = gtk_alignment_new(0.5, 0.5, 0, 0);
+	gtk_container_add(GTK_CONTAINER(alignment), hbox);
 
-	gtk_box_pack_start(GTK_BOX(add_hbox), add_image, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(add_hbox), add_label, FALSE, FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(add_button), alignment2);
+	gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(button), alignment);
 
-	gtk_dialog_add_action_widget(GTK_DIALOG(add_dialog->dialog), add_button, GTK_RESPONSE_OK);
-	gtk_widget_set_can_default(add_button, TRUE);
+	gtk_dialog_add_action_widget(GTK_DIALOG(add_dialog->dialog), button, GTK_RESPONSE_OK);
+	gtk_widget_set_can_default(button, TRUE);
 	gtk_dialog_set_default_response(GTK_DIALOG(add_dialog->dialog), GTK_RESPONSE_OK);
 	return add_dialog;
 }
