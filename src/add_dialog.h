@@ -27,23 +27,23 @@
 typedef struct Add_dialog_data
 {
 	GtkWidget *dialog;
-	GtkWidget *alignment;
 	GtkWidget *notebook;
 	GtkWidget *filechooser;
 	GtkWidget *label_paths;
-	GtkWidget *label_least;
-	GtkWidget *label_best;
 	GtkWidget *store_path;
 	GtkWidget *no_store_path;
-	GtkWidget *remove;
 	GtkWidget *update;
 	GtkWidget *freshen;
+	GtkWidget *recurse;
+	GtkWidget *remove;
 	GtkWidget *solid;
+	GtkWidget *label_least;
+	GtkWidget *label_best;
+	GtkWidget *alignment;
 	GtkWidget *compression_scale;
 	GtkWidget *uncompressed;
 	GtkWidget *password;
 	GtkWidget *password_entry;
-	GtkWidget *recurse;
 } Add_dialog_data;
 
 Add_dialog_data *xa_create_add_dialog();
