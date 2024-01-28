@@ -237,7 +237,7 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 		{
 			if (fread(&sig, sizeof(sig), 1, stream) != 1 || (sig == 0 && archive->comment->len == 0))
 			{
-				g_string_free (archive->comment,FALSE);
+				g_string_free(archive->comment, TRUE);
 				archive->comment = NULL;
 				fclose(stream);
 				return FALSE;
