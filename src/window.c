@@ -2954,8 +2954,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 		list_of_files = list_of_files->next;
 	}
 	while (list_of_files);
-	xa_create_open_with_dialog(entry->filename,names->str,nr);
-	g_string_free(names, FALSE);
+	xa_create_open_with_dialog(entry->filename, g_string_free(names, FALSE), nr);
 	g_slist_free_full(list_of_files, g_free);
 }
 
