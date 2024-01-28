@@ -1382,7 +1382,7 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data
 	gtk_widget_destroy (extract_window->dialog1);
 	g_free(extract_window);
 
-	gtk_widget_destroy (add_window->dialog1);
+	gtk_widget_destroy(add_window->dialog);
 	g_free(add_window);
 
 	gtk_widget_destroy (multi_extract_window->multi_extract);

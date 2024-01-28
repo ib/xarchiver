@@ -26,25 +26,25 @@
 
 typedef struct Add_dialog_data
 {
-	GtkWidget *dialog1;
-	GtkWidget *alignment2;
-	GtkWidget *notebook1;
-	GtkWidget *filechooserwidget1;
+	GtkWidget *dialog;
+	GtkWidget *alignment;
+	GtkWidget *notebook;
+	GtkWidget *filechooser;
 	GtkWidget *frame1;
-	GtkWidget *label;
+	GtkWidget *label_paths;
 	GtkWidget *label_least;
 	GtkWidget *label_best;
 	GtkWidget *store_path;
 	GtkWidget *no_store_path;
 	GtkWidget *option_notebook_vbox;
-	GtkWidget *remove_files;
+	GtkWidget *remove;
 	GtkWidget *update;
 	GtkWidget *freshen;
-	GtkWidget *solid_archive;
+	GtkWidget *solid;
 	GtkWidget *compression_scale;
-	GtkWidget *uncompressed_button;
-	GtkWidget *add_password;
-	GtkWidget *add_password_entry;
+	GtkWidget *uncompressed;
+	GtkWidget *password;
+	GtkWidget *password_entry;
 	GtkWidget *recurse;
 	GtkWidget *add_image;
 	GtkWidget *add_hbox;

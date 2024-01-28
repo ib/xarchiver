@@ -502,7 +502,8 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 		if (prefs_data->size_changed[0]) gtk_window_get_size (GTK_WINDOW(extract_window->dialog1),&prefs_data->extract_dialog[0],&prefs_data->extract_dialog[1]);
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "extract", prefs_data->extract_dialog,2);
 		/* Add dialog coords */
-		if (prefs_data->size_changed[1]) gtk_window_get_size (GTK_WINDOW(add_window->dialog1),&prefs_data->add_coords[0],&prefs_data->add_coords[1]);
+		if (prefs_data->size_changed[1])
+			gtk_window_get_size(GTK_WINDOW(add_window->dialog), &prefs_data->add_coords[0], &prefs_data->add_coords[1]);
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "add", prefs_data->add_coords,2);
 	}
 	/* Save the options in the extract dialog */
@@ -526,8 +527,8 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"updadd",		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->update)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"freshen",		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->freshen)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"recurse",   	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->recurse)));
-	g_key_file_set_boolean (xa_key_file,PACKAGE,"solid_archive",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->solid_archive)));
-	g_key_file_set_boolean (xa_key_file,PACKAGE,"remove_files", gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->remove_files)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"solid_archive",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->solid)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"remove_files", gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->remove)));
 
 	conf = g_key_file_to_data(xa_key_file, &len, NULL);
 	g_file_set_contents(filename, conf, len, NULL);
@@ -789,8 +790,8 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->update),g_key_file_get_boolean(xa_key_file,PACKAGE,"updadd",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->freshen),g_key_file_get_boolean(xa_key_file,PACKAGE,"freshen",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->recurse),g_key_file_get_boolean(xa_key_file,PACKAGE,"recurse",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->solid_archive),g_key_file_get_boolean(xa_key_file,PACKAGE,"solid_archive",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->remove_files),g_key_file_get_boolean(xa_key_file,PACKAGE,"remove_files",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->solid),g_key_file_get_boolean(xa_key_file,PACKAGE,"solid_archive",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->remove),g_key_file_get_boolean(xa_key_file,PACKAGE,"remove_files",NULL));
 	}
 	g_key_file_free (xa_key_file);
 	/* config_file is freed in window.c xa_quit_application */
