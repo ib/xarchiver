@@ -34,17 +34,17 @@ static gboolean no_focus (GtkWidget *widget, GtkDirectionType direction, gpointe
 	return TRUE;
 }
 
-static void toggle_update_freshen (GtkToggleButton *button, Add_dialog_data *data)
+static void toggle_update_freshen (GtkToggleButton *button, Add_dialog_data *add_dialog)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
 
 	if (active)
 	{
-		if (button != GTK_TOGGLE_BUTTON(data->update))
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->update), FALSE);
+		if (button != GTK_TOGGLE_BUTTON(add_dialog->update))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->update), FALSE);
 
-		if (button != GTK_TOGGLE_BUTTON(data->freshen))
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->freshen), FALSE);
+		if (button != GTK_TOGGLE_BUTTON(add_dialog->freshen))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->freshen), FALSE);
 	}
 }
 
