@@ -53,7 +53,7 @@ void xa_zip_ask (XArchive *archive)
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
 	archive->can_recurse[0] = TRUE;
 	archive->can_recurse[1] = archiver[archive->type].is_compressor;
-	archive->can_move = archiver[archive->type].is_compressor;
+	archive->can_remove = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
 	archive->compressor = zip_compressor;
 	archive->compression = archive->compressor.preset;
@@ -254,7 +254,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list)
 		{
 			command = g_strconcat(archiver[archive->type].program[1], " -q",
 			                      archive->do_update ? " -ou" : (archive->do_freshen ? " -of" : ""),
-			                      archive->do_move ? " -m" : "",
+			                      archive->do_remove ? " -m" : "",
 			                      " -0X ",
 			                      archive->path[1], " mimetype", NULL);
 			xa_run_command(archive, command);
@@ -271,7 +271,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list)
 	command = g_strconcat(archiver[archive->type].program[1], " -q",
 	                      archive->do_update ? " -ou" : (archive->do_freshen ? " -of" : ""),
 	                      archive->do_recurse ? " -r" : "",
-	                      archive->do_move ? " -m" : "",
+	                      archive->do_remove ? " -m" : "",
 	                      " -", compression,
 	                      epub ? "XD" : "",
 	                      password_str, " ",

@@ -245,7 +245,7 @@ static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 	archive->can_extract = can;
 	archive->can_password = (can && lrzip && lrzip_can_password);
 	archive->can_overwrite = can;
-	archive->can_move = can;
+	archive->can_remove = can;
 
 	/* only if archive is new and empty */
 	archive->can_add = (can && archiver[archive->type].is_compressor);
@@ -1015,7 +1015,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 	files_str = xa_escape_bad_chars(files->str, "\"");
 	archive_path = xa_quote_shell_command(archive->path[2] ? archive->path[2] : archive->path[0], TRUE);
 
-	if (archive->do_move)
+	if (archive->do_remove)
 		move = g_strconcat(" rm --", files_str, NULL);
 	else
 		move = g_strdup("");

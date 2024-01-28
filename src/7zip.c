@@ -257,7 +257,7 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_freshen[1] = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive));
 	archive->can_recurse[0] = TRUE;
 	archive->can_recurse[1] = (archiver[archive->type].is_compressor ? FORCED : FALSE);
-	archive->can_move = archiver[archive->type].is_compressor;
+	archive->can_remove = archiver[archive->type].is_compressor;
 	archive->can_solid = (archive->type == XARCHIVETYPE_7ZIP);
 	archive->can_compress = archiver[archive->type].is_compressor;
 	archive->compressor = (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_ZIP ? sevenz_compressor : sevenz_gzip_et_al_compressor);
@@ -493,7 +493,7 @@ void xa_7zip_add (XArchive *archive, GSList *file_list)
 	solid = g_strconcat(" -ms=", archive->do_solid ? "on" : "off", NULL);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_update ? " u" : (archive->do_freshen ? " u -ur0" : " a"),
-	                      archive->do_move ? " -sdel" : "",
+	                      archive->do_remove ? " -sdel" : "",
 	                      archive->type == XARCHIVETYPE_7ZIP ? solid : "",
 	                      " -mx=", compression,
 	                      password_str, " -bd -spd -y ",

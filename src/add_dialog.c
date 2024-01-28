@@ -292,7 +292,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->update, archive->can_update[1]);
 	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen[1]);
 	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse[1] != FORCED);
-	gtk_widget_set_sensitive(add_dialog->remove, archive->can_move);
+	gtk_widget_set_sensitive(add_dialog->remove, archive->can_remove);
 	gtk_widget_set_sensitive(add_dialog->solid, archive->can_solid);
 
 	normal = (archive->compressor.least <= archive->compressor.best);
@@ -391,7 +391,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				archive->do_update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->update));
 
 			if (gtk_widget_is_sensitive(add_dialog->remove))
-				archive->do_move = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->remove));
+				archive->do_remove = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->remove));
 
 			if (gtk_widget_is_sensitive(add_dialog->freshen))
 				archive->do_freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->freshen));

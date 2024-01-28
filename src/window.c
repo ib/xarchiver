@@ -459,7 +459,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		archive->do_update = FALSE;
 		archive->do_freshen = FALSE;
 		archive->do_recurse = FALSE;
-		archive->do_move = FALSE;
+		archive->do_remove = FALSE;
 		archive->do_solid = FALSE;
 
 		xa_execute_add_commands(archive, file_list, FALSE, TRUE);
@@ -2400,7 +2400,7 @@ failed:
 		archive[idx]->do_update = FALSE;
 		archive[idx]->do_freshen = FALSE;
 		archive[idx]->do_recurse = FALSE;
-		archive[idx]->do_move = FALSE;
+		archive[idx]->do_remove = FALSE;
 		archive[idx]->do_solid = FALSE;
 
 		recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));
@@ -2823,7 +2823,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	archive[idx]->do_update = (XA_Clipboard.mode == XA_CLIPBOARD_EDIT);
 	archive[idx]->do_freshen = FALSE;
 	archive[idx]->do_recurse = FALSE;
-	archive[idx]->do_move = FALSE;
+	archive[idx]->do_remove = FALSE;
 	archive[idx]->do_solid = FALSE;
 
 	recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));

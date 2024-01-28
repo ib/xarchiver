@@ -59,7 +59,7 @@ void xa_lha_ask (XArchive *archive)
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_recurse[0] = TRUE;
 	archive->can_recurse[1] = (archiver[archive->type].is_compressor ? FORCED : FALSE);
-	archive->can_move = archiver[archive->type].is_compressor;
+	archive->can_remove = archiver[archive->type].is_compressor;
 	archive->can_compress = archiver[archive->type].is_compressor;
 	archive->compressor = lha_compressor;
 	archive->compression = archive->compressor.preset;
@@ -226,7 +226,7 @@ void xa_lha_add (XArchive *archive, GSList *file_list)
 	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_update ? " u" : " a",
-	                      archive->do_move ? "d" : "",
+	                      archive->do_remove ? "d" : "",
 	                      "o", compression, " ",
 	                      archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
