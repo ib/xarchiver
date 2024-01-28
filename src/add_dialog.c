@@ -107,11 +107,8 @@ Add_dialog_data *xa_create_add_dialog()
 	add_dialog->filechooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_OPEN);
 	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->filechooser, TRUE, TRUE, 2);
 
-	add_dialog->label_paths = gtk_label_new(_("File Paths"));
-
-	frame = gtk_frame_new(NULL);
+	frame = gtk_frame_new(_("File Paths"));
 	gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, FALSE, 4);
-	gtk_frame_set_label_widget(GTK_FRAME(frame), add_dialog->label_paths);
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
 
 	alignment = gtk_alignment_new(0.5, 0.5, 1, 1);
@@ -287,7 +284,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	else
 		full_path = TRUE;
 
-	gtk_widget_set_sensitive(add_dialog->label_paths, full_path);
 	gtk_widget_set_sensitive(add_dialog->store_path, full_path);
 	gtk_widget_set_sensitive(add_dialog->update, archive->can_update[1]);
 	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen[1]);

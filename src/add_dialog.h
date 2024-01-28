@@ -29,7 +29,6 @@ typedef struct Add_dialog_data
 	GtkWidget *dialog;
 	GtkWidget *notebook;
 	GtkWidget *filechooser;
-	GtkWidget *label_paths;
 	GtkWidget *store_path;
 	GtkWidget *no_store_path;
 	GtkWidget *update;
