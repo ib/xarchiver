@@ -306,6 +306,9 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_TOP);
 	gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
 	gtk_range_set_inverted(GTK_RANGE(add_dialog->compression_scale), !normal);
+
+	gtk_widget_set_sensitive(add_dialog->label_least, archive->can_compress);
+	gtk_widget_set_sensitive(add_dialog->label_best, archive->can_compress);
 	gtk_widget_set_sensitive(add_dialog->compression_scale, archive->can_compress);
 
 	gtk_widget_set_sensitive(add_dialog->uncompressed, archive->can_compress && archive->compressor.can_uncompressed);
