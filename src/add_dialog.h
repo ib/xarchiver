@@ -30,13 +30,11 @@ typedef struct Add_dialog_data
 	GtkWidget *alignment;
 	GtkWidget *notebook;
 	GtkWidget *filechooser;
-	GtkWidget *frame1;
 	GtkWidget *label_paths;
 	GtkWidget *label_least;
 	GtkWidget *label_best;
 	GtkWidget *store_path;
 	GtkWidget *no_store_path;
-	GtkWidget *option_notebook_vbox;
 	GtkWidget *remove;
 	GtkWidget *update;
 	GtkWidget *freshen;
@@ -46,12 +44,6 @@ typedef struct Add_dialog_data
 	GtkWidget *password;
 	GtkWidget *password_entry;
 	GtkWidget *recurse;
-	GtkWidget *add_image;
-	GtkWidget *add_hbox;
-	GtkWidget *add_label;
-	GtkWidget *cancel_button;
-	GtkWidget *add_button;
-	GtkWidget *add_option_label;
 } Add_dialog_data;
 
 Add_dialog_data *xa_create_add_dialog();
