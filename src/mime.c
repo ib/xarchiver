@@ -107,6 +107,8 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/x-lzma-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-lzop") == 0 ||
 	         strcmp(mime,"application/x-rpm") == 0 ||
+	         strcmp(mime,"application/x-rzip") == 0 ||
+	         strcmp(mime,"application/x-rzip-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-source-rpm") == 0 ||
 	         strcmp(mime,"application/x-tar") == 0 ||
 	         strcmp(mime,"application/x-tarz") == 0 ||
