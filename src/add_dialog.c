@@ -168,19 +168,23 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->freshen, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->freshen), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->freshen), "toggled", G_CALLBACK(toggle_update_freshen), add_dialog);
+	g_signal_connect(G_OBJECT(add_dialog->freshen), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->recurse = gtk_check_button_new_with_mnemonic (_("Include subdirectories"));
 	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->recurse, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->recurse), FALSE);
+	g_signal_connect(G_OBJECT(add_dialog->recurse), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->remove = gtk_check_button_new_with_mnemonic(_("Delete files after adding"));
 	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->remove, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->remove), FALSE);
+	g_signal_connect(G_OBJECT(add_dialog->remove), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->solid = gtk_check_button_new_with_mnemonic(_("Create a solid archive"));
 	gtk_widget_set_tooltip_text(add_dialog->solid, _("In a solid archive the files are grouped together resulting in a better compression ratio"));
 	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->solid, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->solid), FALSE);
+	g_signal_connect(G_OBJECT(add_dialog->solid), "focus", G_CALLBACK(no_focus), NULL);
 
 	frame = gtk_frame_new(_("Compression"));
 	gtk_box_pack_start(GTK_BOX(hbox), frame, TRUE, TRUE, 0);
