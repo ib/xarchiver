@@ -1459,7 +1459,7 @@ int main (int argc, char **argv)
 			if (archive->path[0] != NULL)
 			{
 				gchar *fname;
-				gboolean is_dir, recurse;
+				gboolean is_dir;
 				GSList *files = NULL;
 
 				fname = xa_make_full_path(opt_compress);
@@ -1475,34 +1475,21 @@ int main (int argc, char **argv)
 
 				xa_create_working_directory(archive);
 
-				archive->child_dir = g_path_get_dirname(opt_compress);
-
-				fname = g_path_get_basename(opt_compress);
-				files = g_slist_append(files, fname);
-				g_free(opt_compress);
+				files = g_slist_append(files, opt_compress);
 
 				for (i = 1; i < argc; i++)
-				{
-					fname = g_path_get_basename(argv[i]);
-					files = g_slist_append(files, fname);
-				}
+					files = g_slist_append(files, g_strdup(argv[i]));
 
-				archive->do_full_path = FALSE;
-				archive->do_update = FALSE;
-				archive->do_freshen = FALSE;
-				archive->do_recurse = FALSE;
-				archive->do_remove = FALSE;
-				archive->do_solid = FALSE;
-
-				recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));
-
-				if (archive->can_recurse[1])
-				{
-					archive->do_recurse = (recurse || (archive->can_recurse[1] == FORCED));
-					recurse = FALSE;
-				}
-
-				xa_execute_add_commands(archive, files, recurse, !archive->do_recurse);
+				prefs_window->add_coords[0] = -1;
+				xa_set_add_dialog_options(add_window, archive);
+				gtk_widget_hide(gtk_notebook_get_nth_page(GTK_NOTEBOOK(add_window->notebook), 0));
+				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_window->update), FALSE);
+				gtk_widget_hide(add_window->update);
+				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_window->freshen), FALSE);
+				gtk_widget_hide(add_window->freshen);
+				xa_parse_add_dialog_options(archive, add_window, files);
+				gtk_widget_destroy(add_window->dialog);
+				g_free(add_window);
 			}
 		}
 		/* Switch -a */
