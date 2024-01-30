@@ -335,11 +335,10 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_show_all(add_dialog->dialog);
 }
 
-void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
+void xa_parse_add_dialog_options (XArchive *archive, Add_dialog_data *add_dialog, GSList *list)
 {
 	gchar *temp_password = NULL;
 	gboolean done = FALSE, recurse;
-	GSList *list = NULL;
 
 	while ( ! done )
 	{
@@ -351,7 +350,8 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			break;
 
 			case GTK_RESPONSE_OK:
-			list = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(add_dialog->filechooser));
+			if (!list)
+				list = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(add_dialog->filechooser));
 			if (g_slist_length(list) == 0)
 			{
 				xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"), _("You haven't selected any files to add!") );

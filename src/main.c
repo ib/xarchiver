@@ -1531,7 +1531,7 @@ int main (int argc, char **argv)
 			}
 
 			xa_set_add_dialog_options(add_window, archive);
-			xa_parse_add_dialog_options(archive, add_window);
+			xa_parse_add_dialog_options(archive, add_window, NULL);
 			gtk_widget_destroy(add_window->dialog);
 			g_free(add_window);
 		}

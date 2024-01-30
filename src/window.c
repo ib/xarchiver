@@ -1433,7 +1433,7 @@ void xa_add_files_archive (GtkMenuItem *menuitem, gpointer user_data)
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	xa_set_add_dialog_options(add_window,archive[idx]);
-	xa_parse_add_dialog_options (archive[idx],add_window);
+	xa_parse_add_dialog_options(archive[idx], add_window, NULL);
 }
 
 void xa_extract_archive (GtkMenuItem *menuitem,gpointer user_data)
