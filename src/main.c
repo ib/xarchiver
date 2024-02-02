@@ -1413,8 +1413,6 @@ int main (int argc, char **argv)
 
 			xa_set_extract_dialog_options(extract_window,0,archive);
 			xa_parse_extract_dialog_options (archive,extract_window,NULL);
-			gtk_widget_destroy (extract_window->dialog1);
-			g_free (extract_window);
 		}
 		/* Switch -m */
 		else if (opt_multi_extract)
@@ -1432,8 +1430,6 @@ int main (int argc, char **argv)
 			}
 
 			xa_multi_extract_dialog(multi_extract_window);
-			gtk_widget_destroy(multi_extract_window->multi_extract);
-			g_free(multi_extract_window);
 		}
 		/* Switch -c */
 		else if (opt_compress)
@@ -1485,8 +1481,6 @@ int main (int argc, char **argv)
 				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_window->freshen), FALSE);
 				gtk_widget_hide(add_window->freshen);
 				xa_parse_add_dialog_options(archive, add_window, files);
-				gtk_widget_destroy(add_window->dialog);
-				g_free(add_window);
 			}
 		}
 		/* Switch -a */
@@ -1516,8 +1510,6 @@ int main (int argc, char **argv)
 
 			xa_set_add_dialog_options(add_window, archive);
 			xa_parse_add_dialog_options(archive, add_window, NULL);
-			gtk_widget_destroy(add_window->dialog);
-			g_free(add_window);
 		}
 		/* Switch -i */
 		else if (opt_info)
@@ -1620,6 +1612,18 @@ leave:
 		gtk_widget_destroy(progress->window);
 		g_free(progress);
 	}
+
+	gtk_widget_destroy(prefs_window->dialog1);
+	g_free(prefs_window);
+
+	gtk_widget_destroy(extract_window->dialog1);
+	g_free(extract_window);
+
+	gtk_widget_destroy(add_window->dialog);
+	g_free(add_window);
+
+	gtk_widget_destroy(multi_extract_window->multi_extract);
+	g_free(multi_extract_window);
 
 	for (i = XARCHIVETYPE_FIRST; i < XARCHIVETYPE_TYPES; i++)
 	{
