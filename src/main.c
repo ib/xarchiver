@@ -1291,7 +1291,7 @@ int main (int argc, char **argv)
 	{
 		g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command-line options.\n"),cli_error->message);
 		g_error_free (cli_error);
-		return 0;
+		goto quit;
 	}
 
 	/* print version information */
@@ -1307,7 +1307,8 @@ int main (int argc, char **argv)
 		g_print (_("Please report bugs to <%s>."), PACKAGE_BUGREPORT);
 		g_print ("\n");
 
-		return EXIT_SUCCESS;
+		result = EXIT_SUCCESS;
+		goto quit;
 	}
 
 	xdg_open = g_find_program_in_path("xdg-open");
@@ -1637,6 +1638,8 @@ leave:
 
 	g_free(config_file);
 	g_free(xdg_open);
+
+quit:
 
 #ifdef HAVE_SOCKET
 	socket_finalize();
