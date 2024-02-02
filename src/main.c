@@ -1560,12 +1560,6 @@ int main (int argc, char **argv)
 
 leave:
 
-		if (progress)
-		{
-			gtk_widget_destroy(progress->window);
-			g_free(progress);
-			progress = NULL;
-		}
 		if (archive != NULL)
 			xa_clean_archive_structure (archive);
 	}
@@ -1622,6 +1616,12 @@ leave:
 		gtk_main ();
 
 		result = EXIT_SUCCESS;
+	}
+
+	if (progress)
+	{
+		gtk_widget_destroy(progress->window);
+		g_free(progress);
 	}
 
 	for (i = XARCHIVETYPE_FIRST; i < XARCHIVETYPE_TYPES; i++)
