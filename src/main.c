@@ -1380,7 +1380,7 @@ int main (int argc, char **argv)
 			archive->do_overwrite = TRUE;
 			archive->do_touch = FALSE;
 			archive->extraction_dir = xa_escape_bad_chars(opt_extract_path, ESCAPES);
-			g_free(extraction_dir);
+			g_free(opt_extract_path);
 
 			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->archiver->extract)(archive, NULL);
