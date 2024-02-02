@@ -1389,7 +1389,6 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data
 	g_free(multi_extract_window);
 
 	gtk_widget_destroy(xa_popup_menu);
-	g_free (config_file);
 	xa_free_icon_cache();
 
 	gtk_main_quit();

@@ -794,7 +794,6 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->remove),g_key_file_get_boolean(xa_key_file,PACKAGE,"remove_files",NULL));
 	}
 	g_key_file_free (xa_key_file);
-	/* config_file is freed in window.c xa_quit_application */
 }
 
 void xa_prefs_adapt_options (Prefs_dialog_data *prefs_data)

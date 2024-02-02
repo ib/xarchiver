@@ -1633,6 +1633,7 @@ leave:
 		g_slist_free(archiver[i].tags);
 	}
 
+	g_free(config_file);
 	g_free(xdg_open);
 
 #ifdef HAVE_SOCKET
