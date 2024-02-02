@@ -421,6 +421,7 @@ void xa_parse_add_dialog_options (XArchive *archive, Add_dialog_data *add_dialog
 			}
 
 			xa_execute_add_commands(archive, list, recurse, !archive->do_recurse);
+			g_slist_free_full(list, g_free);
 		}
 	}
 	gtk_widget_destroy(add_dialog->compression_scale);

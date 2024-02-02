@@ -463,6 +463,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		archive->do_solid = FALSE;
 
 		xa_execute_add_commands(archive, file_list, FALSE, TRUE);
+		g_slist_free_full(file_list, g_free);
 	}
 done:
 	xa_rename_cell_edited_canceled(GTK_CELL_RENDERER(cell), NULL);
