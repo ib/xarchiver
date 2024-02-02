@@ -1264,7 +1264,7 @@ int main (int argc, char **argv)
 	GError *cli_error = NULL;
 	XArchive *archive;
 	gchar *current_dir;
-	int i, result = -1;
+	int i, result = EXIT_FAILURE;
 
 #ifdef ENABLE_NLS
 	GTK_COMPAT_PARAMETER_STRING;
