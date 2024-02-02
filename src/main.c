@@ -1419,24 +1419,21 @@ int main (int argc, char **argv)
 		/* Switch -m */
 		else if (opt_multi_extract)
 		{
-			Multi_extract_data *multi_extract;
 			gchar *arg;
-
-			multi_extract = xa_create_multi_extract_dialog();
 
 			for (i = 1; i < argc; i++)
 			{
 				arg = xa_make_full_path(argv[i]);
 
 				if (!g_file_test(arg, G_FILE_TEST_IS_DIR))
-					xa_multi_extract_dialog_add_file(arg, multi_extract);
+					xa_multi_extract_dialog_add_file(arg, multi_extract_window);
 
 				g_free(arg);
 			}
 
-			xa_multi_extract_dialog(multi_extract);
-			gtk_widget_destroy (multi_extract->multi_extract);
-			g_free(multi_extract);
+			xa_multi_extract_dialog(multi_extract_window);
+			gtk_widget_destroy(multi_extract_window->multi_extract);
+			g_free(multi_extract_window);
 		}
 		/* Switch -c */
 		else if (opt_compress)
