@@ -1550,8 +1550,8 @@ int main (int argc, char **argv)
 
 leave:
 
-		if (archive != NULL)
-			xa_clean_archive_structure (archive);
+		if (archive)
+			xa_clean_archive_structure(archive);
 	}
 	else
 	{
