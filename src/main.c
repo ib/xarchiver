@@ -1293,21 +1293,22 @@ int main (int argc, char **argv)
 		g_error_free (cli_error);
 		return 0;
 	}
-    /* print version information */
-    if (opt_version)
-    {
-        g_print("%s %s\n\n", PACKAGE_NAME, PACKAGE_VERSION);
-        g_print ("%s\n", "Copyright (c) " COPYRIGHT_YEAR);
-        g_print ("\t%s\n", COPYRIGHT_HOLDER " - Colossus <colossus73@gmail.com>");
-        g_print ("%s\n", "Copyright \xC2\xA9 " MAINTAINER_YEAR);
-        g_print ("\t%s\n\n", MAINTAINER);
-        g_print (_("Maintained by "));
-        g_print (MAINTAINER ".\n\n");
-        g_print (_("Please report bugs to <%s>."), PACKAGE_BUGREPORT);
-        g_print ("\n");
 
-        return EXIT_SUCCESS;
-    }
+	/* print version information */
+	if (opt_version)
+	{
+		g_print("%s %s\n\n", PACKAGE_NAME, PACKAGE_VERSION);
+		g_print ("%s\n", "Copyright (c) " COPYRIGHT_YEAR);
+		g_print ("\t%s\n", COPYRIGHT_HOLDER " - Colossus <colossus73@gmail.com>");
+		g_print ("%s\n", "Copyright \xC2\xA9 " MAINTAINER_YEAR);
+		g_print ("\t%s\n\n", MAINTAINER);
+		g_print (_("Maintained by "));
+		g_print (MAINTAINER ".\n\n");
+		g_print (_("Please report bugs to <%s>."), PACKAGE_BUGREPORT);
+		g_print ("\n");
+
+		return EXIT_SUCCESS;
+	}
 
 	xdg_open = g_find_program_in_path("xdg-open");
 
