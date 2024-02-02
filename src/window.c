@@ -1392,9 +1392,6 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data
 	g_free (config_file);
 	xa_free_icon_cache();
 
-#ifdef HAVE_SOCKET
-	socket_finalize();
-#endif
 	gtk_main_quit();
 	return;
 }

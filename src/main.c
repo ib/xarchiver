@@ -1568,9 +1568,6 @@ leave:
 		}
 		if (archive != NULL)
 			xa_clean_archive_structure (archive);
-		#ifdef HAVE_SOCKET
-			socket_finalize();
-		#endif
 	}
 	else
 	{
@@ -1637,6 +1634,10 @@ leave:
 	}
 
 	g_free(xdg_open);
+
+#ifdef HAVE_SOCKET
+	socket_finalize();
+#endif
 
 	return result;
 }
