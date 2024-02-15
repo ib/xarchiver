@@ -1561,7 +1561,7 @@ leave:
 												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_sidebar)),
 												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_toolbar)));
 
-		gtk_window_set_transient_for (GTK_WINDOW (extract_window->dialog1),GTK_WINDOW (xa_main_window));
+		gtk_window_set_transient_for(GTK_WINDOW(extract_window->dialog), GTK_WINDOW(xa_main_window));
 		gtk_window_set_transient_for(GTK_WINDOW(add_window->dialog), GTK_WINDOW(xa_main_window));
 		gtk_window_set_transient_for (GTK_WINDOW (prefs_window->dialog1),GTK_WINDOW (xa_main_window));
 		gtk_window_set_transient_for (GTK_WINDOW (multi_extract_window->multi_extract),GTK_WINDOW (xa_main_window));
@@ -1618,7 +1618,7 @@ leave:
 	gtk_widget_destroy(prefs_window->dialog1);
 	g_free(prefs_window);
 
-	gtk_widget_destroy(extract_window->dialog1);
+	gtk_widget_destroy(extract_window->dialog);
 	g_free(extract_window);
 
 	gtk_widget_destroy(add_window->dialog);

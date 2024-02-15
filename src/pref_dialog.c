@@ -102,7 +102,7 @@ static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_sub_dir),FALSE);
 	/* Set the default options in the extract dialog */
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory), TRUE);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->full_paths_radio), TRUE);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->full_path), TRUE);
 	/* Set the default options in the add dialog */
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_window->update), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_window->recurse),TRUE);
@@ -499,7 +499,8 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 		prefs_data->geometry[4] = gtk_paned_get_position(GTK_PANED(hpaned1));
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "mainwindow", prefs_data->geometry,5);
 		/* Extract dialog coords */
-		if (prefs_data->size_changed[0]) gtk_window_get_size (GTK_WINDOW(extract_window->dialog1),&prefs_data->extract_dialog[0],&prefs_data->extract_dialog[1]);
+		if (prefs_data->size_changed[0])
+			gtk_window_get_size(GTK_WINDOW(extract_window->dialog), &prefs_data->extract_dialog[0], &prefs_data->extract_dialog[1]);
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "extract", prefs_data->extract_dialog,2);
 		/* Add dialog coords */
 		if (prefs_data->size_changed[1])
@@ -508,11 +509,11 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	}
 	/* Save the options in the extract dialog */
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "ensure_directory", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory)));
-	g_key_file_set_boolean (xa_key_file,PACKAGE,"overwrite",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->overwrite_check)));
+	g_key_file_set_boolean(xa_key_file, PACKAGE, "overwrite", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->overwrite)));
 
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->full_paths_radio)))
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->full_path)))
 		val = 2;
-	else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->relative_paths_radio)))
+	else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->relative_path)))
 		val = 1;
 	else
 		val = 0;
@@ -520,7 +521,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_set_integer(xa_key_file, PACKAGE, "full_path", val);
 
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"touch",    gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->touch)));
-	g_key_file_set_boolean (xa_key_file,PACKAGE,"fresh",  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->fresh)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"fresh",  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->freshen)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"update",   gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->update)));
 	/* Save the options in the add dialog */
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"store_path",	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->store_path)));
@@ -763,7 +764,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		}
 		/* Load the options in the extract dialog */
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory), g_key_file_get_boolean(xa_key_file, PACKAGE, "ensure_directory", NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(extract_window->overwrite_check),g_key_file_get_boolean(xa_key_file,PACKAGE,"overwrite",NULL));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->overwrite), g_key_file_get_boolean(xa_key_file, PACKAGE, "overwrite", NULL));
 
 		val = g_key_file_get_integer(xa_key_file, PACKAGE, "full_path", &error);
 
@@ -776,14 +777,14 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		}
 
 		if (val == 2)
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->full_paths_radio), TRUE);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->full_path), TRUE);
 		else if (val == 1)
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->relative_paths_radio), TRUE);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->relative_path), TRUE);
 		else
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->no_paths_radio), TRUE);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->without_path), TRUE);
 
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(extract_window->touch),g_key_file_get_boolean(xa_key_file,PACKAGE,"touch",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(extract_window->fresh),g_key_file_get_boolean(xa_key_file,PACKAGE,"fresh",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(extract_window->freshen),g_key_file_get_boolean(xa_key_file,PACKAGE,"fresh",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(extract_window->update),g_key_file_get_boolean(xa_key_file,PACKAGE,"update",NULL));
 		/* Load the options in the add dialog */
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_window->store_path),g_key_file_get_boolean(xa_key_file,PACKAGE,"store_path",NULL));
