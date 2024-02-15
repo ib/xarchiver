@@ -118,18 +118,18 @@ Add_dialog_data *xa_create_add_dialog()
 	hbox = gtk_hbox_new(TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(alignment), hbox);
 
-	add_dialog->store_path = gtk_radio_button_new_with_mnemonic(NULL, _("With full path"));
-	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->store_path, FALSE, FALSE, 0);
-	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->store_path), FALSE);
-	g_signal_connect(G_OBJECT(add_dialog->store_path), "focus", G_CALLBACK(no_focus), NULL);
+	add_dialog->full_path = gtk_radio_button_new_with_mnemonic(NULL, _("With full path"));
+	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->full_path, FALSE, FALSE, 0);
+	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->full_path), FALSE);
+	g_signal_connect(G_OBJECT(add_dialog->full_path), "focus", G_CALLBACK(no_focus), NULL);
 
-	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(add_dialog->store_path));
+	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(add_dialog->full_path));
 
-	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic(group, _("Without parent path"));
-	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->no_store_path, FALSE, FALSE, 0);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path),TRUE);
-	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->no_store_path), FALSE);
-	g_signal_connect(G_OBJECT(add_dialog->no_store_path), "focus", G_CALLBACK(no_focus), NULL);
+	add_dialog->relative_path = gtk_radio_button_new_with_mnemonic(group, _("Without parent path"));
+	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->relative_path, FALSE, FALSE, 0);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->relative_path), TRUE);
+	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->relative_path), FALSE);
+	g_signal_connect(G_OBJECT(add_dialog->relative_path), "focus", G_CALLBACK(no_focus), NULL);
 
 	/* Options page */
 
@@ -282,13 +282,13 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 
 	if ((archive->location_path && *archive->location_path) || !archive->can_full_path[1] || epub)
 	{
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path), TRUE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->relative_path), TRUE);
 		full_path = FALSE;
 	}
 	else
 		full_path = TRUE;
 
-	gtk_widget_set_sensitive(add_dialog->store_path, full_path);
+	gtk_widget_set_sensitive(add_dialog->full_path, full_path);
 	gtk_widget_set_sensitive(add_dialog->update, archive->can_update[1]);
 	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen[1]);
 	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse[1] != FORCED);
@@ -384,7 +384,7 @@ void xa_parse_add_dialog_options (XArchive *archive, Add_dialog_data *add_dialog
 			}
 
 			done = TRUE;
-			if (gtk_widget_is_sensitive(add_dialog->store_path) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->store_path)))
+			if (gtk_widget_is_sensitive(add_dialog->full_path) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->full_path)))
 				archive->do_full_path = TRUE;
 			else
 				archive->do_full_path = FALSE;
