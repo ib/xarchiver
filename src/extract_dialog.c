@@ -315,7 +315,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	GTK_COMPAT_TOOLTIPS;
 	GSList *radiobutton1_group, *radiobutton2_group;
 	Extract_dialog_data *extract_dialog;
-	GtkWidget *hbox1, *hbox2, *hbox3, *vbox1, *vbox2, *vbox3, *vbox5, *alignment, *alignment1, *alignment2, *alignment3, *label1, *label2, *label3;
+	GtkWidget *hbox1, *hbox2, *hbox3, *vbox, *vbox1, *vbox2, *vbox3, *vbox5, *alignment, *alignment1, *alignment2, *alignment3, *label1, *label2, *label3;
 	GtkWidget *frame1, *frame2;
 	GtkWidget *cancel_button, *extract_button, *extract_image, *extract_hbox, *extract_label;
 
@@ -328,10 +328,10 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	xa_set_xarchiver_icon(GTK_WINDOW(extract_dialog->dialog));
 
-	extract_dialog->vbox = gtk_dialog_get_content_area(GTK_DIALOG(extract_dialog->dialog));
+	vbox = gtk_dialog_get_content_area(GTK_DIALOG(extract_dialog->dialog));
 
 	vbox1 = gtk_vbox_new (FALSE,2);
-	gtk_box_pack_start(GTK_BOX(extract_dialog->vbox), vbox1, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), vbox1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox1),2);
 
 	label1 = gtk_label_new (_("Extract to:"));
