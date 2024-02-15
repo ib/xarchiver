@@ -71,34 +71,34 @@ static void xa_select_where_to_extract (GtkEntry *entry, gint icon_pos, GTK_COMP
 	gtk_widget_destroy(file_selector);
 }
 
-static void xa_toggle_all_files_radio (GtkToggleButton *button, Extract_dialog_data *dialog)
+static void xa_toggle_all_files_radio (GtkToggleButton *button, Extract_dialog_data *extract_dialog)
 {
-	gtk_widget_set_sensitive(dialog->ensure_directory, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->all_files)));
+	gtk_widget_set_sensitive(extract_dialog->ensure_directory, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->all_files)));
 }
 
-static void xa_toggle_relative_path_radio (GtkToggleButton *button, Extract_dialog_data *dialog)
+static void xa_toggle_relative_path_radio (GtkToggleButton *button, Extract_dialog_data *extract_dialog)
 {
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->relative_path)))
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->relative_path)))
 	{
-		gtk_widget_set_sensitive(dialog->touch, FALSE);
-		gtk_widget_set_sensitive(dialog->freshen, FALSE);
+		gtk_widget_set_sensitive(extract_dialog->touch, FALSE);
+		gtk_widget_set_sensitive(extract_dialog->freshen, FALSE);
 	}
 	else
 	{
-		gtk_widget_set_sensitive(dialog->touch, dialog->archive->can_touch);
-		gtk_widget_set_sensitive(dialog->freshen, dialog->archive->can_freshen[0]);
+		gtk_widget_set_sensitive(extract_dialog->touch, extract_dialog->archive->can_touch);
+		gtk_widget_set_sensitive(extract_dialog->freshen, extract_dialog->archive->can_freshen[0]);
 	}
 }
 
-static void xa_activate_entry (GtkToggleButton *button, Extract_dialog_data *dialog)
+static void xa_activate_entry (GtkToggleButton *button, Extract_dialog_data *extract_dialog)
 {
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->specified_files)))
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->specified_files)))
 	{
-		gtk_widget_set_sensitive(dialog->specified_files_entry, TRUE);
-		gtk_widget_grab_focus(dialog->specified_files_entry);
+		gtk_widget_set_sensitive(extract_dialog->specified_files_entry, TRUE);
+		gtk_widget_grab_focus(extract_dialog->specified_files_entry);
 	}
 	else
-		gtk_widget_set_sensitive(dialog->specified_files_entry, FALSE);
+		gtk_widget_set_sensitive(extract_dialog->specified_files_entry, FALSE);
 }
 
 static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selection, Multi_extract_data *dialog_data)
@@ -291,20 +291,20 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 	return error;
 }
 
-static void toggle_overwrite_update_freshen (GtkToggleButton *button, Extract_dialog_data *data)
+static void toggle_overwrite_update_freshen (GtkToggleButton *button, Extract_dialog_data *extract_dialog)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
 
 	if (active)
 	{
-		if (button != GTK_TOGGLE_BUTTON(data->overwrite))
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->overwrite), FALSE);
+		if (button != GTK_TOGGLE_BUTTON(extract_dialog->overwrite))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_dialog->overwrite), FALSE);
 
-		if (button != GTK_TOGGLE_BUTTON(data->update))
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->update), FALSE);
+		if (button != GTK_TOGGLE_BUTTON(extract_dialog->update))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_dialog->update), FALSE);
 
-		if (button != GTK_TOGGLE_BUTTON(data->freshen))
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->freshen), FALSE);
+		if (button != GTK_TOGGLE_BUTTON(extract_dialog->freshen))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_dialog->freshen), FALSE);
 	}
 }
 
@@ -489,47 +489,47 @@ Extract_dialog_data *xa_create_extract_dialog()
 	return extract_dialog;
 }
 
-void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selected,XArchive *archive)
+void xa_set_extract_dialog_options (Extract_dialog_data *extract_dialog, gint selected, XArchive *archive)
 {
 	if (progress)
 		gtk_widget_hide(progress->window);
 
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry))&& prefs_window->extract_dialog[0] != -1)
-		gtk_window_set_default_size(GTK_WINDOW(dialog_data->dialog), prefs_window->extract_dialog[0], prefs_window->extract_dialog[1]);
+		gtk_window_set_default_size(GTK_WINDOW(extract_dialog->dialog), prefs_window->extract_dialog[0], prefs_window->extract_dialog[1]);
 
 	prefs_window->size_changed[0] = TRUE;
 
-	gtk_window_set_title(GTK_WINDOW(dialog_data->dialog), _("Extract files"));
+	gtk_window_set_title(GTK_WINDOW(extract_dialog->dialog), _("Extract files"));
 
-	gtk_widget_set_sensitive(dialog_data->specified_files, archive->files > 1);
+	gtk_widget_set_sensitive(extract_dialog->specified_files, archive->files > 1);
 
 		if (selected)
 		{
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog_data->selected_files), TRUE);
-			gtk_widget_set_sensitive(dialog_data->selected_files, TRUE);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_dialog->selected_files), TRUE);
+			gtk_widget_set_sensitive(extract_dialog->selected_files, TRUE);
 		}
 		else
 		{
-			gtk_widget_set_sensitive(dialog_data->selected_files, FALSE);
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog_data->all_files), TRUE);
+			gtk_widget_set_sensitive(extract_dialog->selected_files, FALSE);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_dialog->all_files), TRUE);
 		}
 
-	gtk_widget_set_sensitive(dialog_data->full_path, archive->can_full_path[0]);
-	gtk_widget_set_sensitive(dialog_data->relative_path, archive->can_full_path[0]);
-	gtk_widget_set_sensitive(dialog_data->touch, archive->can_touch);
-	gtk_widget_set_sensitive(dialog_data->overwrite, archive->can_overwrite);
-	gtk_widget_set_sensitive(dialog_data->update, archive->can_update[0]);
-	gtk_widget_set_sensitive(dialog_data->freshen, archive->can_freshen[0]);
+	gtk_widget_set_sensitive(extract_dialog->full_path, archive->can_full_path[0]);
+	gtk_widget_set_sensitive(extract_dialog->relative_path, archive->can_full_path[0]);
+	gtk_widget_set_sensitive(extract_dialog->touch, archive->can_touch);
+	gtk_widget_set_sensitive(extract_dialog->overwrite, archive->can_overwrite);
+	gtk_widget_set_sensitive(extract_dialog->update, archive->can_update[0]);
+	gtk_widget_set_sensitive(extract_dialog->freshen, archive->can_freshen[0]);
 
 	if (!archive->can_full_path[0])
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog_data->without_path), TRUE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_dialog->without_path), TRUE);
 
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->relative_path)))
-		xa_toggle_relative_path_radio(NULL, dialog_data);
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->relative_path)))
+		xa_toggle_relative_path_radio(NULL, extract_dialog);
 
-	if ((!gtk_widget_is_sensitive(dialog_data->update) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update))) ||
-	    (!gtk_widget_is_sensitive(dialog_data->freshen) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->freshen))))
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite), TRUE);
+	if ((!gtk_widget_is_sensitive(extract_dialog->update) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->update))) ||
+	    (!gtk_widget_is_sensitive(extract_dialog->freshen) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->freshen))))
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_dialog->overwrite), TRUE);
 
 	if (!archive->destination_path)
 	{
@@ -548,18 +548,18 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		archive->destination_path = g_strdup(archive_dir);
 		g_free(archive_dir);
 	}
-	gtk_entry_set_text(GTK_ENTRY(dialog_data->destination_path_entry), archive->destination_path);
-	gtk_entry_set_text(GTK_ENTRY(dialog_data->password_entry), archive->password ? archive->password : "");
+	gtk_entry_set_text(GTK_ENTRY(extract_dialog->destination_path_entry), archive->destination_path);
+	gtk_entry_set_text(GTK_ENTRY(extract_dialog->password_entry), archive->password ? archive->password : "");
 
-	gtk_widget_set_sensitive(dialog_data->label_password, archive->has_password);
-	gtk_widget_set_sensitive(dialog_data->password_entry, archive->has_password);
+	gtk_widget_set_sensitive(extract_dialog->label_password, archive->has_password);
+	gtk_widget_set_sensitive(extract_dialog->password_entry, archive->has_password);
 
-	dialog_data->archive = archive;
+	extract_dialog->archive = archive;
 
-	gtk_widget_show_all(dialog_data->dialog);
+	gtk_widget_show_all(extract_dialog->dialog);
 }
 
-void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dialog_data,GtkTreeSelection *selection)
+void xa_parse_extract_dialog_options (XArchive *archive, Extract_dialog_data *extract_dialog, GtkTreeSelection *selection)
 {
 	gchar *destination_path, *string;
 	gboolean strip, done = FALSE;
@@ -568,7 +568,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
     while (! done)
 	{
-		switch (gtk_dialog_run(GTK_DIALOG(dialog_data->dialog)))
+		switch (gtk_dialog_run(GTK_DIALOG(extract_dialog->dialog)))
 		{
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
@@ -577,7 +577,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 			case GTK_RESPONSE_OK:
 			g_free(archive->destination_path);
-			archive->destination_path = g_strdup(gtk_entry_get_text(GTK_ENTRY(dialog_data->destination_path_entry)));
+			archive->destination_path = g_strdup(gtk_entry_get_text(GTK_ENTRY(extract_dialog->destination_path_entry)));
 			destination_path = g_filename_from_utf8(archive->destination_path, -1, NULL, NULL, NULL);
 			g_free(archive->extraction_dir);
 			archive->extraction_dir = xa_escape_bad_chars(destination_path, ESCAPES);
@@ -601,7 +601,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				g_free (cur_dir);
 			}
 			if (archive->has_password)
-				archive->password  = g_strdup(gtk_entry_get_text(GTK_ENTRY(dialog_data->password_entry)));
+				archive->password = g_strdup(gtk_entry_get_text(GTK_ENTRY(extract_dialog->password_entry)));
 
 			if (archive->has_password && strlen(archive->password)== 0 )
 			{
@@ -624,11 +624,11 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			}
 			done = TRUE;
 
-			if (gtk_widget_is_sensitive(dialog_data->ensure_directory) &&
-			    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->ensure_directory)))
+			if (gtk_widget_is_sensitive(extract_dialog->ensure_directory) &&
+			    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->ensure_directory)))
 			{
-				if (!gtk_widget_is_sensitive(dialog_data->full_path) ||
-				    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->full_path)) ||
+				if (!gtk_widget_is_sensitive(extract_dialog->full_path) ||
+				    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->full_path)) ||
 				    !xa_has_containing_directory(archive))
 				{
 					gchar *extraction_dir;
@@ -650,17 +650,17 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 			g_free (destination_path);
 
-			if (gtk_widget_is_sensitive(dialog_data->overwrite))
-				archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite));
-			if (gtk_widget_is_sensitive(dialog_data->touch))
-				archive->do_touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
+			if (gtk_widget_is_sensitive(extract_dialog->overwrite))
+				archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->overwrite));
+			if (gtk_widget_is_sensitive(extract_dialog->touch))
+				archive->do_touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->touch));
 
-			if (gtk_widget_is_sensitive(dialog_data->full_path) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->full_path)))
+			if (gtk_widget_is_sensitive(extract_dialog->full_path) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->full_path)))
 			{
 				archive->do_full_path = TRUE;
 				strip = FALSE;
 			}
-			else if (gtk_widget_is_sensitive(dialog_data->relative_path) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->relative_path)))
+			else if (gtk_widget_is_sensitive(extract_dialog->relative_path) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->relative_path)))
 			{
 				archive->do_full_path = TRUE;
 				strip = TRUE;
@@ -671,23 +671,23 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				strip = FALSE;
 			}
 
-			if (gtk_widget_is_sensitive(dialog_data->freshen))
-				archive->do_freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->freshen));
-			if (gtk_widget_is_sensitive(dialog_data->update))
-				archive->do_update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update));
+			if (gtk_widget_is_sensitive(extract_dialog->freshen))
+				archive->do_freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->freshen));
+			if (gtk_widget_is_sensitive(extract_dialog->update))
+				archive->do_update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->update));
 
-			gtk_widget_hide(dialog_data->dialog);
+			gtk_widget_hide(extract_dialog->dialog);
 			/* Is the radiobutton Files selected? */
-			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->specified_files)))
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->specified_files)))
 			{
 				model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
-				string = g_strdup(gtk_entry_get_text(GTK_ENTRY(dialog_data->specified_files_entry)));
+				string = g_strdup(gtk_entry_get_text(GTK_ENTRY(extract_dialog->specified_files_entry)));
 				gtk_tree_model_foreach(model, select_matched_rows, string);
 				selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc)xa_concat_selected_filenames,&names);
 				g_free(string);
 			}
-			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->selected_files)))
+			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->selected_files)))
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc)xa_concat_selected_filenames,&names);
 			if (xa_main_window)
 				xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
@@ -695,7 +695,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			xa_execute_extract_commands(archive, names, strip);
 		}
 	}
-	gtk_widget_hide(dialog_data->dialog);
+	gtk_widget_hide(extract_dialog->dialog);
 }
 
 Multi_extract_data *xa_create_multi_extract_dialog()
