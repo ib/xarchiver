@@ -40,6 +40,7 @@ typedef struct Extract_dialog_data
 	GtkWidget *overwrite;
 	GtkWidget *update;
 	GtkWidget *freshen;
+	GtkWidget *label_password;
 	GtkWidget *password_entry;
 	XArchive *archive;
 } Extract_dialog_data;

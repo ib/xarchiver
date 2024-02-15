@@ -32,8 +32,6 @@
 #include "support.h"
 #include "window.h"
 
-static GtkWidget *label_password;
-
 static const GtkTargetEntry drop_targets[] =
 {
 	{"text/uri-list", 0, 0}
@@ -462,9 +460,9 @@ Extract_dialog_data *xa_create_extract_dialog()
 	hbox = gtk_hbox_new(FALSE, 4);
 	gtk_box_pack_start(GTK_BOX(vbox3), hbox, FALSE, FALSE, 0);
 
-	label_password = gtk_label_new (_("Password:"));
-	gtk_misc_set_padding(GTK_MISC(label_password), 3, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), label_password, FALSE, FALSE, 0);
+	extract_dialog->label_password = gtk_label_new(_("Password:"));
+	gtk_misc_set_padding(GTK_MISC(extract_dialog->label_password), 3, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), extract_dialog->label_password, FALSE, FALSE, 0);
 
 	extract_dialog->password_entry = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), extract_dialog->password_entry, TRUE, TRUE, 0);
@@ -553,7 +551,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	gtk_entry_set_text(GTK_ENTRY(dialog_data->destination_path_entry), archive->destination_path);
 	gtk_entry_set_text(GTK_ENTRY(dialog_data->password_entry), archive->password ? archive->password : "");
 
-	gtk_widget_set_sensitive(label_password, archive->has_password);
+	gtk_widget_set_sensitive(dialog_data->label_password, archive->has_password);
 	gtk_widget_set_sensitive(dialog_data->password_entry, archive->has_password);
 
 	dialog_data->archive = archive;
