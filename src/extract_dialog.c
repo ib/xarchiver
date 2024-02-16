@@ -701,11 +701,11 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	Multi_extract_data *multi_extract;
 	GtkWidget *vbox, *vbox2, *window, *hbox, *hbox2, *alignment, *button, *frame, *label, *image;
 	GtkTreeSelection *selection;
-	int x;
+	int col;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	char *column_names[] = {_("Archive"), _("Size"), _("Path")};
-	GSList *radiobutton1_group;
+	GSList *group;
 
 	multi_extract = g_new0(Multi_extract_data, 1);
 	multi_extract->dialog = gtk_dialog_new();
@@ -731,10 +731,10 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(multi_extract->treeview));
 	g_signal_connect(selection, "changed", G_CALLBACK(xa_multi_extract_dialog_selection_changed), multi_extract);
 
-	for (x = 0; x < 3; x++)
+	for (col = 0; col < 3; col++)
 	{
 		renderer = gtk_cell_renderer_text_new();
-		column = gtk_tree_view_column_new_with_attributes(column_names[x], renderer, "text", x, NULL);
+		column = gtk_tree_view_column_new_with_attributes(column_names[col], renderer, "text", col, NULL);
 		gtk_tree_view_column_set_resizable (column,TRUE);
 		gtk_tree_view_append_column(GTK_TREE_VIEW(multi_extract->treeview), column);
 	}
@@ -783,14 +783,14 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	multi_extract->extract_to = gtk_radio_button_new_with_mnemonic(NULL, _("Extract to:"));
 	gtk_button_set_focus_on_click(GTK_BUTTON(multi_extract->extract_to), FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), multi_extract->extract_to, FALSE, FALSE, 0);
-	radiobutton1_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(multi_extract->extract_to));
+	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(multi_extract->extract_to));
 
 	multi_extract->destination_path_entry = GTK_COMPAT_ENTRY_ICON_NEW();
 	GTK_COMPAT_ENTRY_ICON(multi_extract->destination_path_entry, xa_select_where_to_extract, multi_extract);
 	gtk_box_pack_start(GTK_BOX(hbox), multi_extract->destination_path_entry, TRUE, TRUE, 0);
 	gtk_entry_set_activates_default(GTK_ENTRY(multi_extract->destination_path_entry), TRUE);
 
-	button = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Extract to directories with archive names"));
+	button = gtk_radio_button_new_with_mnemonic(group, _("Extract to directories with archive names"));
 	gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);
 	gtk_box_pack_start(GTK_BOX(vbox2), button, FALSE, FALSE, 0);
 	label = gtk_label_new(_("Destination"));
