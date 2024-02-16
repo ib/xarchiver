@@ -759,13 +759,13 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);
 	g_signal_connect(button, "clicked", G_CALLBACK(xa_multi_extract_dialog_select_files_to_add), multi_extract);
 
-	button = gtk_button_new_from_stock("gtk-remove");
-	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
-	gtk_widget_set_sensitive(button, FALSE);
-	gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);
-	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(xa_multi_extract_dialog_remove_files), multi_extract);
+	multi_extract->remove = gtk_button_new_from_stock("gtk-remove");
+	gtk_box_pack_end(GTK_BOX(hbox), multi_extract->remove, FALSE, FALSE, 0);
+	gtk_widget_set_sensitive(multi_extract->remove, FALSE);
+	gtk_button_set_focus_on_click(GTK_BUTTON(multi_extract->remove), FALSE);
+	g_signal_connect(G_OBJECT(multi_extract->remove), "clicked", G_CALLBACK(xa_multi_extract_dialog_remove_files), multi_extract);
 
-	g_signal_connect(G_OBJECT(multi_extract->liststore), "row-inserted", G_CALLBACK(xa_activate_remove_button), button);
+	g_signal_connect(G_OBJECT(multi_extract->liststore), "row-inserted", G_CALLBACK(xa_activate_remove_button), multi_extract->remove);
 
 	hbox = gtk_hbox_new(TRUE, 8);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);

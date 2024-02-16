@@ -49,6 +49,7 @@ typedef struct Multi_extract_data
 {
 	GtkWidget *dialog;
 	GtkWidget *treeview;
+	GtkWidget *remove;
 	GtkWidget *extract_to;
 	GtkWidget *destination_path_entry;
 	GtkWidget *overwrite;
