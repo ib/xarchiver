@@ -987,6 +987,7 @@ run:
 
 	multi_extract->nr = 0;
 	gtk_list_store_clear(multi_extract->liststore);
+	gtk_widget_set_sensitive(multi_extract->remove, FALSE);
 }
 
 void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean strip)
