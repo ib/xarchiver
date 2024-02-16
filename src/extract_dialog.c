@@ -702,6 +702,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	GtkWidget	*dialog_vbox1,*vbox1,*scrolledwindow1,*hbox1,*frame1,*alignment1,*vbox2,*hbox3,*remove_button,*add_button,*cancelbutton1;
 	GtkWidget *hbox2, *vbox3, *alignment2, *alignment3, *label1, *label2, *frame2;
 	GtkWidget *extract_button, *extract_image, *extract_hbox, *extract_label;
+	GtkWidget *extract_to_archive_name;
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
@@ -793,9 +794,9 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_box_pack_start(GTK_BOX(hbox3), multi_extract->destination_path_entry, TRUE, TRUE, 0);
 	gtk_entry_set_activates_default(GTK_ENTRY(multi_extract->destination_path_entry), TRUE);
 
-	multi_extract->extract_to_archive_name = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Extract to directories with archive names"));
-	gtk_button_set_focus_on_click(GTK_BUTTON(multi_extract->extract_to_archive_name), FALSE);
-	gtk_box_pack_start(GTK_BOX(vbox2), multi_extract->extract_to_archive_name, FALSE, FALSE, 0);
+	extract_to_archive_name = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Extract to directories with archive names"));
+	gtk_button_set_focus_on_click(GTK_BUTTON(extract_to_archive_name), FALSE);
+	gtk_box_pack_start(GTK_BOX(vbox2), extract_to_archive_name, FALSE, FALSE, 0);
 	label1 = gtk_label_new(_("Destination"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame1),label1);
 
