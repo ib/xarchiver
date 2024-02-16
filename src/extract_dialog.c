@@ -101,7 +101,7 @@ static void xa_activate_entry (GtkToggleButton *button, Extract_dialog_data *ext
 		gtk_widget_set_sensitive(extract_dialog->specified_files_entry, FALSE);
 }
 
-static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selection, Multi_extract_data *dialog_data)
+static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selection, Multi_extract_data *multi_extract)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
@@ -118,7 +118,7 @@ static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selecti
 
 		(*archiver[type].ask)(&archive);
 
-		gtk_widget_set_sensitive(dialog_data->full_path, archive.can_full_path[0]);
+		gtk_widget_set_sensitive(multi_extract->full_path, archive.can_full_path[0]);
 	}
 }
 
@@ -152,7 +152,7 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDr
 	gtk_drag_finish(context, TRUE, FALSE, time);
 }
 
-static void xa_multi_extract_dialog_select_files_to_add (GtkButton *button, Multi_extract_data *dialog)
+static void xa_multi_extract_dialog_select_files_to_add (GtkButton *button, Multi_extract_data *multi_extract)
 {
 	GtkWidget *file_selector;
 	GSList *dummy = NULL;
@@ -171,7 +171,7 @@ static void xa_multi_extract_dialog_select_files_to_add (GtkButton *button, Mult
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		dummy = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (file_selector));
-		g_slist_foreach(dummy, (GFunc) xa_multi_extract_dialog_add_file, dialog);
+		g_slist_foreach(dummy, (GFunc) xa_multi_extract_dialog_add_file, multi_extract);
 	}
 	if (dummy != NULL)
 		g_slist_free (dummy);
@@ -193,7 +193,7 @@ static void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTree
 	*rowref_list = g_list_append(*rowref_list,rowref);
 }
 
-static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extract_data *multi_extract_data)
+static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extract_data *multi_extract)
 {
 	GtkTreeModel *model;
 	GtkTreeSelection *sel;
@@ -202,8 +202,8 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extra
 	GList *rr_list = NULL;
 	GList *node;
 
-	model = gtk_tree_view_get_model(GTK_TREE_VIEW(multi_extract_data->treeview));
-	sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(multi_extract_data->treeview));
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(multi_extract->treeview));
+	sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(multi_extract->treeview));
 	gtk_tree_selection_selected_foreach(sel,(GtkTreeSelectionForeachFunc)remove_foreach_func,&rr_list);
 
 	for (node = rr_list; node != NULL; node = node->next)
@@ -213,8 +213,8 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extra
 		{
 			if ( gtk_tree_model_get_iter(GTK_TREE_MODEL(model),&iter,path))
 			{
-				gtk_list_store_remove(multi_extract_data->liststore, &iter);
-				multi_extract_data->nr--;
+				gtk_list_store_remove(multi_extract->liststore, &iter);
+				multi_extract->nr--;
 			}
 			gtk_tree_path_free(path);
 		}
@@ -224,7 +224,7 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extra
 	g_list_free_full(rr_list, (GDestroyNotify) gtk_tree_row_reference_free);
 }
 
-static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *filename, gboolean overwrite, gboolean full_path, gchar *dest_path)
+static gchar *xa_multi_extract_one_archive (Multi_extract_data *multi_extract, gchar *filename, gboolean overwrite, gboolean full_path, gchar *dest_path)
 {
 	XArchive *archive = NULL;
 	gchar *dirname = NULL;
@@ -255,7 +255,7 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 	}
 	xa = xa_detect_archive_type(filename);
 	archive = xa_init_archive_structure(xa);
-	dialog->archive = archive;
+	multi_extract->archive = archive;
 	archive->do_overwrite = overwrite;
 	archive->do_update = FALSE;
 	archive->do_freshen = FALSE;
@@ -835,7 +835,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	return multi_extract;
 }
 
-void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dialog)
+void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *multi_extract)
 {
 	GtkTreeIter iter;
 	gchar *path, *path_utf8, *file, *file_utf8;
@@ -878,16 +878,16 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	path_utf8 = g_filename_display_name(path);
 	file = g_path_get_basename(file_path);
 	file_utf8 = g_filename_display_name(file);
-	gtk_list_store_append(dialog->liststore, &iter);
-	gtk_list_store_set(dialog->liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.tag, -1);
-	dialog->nr++;
+	gtk_list_store_append(multi_extract->liststore, &iter);
+	gtk_list_store_set(multi_extract->liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.tag, -1);
+	multi_extract->nr++;
 	g_free(file_utf8);
 	g_free(file);
 	g_free(path_utf8);
 	g_free(path);
 }
 
-void xa_multi_extract_dialog (Multi_extract_data *dialog)
+void xa_multi_extract_dialog (Multi_extract_data *multi_extract)
 {
 	GtkTreeIter iter;
 	gchar *filename, *filename_local, *file, *path, *message, *name, *dest_path = NULL;
@@ -896,7 +896,7 @@ void xa_multi_extract_dialog (Multi_extract_data *dialog)
 	gint response;
 	double percent = 0.0;
 
-	if (!*gtk_entry_get_text(GTK_ENTRY(dialog->destination_path_entry)))
+	if (!*gtk_entry_get_text(GTK_ENTRY(multi_extract->destination_path_entry)))
 	{
 		path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
 
@@ -906,51 +906,51 @@ void xa_multi_extract_dialog (Multi_extract_data *dialog)
 			path = g_strdup("/tmp");
 		}
 
-		gtk_entry_set_text(GTK_ENTRY(dialog->destination_path_entry), path);
+		gtk_entry_set_text(GTK_ENTRY(multi_extract->destination_path_entry), path);
 		g_free(path);
 	}
 
-	gtk_widget_show_all(dialog->dialog);
+	gtk_widget_show_all(multi_extract->dialog);
 run:
-	response = gtk_dialog_run(GTK_DIALOG(dialog->dialog));
+	response = gtk_dialog_run(GTK_DIALOG(multi_extract->dialog));
 	if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 	{
-		gtk_list_store_clear(dialog->liststore);
-		gtk_widget_hide(dialog->dialog);
+		gtk_list_store_clear(multi_extract->liststore);
+		gtk_widget_hide(multi_extract->dialog);
 		return;
 	}
-	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(dialog->liststore), &iter) == FALSE)
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(multi_extract->liststore), &iter) == FALSE)
 	{
 		xa_show_message_dialog(GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't multi-extract archives:"),_("You haven't added any of them!"));
 		goto run;
 	}
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->extract_to)))
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(multi_extract->extract_to)))
 	{
-		dest_path = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(dialog->destination_path_entry)), -1, NULL, NULL, NULL);
+		dest_path = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(multi_extract->destination_path_entry)), -1, NULL, NULL, NULL);
 		if (strlen(dest_path)== 0)
 		{
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("You missed where to extract the files!"),_("Please fill the \"Extract to\" field!"));
 			goto run;
 		}
 	}
-	gtk_widget_hide(dialog->dialog);
+	gtk_widget_hide(multi_extract->dialog);
 
-	if (gtk_widget_is_sensitive(dialog->overwrite))
-		overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
-	double fraction = 1.0 / dialog->nr;
+	if (gtk_widget_is_sensitive(multi_extract->overwrite))
+		overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(multi_extract->overwrite));
+	double fraction = 1.0 / multi_extract->nr;
 
 	xa_show_progress_bar(NULL);
 
 	do
 	{
-		gtk_tree_model_get(GTK_TREE_MODEL(dialog->liststore), &iter, 0, &file, 2, &path, -1);
-		full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->full_path));
+		gtk_tree_model_get(GTK_TREE_MODEL(multi_extract->liststore), &iter, 0, &file, 2, &path, -1);
+		full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(multi_extract->full_path));
 		filename = g_strconcat (path,"/",file,NULL);
 		xa_increase_progress_bar(progress, filename, percent);
 		g_free(file);
 		g_free(path);
 		filename_local = g_filename_from_utf8(filename, -1, NULL, NULL, NULL);
-		message = xa_multi_extract_one_archive(dialog, filename_local, overwrite, full_path, dest_path);
+		message = xa_multi_extract_one_archive(multi_extract, filename_local, overwrite, full_path, dest_path);
 		g_free(filename_local);
 		if (message != NULL)
 		{
@@ -958,13 +958,13 @@ run:
 			g_string_append(output,name);
 		}
 		g_free(filename);
-		if (dialog->stop_pressed)
+		if (multi_extract->stop_pressed)
 			break;
 		percent += fraction;
 
 		xa_increase_progress_bar(progress, NULL, percent);
 	}
-	while (gtk_tree_model_iter_next(GTK_TREE_MODEL(dialog->liststore), &iter));
+	while (gtk_tree_model_iter_next(GTK_TREE_MODEL(multi_extract->liststore), &iter));
 
 	/* let the user see the progress of 100% */
 	gtk_main_iteration();
@@ -977,8 +977,8 @@ run:
 	if (dest_path != NULL)
 		g_free(dest_path);
 
-	dialog->nr=0;
-	gtk_list_store_clear(dialog->liststore);
+	multi_extract->nr = 0;
+	gtk_list_store_clear(multi_extract->liststore);
 }
 
 void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean strip)
