@@ -47,7 +47,12 @@ typedef struct Extract_dialog_data
 
 typedef struct Multi_extract_data
 {
-	GtkWidget *dialog, *treeview, *extract_to, *destination_path_entry, *overwrite, *full_path;
+	GtkWidget *dialog;
+	GtkWidget *treeview;
+	GtkWidget *extract_to;
+	GtkWidget *destination_path_entry;
+	GtkWidget *overwrite;
+	GtkWidget *full_path;
 	GtkListStore *liststore;
 	gint nr;
 	gboolean stop_pressed;
