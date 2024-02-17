@@ -736,6 +736,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			prefs_data->main_win_geometry[3] = main_win_geometry[3];
 			prefs_data->main_win_geometry[4] = main_win_geometry[4];
 		}
+		g_free(main_win_geometry);
 		extract_win_size = g_key_file_get_integer_list(xa_key_file, PACKAGE, "extract", &length, &error);
 		if (error)
 		{
@@ -749,6 +750,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			prefs_data->extract_win_size[0] = extract_win_size[0];
 			prefs_data->extract_win_size[1] = extract_win_size[1];
 		}
+		g_free(extract_win_size);
 		add_win_size = g_key_file_get_integer_list(xa_key_file, PACKAGE, "add", &length, &error);
 		if (error)
 		{
@@ -762,6 +764,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			prefs_data->add_win_size[0] = add_win_size[0];
 			prefs_data->add_win_size[1] = add_win_size[1];
 		}
+		g_free(add_win_size);
 		/* Load the options in the extract dialog */
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory), g_key_file_get_boolean(xa_key_file, PACKAGE, "ensure_directory", NULL));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->overwrite), g_key_file_get_boolean(xa_key_file, PACKAGE, "overwrite", NULL));
