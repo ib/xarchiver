@@ -25,8 +25,8 @@
 
 typedef struct Prefs_dialog_data
 {
-	GtkWidget *dialog, *dialog_vbox1, *preferred_format, *prefer_unzip;
-	GtkWidget *confirm_deletion, *store_output, *combo_archive_view, *icon_size;
+	GtkWidget *dialog, *preferred_format, *prefer_unzip;
+	GtkWidget *confirm_deletion, *store_output, *icon_size;
 	GtkWidget *show_comment, *sort_by_filenames, *advanced_isearch, *auto_expand, *show_location_bar, *show_sidebar, *show_toolbar, *preferred_viewer, *preferred_archiver, *preferred_custom_cmd;
 	GtkWidget *preferred_browser, *preferred_editor, *preferred_temp_dir, *preferred_extract_dir, *allow_sub_dir, *save_geometry, *notebook;
 	GtkListStore *liststore;
