@@ -186,7 +186,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 	xa_combo_box_text_append_compressor_types(GTK_COMBO_BOX_TEXT(combo_box));
 
 	if (new_combo_box == -1)
-		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_box),gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_prefered_format)));
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_box), gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->preferred_format)));
 	else
 		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box),new_combo_box);
 

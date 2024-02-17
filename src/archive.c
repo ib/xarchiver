@@ -501,7 +501,7 @@ gboolean xa_create_working_directory (XArchive *archive)
 	if (archive->working_dir)
 		return TRUE;
 
-	value = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_temp_dir));
+	value = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_temp_dir));
 
 	if (value && *value)
 	{

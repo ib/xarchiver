@@ -373,7 +373,7 @@ static void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer
 	if (!xdg_open)
 	{
 		gchar *browser_path = NULL;
-		browser_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
+		browser_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_browser));
 		if (!browser_path || !*browser_path)
 		{
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which browser to use!"),_("Please go to Preferences->Advanced and set it."));
@@ -530,16 +530,16 @@ static void xa_determine_program_to_run (gchar *file)
 
 		if (strcmp(type, "text-html") == 0)
 		{
-			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
+			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_browser));
 		}
 		else if (strcmp(type, "text-x-generic") == 0)
 		{
-			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_editor));
+			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_editor));
 		}
 		else if (strcmp(type, "image-x-generic") == 0)
-			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_viewer));
+			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_viewer));
 		else if (strcmp(type, "package-x-generic") == 0)
-			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_archiver));
+			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_archiver));
 		else
 		{
 			gchar *basename_utf8 = g_filename_display_name(basename);
@@ -828,7 +828,7 @@ void xa_child_processed (XAChildProcess process, guint8 exitstatus, XArchive *ar
 
 				xa_set_statusbar_message_for_displayed_rows(archive);
 
-				if (archive->status == XARCHIVESTATUS_LIST && archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+				if (archive->status == XARCHIVESTATUS_LIST && archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->show_comment)))
 					xa_show_archive_comment(NULL, NULL);
 
 				if (archive->status == XARCHIVESTATUS_TEST)
@@ -1215,7 +1215,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	g_free(filename_plus_utf8);
 	filename = NULL;
 
-	pref_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
+	pref_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_extract_dir));
 
 	if (pref_path && *pref_path)
 		pref_path_local = g_filename_from_utf8(pref_path, -1, NULL, NULL, NULL);
@@ -1441,10 +1441,10 @@ void xa_show_prefs_dialog (GtkMenuItem *menuitem,gpointer user_data)
 	if (prefs_window == NULL)
 		prefs_window = xa_create_prefs_dialog();
 
-	gtk_widget_show_all (prefs_window->dialog1);
+	gtk_widget_show_all(prefs_window->dialog);
 	xa_prefs_iconview_changed(GTK_ICON_VIEW(prefs_window->iconview), prefs_window);
-	response = gtk_dialog_run (GTK_DIALOG(prefs_window->dialog1));
-	gtk_widget_hide (prefs_window->dialog1);
+	response = gtk_dialog_run(GTK_DIALOG(prefs_window->dialog));
+	gtk_widget_hide(prefs_window->dialog);
 
 	if (response == GTK_RESPONSE_OK)
 		xa_prefs_apply_options(prefs_window);
@@ -1944,7 +1944,7 @@ void xa_create_liststore (XArchive *archive, const gchar *titles[])
 
 	archive->model = GTK_TREE_MODEL(archive->liststore);
 
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_sort_filename_column)))
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->sort_by_filenames)))
 	{
 		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive->model), 1, GTK_SORT_ASCENDING);
 		archive->sorted = TRUE;
@@ -3110,7 +3110,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		else
 			filename = entry->filename;
 
-		switch (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)))
+		switch (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->icon_size)))
 		{
 			case 0:
 				size = 20;

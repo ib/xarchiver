@@ -1563,9 +1563,9 @@ leave:
 
 		gtk_window_set_transient_for(GTK_WINDOW(extract_window->dialog), GTK_WINDOW(xa_main_window));
 		gtk_window_set_transient_for(GTK_WINDOW(add_window->dialog), GTK_WINDOW(xa_main_window));
-		gtk_window_set_transient_for (GTK_WINDOW (prefs_window->dialog1),GTK_WINDOW (xa_main_window));
+		gtk_window_set_transient_for(GTK_WINDOW(prefs_window->dialog), GTK_WINDOW(xa_main_window));
 		gtk_window_set_transient_for(GTK_WINDOW(multi_extract_window->dialog), GTK_WINDOW(xa_main_window));
-		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->save_geometry)) && prefs_window->geometry[0] != -1)
 		{
 			gtk_window_move (GTK_WINDOW(xa_main_window), prefs_window->geometry[0], prefs_window->geometry[1]);
 			gtk_window_set_default_size(GTK_WINDOW(xa_main_window), prefs_window->geometry[2], prefs_window->geometry[3]);
@@ -1615,7 +1615,7 @@ leave:
 		g_free(progress);
 	}
 
-	gtk_widget_destroy(prefs_window->dialog1);
+	gtk_widget_destroy(prefs_window->dialog);
 	g_free(prefs_window);
 
 	gtk_widget_destroy(extract_window->dialog);

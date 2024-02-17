@@ -73,7 +73,7 @@ static void xa_open_with_dialog_expander_expanded (GObject *object, GParamSpec *
 
 	if (gtk_expander_get_expanded(GTK_EXPANDER(object)))
 	{
-		cmd = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_custom_cmd));
+		cmd = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_custom_cmd));
 
 		if (cmd && *cmd)
 			gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry), cmd);
@@ -276,7 +276,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			app->exec = app_exec;
 			app->multiple = app_multiple;
 
-			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)))
+			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->icon_size)))
 			{
 				case 0:
 					size = 24;

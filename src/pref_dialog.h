@@ -25,11 +25,11 @@
 
 typedef struct Prefs_dialog_data
 {
-	GtkWidget *dialog1,*dialog_vbox1,*combo_prefered_format, *prefer_unzip;
-	GtkWidget *confirm_deletion, *store_output,*combo_archive_view,*combo_icon_size;
-	GtkWidget *check_show_comment, *check_sort_filename_column, *advanced_isearch, *auto_expand, *show_location_bar, *show_sidebar, *show_toolbar, *combo_prefered_viewer, *combo_prefered_archiver, *combo_prefered_custom_cmd;
-	GtkWidget *combo_prefered_web_browser, *combo_prefered_editor, *combo_prefered_temp_dir, *combo_prefered_extract_dir, *allow_sub_dir,*check_save_geometry,*prefs_notebook;
-	GtkListStore *prefs_liststore;
+	GtkWidget *dialog, *dialog_vbox1, *preferred_format, *prefer_unzip;
+	GtkWidget *confirm_deletion, *store_output, *combo_archive_view, *icon_size;
+	GtkWidget *show_comment, *sort_by_filenames, *advanced_isearch, *auto_expand, *show_location_bar, *show_sidebar, *show_toolbar, *preferred_viewer, *preferred_archiver, *preferred_custom_cmd;
+	GtkWidget *preferred_browser, *preferred_editor, *preferred_temp_dir, *preferred_extract_dir, *allow_sub_dir, *save_geometry, *notebook;
+	GtkListStore *liststore;
 	GtkWidget *iconview;
 	gint geometry[5];
 	gint extract_dialog[2];
