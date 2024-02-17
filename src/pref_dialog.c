@@ -494,18 +494,18 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->save_geometry)))
 	{
 		/* Main window coords */
-		gtk_window_get_position (GTK_WINDOW(xa_main_window),&prefs_data->geometry[0],&prefs_data->geometry[1]);
-		gtk_window_get_size (GTK_WINDOW(xa_main_window),&prefs_data->geometry[2],&prefs_data->geometry[3]);
-		prefs_data->geometry[4] = gtk_paned_get_position(GTK_PANED(hpaned1));
-		g_key_file_set_integer_list(xa_key_file, PACKAGE, "mainwindow", prefs_data->geometry,5);
+		gtk_window_get_position(GTK_WINDOW(xa_main_window), &prefs_data->main_win_geometry[0], &prefs_data->main_win_geometry[1]);
+		gtk_window_get_size(GTK_WINDOW(xa_main_window), &prefs_data->main_win_geometry[2], &prefs_data->main_win_geometry[3]);
+		prefs_data->main_win_geometry[4] = gtk_paned_get_position(GTK_PANED(hpaned1));
+		g_key_file_set_integer_list(xa_key_file, PACKAGE, "mainwindow", prefs_data->main_win_geometry, 5);
 		/* Extract dialog coords */
 		if (prefs_data->size_changed[0])
-			gtk_window_get_size(GTK_WINDOW(extract_window->dialog), &prefs_data->extract_dialog[0], &prefs_data->extract_dialog[1]);
-		g_key_file_set_integer_list(xa_key_file, PACKAGE, "extract", prefs_data->extract_dialog,2);
+			gtk_window_get_size(GTK_WINDOW(extract_window->dialog), &prefs_data->extract_win_size[0], &prefs_data->extract_win_size[1]);
+		g_key_file_set_integer_list(xa_key_file, PACKAGE, "extract", prefs_data->extract_win_size, 2);
 		/* Add dialog coords */
 		if (prefs_data->size_changed[1])
-			gtk_window_get_size(GTK_WINDOW(add_window->dialog), &prefs_data->add_coords[0], &prefs_data->add_coords[1]);
-		g_key_file_set_integer_list(xa_key_file, PACKAGE, "add", prefs_data->add_coords,2);
+			gtk_window_get_size(GTK_WINDOW(add_window->dialog), &prefs_data->add_win_size[0], &prefs_data->add_win_size[1]);
+		g_key_file_set_integer_list(xa_key_file, PACKAGE, "add", prefs_data->add_win_size, 2);
 	}
 	/* Save the options in the extract dialog */
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "ensure_directory", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory)));
@@ -539,11 +539,11 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 
 void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 {
-	gint *coords = NULL;
-	gint *extract_coords = NULL;
-	gint *add_coords = NULL;
+	gint *main_win_geometry;
+	gint *extract_win_size;
+	gint *add_win_size;
 	gchar *value;
-	gsize coords_len = 0;
+	gsize length;
 	const gchar *config_dir;
 	gchar *xarchiver_config_dir, *old_dir, *old_config;
 	GKeyFile *xa_key_file = g_key_file_new();
@@ -720,47 +720,47 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_data->preferred_extract_dir), 0);
 			g_free(value);
 		}
-		coords = g_key_file_get_integer_list(xa_key_file, PACKAGE, "mainwindow", &coords_len, &error);
+		main_win_geometry = g_key_file_get_integer_list(xa_key_file, PACKAGE, "mainwindow", &length, &error);
 		if (error)
 		{
-			prefs_data->geometry[0] = -1;
+			prefs_data->main_win_geometry[0] = -1;
 			g_error_free(error);
 			error = NULL;
 		}
 		else
 		{
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->save_geometry), TRUE);
-			prefs_data->geometry[0] = coords[0];
-			prefs_data->geometry[1] = coords[1];
-			prefs_data->geometry[2] = coords[2];
-			prefs_data->geometry[3] = coords[3];
-			prefs_data->geometry[4] = coords[4];
+			prefs_data->main_win_geometry[0] = main_win_geometry[0];
+			prefs_data->main_win_geometry[1] = main_win_geometry[1];
+			prefs_data->main_win_geometry[2] = main_win_geometry[2];
+			prefs_data->main_win_geometry[3] = main_win_geometry[3];
+			prefs_data->main_win_geometry[4] = main_win_geometry[4];
 		}
-		extract_coords = g_key_file_get_integer_list(xa_key_file, PACKAGE, "extract", &coords_len, &error);
+		extract_win_size = g_key_file_get_integer_list(xa_key_file, PACKAGE, "extract", &length, &error);
 		if (error)
 		{
-			prefs_data->extract_dialog[0] = -1;
+			prefs_data->extract_win_size[0] = -1;
 			g_error_free(error);
 			error = NULL;
 		}
 		else
 		{
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->save_geometry), TRUE);
-			prefs_data->extract_dialog[0] = extract_coords[0];
-			prefs_data->extract_dialog[1] = extract_coords[1];
+			prefs_data->extract_win_size[0] = extract_win_size[0];
+			prefs_data->extract_win_size[1] = extract_win_size[1];
 		}
-		add_coords = g_key_file_get_integer_list(xa_key_file, PACKAGE, "add", &coords_len, &error);
+		add_win_size = g_key_file_get_integer_list(xa_key_file, PACKAGE, "add", &length, &error);
 		if (error)
 		{
-			prefs_data->add_coords[0] = -1;
+			prefs_data->add_win_size[0] = -1;
 			g_error_free(error);
 			error = NULL;
 		}
 		else
 		{
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->save_geometry), TRUE);
-			prefs_data->add_coords[0] = add_coords[0];
-			prefs_data->add_coords[1] = add_coords[1];
+			prefs_data->add_win_size[0] = add_win_size[0];
+			prefs_data->add_win_size[1] = add_win_size[1];
 		}
 		/* Load the options in the extract dialog */
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory), g_key_file_get_boolean(xa_key_file, PACKAGE, "ensure_directory", NULL));

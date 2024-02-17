@@ -50,9 +50,9 @@ typedef struct Prefs_dialog_data
 	GtkWidget *save_geometry;
 	GtkWidget *allow_sub_dir;
 	GtkListStore *liststore;
-	gint geometry[5];
-	gint extract_dialog[2];
-	gint add_coords[2];
+	gint main_win_geometry[5];
+	gint extract_win_size[2];
+	gint add_win_size[2];
 	gboolean size_changed[2];
 } Prefs_dialog_data;
 

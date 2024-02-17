@@ -493,8 +493,8 @@ void xa_set_extract_dialog_options (Extract_dialog_data *extract_dialog, gint se
 	if (progress)
 		gtk_widget_hide(progress->window);
 
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->save_geometry))&& prefs_window->extract_dialog[0] != -1)
-		gtk_window_set_default_size(GTK_WINDOW(extract_dialog->dialog), prefs_window->extract_dialog[0], prefs_window->extract_dialog[1]);
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->save_geometry))&& prefs_window->extract_win_size[0] != -1)
+		gtk_window_set_default_size(GTK_WINDOW(extract_dialog->dialog), prefs_window->extract_win_size[0], prefs_window->extract_win_size[1]);
 
 	prefs_window->size_changed[0] = TRUE;
 

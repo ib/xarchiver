@@ -1475,7 +1475,7 @@ int main (int argc, char **argv)
 				for (i = 1; i < argc; i++)
 					files = g_slist_append(files, g_strdup(argv[i]));
 
-				prefs_window->add_coords[0] = -1;
+				prefs_window->add_win_size[0] = -1;
 				xa_set_add_dialog_options(add_window, archive);
 				gtk_widget_hide(gtk_notebook_get_nth_page(GTK_NOTEBOOK(add_window->notebook), 0));
 				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_window->update), FALSE);
@@ -1565,11 +1565,11 @@ leave:
 		gtk_window_set_transient_for(GTK_WINDOW(add_window->dialog), GTK_WINDOW(xa_main_window));
 		gtk_window_set_transient_for(GTK_WINDOW(prefs_window->dialog), GTK_WINDOW(xa_main_window));
 		gtk_window_set_transient_for(GTK_WINDOW(multi_extract_window->dialog), GTK_WINDOW(xa_main_window));
-		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->save_geometry)) && prefs_window->geometry[0] != -1)
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->save_geometry)) && prefs_window->main_win_geometry[0] != -1)
 		{
-			gtk_window_move (GTK_WINDOW(xa_main_window), prefs_window->geometry[0], prefs_window->geometry[1]);
-			gtk_window_set_default_size(GTK_WINDOW(xa_main_window), prefs_window->geometry[2], prefs_window->geometry[3]);
-			gtk_paned_set_position(GTK_PANED(hpaned1), prefs_window->geometry[4]);
+			gtk_window_move(GTK_WINDOW(xa_main_window), prefs_window->main_win_geometry[0], prefs_window->main_win_geometry[1]);
+			gtk_window_set_default_size(GTK_WINDOW(xa_main_window), prefs_window->main_win_geometry[2], prefs_window->main_win_geometry[3]);
+			gtk_paned_set_position(GTK_PANED(hpaned1), prefs_window->main_win_geometry[4]);
 		}
 		else
 		{
