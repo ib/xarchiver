@@ -25,12 +25,31 @@
 
 typedef struct Prefs_dialog_data
 {
-	GtkWidget *dialog, *preferred_format, *prefer_unzip;
-	GtkWidget *confirm_deletion, *store_output, *icon_size;
-	GtkWidget *show_comment, *sort_by_filenames, *advanced_isearch, *auto_expand, *show_location_bar, *show_sidebar, *show_toolbar, *preferred_viewer, *preferred_archiver, *preferred_custom_cmd;
-	GtkWidget *preferred_browser, *preferred_editor, *preferred_temp_dir, *preferred_extract_dir, *allow_sub_dir, *save_geometry, *notebook;
-	GtkListStore *liststore;
+	GtkWidget *dialog;
 	GtkWidget *iconview;
+	GtkWidget *notebook;
+	GtkWidget *preferred_format;
+	GtkWidget *prefer_unzip;
+	GtkWidget *confirm_deletion;
+	GtkWidget *sort_by_filenames;
+	GtkWidget *advanced_isearch;
+	GtkWidget *auto_expand;
+	GtkWidget *store_output;
+	GtkWidget *icon_size;
+	GtkWidget *show_comment;
+	GtkWidget *show_sidebar;
+	GtkWidget *show_location_bar;
+	GtkWidget *show_toolbar;
+	GtkWidget *preferred_browser;
+	GtkWidget *preferred_editor;
+	GtkWidget *preferred_viewer;
+	GtkWidget *preferred_archiver;
+	GtkWidget *preferred_custom_cmd;
+	GtkWidget *preferred_temp_dir;
+	GtkWidget *preferred_extract_dir;
+	GtkWidget *save_geometry;
+	GtkWidget *allow_sub_dir;
+	GtkListStore *liststore;
 	gint geometry[5];
 	gint extract_dialog[2];
 	gint add_coords[2];
