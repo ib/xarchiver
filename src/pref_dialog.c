@@ -135,46 +135,53 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 {
 	GTK_COMPAT_TOOLTIPS;
 	Prefs_dialog_data *prefs_dialog;
-	GtkWidget *hbox, *window, *vbox, *label, *table;
-	GtkTreeIter iter;
+	GtkWidget *hbox, *window, *alignment, *vbox, *label, *table;
 	GdkPixbuf *icon_pixbuf;
+	GtkTreeIter iter;
 	GtkTreePath *top;
 	GList *children;
 
 	prefs_dialog = g_new0(Prefs_dialog_data, 1);
-	prefs_dialog->dialog = gtk_dialog_new_with_buttons(_("Preferences"),
-	                                                  NULL, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-	                                                  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-	                                                  GTK_STOCK_OK, GTK_RESPONSE_OK,
-	                                                  NULL);
-	icon_theme = gtk_icon_theme_get_default();
-	gtk_dialog_set_default_response(GTK_DIALOG(prefs_dialog->dialog), GTK_RESPONSE_OK);
+
+	prefs_dialog->dialog = gtk_dialog_new_with_buttons(_("Preferences"), NULL,
+	                                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+	                                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                                                   GTK_STOCK_OK, GTK_RESPONSE_OK,
+	                                                   NULL);
 	gtk_window_set_position(GTK_WINDOW(prefs_dialog->dialog), GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_dialog_set_default_response(GTK_DIALOG(prefs_dialog->dialog), GTK_RESPONSE_OK);
+
+	icon_theme = gtk_icon_theme_get_default();
 
 	hbox = gtk_hbox_new(FALSE, 6);
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(prefs_dialog->dialog))), hbox, TRUE, TRUE, 10);
 
 	window = gtk_scrolled_window_new(NULL, NULL);
-	gtk_box_pack_start(GTK_BOX(hbox), window, TRUE, TRUE, 6);
-	g_object_set(G_OBJECT(window), "hscrollbar-policy", GTK_POLICY_NEVER, "shadow-type", GTK_SHADOW_IN, "vscrollbar-policy", GTK_POLICY_NEVER, NULL);
+	gtk_box_pack_start(GTK_BOX(hbox), window, FALSE, FALSE, 6);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(window), GTK_POLICY_NEVER, GTK_POLICY_NEVER);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(window), GTK_SHADOW_IN);
 
 	prefs_dialog->liststore = gtk_list_store_new(3, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT);
-	gtk_list_store_append(prefs_dialog->liststore, &iter);
+
 	icon_pixbuf = gtk_icon_theme_load_icon(icon_theme, "package-x-generic", 32, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+
+	gtk_list_store_append(prefs_dialog->liststore, &iter);
 	gtk_list_store_set(prefs_dialog->liststore, &iter, 0, icon_pixbuf, 1, _("Archive"), 2, 0, -1);
 
 	if (icon_pixbuf)
 		g_object_unref(icon_pixbuf);
 
-	gtk_list_store_append(prefs_dialog->liststore, &iter);
 	icon_pixbuf = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", 32, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+
+	gtk_list_store_append(prefs_dialog->liststore, &iter);
 	gtk_list_store_set(prefs_dialog->liststore, &iter, 0, icon_pixbuf, 1, _("Window"), 2, 1, -1);
 
 	if (icon_pixbuf)
 		g_object_unref(icon_pixbuf);
 
-	gtk_list_store_append(prefs_dialog->liststore, &iter);
 	icon_pixbuf = gtk_icon_theme_load_icon(icon_theme, "system-run", 32, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+
+	gtk_list_store_append(prefs_dialog->liststore, &iter);
 	gtk_list_store_set(prefs_dialog->liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"), 2, 2, -1);
 
 	if (icon_pixbuf)
@@ -183,24 +190,30 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_dialog->iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_dialog->liststore));
 	g_object_unref(prefs_dialog->liststore);
 
-	gtk_icon_view_set_item_orientation(GTK_ICON_VIEW(prefs_dialog->iconview), GTK_ORIENTATION_VERTICAL);
-	gtk_icon_view_set_columns(GTK_ICON_VIEW(prefs_dialog->iconview), 1);
+	gtk_container_add(GTK_CONTAINER(window), prefs_dialog->iconview);
 	gtk_icon_view_set_pixbuf_column(GTK_ICON_VIEW(prefs_dialog->iconview), 0);
 	gtk_icon_view_set_text_column(GTK_ICON_VIEW(prefs_dialog->iconview), 1);
-	gtk_container_add(GTK_CONTAINER(window), prefs_dialog->iconview);
+	gtk_icon_view_set_item_orientation(GTK_ICON_VIEW(prefs_dialog->iconview), GTK_ORIENTATION_VERTICAL);
+	gtk_icon_view_set_columns(GTK_ICON_VIEW(prefs_dialog->iconview), 1);
 
 	top = gtk_tree_path_new_from_string("0");
 	gtk_icon_view_select_path(GTK_ICON_VIEW(prefs_dialog->iconview), top);
 	gtk_tree_path_free(top);
 
 	prefs_dialog->notebook = gtk_notebook_new();
-	g_object_set(G_OBJECT(prefs_dialog->notebook), "show-border", FALSE, "show-tabs", FALSE, "enable-popup", FALSE, NULL);
-	gtk_box_pack_start(GTK_BOX(hbox), prefs_dialog->notebook, TRUE, TRUE, 0);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(prefs_dialog->notebook), FALSE);
+	gtk_notebook_set_show_border(GTK_NOTEBOOK(prefs_dialog->notebook), FALSE);
 	g_signal_connect(G_OBJECT(prefs_dialog->iconview), "selection-changed", G_CALLBACK(xa_prefs_iconview_changed), prefs_dialog);
 
+	alignment = gtk_alignment_new(0.5, 0.5, 1, 1);
+	gtk_container_add(GTK_CONTAINER(alignment), prefs_dialog->notebook);
+	gtk_box_pack_start(GTK_BOX(hbox), alignment, TRUE, TRUE, 0);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 0, 5);
+
 	/* Archive page*/
+
 	vbox = gtk_vbox_new(FALSE, 2);
-	gtk_container_add(GTK_CONTAINER(prefs_dialog->notebook), vbox);
+	gtk_notebook_append_page(GTK_NOTEBOOK(prefs_dialog->notebook), vbox, NULL);
 
 	hbox = gtk_hbox_new(FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
@@ -209,206 +222,202 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
 	prefs_dialog->preferred_format = gtk_combo_box_text_new();
-	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_format), FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), prefs_dialog->preferred_format, FALSE, TRUE, 0);
+	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_format), FALSE);
 
 	prefs_dialog->prefer_unzip = gtk_check_button_new_with_mnemonic(_("Prefer unzip for zip files (requires restart)"));
+	gtk_widget_set_tooltip_text(prefs_dialog->prefer_unzip, _("Even if other, perhaps more powerful programs are installed to handle zip archives, the traditional \"unzip\" and \"zip\" will still be used"));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->prefer_unzip, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->prefer_unzip), FALSE);
-	gtk_widget_set_tooltip_text(prefs_dialog->prefer_unzip, _("Even if other, perhaps more powerful programs are installed to handle zip archives, the traditional \"unzip\" and \"zip\" will still be used"));
 
 	prefs_dialog->confirm_deletion = gtk_check_button_new_with_mnemonic(_("Confirm deletion of files"));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->confirm_deletion, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->confirm_deletion), FALSE);
 
 	prefs_dialog->sort_by_filenames = gtk_check_button_new_with_mnemonic(_("Sort archive by filename"));
+	gtk_widget_set_tooltip_text(prefs_dialog->sort_by_filenames, _("The filename column is sorted after loading the archive"));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->sort_by_filenames, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->sort_by_filenames), FALSE);
-	gtk_widget_set_tooltip_text(prefs_dialog->sort_by_filenames, _("The filename column is sorted after loading the archive"));
 
 	prefs_dialog->advanced_isearch = gtk_check_button_new_with_mnemonic(_("Advanced incremental search (requires restart)"));
+	gtk_widget_set_tooltip_text(prefs_dialog->advanced_isearch, _("The incremental search is also performed within filenames rather than just at the beginning of them"));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->advanced_isearch, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->advanced_isearch), FALSE);
-	gtk_widget_set_tooltip_text(prefs_dialog->advanced_isearch, _("The incremental search is also performed within filenames rather than just at the beginning of them"));
 
 	prefs_dialog->auto_expand = gtk_check_button_new_with_mnemonic(_("Automatically expand archive tree nodes on selection"));
+	gtk_widget_set_tooltip_text(prefs_dialog->auto_expand, _("Archive tree nodes already expand when the node name is selected by mouse click or keyboard shortcut."));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->auto_expand, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->auto_expand), FALSE);
-	gtk_widget_set_tooltip_text(prefs_dialog->auto_expand, _("Archive tree nodes already expand when the node name is selected by mouse click or keyboard shortcut."));
 
 	prefs_dialog->store_output = gtk_check_button_new_with_mnemonic(_("Store archiver output"));
+	gtk_widget_set_tooltip_text(prefs_dialog->store_output, _("Command-line output is captured and can be reviewed, but this consumes additional memory"));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->store_output, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->store_output), FALSE);
-	gtk_widget_set_tooltip_text(prefs_dialog->store_output, _("Command-line output is captured and can be reviewed, but this consumes additional memory"));
-
-	label = gtk_label_new("");
-	gtk_notebook_set_tab_label(GTK_NOTEBOOK(prefs_dialog->notebook), gtk_notebook_get_nth_page(GTK_NOTEBOOK(prefs_dialog->notebook), 0), label);
 
 	/* Window page*/
-	table = gtk_table_new(5, 2, FALSE);
-	gtk_container_add(GTK_CONTAINER(prefs_dialog->notebook), table);
-	gtk_table_set_row_spacings(GTK_TABLE(table), 2);
-	gtk_table_set_col_spacings(GTK_TABLE(table), 4);
+
+	vbox = gtk_vbox_new(FALSE, 2);
+	gtk_notebook_append_page(GTK_NOTEBOOK(prefs_dialog->notebook), vbox, NULL);
+
+	hbox = gtk_hbox_new(FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
 
 	label = gtk_label_new(_("Icons size (requires restart)"));
-	gtk_table_attach(GTK_TABLE(table), label, 0, 1, 0, 1,
-	                  GTK_FILL, GTK_SHRINK, 0, 0);
-	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
+
 	prefs_dialog->icon_size = gtk_combo_box_text_new();
+	gtk_box_pack_start(GTK_BOX(hbox), prefs_dialog->icon_size, FALSE, TRUE, 0);
 	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->icon_size), FALSE);
+
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->icon_size), _("small"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->icon_size), _("small/medium"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->icon_size), _("medium"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->icon_size), _("large"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->icon_size), _("very large"));
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->icon_size, 1, 2, 0, 1,
-	                  GTK_FILL, GTK_SHRINK, 0, 0);
 
 	prefs_dialog->show_comment = gtk_check_button_new_with_mnemonic(_("Show archive comment"));
 	gtk_widget_set_tooltip_text(prefs_dialog->show_comment, _("If checked the archive comment is shown after the archive is loaded"));
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->show_comment, 0, 2, 1, 2,
-	                  GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->show_comment, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->show_comment), FALSE);
 
 	prefs_dialog->show_sidebar = gtk_check_button_new_with_mnemonic(_("Show archive tree sidebar"));
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->show_sidebar, 0, 2, 2, 3,
-	                  GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->show_sidebar, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->show_sidebar), FALSE);
 
 	prefs_dialog->show_location_bar = gtk_check_button_new_with_mnemonic(_("Show archive location bar"));
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->show_location_bar, 0, 2, 3, 4,
-	                  GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->show_location_bar, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->show_location_bar), FALSE);
 
 	prefs_dialog->show_toolbar = gtk_check_button_new_with_mnemonic(_("Show toolbar"));
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->show_toolbar, 0, 2, 4, 5,
-	                  GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->show_toolbar, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->show_toolbar), FALSE);
 
-	label = gtk_label_new("");
-	gtk_notebook_set_tab_label(GTK_NOTEBOOK(prefs_dialog->notebook), gtk_notebook_get_nth_page(GTK_NOTEBOOK(prefs_dialog->notebook), 1), label);
-
 	/* Advanced page*/
-	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_widget_show(vbox);
-	gtk_container_add(GTK_CONTAINER(prefs_dialog->notebook), vbox);
 
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_notebook_append_page(GTK_NOTEBOOK(prefs_dialog->notebook), vbox, NULL);
 
 	table = gtk_table_new(9, 2, FALSE);
 	gtk_box_pack_start(GTK_BOX(vbox), table, TRUE, TRUE, 0);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 1);
-	gtk_table_set_col_spacings(GTK_TABLE(table), 4);
 
 	if (!xdg_open)
 	{
 		label = gtk_label_new(_("Web browser to use:"));
-		gtk_table_attach(GTK_TABLE(table), label, 0, 1, 0, 1,
-		                  GTK_FILL, GTK_SHRINK, 0, 0);
+		gtk_table_attach(GTK_TABLE(table), label,
+		                 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
 		prefs_dialog->preferred_browser = gtk_combo_box_text_new();
-		gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_browser), FALSE);
+		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_browser,
+		                 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_browser), "");
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_browser), _("choose..."));
+		gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_browser), FALSE);
 		g_signal_connect(prefs_dialog->preferred_browser, "changed", G_CALLBACK(xa_prefs_combo_changed), NULL);
-		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_browser, 1, 2, 0, 1,
-		                  GTK_FILL, GTK_SHRINK, 0, 0);
 
 		label = gtk_label_new(_("Open text files with:"));
-		gtk_table_attach(GTK_TABLE(table), label, 0, 1, 1, 2,
-		                  GTK_FILL, GTK_SHRINK, 0, 0);
+		gtk_table_attach(GTK_TABLE(table), label,
+		                 0, 1, 1, 2, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
 		prefs_dialog->preferred_editor = gtk_combo_box_text_new();
-		gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_editor), FALSE);
+		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_editor,
+		                 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_editor), "");
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_editor), _("choose..."));
+		gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_editor), FALSE);
 		g_signal_connect(prefs_dialog->preferred_editor, "changed", G_CALLBACK(xa_prefs_combo_changed), NULL);
-		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_editor, 1, 2, 1, 2,
-		                  GTK_FILL, GTK_SHRINK, 0, 0);
 
 		label = gtk_label_new(_("Open image files with:"));
-		gtk_table_attach(GTK_TABLE(table), label, 0, 1, 2, 3,
-		                  GTK_FILL, GTK_SHRINK, 0, 0);
+		gtk_table_attach(GTK_TABLE(table), label,
+		                 0, 1, 2, 3, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
 		prefs_dialog->preferred_viewer = gtk_combo_box_text_new();
-		gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_viewer), FALSE);
+		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_viewer,
+		                 1, 2, 2, 3, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_viewer), "");
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_viewer), _("choose..."));
+		gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_viewer), FALSE);
 		g_signal_connect(prefs_dialog->preferred_viewer, "changed", G_CALLBACK(xa_prefs_combo_changed), NULL);
-		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_viewer, 1, 2, 2, 3,
-		                  GTK_FILL, GTK_SHRINK, 0, 0);
 
 		label = gtk_label_new(_("Open archive files with:"));
-		gtk_table_attach(GTK_TABLE(table), label, 0, 1, 3, 4,
-		                 GTK_FILL, GTK_SHRINK, 0, 0);
+		gtk_table_attach(GTK_TABLE(table), label,
+		                 0, 1, 3, 4, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
 		prefs_dialog->preferred_archiver = gtk_combo_box_text_new();
-		gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_archiver), FALSE);
+		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_archiver,
+		                 1, 2, 3, 4, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_archiver), "");
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_archiver), _("choose..."));
+		gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_archiver), FALSE);
 		g_signal_connect(prefs_dialog->preferred_archiver, "changed", G_CALLBACK(xa_prefs_combo_changed), NULL);
-		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_archiver, 1, 2, 3, 4,
-		                 GTK_FILL, GTK_SHRINK, 0, 0);
 	}
 
 	label = gtk_label_new(_("Default custom command:"));
-	gtk_table_attach(GTK_TABLE(table), label, 0, 1, 4, 5,
-	                 GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), label,
+	                 0, 1, 4, 5, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
 	prefs_dialog->preferred_custom_cmd = gtk_combo_box_text_new();
-	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_custom_cmd), FALSE);
+	gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_custom_cmd,
+	                 1, 2, 4, 5, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_custom_cmd), "");
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_custom_cmd), _("choose..."));
+	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_custom_cmd), FALSE);
 	g_signal_connect(prefs_dialog->preferred_custom_cmd, "changed", G_CALLBACK(xa_prefs_combo_changed), NULL);
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_custom_cmd, 1, 2, 4, 5,
-	                 GTK_FILL, GTK_SHRINK, 0, 0);
 
 	label = gtk_label_new(_("Preferred temp directory:"));
-	gtk_table_attach(GTK_TABLE(table), label, 0, 1, 5, 6,
-	                 GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), label,
+	                 0, 1, 5, 6, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
 	prefs_dialog->preferred_temp_dir = gtk_combo_box_text_new();
-	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_temp_dir), FALSE);
+	gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_temp_dir,
+	                 1, 2, 5, 6, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_temp_dir), _("/tmp"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_temp_dir), _("choose..."));
+	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_temp_dir), FALSE);
 	g_signal_connect(prefs_dialog->preferred_temp_dir, "changed", G_CALLBACK(xa_prefs_combo_changed), GUINT_TO_POINTER(1));
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_temp_dir, 1, 2, 5, 6,
-	                 GTK_FILL, GTK_SHRINK, 0, 0);
 
 	label = gtk_label_new(_("Preferred extraction directory:"));
-	gtk_table_attach(GTK_TABLE(table), label, 0, 1, 6, 7,
-	                 GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), label,
+	                 0, 1, 6, 7, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
 	prefs_dialog->preferred_extract_dir = gtk_combo_box_text_new();
-	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_extract_dir), FALSE);
+	gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_extract_dir,
+	                 1, 2, 6, 7, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_extract_dir), _("/tmp"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_extract_dir), _("choose..."));
+	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_extract_dir), FALSE);
 	g_signal_connect(prefs_dialog->preferred_extract_dir, "changed", G_CALLBACK(xa_prefs_combo_changed), GUINT_TO_POINTER(1));
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_extract_dir, 1, 2, 6, 7,
-	                 GTK_FILL, GTK_SHRINK, 0, 0);
 
 	prefs_dialog->save_geometry = gtk_check_button_new_with_mnemonic(_("Save window geometry"));
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->save_geometry, 0, 2, 7, 8,
-	                 GTK_FILL, GTK_FILL,0, 0);
+	gtk_table_attach(GTK_TABLE(table), prefs_dialog->save_geometry,
+	                 0, 2, 7, 8, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->save_geometry), FALSE);
 
 	prefs_dialog->allow_sub_dir = gtk_check_button_new_with_mnemonic(_("Allow subdirs with clipboard and drag-and-drop"));
+	gtk_widget_set_tooltip_text(prefs_dialog->allow_sub_dir, _("This option includes the subdirectories when you add files from the clipboard or with drag-and-drop"));
+	gtk_table_attach(GTK_TABLE(table), prefs_dialog->allow_sub_dir,
+	                 0, 2, 8, 9, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->allow_sub_dir), FALSE);
+
 	children = gtk_container_get_children(GTK_CONTAINER(prefs_dialog->allow_sub_dir));
 	gtk_label_set_line_wrap(GTK_LABEL(children->data), TRUE);
 	g_list_free(children);
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->allow_sub_dir, 0, 2, 8, 9,
-	                 GTK_FILL, (GtkAttachOptions) 0, 0, 0);
-	gtk_widget_set_tooltip_text(prefs_dialog->allow_sub_dir, _("This option includes the subdirectories when you add files from the clipboard or with drag-and-drop"));
-	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->save_geometry), FALSE);
 
 	if (!xdg_open)
 	{
 		label = gtk_label_new(_("\n<span color='red' style='italic'>Please install xdg-utils package so that\nXarchiver can recognize more file types.</span>"));
+		gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
 		gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
-		gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
 	}
-	label = gtk_label_new("");
-	gtk_notebook_set_tab_label(GTK_NOTEBOOK(prefs_dialog->notebook), gtk_notebook_get_nth_page(GTK_NOTEBOOK(prefs_dialog->notebook), 2), label);
+
 	return prefs_dialog;
 }
 
