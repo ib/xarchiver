@@ -1617,6 +1617,8 @@ leave:
 
 	gtk_widget_destroy(prefs_window->dialog);
 	g_free(prefs_window);
+	g_free(config_file);
+	g_free(xdg_open);
 
 	gtk_widget_destroy(extract_window->dialog);
 	g_free(extract_window);
@@ -1635,9 +1637,6 @@ leave:
 		g_slist_free(archiver[i].glob);
 		g_slist_free(archiver[i].tags);
 	}
-
-	g_free(config_file);
-	g_free(xdg_open);
 
 quit:
 
