@@ -2520,8 +2520,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	GtkWidget *textview;
 	GtkWidget *dialog_vbox1;
 	GtkWidget *scrolledwindow1;
-	GtkWidget *tmp_image,*file,*clear,*close,*cancel,*file_hbox,*file_label;
-	GtkWidget *alignment2;
+	GtkWidget *clear, *file, *image, *label, *hbox, *alignment, *cancel, *close;
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
 
@@ -2551,17 +2550,19 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	g_signal_connect (G_OBJECT (clear),"clicked",G_CALLBACK (xa_clear_comment_window),textbuffer);
 
 	file = gtk_button_new();
-	tmp_image = gtk_image_new_from_stock ("gtk-harddisk",GTK_ICON_SIZE_BUTTON);
-	file_hbox = gtk_hbox_new(FALSE,4);
-	file_label = gtk_label_new_with_mnemonic(_("From File"));
+	gtk_dialog_add_action_widget(GTK_DIALOG(comment_dialog), file, 0);
+	g_signal_connect(G_OBJECT(file), "clicked", G_CALLBACK(xa_load_comment_window_from_file), textbuffer);
 
-	alignment2 = gtk_alignment_new (0.5,0.5,0,0);
-	gtk_container_add (GTK_CONTAINER (alignment2),file_hbox);
-	gtk_box_pack_start(GTK_BOX(file_hbox),tmp_image,FALSE,TRUE,0);
-	gtk_box_pack_start(GTK_BOX(file_hbox),file_label,FALSE,TRUE,0);
-	gtk_container_add(GTK_CONTAINER(file),alignment2);
-	gtk_dialog_add_action_widget (GTK_DIALOG (comment_dialog),file,0);
-	g_signal_connect (G_OBJECT (file),"clicked",G_CALLBACK (xa_load_comment_window_from_file),textbuffer);
+	image = gtk_image_new_from_stock("gtk-harddisk", GTK_ICON_SIZE_BUTTON);
+	label = gtk_label_new_with_mnemonic(_("From File"));
+
+	hbox = gtk_hbox_new(FALSE, 4);
+	gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
+
+	alignment = gtk_alignment_new(0.5, 0.5, 0, 1);
+	gtk_container_add(GTK_CONTAINER(alignment), hbox);
+	gtk_container_add(GTK_CONTAINER(file), alignment);
 
 	cancel = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_dialog_add_action_widget (GTK_DIALOG (comment_dialog),cancel,GTK_RESPONSE_CANCEL);
