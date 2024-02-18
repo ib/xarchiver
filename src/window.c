@@ -90,14 +90,12 @@ static gchar *xa_open_file_dialog ()
 
 	if (File_Selector == NULL)
 	{
-		File_Selector = gtk_file_chooser_dialog_new ( _("Open an archive"),
-						GTK_WINDOW (xa_main_window),
-						GTK_FILE_CHOOSER_ACTION_OPEN,
-						GTK_STOCK_CANCEL,
-						GTK_RESPONSE_CANCEL,
-						"gtk-open",
-						GTK_RESPONSE_ACCEPT,
-						NULL);
+		File_Selector = gtk_file_chooser_dialog_new(_("Open an archive"),
+		                                            GTK_WINDOW(xa_main_window),
+		                                            GTK_FILE_CHOOSER_ACTION_OPEN,
+		                                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+		                                            GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+		                                            NULL);
 
 		gtk_dialog_set_default_response (GTK_DIALOG (File_Selector),GTK_RESPONSE_ACCEPT);
 		gtk_window_set_destroy_with_parent (GTK_WINDOW (File_Selector) ,TRUE);
@@ -348,14 +346,12 @@ static gchar *xa_open_sfx_file_selector ()
 	GtkWidget *sfx_file_selector = NULL;
 	int response;
 
-	sfx_file_selector = gtk_file_chooser_dialog_new ( _("Save the self-extracting archive as"),
-						GTK_WINDOW (xa_main_window),
-						GTK_FILE_CHOOSER_ACTION_SAVE,
-						GTK_STOCK_CANCEL,
-						GTK_RESPONSE_CANCEL,
-						"gtk-save",
-						GTK_RESPONSE_ACCEPT,
-						NULL);
+	sfx_file_selector = gtk_file_chooser_dialog_new(_("Save the self-extracting archive as"),
+	                                                GTK_WINDOW(xa_main_window),
+	                                                GTK_FILE_CHOOSER_ACTION_SAVE,
+	                                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                                                GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+	                                                NULL);
 
 	gtk_dialog_set_default_response (GTK_DIALOG (sfx_file_selector),GTK_RESPONSE_ACCEPT);
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (sfx_file_selector),TRUE);
@@ -585,14 +581,12 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 	gboolean response;
 	gsize bytes;
 
-	file = gtk_file_chooser_dialog_new (_("Open a text file"),
-						GTK_WINDOW (xa_main_window),
-						GTK_FILE_CHOOSER_ACTION_OPEN,
-						GTK_STOCK_CANCEL,
-						GTK_RESPONSE_CANCEL,
-						"gtk-open",
-						GTK_RESPONSE_ACCEPT,
-						NULL);
+	file = gtk_file_chooser_dialog_new(_("Open a text file"),
+	                                   GTK_WINDOW(xa_main_window),
+	                                   GTK_FILE_CHOOSER_ACTION_OPEN,
+	                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                                   GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+	                                   NULL);
 
 	response = gtk_dialog_run (GTK_DIALOG(file));
 	if (response == GTK_RESPONSE_ACCEPT)
@@ -1035,14 +1029,13 @@ void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	save = gtk_file_chooser_dialog_new (_("Save the archive as"),
-						GTK_WINDOW (xa_main_window),
-						GTK_FILE_CHOOSER_ACTION_SAVE,
-						GTK_STOCK_CANCEL,
-						GTK_RESPONSE_CANCEL,
-						"gtk-save",
-						GTK_RESPONSE_ACCEPT,
-						NULL);
+	save = gtk_file_chooser_dialog_new(_("Save the archive as"),
+	                                   GTK_WINDOW(xa_main_window),
+	                                   GTK_FILE_CHOOSER_ACTION_SAVE,
+	                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                                   GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+	                                   NULL);
+
 	filename = g_path_get_basename(archive[idx]->path[1]);
 	filename_utf8 = g_filename_display_name(filename);
 	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(save), filename_utf8);
@@ -1190,14 +1183,12 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	else
 		_filename = _("Print the archive content as text");
 
-	save = gtk_file_chooser_dialog_new (_filename,
-						GTK_WINDOW (xa_main_window),
-						GTK_FILE_CHOOSER_ACTION_SAVE,
-						GTK_STOCK_CANCEL,
-						GTK_RESPONSE_CANCEL,
-						"gtk-save",
-						GTK_RESPONSE_ACCEPT,
-						NULL);
+	save = gtk_file_chooser_dialog_new(_filename,
+	                                   GTK_WINDOW(xa_main_window),
+	                                   GTK_FILE_CHOOSER_ACTION_SAVE,
+	                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                                   GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+	                                   NULL);
 
 	filename = g_path_get_basename(archive[idx]->path[1]);
 	_filename = strstr(filename,".");
@@ -1575,14 +1566,12 @@ end_zip:
 				gtk_file_filter_set_name (sfx_filter,"");
 				gtk_file_filter_add_pattern (sfx_filter,"*.sfx");
 
-				locate_7zcon = gtk_file_chooser_dialog_new ( _("Please select the 7zCon.sfx module"),
-						GTK_WINDOW (xa_main_window),
-						GTK_FILE_CHOOSER_ACTION_OPEN,
-						GTK_STOCK_CANCEL,
-						GTK_RESPONSE_CANCEL,
-						"gtk-open",
-						GTK_RESPONSE_ACCEPT,
-						NULL);
+				locate_7zcon = gtk_file_chooser_dialog_new(_("Please select the 7zCon.sfx module"),
+				                                           GTK_WINDOW(xa_main_window),
+				                                           GTK_FILE_CHOOSER_ACTION_OPEN,
+				                                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				                                           GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				                                           NULL);
 
 				gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (locate_7zcon),sfx_filter);
 				gtk_dialog_set_default_response (GTK_DIALOG (locate_7zcon),GTK_RESPONSE_ACCEPT);
