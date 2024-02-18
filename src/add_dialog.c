@@ -243,7 +243,7 @@ AddDialog *xa_create_add_dialog ()
 
 	button = gtk_button_new();
 
-	image = xa_main_window_find_image("xarchiver-add.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
+	image = xa_main_window_find_image("xarchiver-add.png", GTK_ICON_SIZE_BUTTON);
 	label = gtk_label_new_with_mnemonic(_("_Add"));
 
 	hbox = gtk_hbox_new(FALSE, 4);

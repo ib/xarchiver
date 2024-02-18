@@ -469,7 +469,7 @@ ExtractDialog *xa_create_extract_dialog ()
 
 	button = gtk_button_new();
 
-	image = xa_main_window_find_image("xarchiver-extract.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
+	image = xa_main_window_find_image("xarchiver-extract.png", GTK_ICON_SIZE_BUTTON);
 	label = gtk_label_new_with_mnemonic(_("_Extract"));
 
 	hbox = gtk_hbox_new(FALSE, 4);
@@ -824,7 +824,7 @@ MultiExtractDialog *xa_create_multi_extract_dialog ()
 
 	button = gtk_button_new();
 
-	image = xa_main_window_find_image("xarchiver-extract.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
+	image = xa_main_window_find_image("xarchiver-extract.png", GTK_ICON_SIZE_BUTTON);
 	label = gtk_label_new_with_mnemonic(_("_Extract"));
 
 	hbox = gtk_hbox_new(FALSE, 4);
