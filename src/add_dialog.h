@@ -24,7 +24,7 @@
 #include <gtk/gtk.h>
 #include "archive.h"
 
-typedef struct Add_dialog_data
+typedef struct AddDialog
 {
 	GtkWidget *dialog;
 	GtkWidget *notebook;
@@ -43,11 +43,11 @@ typedef struct Add_dialog_data
 	GtkWidget *uncompressed;
 	GtkWidget *password;
 	GtkWidget *password_entry;
-} Add_dialog_data;
+} AddDialog;
 
-Add_dialog_data *xa_create_add_dialog();
+AddDialog *xa_create_add_dialog();
 void xa_execute_add_commands(XArchive *, GSList *, gboolean, gboolean);
-void xa_parse_add_dialog_options(XArchive *, Add_dialog_data *, GSList *);
-void xa_set_add_dialog_options(Add_dialog_data *, XArchive *);
+void xa_parse_add_dialog_options(XArchive *, AddDialog *, GSList *);
+void xa_set_add_dialog_options(AddDialog *, XArchive *);
 
 #endif

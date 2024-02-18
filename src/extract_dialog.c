@@ -71,12 +71,12 @@ static void xa_select_where_to_extract (GtkEntry *entry, gint icon_pos, GTK_COMP
 	gtk_widget_destroy(file_selector);
 }
 
-static void xa_toggle_all_files_radio (GtkToggleButton *button, Extract_dialog_data *extract_dialog)
+static void xa_toggle_all_files_radio (GtkToggleButton *button, ExtractDialog *extract_dialog)
 {
 	gtk_widget_set_sensitive(extract_dialog->ensure_directory, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->all_files)));
 }
 
-static void xa_toggle_relative_path_radio (GtkToggleButton *button, Extract_dialog_data *extract_dialog)
+static void xa_toggle_relative_path_radio (GtkToggleButton *button, ExtractDialog *extract_dialog)
 {
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->relative_path)))
 	{
@@ -90,7 +90,7 @@ static void xa_toggle_relative_path_radio (GtkToggleButton *button, Extract_dial
 	}
 }
 
-static void xa_activate_entry (GtkToggleButton *button, Extract_dialog_data *extract_dialog)
+static void xa_activate_entry (GtkToggleButton *button, ExtractDialog *extract_dialog)
 {
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->specified_files)))
 	{
@@ -101,7 +101,7 @@ static void xa_activate_entry (GtkToggleButton *button, Extract_dialog_data *ext
 		gtk_widget_set_sensitive(extract_dialog->specified_files_entry, FALSE);
 }
 
-static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selection, Multi_extract_data *multi_extract)
+static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selection, MultiExtractDialog *multi_extract)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
@@ -152,7 +152,7 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDr
 	gtk_drag_finish(context, TRUE, FALSE, time);
 }
 
-static void xa_multi_extract_dialog_select_files_to_add (GtkButton *button, Multi_extract_data *multi_extract)
+static void xa_multi_extract_dialog_select_files_to_add (GtkButton *button, MultiExtractDialog *multi_extract)
 {
 	GtkWidget *file_selector;
 	GSList *dummy = NULL;
@@ -193,7 +193,7 @@ static void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTree
 	*rowref_list = g_list_append(*rowref_list,rowref);
 }
 
-static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extract_data *multi_extract)
+static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtractDialog *multi_extract)
 {
 	GtkTreeModel *model;
 	GtkTreeSelection *sel;
@@ -224,7 +224,7 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extra
 	g_list_free_full(rr_list, (GDestroyNotify) gtk_tree_row_reference_free);
 }
 
-static gchar *xa_multi_extract_one_archive (Multi_extract_data *multi_extract, gchar *filename, gboolean overwrite, gboolean full_path, gchar *dest_path)
+static gchar *xa_multi_extract_one_archive (MultiExtractDialog *multi_extract, gchar *filename, gboolean overwrite, gboolean full_path, gchar *dest_path)
 {
 	XArchive *archive = NULL;
 	gchar *dirname = NULL;
@@ -291,7 +291,7 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *multi_extract, g
 	return error;
 }
 
-static void toggle_overwrite_update_freshen (GtkToggleButton *button, Extract_dialog_data *extract_dialog)
+static void toggle_overwrite_update_freshen (GtkToggleButton *button, ExtractDialog *extract_dialog)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
 
@@ -308,14 +308,14 @@ static void toggle_overwrite_update_freshen (GtkToggleButton *button, Extract_di
 	}
 }
 
-Extract_dialog_data *xa_create_extract_dialog()
+ExtractDialog *xa_create_extract_dialog ()
 {
 	GTK_COMPAT_TOOLTIPS;
-	Extract_dialog_data *extract_dialog;
+	ExtractDialog *extract_dialog;
 	GtkWidget *vbox, *vbox2, *label, *alignment, *hbox, *frame, *button, *image;
 	GSList *group;
 
-	extract_dialog = g_new0(Extract_dialog_data, 1);
+	extract_dialog = g_new0(ExtractDialog, 1);
 
 	extract_dialog->dialog = gtk_dialog_new();
 	gtk_window_set_title(GTK_WINDOW(extract_dialog->dialog), _("Extract files"));
@@ -488,7 +488,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	return extract_dialog;
 }
 
-void xa_set_extract_dialog_options (Extract_dialog_data *extract_dialog, gint selected, XArchive *archive)
+void xa_set_extract_dialog_options (ExtractDialog *extract_dialog, gint selected, XArchive *archive)
 {
 	if (progress)
 		gtk_widget_hide(progress->window);
@@ -556,7 +556,7 @@ void xa_set_extract_dialog_options (Extract_dialog_data *extract_dialog, gint se
 	gtk_widget_show_all(extract_dialog->dialog);
 }
 
-void xa_parse_extract_dialog_options (XArchive *archive, Extract_dialog_data *extract_dialog, GtkTreeSelection *selection)
+void xa_parse_extract_dialog_options (XArchive *archive, ExtractDialog *extract_dialog, GtkTreeSelection *selection)
 {
 	gchar *destination_path, *string;
 	gboolean strip, done = FALSE;
@@ -695,17 +695,17 @@ void xa_parse_extract_dialog_options (XArchive *archive, Extract_dialog_data *ex
 	gtk_widget_hide(extract_dialog->dialog);
 }
 
-Multi_extract_data *xa_create_multi_extract_dialog()
+MultiExtractDialog *xa_create_multi_extract_dialog ()
 {
 	GTK_COMPAT_TOOLTIPS;
-	Multi_extract_data *multi_extract;
+	MultiExtractDialog *multi_extract;
 	GtkWidget *vbox, *window, *alignment, *hbox, *hbox2, *button, *frame, *image, *label;
 	GtkTreeSelection *selection;
 	GtkCellRenderer *renderer;
 	int col;
 	GSList *group;
 
-	multi_extract = g_new0(Multi_extract_data, 1);
+	multi_extract = g_new0(MultiExtractDialog, 1);
 
 	multi_extract->dialog = gtk_dialog_new();
 	gtk_window_set_title(GTK_WINDOW(multi_extract->dialog), _("Multi-Extract"));
@@ -843,7 +843,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	return multi_extract;
 }
 
-void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *multi_extract)
+void xa_multi_extract_dialog_add_file (gchar *file_path, MultiExtractDialog *multi_extract)
 {
 	GtkTreeIter iter;
 	gchar *path, *path_utf8, *file, *file_utf8;
@@ -895,7 +895,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *mul
 	g_free(path);
 }
 
-void xa_multi_extract_dialog (Multi_extract_data *multi_extract)
+void xa_multi_extract_dialog (MultiExtractDialog *multi_extract)
 {
 	GtkTreeIter iter;
 	gchar *filename, *filename_local, *file, *path, *message, *name, *dest_path = NULL;

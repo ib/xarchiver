@@ -34,7 +34,7 @@ static gboolean no_focus (GtkWidget *widget, GtkDirectionType direction, gpointe
 	return TRUE;
 }
 
-static void toggle_update_freshen (GtkToggleButton *button, Add_dialog_data *add_dialog)
+static void toggle_update_freshen (GtkToggleButton *button, AddDialog *add_dialog)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
 
@@ -48,7 +48,7 @@ static void toggle_update_freshen (GtkToggleButton *button, Add_dialog_data *add
 	}
 }
 
-static void password_toggled_cb (GtkToggleButton *button, Add_dialog_data *add_dialog)
+static void password_toggled_cb (GtkToggleButton *button, AddDialog *add_dialog)
 {
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->password)))
 	{
@@ -59,7 +59,7 @@ static void password_toggled_cb (GtkToggleButton *button, Add_dialog_data *add_d
 		gtk_widget_set_sensitive(add_dialog->password_entry, FALSE);
 }
 
-static void toggle_compression (GtkToggleButton *button, Add_dialog_data *add_dialog)
+static void toggle_compression (GtkToggleButton *button, AddDialog *add_dialog)
 {
 	gboolean toggle_button_active = gtk_toggle_button_get_active(button);
 
@@ -78,14 +78,14 @@ static void fix_adjustment_value (GtkAdjustment *adjustment, XArchive *archive)
 		gtk_adjustment_set_value(adjustment, value - 1);
 }
 
-Add_dialog_data *xa_create_add_dialog()
+AddDialog *xa_create_add_dialog ()
 {
 	GTK_COMPAT_TOOLTIPS;
-	Add_dialog_data *add_dialog;
+	AddDialog *add_dialog;
 	GtkWidget *vbox, *label, *frame, *alignment, *hbox, *table, *button, *image;
 	GSList *group;
 
-	add_dialog = g_new0 (Add_dialog_data, 1);
+	add_dialog = g_new0(AddDialog, 1);
 
 	add_dialog->dialog = gtk_dialog_new();
 	gtk_window_set_title(GTK_WINDOW(add_dialog->dialog), _("Add files"));
@@ -262,7 +262,7 @@ Add_dialog_data *xa_create_add_dialog()
 	return add_dialog;
 }
 
-void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
+void xa_set_add_dialog_options (AddDialog *add_dialog, XArchive *archive)
 {
 	GTK_COMPAT_TOOLTIPS;
 	gboolean epub, full_path, normal;
@@ -335,7 +335,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_show_all(add_dialog->dialog);
 }
 
-void xa_parse_add_dialog_options (XArchive *archive, Add_dialog_data *add_dialog, GSList *list)
+void xa_parse_add_dialog_options (XArchive *archive, AddDialog *add_dialog, GSList *list)
 {
 	gchar *temp_password = NULL;
 	gboolean done = FALSE, recurse;

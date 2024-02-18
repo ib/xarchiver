@@ -74,7 +74,7 @@ static void xa_prefs_combo_changed (GtkComboBox *widget, gpointer data)
 	}
 }
 
-static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_dialog)
+static void xa_prefs_dialog_set_default_options (PrefsDialog *prefs_dialog)
 {
 	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_dialog->preferred_format), 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->prefer_unzip), TRUE);
@@ -108,7 +108,7 @@ static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_dialog
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_window->recurse),TRUE);
 }
 
-void xa_prefs_iconview_changed (GtkIconView *iconview, Prefs_dialog_data *prefs_dialog)
+void xa_prefs_iconview_changed (GtkIconView *iconview, PrefsDialog *prefs_dialog)
 {
 	GList *list;
 	GtkTreePath *path;
@@ -131,17 +131,17 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, Prefs_dialog_data *prefs_
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(prefs_dialog->notebook), column);
 }
 
-Prefs_dialog_data *xa_create_prefs_dialog()
+PrefsDialog *xa_create_prefs_dialog ()
 {
 	GTK_COMPAT_TOOLTIPS;
-	Prefs_dialog_data *prefs_dialog;
+	PrefsDialog *prefs_dialog;
 	GtkWidget *hbox, *window, *alignment, *vbox, *label, *table;
 	GdkPixbuf *icon_pixbuf;
 	GtkTreeIter iter;
 	GtkTreePath *top;
 	GList *children;
 
-	prefs_dialog = g_new0(Prefs_dialog_data, 1);
+	prefs_dialog = g_new0(PrefsDialog, 1);
 
 	prefs_dialog->dialog = gtk_dialog_new_with_buttons(_("Preferences"), NULL,
 	                                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -421,7 +421,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	return prefs_dialog;
 }
 
-void xa_prefs_save_options (Prefs_dialog_data *prefs_dialog, const char *filename)
+void xa_prefs_save_options (PrefsDialog *prefs_dialog, const char *filename)
 {
 	gchar *conf;
 	gchar *value= NULL;
@@ -544,7 +544,7 @@ void xa_prefs_save_options (Prefs_dialog_data *prefs_dialog, const char *filenam
 	g_key_file_free(xa_key_file);
 }
 
-void xa_prefs_load_options (Prefs_dialog_data *prefs_dialog)
+void xa_prefs_load_options (PrefsDialog *prefs_dialog)
 {
 	gint *main_win_geometry;
 	gint *extract_win_size;
@@ -807,13 +807,13 @@ void xa_prefs_load_options (Prefs_dialog_data *prefs_dialog)
 	g_key_file_free (xa_key_file);
 }
 
-void xa_prefs_adapt_options (Prefs_dialog_data *prefs_dialog)
+void xa_prefs_adapt_options (PrefsDialog *prefs_dialog)
 {
 	xa_combo_box_text_append_compressor_types(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_format));
 	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_dialog->preferred_format), preferred_format);
 }
 
-void xa_prefs_apply_options (Prefs_dialog_data *prefs_dialog)
+void xa_prefs_apply_options (PrefsDialog *prefs_dialog)
 {
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->show_toolbar)))
 		gtk_widget_show (toolbar1);

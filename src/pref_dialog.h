@@ -23,7 +23,7 @@
 
 #include <gtk/gtk.h>
 
-typedef struct Prefs_dialog_data
+typedef struct PrefsDialog
 {
 	GtkWidget *dialog;
 	GtkWidget *iconview;
@@ -54,16 +54,16 @@ typedef struct Prefs_dialog_data
 	gint extract_win_size[2];
 	gint add_win_size[2];
 	gboolean size_changed[2];
-} Prefs_dialog_data;
+} PrefsDialog;
 
 extern gchar *config_file;
 extern GtkIconTheme *icon_theme;
 
-Prefs_dialog_data *xa_create_prefs_dialog();
-void xa_prefs_adapt_options(Prefs_dialog_data *);
-void xa_prefs_apply_options(Prefs_dialog_data *);
-void xa_prefs_iconview_changed(GtkIconView *, Prefs_dialog_data *);
-void xa_prefs_load_options(Prefs_dialog_data *);
-void xa_prefs_save_options(Prefs_dialog_data *, const char *);
+PrefsDialog *xa_create_prefs_dialog();
+void xa_prefs_adapt_options(PrefsDialog *);
+void xa_prefs_apply_options(PrefsDialog *);
+void xa_prefs_iconview_changed(GtkIconView *, PrefsDialog *);
+void xa_prefs_load_options(PrefsDialog *);
+void xa_prefs_save_options(PrefsDialog *, const char *);
 
 #endif

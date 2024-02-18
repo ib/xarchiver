@@ -24,7 +24,7 @@
 #include <gtk/gtk.h>
 #include "archive.h"
 
-typedef struct Extract_dialog_data
+typedef struct ExtractDialog
 {
 	GtkWidget *dialog;
 	GtkWidget *destination_path_entry;
@@ -43,9 +43,9 @@ typedef struct Extract_dialog_data
 	GtkWidget *label_password;
 	GtkWidget *password_entry;
 	XArchive *archive;
-} Extract_dialog_data;
+} ExtractDialog;
 
-typedef struct Multi_extract_data
+typedef struct MultiExtractDialog
 {
 	GtkWidget *dialog;
 	GtkWidget *treeview;
@@ -58,14 +58,14 @@ typedef struct Multi_extract_data
 	gint nr;
 	gboolean stop_pressed;
 	XArchive *archive;
-} Multi_extract_data;
+} MultiExtractDialog;
 
-Extract_dialog_data *xa_create_extract_dialog();
-Multi_extract_data *xa_create_multi_extract_dialog();
+ExtractDialog *xa_create_extract_dialog();
+MultiExtractDialog *xa_create_multi_extract_dialog();
 void xa_execute_extract_commands(XArchive *, GSList *, gboolean);
-void xa_multi_extract_dialog(Multi_extract_data *);
-void xa_multi_extract_dialog_add_file(gchar *, Multi_extract_data *);
-void xa_parse_extract_dialog_options(XArchive * , Extract_dialog_data *, GtkTreeSelection *);
-void xa_set_extract_dialog_options(Extract_dialog_data *, gint, XArchive *);
+void xa_multi_extract_dialog(MultiExtractDialog *);
+void xa_multi_extract_dialog_add_file(gchar *, MultiExtractDialog *);
+void xa_parse_extract_dialog_options(XArchive * , ExtractDialog *, GtkTreeSelection *);
+void xa_set_extract_dialog_options(ExtractDialog *, gint, XArchive *);
 
 #endif

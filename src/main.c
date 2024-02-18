@@ -55,10 +55,10 @@ XArchiver archiver[XARCHIVETYPE_TYPES];
 
 gchar *xdg_open;
 
-Add_dialog_data *add_window;
-Extract_dialog_data *extract_window;
-Multi_extract_data *multi_extract_window;
-Prefs_dialog_data *prefs_window;
+AddDialog *add_window;
+ExtractDialog *extract_window;
+MultiExtractDialog *multi_extract_window;
+PrefsDialog *prefs_window;
 
 static gchar *opt_extract_path, *opt_compress;
 static gboolean opt_extract, opt_ensure_dir, opt_multi_extract, opt_add, opt_info, opt_version;
