@@ -946,7 +946,7 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 	if (!menuitem)
 	{
 		image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_ERROR,GTK_ICON_SIZE_DIALOG);
-		gtk_misc_set_alignment (GTK_MISC (image),0.5,0.0);
+		gtk_misc_set_alignment(GTK_MISC(image), 0.5, 0);
 
 		label = gtk_label_new (_("An error occurred while accessing the archive:"));
 		hbox = gtk_hbox_new (FALSE,6);

@@ -1196,7 +1196,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_frame_set_shadow_type (GTK_FRAME (total_frame),GTK_SHADOW_IN);
 
 	total_label = gtk_label_new (NULL);
-	gtk_misc_set_alignment (GTK_MISC(total_label),0.0,0.5);
+	gtk_misc_set_alignment(GTK_MISC(total_label), 0, 0.5);
 	gtk_widget_show (total_label);
 	gtk_container_add (GTK_CONTAINER (total_frame),total_label);
 
@@ -1206,7 +1206,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_frame_set_shadow_type (GTK_FRAME (selected_frame),GTK_SHADOW_IN);
 
 	selected_label = gtk_label_new (NULL);
-	gtk_misc_set_alignment (GTK_MISC(selected_label),0.0,0.5);
+	gtk_misc_set_alignment(GTK_MISC(selected_label), 0, 0.5);
 	gtk_widget_show (selected_label);
 	gtk_container_add (GTK_CONTAINER (selected_frame),selected_label);
 
@@ -1348,7 +1348,7 @@ void xa_add_page (XArchive *archive)
 	gtk_box_pack_start(GTK_BOX(page_hbox),align,TRUE,TRUE,0);
 	gtk_widget_show_all(page_hbox);
 
-	gtk_misc_set_alignment(GTK_MISC(tab_label),0.0,0);
+	gtk_misc_set_alignment(GTK_MISC(tab_label), 0, 0);
 	gtk_notebook_append_page_menu(notebook, archive->page, page_hbox, tab_label);
 	gtk_notebook_set_current_page(notebook,-1);
 	gtk_notebook_set_tab_reorderable(notebook, archive->page, TRUE);
@@ -1729,7 +1729,7 @@ void xa_show_progress_bar (XArchive *archive)
 	g_object_unref(pixbuf);
 
 	gtk_box_pack_start (GTK_BOX (hbox1),icon_pixbuf,FALSE,FALSE,0);
-	gtk_misc_set_alignment (GTK_MISC (icon_pixbuf),0.0,0.0);
+	gtk_misc_set_alignment(GTK_MISC(icon_pixbuf), 0, 0);
 
 	vbox2 = gtk_vbox_new (FALSE,0);
 	gtk_box_pack_start (GTK_BOX (hbox1),vbox2,TRUE,TRUE,0);
