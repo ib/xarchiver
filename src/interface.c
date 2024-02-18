@@ -1343,7 +1343,7 @@ void xa_add_page (XArchive *archive)
 
 	image = xa_main_window_find_image("xarchiver-close.png", 8);
 	gtk_container_add (GTK_CONTAINER(close_button),image);
-	align = gtk_alignment_new(1.0, 0.5, 0.0, 0.0);
+	align = gtk_alignment_new(1, 0.5, 0, 1);
 	gtk_container_add(GTK_CONTAINER(align),close_button);
 	gtk_box_pack_start(GTK_BOX(page_hbox),align,TRUE,TRUE,0);
 	gtk_widget_show_all(page_hbox);

@@ -476,7 +476,7 @@ ExtractDialog *xa_create_extract_dialog ()
 	gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
-	alignment = gtk_alignment_new(0.5, 0.5, 0, 0);
+	alignment = gtk_alignment_new(0.5, 0.5, 0, 1);
 	gtk_container_add(GTK_CONTAINER(alignment), hbox);
 	gtk_container_add(GTK_CONTAINER(button), alignment);
 
@@ -831,7 +831,7 @@ MultiExtractDialog *xa_create_multi_extract_dialog ()
 	gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
-	alignment = gtk_alignment_new(0.5, 0.5, 0, 0);
+	alignment = gtk_alignment_new(0.5, 0.5, 0, 1);
 	gtk_container_add(GTK_CONTAINER(alignment), hbox);
 	gtk_container_add(GTK_CONTAINER(button), alignment);
 
