@@ -512,9 +512,8 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 	GtkWidget *pattern_label;
 	GtkWidget *pattern_entry;
 	GtkWidget *cancelbutton1;
-	GtkWidget *okbutton1;
-	GtkWidget *tmp_image,*select_hbox,*select_label;
-	GtkWidget *alignment2;
+	GtkWidget *select, *image, *label, *hbox;
+	GtkWidget *alignment;
 	gchar *string;
 	gboolean done = FALSE;
 	gint idx;
@@ -548,21 +547,24 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 	gtk_widget_show (cancelbutton1);
 	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1),cancelbutton1,GTK_RESPONSE_CANCEL);
 
-	okbutton1 = gtk_button_new();
-	tmp_image = xa_main_window_find_image("xarchiver-select.png", GTK_ICON_SIZE_BUTTON);
-	select_hbox = gtk_hbox_new(FALSE,4);
-	select_label = gtk_label_new_with_mnemonic(_("_Select"));
+	select = gtk_button_new();
 
-	alignment2 = gtk_alignment_new (0.5,0.5,0,0);
-	gtk_container_add (GTK_CONTAINER (alignment2),select_hbox);
+	image = xa_main_window_find_image("xarchiver-select.png", GTK_ICON_SIZE_BUTTON);
+	label = gtk_label_new_with_mnemonic(_("_Select"));
 
-	gtk_box_pack_start(GTK_BOX(select_hbox),tmp_image,FALSE,TRUE,0);
-	gtk_box_pack_start(GTK_BOX(select_hbox),select_label,FALSE,TRUE,0);
-	gtk_container_add(GTK_CONTAINER(okbutton1),alignment2);
-	gtk_widget_show_all (okbutton1);
-	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1),okbutton1,GTK_RESPONSE_OK);
-	gtk_widget_set_can_default(okbutton1, TRUE);
-	gtk_dialog_set_default_response (GTK_DIALOG (ddialog1),GTK_RESPONSE_OK);
+	hbox = gtk_hbox_new(FALSE, 4);
+	gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
+
+	alignment = gtk_alignment_new(0.5, 0.5, 0, 1);
+	gtk_container_add(GTK_CONTAINER(alignment), hbox);
+	gtk_container_add(GTK_CONTAINER(select), alignment);
+	gtk_widget_show_all(select);
+
+	gtk_dialog_add_action_widget(GTK_DIALOG(ddialog1), select, GTK_RESPONSE_OK);
+	gtk_widget_set_can_default(select, TRUE);
+
+	gtk_dialog_set_default_response(GTK_DIALOG(ddialog1), GTK_RESPONSE_OK);
 
 	while (! done)
 	{
