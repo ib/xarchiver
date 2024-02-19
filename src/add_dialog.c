@@ -119,14 +119,14 @@ AddDialog *xa_create_add_dialog ()
 	gtk_container_add(GTK_CONTAINER(alignment), hbox);
 
 	add_dialog->full_path = gtk_radio_button_new_with_mnemonic(NULL, _("With full path"));
-	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->full_path, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->full_path, TRUE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->full_path), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->full_path), "focus", G_CALLBACK(no_focus), NULL);
 
 	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(add_dialog->full_path));
 
 	add_dialog->relative_path = gtk_radio_button_new_with_mnemonic(group, _("Without parent path"));
-	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->relative_path, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->relative_path, TRUE, FALSE, 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->relative_path), TRUE);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->relative_path), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->relative_path), "focus", G_CALLBACK(no_focus), NULL);
@@ -158,31 +158,31 @@ AddDialog *xa_create_add_dialog ()
 
 	add_dialog->update = gtk_check_button_new_with_mnemonic(_("Update existing files and add new ones"));
 	gtk_widget_set_tooltip_text(add_dialog->update, _("This option will add any new files and update any files which are already in the archive but older there"));
-	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->update, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->update, TRUE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->update), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->update), "toggled", G_CALLBACK(toggle_update_freshen), add_dialog);
 	g_signal_connect(G_OBJECT(add_dialog->update), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->freshen = gtk_check_button_new_with_mnemonic(_("Freshen existing files only"));
 	gtk_widget_set_tooltip_text(add_dialog->freshen, _("This option will only add files which are already in the archive but older there; unlike the update option it will not add any new files"));
-	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->freshen, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->freshen, TRUE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->freshen), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->freshen), "toggled", G_CALLBACK(toggle_update_freshen), add_dialog);
 	g_signal_connect(G_OBJECT(add_dialog->freshen), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->recurse = gtk_check_button_new_with_mnemonic (_("Include subdirectories"));
-	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->recurse, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->recurse, TRUE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->recurse), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->recurse), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->remove = gtk_check_button_new_with_mnemonic(_("Delete files after adding"));
-	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->remove, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->remove, TRUE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->remove), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->remove), "focus", G_CALLBACK(no_focus), NULL);
 
 	add_dialog->solid = gtk_check_button_new_with_mnemonic(_("Create a solid archive"));
 	gtk_widget_set_tooltip_text(add_dialog->solid, _("In a solid archive the files are grouped together resulting in a better compression ratio"));
-	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->solid, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), add_dialog->solid, TRUE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->solid), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->solid), "focus", G_CALLBACK(no_focus), NULL);
 
