@@ -1298,10 +1298,6 @@ int main (int argc, char **argv)
 	if (opt_version)
 	{
 		g_print("%s %s\n\n", PACKAGE_NAME, PACKAGE_VERSION);
-		g_print ("%s\n", "Copyright (c) " COPYRIGHT_YEAR);
-		g_print ("\t%s\n", COPYRIGHT_HOLDER " - Colossus <colossus73@gmail.com>");
-		g_print ("%s\n", "Copyright \xC2\xA9 " MAINTAINER_YEAR);
-		g_print ("\t%s\n\n", MAINTAINER);
 		g_print (_("Maintained by "));
 		g_print (MAINTAINER ".\n\n");
 		g_print (_("Please report bugs to <%s>."), PACKAGE_BUGREPORT);
@@ -1325,8 +1321,7 @@ int main (int argc, char **argv)
 	if (opt_extract || opt_extract_path || opt_ensure_dir || opt_multi_extract || opt_add || opt_compress || opt_info)
 	{
 		archive = xa_init_structure_from_cmd_line (argv[1]);
-		g_print(PACKAGE_NAME " 0.5.4 \xC2\xA9  " COPYRIGHT_YEAR " " COPYRIGHT_HOLDER "\n");
-		g_print(PACKAGE_NAME " %-8s " MAINTAINER "\n", VERSION);
+		g_print(PACKAGE_NAME " %s\n", VERSION);
 
 		/* Switches -d and -x */
 		if (opt_ensure_dir || opt_extract_path)
