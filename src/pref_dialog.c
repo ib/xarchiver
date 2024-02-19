@@ -216,13 +216,13 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_notebook_append_page(GTK_NOTEBOOK(prefs_dialog->notebook), vbox, NULL);
 
 	hbox = gtk_hbox_new(FALSE, 5);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
 	label = gtk_label_new(_("Preferred archive format"));
 	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
 	prefs_dialog->preferred_format = gtk_combo_box_text_new();
-	gtk_box_pack_start(GTK_BOX(hbox), prefs_dialog->preferred_format, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), prefs_dialog->preferred_format, FALSE, FALSE, 0);
 	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_format), FALSE);
 
 	prefs_dialog->prefer_unzip = gtk_check_button_new_with_mnemonic(_("Prefer unzip for zip files (requires restart)"));
@@ -260,13 +260,13 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_notebook_append_page(GTK_NOTEBOOK(prefs_dialog->notebook), vbox, NULL);
 
 	hbox = gtk_hbox_new(FALSE, 5);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
 	label = gtk_label_new(_("Icons size (requires restart)"));
 	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
 	prefs_dialog->icon_size = gtk_combo_box_text_new();
-	gtk_box_pack_start(GTK_BOX(hbox), prefs_dialog->icon_size, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), prefs_dialog->icon_size, FALSE, FALSE, 0);
 	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->icon_size), FALSE);
 
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->icon_size), _("small"));
