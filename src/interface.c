@@ -1387,7 +1387,7 @@ gboolean xa_check_password (XArchive *archive)
 		return TRUE;
 
   	password_dialog = gtk_dialog_new_with_buttons(PACKAGE_NAME,
-									GTK_WINDOW (xa_main_window),GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_WINDOW(xa_main_window), (GtkDialogFlags) 0,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
 
   	gtk_container_set_border_width (GTK_CONTAINER (password_dialog),6);
@@ -1515,7 +1515,7 @@ GtkWidget *xa_create_archive_properties_window()
 	GtkWidget *archiver_label;
 
 	archive_properties_window = gtk_dialog_new_with_buttons (_("Archive Properties"),
-									GTK_WINDOW (xa_main_window),GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_WINDOW(xa_main_window), (GtkDialogFlags) 0,
 									GTK_STOCK_CLOSE,GTK_RESPONSE_CANCEL,NULL);
 
 	g_signal_connect(archive_properties_window,"response",G_CALLBACK(gtk_widget_destroy),NULL);

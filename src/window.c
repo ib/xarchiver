@@ -2476,7 +2476,7 @@ gboolean xa_launch_external_program (const gchar *program, const gchar *arg)
 	if (!GDK_COMPAT_SPAWN(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, xa_set_environment, (gpointer) gdk_display_get_name(display), NULL, &error))
 	{
 		message = gtk_message_dialog_new (GTK_WINDOW (xa_main_window),
-										GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+										GTK_DIALOG_MODAL,
 										GTK_MESSAGE_ERROR,
 										GTK_BUTTONS_CLOSE,
 										_("Failed to launch the application!"));
