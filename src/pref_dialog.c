@@ -139,7 +139,6 @@ PrefsDialog *xa_create_prefs_dialog ()
 	GdkPixbuf *icon_pixbuf;
 	GtkTreeIter iter;
 	GtkTreePath *top;
-	GList *children;
 
 	prefs_dialog = g_new0(PrefsDialog, 1);
 
@@ -413,10 +412,6 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_table_attach(GTK_TABLE(table), prefs_dialog->allow_sub_dir,
 	                 0, 2, 8, 9, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->allow_sub_dir), FALSE);
-
-	children = gtk_container_get_children(GTK_CONTAINER(prefs_dialog->allow_sub_dir));
-	gtk_label_set_line_wrap(GTK_LABEL(children->data), TRUE);
-	g_list_free(children);
 
 	return prefs_dialog;
 }
