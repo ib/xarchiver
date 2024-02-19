@@ -321,7 +321,6 @@ ExtractDialog *xa_create_extract_dialog ()
 	gtk_window_set_title(GTK_WINDOW(extract_dialog->dialog), _("Extract files"));
 	gtk_window_set_position(GTK_WINDOW(extract_dialog->dialog), GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint(GTK_WINDOW(extract_dialog->dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_window_set_destroy_with_parent(GTK_WINDOW(extract_dialog->dialog), TRUE);
 	xa_set_xarchiver_icon(GTK_WINDOW(extract_dialog->dialog));
 
 	vbox = gtk_vbox_new(FALSE, 4);
@@ -711,7 +710,6 @@ MultiExtractDialog *xa_create_multi_extract_dialog ()
 	gtk_window_set_title(GTK_WINDOW(multi_extract->dialog), _("Multi-Extract"));
 	gtk_window_set_position(GTK_WINDOW(multi_extract->dialog), GTK_WIN_POS_CENTER);
 	gtk_window_set_type_hint(GTK_WINDOW(multi_extract->dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_window_set_destroy_with_parent(GTK_WINDOW(multi_extract->dialog), TRUE);
 	gtk_widget_set_size_request(multi_extract->dialog, -1, 312);
 	xa_set_xarchiver_icon(GTK_WINDOW(multi_extract->dialog));
 
