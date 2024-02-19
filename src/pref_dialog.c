@@ -360,6 +360,8 @@ PrefsDialog *xa_create_prefs_dialog ()
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_archiver), _("choose..."));
 		gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_archiver), FALSE);
 		g_signal_connect(prefs_dialog->preferred_archiver, "changed", G_CALLBACK(xa_prefs_combo_changed), NULL);
+
+		gtk_table_set_row_spacing(GTK_TABLE(table), 3, 10);
 	}
 
 	label = gtk_label_new(_("Default custom command:"));
@@ -403,7 +405,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 
 	prefs_dialog->save_geometry = gtk_check_button_new_with_mnemonic(_("Save window geometry"));
 	gtk_table_attach(GTK_TABLE(table), prefs_dialog->save_geometry,
-	                 0, 2, 7, 8, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	                 0, 2, 7, 8, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 4);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->save_geometry), FALSE);
 
 	prefs_dialog->allow_sub_dir = gtk_check_button_new_with_mnemonic(_("Allow subdirs with clipboard and drag-and-drop"));
