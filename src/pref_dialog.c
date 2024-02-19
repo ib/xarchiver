@@ -144,7 +144,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 	prefs_dialog = g_new0(PrefsDialog, 1);
 
 	prefs_dialog->dialog = gtk_dialog_new_with_buttons(_("Preferences"), NULL,
-	                                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+	                                                   GTK_DIALOG_MODAL,
 	                                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	                                                   GTK_STOCK_OK, GTK_RESPONSE_OK,
 	                                                   NULL);
