@@ -190,12 +190,12 @@ AddDialog *xa_create_add_dialog ()
 	gtk_box_pack_start(GTK_BOX(hbox), frame, TRUE, TRUE, 0);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_OUT);
 
-	vbox = gtk_vbox_new(TRUE, 0);
+	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
 	add_dialog->alignment = gtk_alignment_new(0.5, 1, 1, 0);
 	gtk_container_add(GTK_CONTAINER(vbox), add_dialog->alignment);
-	gtk_alignment_set_padding(GTK_ALIGNMENT(add_dialog->alignment), 0, 0, 12, 12);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(add_dialog->alignment), 16, 0, 12, 12);
 
 	table = gtk_table_new(2, 2, FALSE);
 	gtk_container_add(GTK_CONTAINER(vbox), table);
@@ -211,8 +211,7 @@ AddDialog *xa_create_add_dialog ()
 	gtk_misc_set_padding(GTK_MISC(add_dialog->label_best), 10, 0);
 
 	add_dialog->uncompressed = gtk_check_button_new_with_label(_("No compression"));
-	gtk_table_attach(GTK_TABLE(table), add_dialog->uncompressed, 0, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 24);
-	gtk_button_set_alignment(GTK_BUTTON(add_dialog->uncompressed), 0.5, 1);
+	gtk_table_attach(GTK_TABLE(table), add_dialog->uncompressed, 0, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 16);
 	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->uncompressed), FALSE);
 	g_signal_connect(G_OBJECT(add_dialog->uncompressed), "toggled", G_CALLBACK(toggle_compression), add_dialog);
 
