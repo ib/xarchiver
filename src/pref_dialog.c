@@ -303,12 +303,15 @@ PrefsDialog *xa_create_prefs_dialog ()
 
 	if (!xdg_open)
 	{
+		const gchar *xdg_tip = _("If you install \"xdg-open\" from the \"xdg-utils\" package, each file will be opened with its default application.");
+
 		label = gtk_label_new(_("Web browser to use:"));
 		gtk_table_attach(GTK_TABLE(table), label,
 		                 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 
 		prefs_dialog->preferred_browser = gtk_combo_box_text_new();
+		gtk_widget_set_tooltip_text(prefs_dialog->preferred_browser, xdg_tip);
 		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_browser,
 		                 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_browser), "");
@@ -322,6 +325,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 
 		prefs_dialog->preferred_editor = gtk_combo_box_text_new();
+		gtk_widget_set_tooltip_text(prefs_dialog->preferred_editor, xdg_tip);
 		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_editor,
 		                 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_editor), "");
@@ -335,6 +339,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 
 		prefs_dialog->preferred_viewer = gtk_combo_box_text_new();
+		gtk_widget_set_tooltip_text(prefs_dialog->preferred_viewer, xdg_tip);
 		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_viewer,
 		                 1, 2, 2, 3, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_viewer), "");
@@ -348,6 +353,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 
 		prefs_dialog->preferred_archiver = gtk_combo_box_text_new();
+		gtk_widget_set_tooltip_text(prefs_dialog->preferred_archiver, xdg_tip);
 		gtk_table_attach(GTK_TABLE(table), prefs_dialog->preferred_archiver,
 		                 1, 2, 3, 4, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_archiver), "");
@@ -409,14 +415,6 @@ PrefsDialog *xa_create_prefs_dialog ()
 	children = gtk_container_get_children(GTK_CONTAINER(prefs_dialog->allow_sub_dir));
 	gtk_label_set_line_wrap(GTK_LABEL(children->data), TRUE);
 	g_list_free(children);
-
-	if (!xdg_open)
-	{
-		label = gtk_label_new(_("\n<span color='red' style='italic'>Please install xdg-utils package so that\nXarchiver can recognize more file types.</span>"));
-		gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
-		gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
-		gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
-	}
 
 	return prefs_dialog;
 }
