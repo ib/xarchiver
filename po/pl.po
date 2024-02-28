@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4.18\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
-"PO-Revision-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"PO-Revision-Date: 2024-02-28 14:06+0100\n"
 "Last-Translator: Matthaiks\n"
 "Language-Team: Polish <>\n"
 "Language: pl\n"
@@ -21,16 +21,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
 "%100<10 || n%100>=20)) ? 1 : 2));\n"
 "X-Generator: Poedit 3.1.1\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Proszę zainstalować pakiet xdg-utils w \n"
-"celu dodania obsługi większej ilości typów plików.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -646,6 +636,14 @@ msgstr "Rozmiar ikon (wymaga ponownego uruchomienia)"
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Po załadowaniu archiwum wyświetla dołączony komentarz"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
+"Jeśli zainstalujesz \"xdg-open\" z pakietu \"xdg-utils\", każdy plik będzie "
+"otwierany w domyślnej aplikacji."
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1438,6 +1436,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Rozmiar\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Proszę zainstalować pakiet xdg-utils w \n"
+#~ "celu dodania obsługi większej ilości typów plików.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Program zarządzający archiwami oparty wyłącznie o GTK+"

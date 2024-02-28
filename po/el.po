@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver git\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2009-09-08 20:07+0200\n"
 "Last-Translator: Evaggelos Balaskas <ebalaskas@ebalaskas.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -20,16 +20,6 @@ msgstr ""
 "X-Poedit-Language: Greek\n"
 "X-Poedit-Country: GREECE\n"
 "X-Poedit-SourceCharset: utf-8\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Παρακαλώ εγκαταστήσετε το πακέτο xdg-utils\n"
-"ώστε το Xarchiver να μπορεί να αναγνωρίσει περισσότερα αρχεία.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -671,6 +661,12 @@ msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 "Αν επιλεγεί, το σχόλιο του συμπιεσμένου αρχείου θα εμφανίζεται μετά το "
 "φόρτωμα"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1536,6 +1532,17 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Μέγεθος\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Παρακαλώ εγκαταστήσετε το πακέτο xdg-"
+#~ "utils\n"
+#~ "ώστε το Xarchiver να μπορεί να αναγνωρίσει περισσότερα αρχεία.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Ένας διαχειριστής συμπιεσμένων αρχείων σε GTK+"

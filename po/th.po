@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2019-02-26 03:13+0300\n"
 "Last-Translator: Nudjaree <poonim_p@hotmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -25,16 +25,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.0.9\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>กรุณาติดตั้ง xdg-utils เพื่อที่\n"
-"Xarchiver สามารถที่จะรู้จักชนิดของแฟ้มให้มากขึ้น</span>"
 
 #: ../src/window.c
 #, c-format
@@ -676,6 +666,12 @@ msgstr "ขนาดไอคอน (ต้องรีสตาร์ท)"
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "ถ้าเลือกแสดงแฟ้มความคิดเห็นจะแสดงหลังจากที่แฟ้มจัดเก็บถูกโหลด"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1536,6 +1532,16 @@ msgstr ""
 #| msgid "Size"
 msgid "|Size\n"
 msgstr "ขนาด"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>กรุณาติดตั้ง xdg-utils เพื่อที่\n"
+#~ "Xarchiver สามารถที่จะรู้จักชนิดของแฟ้มให้มากขึ้น</span>"
 
 #, fuzzy
 #~| msgid "A GTK+2 only archive manager"

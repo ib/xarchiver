@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2011-08-26 12:33+0200\n"
 "Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -20,16 +20,6 @@ msgstr ""
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: SLOVAKIA\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Prosím nainštalujte balíček xdg-utils, aby\n"
-" aplikácia Xarchiver rozpoznala viac typov súborov.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -665,6 +655,12 @@ msgstr "Veľkosť ikon (vyžaduje reštart)"
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Ak je voľba zaškrtnutá, popis archívu sa zobrazí po jeho načítaní"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1525,6 +1521,17 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Veľkosť\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Prosím nainštalujte balíček xdg-utils, "
+#~ "aby\n"
+#~ " aplikácia Xarchiver rozpoznala viac typov súborov.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Správca archívov len pre GTK+"

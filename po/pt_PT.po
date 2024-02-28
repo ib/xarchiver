@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
-"PO-Revision-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"PO-Revision-Date: 2024-02-28 14:06+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://www.transifex.com/xfce/teams/16840/pt/>\n"
 "Language: pt_PT\n"
@@ -19,16 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.1.1\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Instale o pacote xdg-utils para\n"
-"que o Xarchiver possa reconhecer mais tipos de ficheiro.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -642,6 +632,14 @@ msgstr "Tamanho de ícone (requer reinício)"
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 "Se selecionado, o comentário de arquivo é exibido após carregar o arquivo"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
+"Se instalar o \"xdg-open\" a partir do pacote \"xdg-utils\", cada ficheiro "
+"será aberto com a sua aplicação predefinida."
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1435,6 +1433,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamanho\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Instale o pacote xdg-utils para\n"
+#~ "que o Xarchiver possa reconhecer mais tipos de ficheiro.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Um gestor de arquivos baseado em GTK+"

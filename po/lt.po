@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
-"PO-Revision-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"PO-Revision-Date: 2024-02-28 14:06+0100\n"
 "Last-Translator: welaq\n"
 "Language-Team: Lietuvių\n"
 "Language: lt\n"
@@ -18,17 +18,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 3.2.2\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Prašome įdiegti paketą xdg-utils, kad tokiu "
-"būdu\n"
-"Xarchiver galėtų atpažinti daugiau failo tipų.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -641,6 +630,14 @@ msgstr "Piktogramų dydis (reikalauja paleidimo iš naujo)"
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Jei pažymėta, įkėlus archyvą, bus rodomas archyvo komentaras"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
+"Jei įsidiegsite „xdg-open“ iš „xdg-utils“ paketo, tuomet kiekvienas failas "
+"bus atveriamas naudojant jo numatytąją programą."
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1438,6 +1435,17 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Dydis\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Prašome įdiegti paketą xdg-utils, kad "
+#~ "tokiu būdu\n"
+#~ "Xarchiver galėtų atpažinti daugiau failo tipų.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Tik GTK+ archyvų tvarkytuvė"

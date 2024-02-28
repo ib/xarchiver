@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -20,16 +20,6 @@ msgstr ""
 "X-Poedit-Country: PAKISTAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>براہ مہربانی xdg-utils نصب کریں اس سے\n"
-"ایکس آرکائیور فائلوں کی مزید انواع پہچان سکے گا.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -666,6 +656,12 @@ msgstr "آئکن کا حجم (دوبارہ چلانا پڑے گا)"
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 "اگر منتخب کیا گیا تو محفوظہ کا تبصرہ محفوظہ لوڈ کرنے کے بعد دکھایا جائے گا"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1536,6 +1532,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|حجم\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>براہ مہربانی xdg-utils نصب کریں اس سے\n"
+#~ "ایکس آرکائیور فائلوں کی مزید انواع پہچان سکے گا.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "صرف GTK+ محفوظہ منیجر"

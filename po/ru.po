@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2023-11-29 11:56+0000\n"
 "Last-Translator: Сергей Казорин <translation-team@basealt.ru>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -26,16 +26,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 19.12.3\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Чтобы Xarchiver мог распознавать\n"
-"большее количество файлов, установите пакет xdg-utils.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -649,6 +639,12 @@ msgstr "Размер значков (требует перезапуска)"
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 "При установке параметра комментарий будет выводиться после загрузки архива"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1443,6 +1439,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Размер\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Чтобы Xarchiver мог распознавать\n"
+#~ "большее количество файлов, установите пакет xdg-utils.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Менеджер архивов только на GTK+"

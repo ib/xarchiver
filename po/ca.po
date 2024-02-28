@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -20,16 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Catalan\n"
 "X-Poedit-SourceCharset: utf-8\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Instaŀleu el paquet «xdg-utils» i així\n"
-"«Xarchiver» podrà reconèixer més tipus de fitxers.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -663,6 +653,12 @@ msgstr "Mida de les icones (cal reiniciar)"
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 "Si està seleccionat el comentari de l'arxiu es mostra al carregar-se l'arxiu"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1517,6 +1513,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Mida\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Instaŀleu el paquet «xdg-utils» i així\n"
+#~ "«Xarchiver» podrà reconèixer més tipus de fitxers.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Un gestor d'arxius només GTK+"

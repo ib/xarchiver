@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -19,16 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>נא להתקין את החבילה xdg-utils על מנת\n"
-"ש־Xarchiver יוכל לזהות יותר סוגי קבצים.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -661,6 +651,12 @@ msgstr "גודל הסמלים (נדרש אתחול)"
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "אם תיבה זו מסומנת ההערה על הארכיון תופיע לאחר טעינתו"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1504,6 +1500,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|גודל\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>נא להתקין את החבילה xdg-utils על מנת\n"
+#~ "ש־Xarchiver יוכל לזהות יותר סוגי קבצים.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "מנהל ארכיונים ב־GTK+ בלבד"

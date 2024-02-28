@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
-"PO-Revision-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"PO-Revision-Date: 2024-02-28 14:06+0100\n"
 "Last-Translator: micrococo\n"
 "Language-Team: Español\n"
 "Language: es\n"
@@ -18,17 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 2.0\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Por favor, instale el paquete xdg-utils "
-"para que\n"
-"Xarchiver pueda reconocer más tipos de archivos.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -644,6 +633,14 @@ msgstr "Tamaño de los iconos (requiere reinicio)"
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 "Si está activado, el comentario del archivo se muestra tras cargar el archivo"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
+"Si instala «xdg-open» del paquete «xdg-utils», cada archivo se abrirá con su "
+"aplicación predeterminada."
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1447,6 +1444,17 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaño\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Por favor, instale el paquete xdg-utils "
+#~ "para que\n"
+#~ "Xarchiver pueda reconocer más tipos de archivos.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Un gestor de archivos comprimidos basado solo en GTK+"

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
-"PO-Revision-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"PO-Revision-Date: 2024-02-28 14:06+0100\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "Language: tr\n"
@@ -23,16 +23,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Language: Turkish\n"
 "X-Poedit-Country: TURKEY\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Xarchiver'in daha fazla dosya türünü\n"
-"görebilmesi için, xdg-utils paketini kurun.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -630,6 +620,14 @@ msgstr "Simge boyutları (yeniden başlatmanız gerekir)"
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Seçildiğinde, arşiv çağrıldıktan sonra arşiv yorumu gösterilecek"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
+"\"xdg-utils\" paketinden \"xdg-open\" programını kurarsanız, her dosya "
+"öntanımlı uygulaması ile açılacaktır."
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1424,6 +1422,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Boyut\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Xarchiver'in daha fazla dosya türünü\n"
+#~ "görebilmesi için, xdg-utils paketini kurun.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "GTK+ ile tasarlanmış arşiv yöneticisi"

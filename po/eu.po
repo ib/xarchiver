@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2021-11-07 09:54+0000\n"
 "Last-Translator: Asier Iturralde Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: Euskara <librezale@librezale.eus>\n"
@@ -18,17 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Mesedez instalatu xdg-utils paketea "
-"Xarchiver\n"
-"fitxategi-mota gehiago ezagutzeko gai izateko.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -652,6 +641,12 @@ msgstr "Ikonoen tamaina (berrabiaraztea beharrezkoa)"
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 "Hautaturik badago artxiboaren iruzkina erakutsiko da artxiboa kargatu ondoren"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1454,6 +1449,17 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaina\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Mesedez instalatu xdg-utils paketea "
+#~ "Xarchiver\n"
+#~ "fitxategi-mota gehiago ezagutzeko gai izateko.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "GTK+-rako bakarrik artxibo-kudeatzailea"

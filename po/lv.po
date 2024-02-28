@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -21,16 +21,6 @@ msgstr ""
 "X-Poedit-Language: Latvian\n"
 "X-Poedit-Country: Latvia\n"
 "X-Generator: Lokalize 1.0\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Lūdzu uzinstalējiet xdg-utils paciņu, lai\n"
-"Xarchiver var atpazīt vairāk failu tipus.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -666,6 +656,12 @@ msgstr "Ikonas izmērs (restarts nepieciešams)"
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Ja atzīmēts, arhīva komentārs tiks attēlots pēc arhīva ielādes"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1513,6 +1509,17 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Izmērs\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Lūdzu uzinstalējiet xdg-utils paciņu, "
+#~ "lai\n"
+#~ "Xarchiver var atpazīt vairāk failu tipus.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "GTK+ vienīgais arhīvu pārvaldnieks"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2020-12-08 11:32+0100\n"
 "Last-Translator: Юрій Яновський <lytvyn349@ukr.net>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -20,16 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 2.3\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Встановіть пакет xdg-utils, щоб\n"
-"Xarchiver міг працювати з більшою кількістю типів файлів.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -654,6 +644,12 @@ msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 "Якщо встановлено прапорець, коментар архіву буде відображатися після "
 "завантаження архіву"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1462,6 +1458,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Розмір\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Встановіть пакет xdg-utils, щоб\n"
+#~ "Xarchiver міг працювати з більшою кількістю типів файлів.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Програма для управління архівами, що використовує GTK+"

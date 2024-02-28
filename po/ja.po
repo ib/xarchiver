@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -33,16 +33,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>xdg-utils パッケージをインストールして\n"
-"Xarchiver がより多くのファイル形式を認識できるようにしてください。</span>"
 
 #: ../src/window.c
 #, c-format
@@ -674,6 +664,12 @@ msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 "このオプションを有効にすると、アーカイブの読み込み後にアーカイブコメントが表"
 "示されます。"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1527,6 +1523,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|サイズ\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>xdg-utils パッケージをインストールして\n"
+#~ "Xarchiver がより多くのファイル形式を認識できるようにしてください。</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "Xfce 4 アーカイブマネージャ"

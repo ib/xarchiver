@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
 "PO-Revision-Date: 2011-08-09 03:59-0000\n"
 "Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
 "Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
@@ -15,16 +15,6 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: MOROCCO\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n==1 \n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>الرجاء تثبيت الحزمة xdg-utils ليتمكن\n"
-"Xarchiver من دعم صيغ ملفات اكثر.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -655,6 +645,12 @@ msgstr "حجم الأيقونة (يتطلب إعادة التشغيل)"
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "إذا حددت يظهر تعليق بعد تحميل أرشيفة الأرشيف"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1499,6 +1495,16 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|حجم\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<span color='red' style='italic'>الرجاء تثبيت الحزمة xdg-utils ليتمكن\n"
+#~ "Xarchiver من دعم صيغ ملفات اكثر.</span>"
 
 #~ msgid "A GTK+ only archive manager"
 #~ msgstr "جتك+ مدير الأرشيف فقط"
