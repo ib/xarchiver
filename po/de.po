@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2023-12-22 12:08+0100\n"
-"PO-Revision-Date: 2023-12-22 12:08+0100\n"
+"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"PO-Revision-Date: 2024-02-28 14:06+0100\n"
 "Last-Translator: Ingo Brückl <ib@oddnet.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de\n"
@@ -20,17 +20,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../src/pref_dialog.c
-msgid ""
-"\n"
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"\n"
-"<span color='red' style='italic'>Bitte installieren Sie das Paket »xdg-"
-"utils«,\n"
-"damit Xarchiver mehr Dateiformate erkennen kann.</span>"
 
 #: ../src/window.c
 #, c-format
@@ -104,7 +93,9 @@ msgstr "<th>Größe</th>"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
-msgstr "ein nur auf GTK+ basierender schlanker Archivmanager"
+msgstr ""
+"Schlanker Archivmanager\n"
+"(nur auf GTK+ basierend)"
 
 #: ../src/interface.c
 msgid "A_ction"
@@ -164,8 +155,7 @@ msgstr "Alle Dateien"
 
 #: ../src/pref_dialog.c
 msgid "Allow subdirs with clipboard and drag-and-drop"
-msgstr ""
-"Unterverzeichnisse in der Zwischenablage und bei »Drag und Drop« zulassen"
+msgstr "Unterverzeichnisse bei Zwischenablage und »Drag und Drop«"
 
 #: ../src/window.c
 msgid "An error occurred while accessing the archive:"
@@ -644,6 +634,14 @@ msgstr "Symbolgröße (Neustart erforderlich):"
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Nach dem Laden werden Kommentare im Archiv automatisch angezeigt."
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
+"Wenn Sie »xdg-open« aus dem Paket »xdg-utils« installieren, wird jede Datei "
+"mit ihrer Standardanwendung geöffnet."
 
 #: ../src/add_dialog.c
 msgid ""
