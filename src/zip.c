@@ -87,7 +87,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 
 	USE_PARSER;
 
-	if (line[0] != '-' && line[0] != 'd' && line[0] != 'l' && line[0] != '?')
+	if (line[0] != '-' && line[0] != 'd' && line[0] != 'l' && line[0] != 'p' && line[0] != '?')
 	{
 		/*
 		 * Unzip can compensate a central directory length reported as too long,
