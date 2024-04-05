@@ -197,7 +197,7 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtrac
 				gtk_tree_model_get(model, &iter, 5, &overwrite, 6, &full_path, -1);
 				gtk_list_store_remove(multi_extract->liststore, &iter);
 
-				multi_extract->nr--;
+				multi_extract->nr_total--;
 
 				if (!overwrite)
 					multi_extract->nr_no_overwrite--;
@@ -288,7 +288,7 @@ static void xa_multi_extract_dialog_clear (MultiExtractDialog *multi_extract)
 {
 	gtk_list_store_clear(multi_extract->liststore);
 
-	multi_extract->nr = 0;
+	multi_extract->nr_total = 0;
 	multi_extract->nr_no_overwrite = 0;
 	multi_extract->nr_no_full_path = 0;
 
@@ -902,7 +902,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, MultiExtractDialog *mul
 	file_utf8 = g_filename_display_name(file);
 	gtk_list_store_append(multi_extract->liststore, &iter);
 	gtk_list_store_set(multi_extract->liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.tag, 5, archive.can_overwrite, 6, archive.can_full_path[0], -1);
-	multi_extract->nr++;
+	multi_extract->nr_total++;
 	g_free(file_utf8);
 	g_free(file);
 	g_free(path_utf8);
@@ -959,7 +959,7 @@ run:
 
 	if (gtk_widget_is_sensitive(multi_extract->overwrite))
 		overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(multi_extract->overwrite));
-	double fraction = 1.0 / multi_extract->nr;
+	double fraction = 1.0 / multi_extract->nr_total;
 
 	xa_show_progress_bar(NULL);
 

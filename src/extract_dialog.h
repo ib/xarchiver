@@ -55,7 +55,7 @@ typedef struct MultiExtractDialog
 	GtkWidget *overwrite;
 	GtkWidget *full_path;
 	GtkListStore *liststore;
-	gint nr;
+	guint nr_total;
 	guint nr_no_overwrite;
 	guint nr_no_full_path;
 	gboolean stop_pressed;
