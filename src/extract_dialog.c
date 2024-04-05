@@ -291,6 +291,15 @@ static gchar *xa_multi_extract_one_archive (MultiExtractDialog *multi_extract, g
 	return error;
 }
 
+static void xa_multi_extract_dialog_clear (MultiExtractDialog *multi_extract)
+{
+	gtk_list_store_clear(multi_extract->liststore);
+
+	multi_extract->nr = 0;
+
+	gtk_widget_set_sensitive(multi_extract->remove, FALSE);
+}
+
 static void toggle_overwrite_update_freshen (GtkToggleButton *button, ExtractDialog *extract_dialog)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
@@ -921,7 +930,7 @@ run:
 	response = gtk_dialog_run(GTK_DIALOG(multi_extract->dialog));
 	if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 	{
-		gtk_list_store_clear(multi_extract->liststore);
+		xa_multi_extract_dialog_clear(multi_extract);
 		gtk_widget_hide(multi_extract->dialog);
 		return;
 	}
@@ -983,9 +992,7 @@ run:
 	if (dest_path != NULL)
 		g_free(dest_path);
 
-	multi_extract->nr = 0;
-	gtk_list_store_clear(multi_extract->liststore);
-	gtk_widget_set_sensitive(multi_extract->remove, FALSE);
+	xa_multi_extract_dialog_clear(multi_extract);
 }
 
 void xa_execute_extract_commands (XArchive *archive, GSList *list, gboolean strip)
