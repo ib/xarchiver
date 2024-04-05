@@ -192,12 +192,15 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtrac
 		{
 			if ( gtk_tree_model_get_iter(GTK_TREE_MODEL(model),&iter,path))
 			{
-				gboolean full_path;
+				gboolean overwrite, full_path;
 
-				gtk_tree_model_get(model, &iter, 5, &full_path, -1);
+				gtk_tree_model_get(model, &iter, 5, &overwrite, 6, &full_path, -1);
 				gtk_list_store_remove(multi_extract->liststore, &iter);
 
 				multi_extract->nr--;
+
+				if (!overwrite)
+					multi_extract->nr_no_overwrite--;
 
 				if (!full_path)
 					multi_extract->nr_no_full_path--;
@@ -208,6 +211,7 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtrac
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model),&iter)== FALSE)
 		gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
 
+	gtk_widget_set_sensitive(multi_extract->overwrite, multi_extract->nr_no_overwrite == 0);
 	gtk_widget_set_sensitive(multi_extract->full_path, multi_extract->nr_no_full_path == 0);
 
 	g_slist_free_full(rr_list, (GDestroyNotify) gtk_tree_row_reference_free);
@@ -285,9 +289,11 @@ static void xa_multi_extract_dialog_clear (MultiExtractDialog *multi_extract)
 	gtk_list_store_clear(multi_extract->liststore);
 
 	multi_extract->nr = 0;
+	multi_extract->nr_no_overwrite = 0;
 	multi_extract->nr_no_full_path = 0;
 
 	gtk_widget_set_sensitive(multi_extract->remove, FALSE);
+	gtk_widget_set_sensitive(multi_extract->overwrite, TRUE);
 	gtk_widget_set_sensitive(multi_extract->full_path, TRUE);
 }
 
@@ -721,7 +727,7 @@ MultiExtractDialog *xa_create_multi_extract_dialog ()
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(window), GTK_SHADOW_IN);
 
-	multi_extract->liststore = gtk_list_store_new(6, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_INT, G_TYPE_UINT, G_TYPE_BOOLEAN);
+	multi_extract->liststore = gtk_list_store_new(7, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_INT, G_TYPE_UINT, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
 	multi_extract->treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(multi_extract->liststore));
 
 	gtk_container_add(GTK_CONTAINER(window), multi_extract->treeview);
@@ -874,6 +880,12 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, MultiExtractDialog *mul
 		return;
 	}
 
+	if (!archive.can_overwrite)
+	{
+		multi_extract->nr_no_overwrite++;
+		gtk_widget_set_sensitive(multi_extract->overwrite, FALSE);
+	}
+
 	if (!archive.can_full_path[0])
 	{
 		multi_extract->nr_no_full_path++;
@@ -887,7 +899,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, MultiExtractDialog *mul
 	file = g_path_get_basename(file_path);
 	file_utf8 = g_filename_display_name(file);
 	gtk_list_store_append(multi_extract->liststore, &iter);
-	gtk_list_store_set(multi_extract->liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.tag, 5, archive.can_full_path[0], -1);
+	gtk_list_store_set(multi_extract->liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.tag, 5, archive.can_overwrite, 6, archive.can_full_path[0], -1);
 	multi_extract->nr++;
 	g_free(file_utf8);
 	g_free(file);
