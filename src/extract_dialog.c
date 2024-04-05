@@ -101,27 +101,6 @@ static void xa_activate_entry (GtkToggleButton *button, ExtractDialog *extract_d
 		gtk_widget_set_sensitive(extract_dialog->specified_files_entry, FALSE);
 }
 
-static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selection, MultiExtractDialog *multi_extract)
-{
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	XArchiveType type;
-	guint tag;
-	XArchive archive = {0};
-
-	if (gtk_tree_selection_get_selected (selection,&model,&iter))
-	{
-		gtk_tree_model_get(model, &iter, 3, &type, 4, &tag, -1);
-
-		archive.type = type;
-		archive.tag = tag;
-
-		(*archiver[type].ask)(&archive);
-
-		gtk_widget_set_sensitive(multi_extract->full_path, archive.can_full_path[0]);
-	}
-}
-
 static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer dialog_data)
 {
 	gchar **uris;
@@ -213,14 +192,24 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtrac
 		{
 			if ( gtk_tree_model_get_iter(GTK_TREE_MODEL(model),&iter,path))
 			{
+				gboolean full_path;
+
+				gtk_tree_model_get(model, &iter, 5, &full_path, -1);
 				gtk_list_store_remove(multi_extract->liststore, &iter);
+
 				multi_extract->nr--;
+
+				if (!full_path)
+					multi_extract->nr_no_full_path--;
 			}
 			gtk_tree_path_free(path);
 		}
 	}
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model),&iter)== FALSE)
 		gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
+
+	gtk_widget_set_sensitive(multi_extract->full_path, multi_extract->nr_no_full_path == 0);
+
 	g_slist_free_full(rr_list, (GDestroyNotify) gtk_tree_row_reference_free);
 }
 
@@ -296,8 +285,10 @@ static void xa_multi_extract_dialog_clear (MultiExtractDialog *multi_extract)
 	gtk_list_store_clear(multi_extract->liststore);
 
 	multi_extract->nr = 0;
+	multi_extract->nr_no_full_path = 0;
 
 	gtk_widget_set_sensitive(multi_extract->remove, FALSE);
+	gtk_widget_set_sensitive(multi_extract->full_path, TRUE);
 }
 
 static void toggle_overwrite_update_freshen (GtkToggleButton *button, ExtractDialog *extract_dialog)
@@ -708,7 +699,6 @@ MultiExtractDialog *xa_create_multi_extract_dialog ()
 	GTK_COMPAT_TOOLTIPS;
 	MultiExtractDialog *multi_extract;
 	GtkWidget *vbox, *window, *alignment, *hbox, *hbox2, *button, *frame, *image, *label;
-	GtkTreeSelection *selection;
 	GtkCellRenderer *renderer;
 	int col;
 	GSList *group;
@@ -731,16 +721,13 @@ MultiExtractDialog *xa_create_multi_extract_dialog ()
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(window), GTK_SHADOW_IN);
 
-	multi_extract->liststore = gtk_list_store_new(5, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_INT, G_TYPE_UINT);
+	multi_extract->liststore = gtk_list_store_new(6, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_INT, G_TYPE_UINT, G_TYPE_BOOLEAN);
 	multi_extract->treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(multi_extract->liststore));
 
 	gtk_container_add(GTK_CONTAINER(window), multi_extract->treeview);
 	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(multi_extract->treeview), TRUE);
 	gtk_drag_dest_set(multi_extract->treeview, GTK_DEST_DEFAULT_ALL, drop_targets, G_N_ELEMENTS(drop_targets), GDK_ACTION_COPY);
 	g_signal_connect(G_OBJECT(multi_extract->treeview), "drag-data-received", G_CALLBACK(xa_multi_extract_dialog_drag_data_received), multi_extract);
-
-	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(multi_extract->treeview));
-	g_signal_connect(selection, "changed", G_CALLBACK(xa_multi_extract_dialog_selection_changed), multi_extract);
 
 	renderer = gtk_cell_renderer_text_new();
 
@@ -887,6 +874,12 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, MultiExtractDialog *mul
 		return;
 	}
 
+	if (!archive.can_full_path[0])
+	{
+		multi_extract->nr_no_full_path++;
+		gtk_widget_set_sensitive(multi_extract->full_path, FALSE);
+	}
+
 	stat (file_path,&my_stat);
 	file_size = my_stat.st_size;
 	path = xa_remove_level_from_path(file_path);
@@ -894,7 +887,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, MultiExtractDialog *mul
 	file = g_path_get_basename(file_path);
 	file_utf8 = g_filename_display_name(file);
 	gtk_list_store_append(multi_extract->liststore, &iter);
-	gtk_list_store_set(multi_extract->liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.tag, -1);
+	gtk_list_store_set(multi_extract->liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.tag, 5, archive.can_full_path[0], -1);
 	multi_extract->nr++;
 	g_free(file_utf8);
 	g_free(file);
