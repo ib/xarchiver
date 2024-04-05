@@ -730,6 +730,8 @@ MultiExtractDialog *xa_create_multi_extract_dialog ()
 	multi_extract->liststore = gtk_list_store_new(7, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_INT, G_TYPE_UINT, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
 	multi_extract->treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(multi_extract->liststore));
 
+	gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(multi_extract->treeview)), GTK_SELECTION_MULTIPLE);
+
 	gtk_container_add(GTK_CONTAINER(window), multi_extract->treeview);
 	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(multi_extract->treeview), TRUE);
 	gtk_drag_dest_set(multi_extract->treeview, GTK_DEST_DEFAULT_ALL, drop_targets, G_N_ELEMENTS(drop_targets), GDK_ACTION_COPY);
