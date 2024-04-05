@@ -190,7 +190,7 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtrac
 		path = gtk_tree_row_reference_get_path((GtkTreeRowReference *)node->data);
 		if (path)
 		{
-			if ( gtk_tree_model_get_iter(GTK_TREE_MODEL(model),&iter,path))
+			if (gtk_tree_model_get_iter(model, &iter, path))
 			{
 				gboolean overwrite, full_path;
 
@@ -208,7 +208,7 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtrac
 			gtk_tree_path_free(path);
 		}
 	}
-	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model),&iter)== FALSE)
+	if (gtk_tree_model_get_iter_first(model, &iter)== FALSE)
 		gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
 
 	gtk_widget_set_sensitive(multi_extract->overwrite, multi_extract->nr_no_overwrite == 0);
