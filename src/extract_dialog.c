@@ -185,12 +185,12 @@ static void xa_activate_remove_button (GtkTreeModel *tree_model, GtkTreePath *pa
 		gtk_widget_set_sensitive (remove_button,TRUE );
 }
 
-static void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, GList **rowref_list)
+static void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, GSList **rowref_list)
 {
 	GtkTreeRowReference *rowref;
 
 	rowref = gtk_tree_row_reference_new(model,path);
-	*rowref_list = g_list_append(*rowref_list,rowref);
+	*rowref_list = g_slist_append(*rowref_list, rowref);
 }
 
 static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtractDialog *multi_extract)
@@ -199,8 +199,8 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtrac
 	GtkTreeSelection *sel;
 	GtkTreePath *path;
 	GtkTreeIter iter;
-	GList *rr_list = NULL;
-	GList *node;
+	GSList *rr_list = NULL;
+	GSList *node;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(multi_extract->treeview));
 	sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(multi_extract->treeview));
@@ -221,7 +221,7 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, MultiExtrac
 	}
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model),&iter)== FALSE)
 		gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
-	g_list_free_full(rr_list, (GDestroyNotify) gtk_tree_row_reference_free);
+	g_slist_free_full(rr_list, (GDestroyNotify) gtk_tree_row_reference_free);
 }
 
 static gchar *xa_multi_extract_one_archive (MultiExtractDialog *multi_extract, gchar *filename, gboolean overwrite, gboolean full_path, gchar *dest_path)
