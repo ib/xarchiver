@@ -913,7 +913,7 @@ void xa_multi_extract_dialog (MultiExtractDialog *multi_extract)
 	GtkTreeIter iter;
 	gchar *filename, *filename_local, *file, *path, *message, *name, *dest_path = NULL;
 	GString *output = g_string_new("");
-	gboolean overwrite = FALSE, full_path;
+	gboolean overwrite, full_path;
 	gint response;
 	double percent = 0.0;
 
@@ -956,8 +956,8 @@ run:
 	}
 	gtk_widget_hide(multi_extract->dialog);
 
-	if (gtk_widget_is_sensitive(multi_extract->overwrite))
-		overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(multi_extract->overwrite));
+	overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(multi_extract->overwrite));
+
 	double fraction = 1.0 / multi_extract->nr_total;
 
 	xa_show_progress_bar(NULL);
