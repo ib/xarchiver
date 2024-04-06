@@ -957,6 +957,7 @@ run:
 	gtk_widget_hide(multi_extract->dialog);
 
 	overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(multi_extract->overwrite));
+	full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(multi_extract->full_path));
 
 	double fraction = 1.0 / multi_extract->nr_total;
 
@@ -965,7 +966,6 @@ run:
 	do
 	{
 		gtk_tree_model_get(GTK_TREE_MODEL(multi_extract->liststore), &iter, 0, &file, 2, &path, -1);
-		full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(multi_extract->full_path));
 		filename = g_strconcat (path,"/",file,NULL);
 		xa_increase_progress_bar(progress, filename, percent);
 		g_free(file);
