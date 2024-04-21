@@ -17,10 +17,13 @@
  *  MA 02110-1301 USA.
  */
 
+#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include "date_utils.h"
+
+static gchar *date_error = "----------";
 
 static guint month (const gchar *date)
 {
@@ -43,7 +46,13 @@ static guint month (const gchar *date)
 gchar *date_MMM_dD_HourYear (const gchar *date)
 {
 	static gchar iso8601[11];
+	size_t len;
 	gchar mm[3];
+
+	len = strlen(date);
+
+	if (len < 11 || (date[7] == ' ' && len < 12))
+		return date_error;
 
 	iso8601[4] = '-';
 	iso8601[7] = '-';
@@ -84,6 +93,9 @@ gchar *date_YY_MM_DD (const gchar *date)
 	static gchar iso8601[11];
 	guint yy;
 
+	if (strlen(date) != 8)
+		return date_error;
+
 	memcpy(iso8601 + 2, date, 8);
 	iso8601[10] = 0;
 
@@ -101,6 +113,9 @@ gchar *date_DD_MM_YY (const gchar *date)
 {
 	gchar yy_mm_dd[9];
 
+	if (strlen(date) != 8)
+		return date_error;
+
 	yy_mm_dd[0] = date[6];
 	yy_mm_dd[1] = date[7];
 	yy_mm_dd[2] = '-';
@@ -117,6 +132,9 @@ gchar *date_DD_MM_YY (const gchar *date)
 gchar *date_YY_MMM_DD (const gchar *date)
 {
 	gchar yy_mm_dd[9], mm[3];
+
+	if (strlen(date) != 9)
+		return date_error;
 
 	yy_mm_dd[0] = date[0];
 	yy_mm_dd[1] = date[1];

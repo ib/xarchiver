@@ -108,7 +108,7 @@ void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	NEXT_ITEMS(3, item[2]);
 
 	/* time */
-	if (((char *) item[2])[peek] == ':')
+	if (((char *) item[2])[peek] == ':' && strlen(item[2]) >= 12)
 	{
 		memcpy(time, item[2] + 7, 5);
 		time[5] = 0;

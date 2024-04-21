@@ -19,6 +19,7 @@
  *  MA 02110-1301 USA.
  */
 
+#include <stddef.h>
 #include <string.h>
 #include "ar.h"
 #include "date_utils.h"
@@ -38,6 +39,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[5];
+	size_t len;
 	gchar *filename, time[6];
 
 	USE_PARSER;
@@ -54,14 +56,26 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	/* date and time */
 	NEXT_ITEMS(4, item[1]);
 
+	len = strlen(item[1]);
+
 	/* time */
+	if (len >= 12)
+	{
 	memcpy(time, item[1] + 7, 5);
 	time[5] = 0;
 	item[2] = time;
+	}
+	else
+		item[2] = "-----";
 
 	/* date */
-	memcpy(item[1] + 7, item[1] + 13, 5);
+	if (len >= 17)
+	{
+		memcpy(item[1] + 7, item[1] + 13, 4);
 	item[1] = date_MMM_dD_HourYear(item[1]);
+	}
+	else
+		item[1] = "----------";
 
 	/* name */
 	LAST_ITEM(filename);

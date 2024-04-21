@@ -115,7 +115,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	NEXT_ITEMS(3, item[3]);
 
 	/* time */
-	if (((char *) item[3])[peek] == ':')
+	if (((char *) item[3])[peek] == ':' && strlen(item[3]) >= 12)
 	{
 		memcpy(time, item[3] + 7, 5);
 		time[5] = 0;
