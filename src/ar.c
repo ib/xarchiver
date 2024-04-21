@@ -61,9 +61,9 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	/* time */
 	if (len >= 12)
 	{
-	memcpy(time, item[1] + 7, 5);
-	time[5] = 0;
-	item[2] = time;
+		memcpy(time, item[1] + 7, 5);
+		time[5] = 0;
+		item[2] = time;
 	}
 	else
 		item[2] = "-----";
@@ -72,7 +72,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	if (len >= 17)
 	{
 		memcpy(item[1] + 7, item[1] + 13, 4);
-	item[1] = date_MMM_dD_HourYear(item[1]);
+		item[1] = date_MMM_dD_HourYear(item[1]);
 	}
 	else
 		item[1] = "----------";
