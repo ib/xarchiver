@@ -19,6 +19,7 @@
 
 #ifdef __APPLE__
 #include <libkern/OSByteOrder.h>
+#define le16toh(x) OSSwapLittleToHostInt16(x)
 #define le32toh(x) OSSwapLittleToHostInt32(x)
 #elif defined(__FreeBSD__)
 #include <sys/endian.h>
