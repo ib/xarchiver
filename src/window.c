@@ -46,6 +46,7 @@
 #ifdef __APPLE__
 #include <libkern/OSByteOrder.h>
 #define le32toh(x) OSSwapLittleToHostInt32(x)
+#define st_mtim st_mtimespec
 #elif defined(__FreeBSD__)
 #include <sys/endian.h>
 #else
