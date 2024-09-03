@@ -118,16 +118,16 @@ msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
 msgstr ""
-"Ajouter les fichiers en demandant le nom de\n"
-"                                     l'archive et quitter"
+"Ajouter les fichiers en demandant le\n"
+"                                           nom de l'archive et quitter"
 
 #: ../src/main.c
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
 msgstr ""
-"Ajouter des fichiers à l'archive en demandant\n"
-"                                     leurs noms et quitter"
+"Ajouter des fichiers à l'archive en\n"
+"                                           demandant leurs noms et quitter"
 
 #: ../src/window.c
 msgid "Adding files to archive, please wait..."
@@ -513,8 +513,8 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr ""
-"Extraire l'archive en demandant le dossier\n"
-"                                     de destination et quitter"
+"Extraire l'archive en demandant le\n"
+"                                           dossier de destination et quitter"
 
 #: ../src/main.c
 msgid ""
@@ -522,7 +522,7 @@ msgid ""
 "                                     and quit"
 msgstr ""
 "Extraire l'archive dans un dossier\n"
-"                                     et quitter"
+"                                           et quitter"
 
 #: ../src/main.c
 msgid ""
@@ -530,7 +530,7 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Extraire l'archive dans le dossier\n"
-"                                     de destination et quitter"
+"                                           de destination et quitter"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
@@ -541,8 +541,10 @@ msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
 msgstr ""
-"Extraire plusieurs archives en demandant\n"
-"                                     le dossier de destination et quitter"
+"Extraire plusieurs archives en\n"
+"                                           demandant le dossier de "
+"destination\n"
+"                                           et quitter"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -976,7 +978,7 @@ msgid ""
 "                                     used and exit"
 msgstr ""
 "Montre les programmes trouvés à\n"
-"                                     utiliser et quitter"
+"                                           utiliser et quitter"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"

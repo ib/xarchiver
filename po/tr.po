@@ -120,8 +120,8 @@ msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
 msgstr ""
-"Verilen dosyaları arşiv adını sorarak ekle\n"
-"                                     ve kapat"
+"Verilen dosyaları arşiv adını sorarak\n"
+"                                       ekle ve kapat"
 
 #: ../src/main.c
 msgid ""
@@ -129,7 +129,7 @@ msgid ""
 "                                     quit"
 msgstr ""
 "Dosyaları, adlarını sorarak arşive ekle\n"
-"                                     ve kapat"
+"                                       ve kapat"
 
 #: ../src/window.c
 msgid "Adding files to archive, please wait..."
@@ -537,7 +537,7 @@ msgid ""
 "                                     extraction directory and quit"
 msgstr ""
 "Birden çok arşivi hedef dizini sorarak aç\n"
-"                                     ve kapat"
+"                                       ve kapat"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -971,8 +971,8 @@ msgid ""
 "Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
-"Kullanılacak bulunan komut satırı programlarını\n"
-"                                     göster ve kapat"
+"Kullanılacak bulunan komut satırı\n"
+"                                       programlarını göster ve kapat"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"

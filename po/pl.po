@@ -123,15 +123,15 @@ msgid ""
 "                                     the archive and quit"
 msgstr ""
 "Dodaj podane pliki, pytając o nazwę\n"
-"                                      archiwum i wyjdź"
+"                                        archiwum i wyjdź"
 
 #: ../src/main.c
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
 msgstr ""
-"Dodaj do archiwum, pytając, które pliki i\n"
-"                                      wyjdź"
+"Dodaj do archiwum, pytając, które pliki\n"
+"                                        i wyjdź"
 
 #: ../src/window.c
 msgid "Adding files to archive, please wait..."
@@ -521,15 +521,15 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Rozpakuj archiwum, prosząc o katalog\n"
-"                                       rozpakowywania i wyjdź"
+"                                        rozpakowywania i wyjdź"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
 msgstr ""
-"Rozpakuj archiwum do katalogu zawierającego\n"
-"                                      i wyjdź"
+"Rozpakuj archiwum do katalogu\n"
+"                                        zawierającego i wyjdź"
 
 #: ../src/main.c
 msgid ""
@@ -537,7 +537,7 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Rozpakuj archiwum do katalogu docelowego\n"
-"                                       i wyjdź"
+"                                        i wyjdź"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
@@ -549,7 +549,7 @@ msgid ""
 "                                     extraction directory and quit"
 msgstr ""
 "Rozpakuj wiele archiwów, pytając o\n"
-"                                      katalog rozpakowywania i wyjdź"
+"                                        katalog rozpakowywania i wyjdź"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -981,8 +981,9 @@ msgid ""
 "Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
-"Pokaż znalezione programy wiersza poleceń, które mają być\n"
-"                                      używane i wyjdź"
+"Pokaż znalezione programy wiersza\n"
+"                                        poleceń, które mają być używane i "
+"wyjdź"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"

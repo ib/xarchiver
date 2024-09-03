@@ -113,8 +113,8 @@ msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
 msgstr ""
-"Добави дадените файлове, изисквайки наименованието на\n"
-"                                              архива и излез"
+"Добави дадените файлове, изисквайки\n"
+"                                     наименованието на архива и излез"
 
 #: ../src/main.c
 msgid ""
@@ -508,15 +508,15 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Разархиварайте архива, като изискате\n"
-"                         директорията за извличане и излизане"
+"                                     директорията за извличане и излизане"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
 msgstr ""
-"Разархивирай архива в съдържащата директория\n"
-"                                             и излизане"
+"Разархивирай архива в съдържащата\n"
+"                                     директория и излизане"
 
 #: ../src/main.c
 msgid ""
@@ -524,7 +524,7 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Разархивирай архива в крайната директория\n"
-"                                    и излизане"
+"                                     и излизане"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
@@ -535,8 +535,8 @@ msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
 msgstr ""
-"Извлечи множество архиви, като поискаш директорията\n"
-"                                          за извличане и излез"
+"Извлечи множество архиви, като поискаш\n"
+"                                     директорията за извличане и излез"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -969,8 +969,8 @@ msgid ""
 "Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
-"Покажи намерени програми от командния ред, които да се\n"
-"                                            използват и излез"
+"Покажи намерени програми от командния ред,\n"
+"                                     които да се използват и излез"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"

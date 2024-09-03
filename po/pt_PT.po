@@ -119,16 +119,16 @@ msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
 msgstr ""
-"Adiciona os respetivos ficheiros ao pedir o\n"
-"                                     nome do arquivo e sai"
+"Adiciona os respetivos ficheiros ao\n"
+"                                             pedir o nome do arquivo e sai"
 
 #: ../src/main.c
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
 msgstr ""
-"Adiciona ao arquivo perguntando quais\n"
-"                                     os ficheiros e sai"
+"Adiciona ao arquivo perguntando\n"
+"                                             quais os ficheiros e sai"
 
 #: ../src/window.c
 msgid "Adding files to archive, please wait..."
@@ -515,16 +515,16 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr ""
-"Extrair arquivo ao pedir o diretório de\n"
-"                                     extração e sair"
+"Extrair arquivo ao pedir o diretó-\n"
+"                                             rio de extração e sair"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
 msgstr ""
-"Extrair arquivo para um diretório de\n"
-"                                     destino e sair"
+"Extrair arquivo para um diretório\n"
+"                                             de destino e sair"
 
 #: ../src/main.c
 msgid ""
@@ -532,19 +532,20 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Extrair arquivo para o diretório de\n"
-"                                     destino e sair"
+"                                             destino e sair"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
 msgstr "Extrair ficheiros"
 
 #: ../src/main.c
+#, fuzzy
 msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
 msgstr ""
-"Extrair arquivo ao pedir o diretório de\n"
-"                                     extração e sair"
+"Extrair arquivo ao pedir o diretó-\n"
+"                                             rio de extração e sair"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -977,8 +978,10 @@ msgid ""
 "Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
-"Mostrar programas de linha de comandos encontrados\n"
-"                                     a ser usados e sair"
+"Mostrar programas de linha de\n"
+"                                             comandos encontrados a ser "
+"usados\n"
+"                                             e sair"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"

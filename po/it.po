@@ -120,7 +120,7 @@ msgid ""
 "                                     the archive and quit"
 msgstr ""
 "Aggiunge i file specificati chiedendo il\n"
-"                               nome dell'archivio ed esce"
+"                                     nome dell'archivio ed esce"
 
 #: ../src/main.c
 msgid ""
@@ -128,7 +128,7 @@ msgid ""
 "                                     quit"
 msgstr ""
 "Aggiunge all'archivio chiedendo quali file\n"
-"                                   ed esce"
+"                                     ed esce"
 
 #: ../src/window.c
 msgid "Adding files to archive, please wait..."
@@ -516,15 +516,15 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Estrae l'archivio chiedendo la directory\n"
-"                                  di estrazione ed esce"
+"                                     di estrazione ed esce"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
 msgstr ""
-"Estrae l'archivio in una directory contenitrice\n"
-"                                      ed esce"
+"Estrae l'archivio in una directory\n"
+"                                     contenitrice ed esce"
 
 #: ../src/main.c
 msgid ""
@@ -532,7 +532,7 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Estrae l'archivio nella directory\n"
-"                                di destinazione ed esce"
+"                                     di destinazione ed esce"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
@@ -544,7 +544,7 @@ msgid ""
 "                                     extraction directory and quit"
 msgstr ""
 "Estrae più archivi chiedendo la directory\n"
-"                                             di estrazione ed esce"
+"                                     di estrazione ed esce"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -980,7 +980,8 @@ msgid ""
 "                                     used and exit"
 msgstr ""
 "Mostra i programmi da riga di comando\n"
-"         trovati e che possono essere usati ed esce"
+"                                     trovati e che possono essere usati ed "
+"esce"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
