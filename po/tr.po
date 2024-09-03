@@ -13,14 +13,16 @@ msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-03 21:10+0200\n"
-"PO-Revision-Date: 2024-09-03 21:10+0200\n"
+"PO-Revision-Date: 2024-09-03 19:22+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <turkce@pardus.org.tr>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/xarchiver/"
+"translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.8-dev\n"
 "X-Poedit-Language: Turkish\n"
 "X-Poedit-Country: TURKEY\n"
 
@@ -31,7 +33,7 @@ msgid ""
 "Name: "
 msgstr ""
 "\n"
-"Ad:"
+"Ad: "
 
 #: ../src/new_dialog.c
 #, c-format
@@ -119,7 +121,7 @@ msgid ""
 "                                     the archive and quit"
 msgstr ""
 "Verilen dosyaları arşiv adını sorarak ekle\n"
-"                                     ve kapat."
+"                                     ve kapat"
 
 #: ../src/main.c
 msgid ""
@@ -127,7 +129,7 @@ msgid ""
 "                                     quit"
 msgstr ""
 "Dosyaları, adlarını sorarak arşive ekle\n"
-"                                     ve kapat."
+"                                     ve kapat"
 
 #: ../src/window.c
 msgid "Adding files to archive, please wait..."
@@ -168,7 +170,7 @@ msgstr "Arşiv"
 
 #: ../src/interface.c
 msgid "Archive Properties"
-msgstr "Arşiv Tercihleri"
+msgstr "Arşiv Özellikleri"
 
 #: ../src/interface.c
 msgid "Archive _comment"
@@ -273,7 +275,7 @@ msgstr "104 konumu aranamıyor:"
 
 #: ../src/extract_dialog.c
 msgid "Can't multi-extract archives:"
-msgstr "Arşivler çoklu-açılamıyor:"
+msgstr "Arşivler çoklu açılamıyor:"
 
 #: ../src/rpm.c
 #, c-format
@@ -376,7 +378,7 @@ msgstr "Sıkıştırılmış boyut:"
 #: ../src/window.c
 #, c-format
 msgid "Compressed size: "
-msgstr "Sıkıştırılmış boyut:"
+msgstr "Sıkıştırılmış boyut: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -392,7 +394,7 @@ msgstr "Sıkıştırma oranı:"
 
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
-msgstr "Dosyaların silinmesini onayla "
+msgstr "Dosyaların silinmesini onayla"
 
 #: ../src/window.c
 msgid "Converting archive, please wait..."
@@ -511,19 +513,19 @@ msgstr "Aç"
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
-msgstr "Arşivi hedef dizini sorarak aç ve kapat."
+msgstr "Arşivi hedef dizini sorarak aç ve kapat"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
-msgstr "Arşivi içeren dizine aç ve kapat."
+msgstr "Arşivi onu içeren dizine aç ve kapat"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to the destination\n"
 "                                     directory and quit"
-msgstr "Arşivi hedef dizine aç ve kapat."
+msgstr "Arşivi hedef dizine aç ve kapat"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
@@ -533,14 +535,16 @@ msgstr "Dosyaları aç"
 msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
-msgstr "Birden çok arşivi hedef dizini sorarak aç ve kapat."
+msgstr ""
+"Birden çok arşivi hedef dizini sorarak aç\n"
+"                                     ve kapat"
 
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies."
 msgstr ""
-"Sadece diskte zaten mevcut olan ve disk kopyalarından daha yeni olan "
+"Yalnızca diskte zaten var olan ve disk kopyalarından daha yeni olan "
 "dosyaları aç."
 
 #: ../src/extract_dialog.c
@@ -598,7 +602,7 @@ msgstr "İleri"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Freshen existing files only"
-msgstr "Yalnızca mevcut dosyaları yenile"
+msgstr "Yalnızca var olan dosyaları yenile"
 
 #: ../src/window.c
 msgid "From File"
@@ -643,7 +647,7 @@ msgstr "Yer:"
 #: ../src/main.c
 #, c-format
 msgid "Maintained by "
-msgstr "Geliştiren"
+msgstr "Geliştiren "
 
 #: ../src/interface.c
 msgid "Make SF_X"
@@ -688,7 +692,7 @@ msgstr "Dosya sayısı:"
 #: ../src/window.c
 #, c-format
 msgid "Number of files: "
-msgstr "Dosyaların sayısı:"
+msgstr "Dosyaların sayısı: "
 
 #: ../src/zip.c
 msgid "OS"
@@ -763,7 +767,7 @@ msgstr "Özgün Boyut"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
-msgstr "Mevcut dosyaların üzerine yaz"
+msgstr "Var dosyaların üzerine yaz"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
@@ -806,7 +810,7 @@ msgstr ""
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Please enter it!"
-msgstr "Lütfen giriş yapın!"
+msgstr "Lütfen girin!"
 
 #: ../src/extract_dialog.c
 msgid "Please enter the extraction path."
@@ -968,7 +972,7 @@ msgid ""
 "                                     used and exit"
 msgstr ""
 "Kullanılacak bulunan komut satırı programlarını\n"
-"                                     göster ve kapat."
+"                                     göster ve kapat"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
@@ -1159,7 +1163,7 @@ msgstr "Sıkıştırılmamış boyut:"
 #: ../src/window.c
 #, c-format
 msgid "Uncompressed size: "
-msgstr "Sıkıştırılmamış boyut:"
+msgstr "Sıkıştırılmamış boyut: "
 
 #: ../src/rpm.c
 msgid "Unknown compression type!"
@@ -1179,11 +1183,11 @@ msgstr "Yukarı"
 
 #: ../src/extract_dialog.c
 msgid "Update existing files"
-msgstr "Mevcut dosyaları güncelle"
+msgstr "Var olan dosyaları güncelle"
 
 #: ../src/add_dialog.c
 msgid "Update existing files and add new ones"
-msgstr "Mevcut dosyaları güncelle ve yenilerini ekle"
+msgstr "Var olan dosyaları güncelle ve yenilerini ekle"
 
 #: ../src/open-with-dlg.c
 msgid "Use a custom command:"
@@ -1330,7 +1334,7 @@ msgstr "_Tercihler"
 
 #: ../src/interface.c
 msgid "_Properties"
-msgstr "_Tercihler"
+msgstr "Ö_zellikler"
 
 #: ../src/interface.c
 msgid "_Select"
