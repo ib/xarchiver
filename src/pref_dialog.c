@@ -217,7 +217,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 	hbox = gtk_hbox_new(FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
-	label = gtk_label_new(_("Preferred archive format"));
+	label = gtk_label_new(_("Preferred archive format:"));
 	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
 	prefs_dialog->preferred_format = gtk_combo_box_text_new();
@@ -225,7 +225,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_format), FALSE);
 
 	prefs_dialog->prefer_unzip = gtk_check_button_new_with_mnemonic(_("Prefer unzip for zip files (requires restart)"));
-	gtk_widget_set_tooltip_text(prefs_dialog->prefer_unzip, _("Even if other, perhaps more powerful programs are installed to handle zip archives, the traditional \"unzip\" and \"zip\" will still be used"));
+	gtk_widget_set_tooltip_text(prefs_dialog->prefer_unzip, _("Even if other, perhaps more powerful programs are installed to handle zip archives, the traditional \"unzip\" and \"zip\" will still be used."));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->prefer_unzip, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->prefer_unzip), FALSE);
 
@@ -234,12 +234,12 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->confirm_deletion), FALSE);
 
 	prefs_dialog->sort_by_filenames = gtk_check_button_new_with_mnemonic(_("Sort archive by filename"));
-	gtk_widget_set_tooltip_text(prefs_dialog->sort_by_filenames, _("The filename column is sorted after loading the archive"));
+	gtk_widget_set_tooltip_text(prefs_dialog->sort_by_filenames, _("The filename column is sorted after loading the archive."));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->sort_by_filenames, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->sort_by_filenames), FALSE);
 
 	prefs_dialog->advanced_isearch = gtk_check_button_new_with_mnemonic(_("Advanced incremental search (requires restart)"));
-	gtk_widget_set_tooltip_text(prefs_dialog->advanced_isearch, _("The incremental search is also performed within filenames rather than just at the beginning of them"));
+	gtk_widget_set_tooltip_text(prefs_dialog->advanced_isearch, _("The incremental search is also performed within filenames rather than just at the beginning of them."));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->advanced_isearch, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->advanced_isearch), FALSE);
 
@@ -249,7 +249,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->auto_expand), FALSE);
 
 	prefs_dialog->store_output = gtk_check_button_new_with_mnemonic(_("Store archiver output"));
-	gtk_widget_set_tooltip_text(prefs_dialog->store_output, _("Command-line output is captured and can be reviewed, but this consumes additional memory"));
+	gtk_widget_set_tooltip_text(prefs_dialog->store_output, _("Command-line output is captured and can be reviewed, but this consumes additional memory."));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->store_output, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->store_output), FALSE);
 
@@ -261,7 +261,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 	hbox = gtk_hbox_new(FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
-	label = gtk_label_new(_("Icons size (requires restart)"));
+	label = gtk_label_new(_("Icons size (requires restart):"));
 	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
 	prefs_dialog->icon_size = gtk_combo_box_text_new();
@@ -275,7 +275,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_dialog->icon_size), _("very large"));
 
 	prefs_dialog->show_comment = gtk_check_button_new_with_mnemonic(_("Show archive comment"));
-	gtk_widget_set_tooltip_text(prefs_dialog->show_comment, _("If checked the archive comment is shown after the archive is loaded"));
+	gtk_widget_set_tooltip_text(prefs_dialog->show_comment, _("If checked the archive comment is shown after the archive is loaded."));
 	gtk_box_pack_start(GTK_BOX(vbox), prefs_dialog->show_comment, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->show_comment), FALSE);
 
@@ -408,7 +408,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->save_geometry), FALSE);
 
 	prefs_dialog->allow_sub_dir = gtk_check_button_new_with_mnemonic(_("Allow subdirs with clipboard and drag-and-drop"));
-	gtk_widget_set_tooltip_text(prefs_dialog->allow_sub_dir, _("This option includes the subdirectories when you add files from the clipboard or with drag-and-drop"));
+	gtk_widget_set_tooltip_text(prefs_dialog->allow_sub_dir, _("This option includes the subdirectories when you add files from the clipboard or with drag-and-drop."));
 	gtk_table_attach(GTK_TABLE(table), prefs_dialog->allow_sub_dir,
 	                 0, 2, 8, 9, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->allow_sub_dir), FALSE);
