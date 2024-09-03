@@ -60,7 +60,7 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 	{
 		gchar *msg, *err;
 
-		msg = g_strdup_printf(_("Can't open RPM file %s:"), archive->path[0]);
+		msg = g_strdup_printf(_("Can't open RPM file \"%s\":"), archive->path[0]);
 		err = g_strconcat(msg, " ", g_strerror(errno), NULL);
 
 		g_free(msg);
