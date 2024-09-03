@@ -1257,7 +1257,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		stat(archive[idx]->path[0], &my_stat);
     	file_size = my_stat.st_size;
     	t = xa_set_size_string(file_size);
-		g_fprintf (stream,_("Compressed   size: "));
+		g_fprintf (stream,_("Compressed size: "));
     	if (bp)
     		g_fprintf (stream,"</b>");
     	g_fprintf (stream,"%s\n",t);
