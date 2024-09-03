@@ -332,7 +332,7 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 				x = 2;
 		}
 		else
-			g_fprintf(stream, "%-90s %" G_GUINT64_FORMAT "\n", path_utf8, file_size);
+			g_fprintf(stream, "%-90s %20" G_GUINT64_FORMAT "\n", path_utf8, file_size);
 
 		g_free(path_utf8);
 	}
@@ -1292,9 +1292,9 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		}
 		if ( ! bp)
 		{
-			g_fprintf (stream,"-------------------------------------------------------------------------------------------------------------\n");
-			g_fprintf(stream, _("Files:%*s%s"), 80, " ", _("|Size\n"));
-			g_fprintf (stream,"-------------------------------------------------------------------------------------------------------------\n");
+			g_fprintf(stream, "---------------------------------------------------------------------------------------------------------------\n");
+			g_fprintf(stream, "%-90s %*s\n", _("Files:"), 20, _("Size:"));
+			g_fprintf(stream, "---------------------------------------------------------------------------------------------------------------\n");
 		}
 		else
 		{
