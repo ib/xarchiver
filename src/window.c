@@ -1714,6 +1714,9 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 			"comments",_("A GTK+ only lightweight archive manager"),
 			"authors",authors,
 			"documenters",documenters,
+			/* Do not translate this string.
+			   Instead, add your name here if you like.
+			   One translator per line! */
 			"translator_credits",_("translator-credits"),
 			"logo_icon_name","xarchiver",
 			"website","https://github.com/ib/xarchiver/wiki",
