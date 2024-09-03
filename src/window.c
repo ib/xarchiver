@@ -325,7 +325,7 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 		if (bp)
 		{
 			g_fprintf(stream,"<tr class=\"row%d\">",x);
-			g_fprintf(stream, "<td>%s</td><td>%" G_GUINT64_FORMAT "</td></tr>", path_utf8, file_size);
+			g_fprintf(stream, "<td>%s</td><td style=\"text-align: right\">%" G_GUINT64_FORMAT "</td></tr>", path_utf8, file_size);
 			if (x == 2)
 				x = 1;
 			else
