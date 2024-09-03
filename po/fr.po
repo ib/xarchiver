@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-03 21:10+0200\n"
-"PO-Revision-Date: 2024-09-03 21:10+0200\n"
+"PO-Revision-Date: 2024-09-03 21:16+0200\n"
 "Last-Translator: Jean Philippe Eimer <phil@jpmr.org>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
 "Language: fr\n"
@@ -1024,7 +1024,7 @@ msgstr "Flux/Blocs/Remplissage"
 
 #: ../src/window.c
 msgid "Test result:"
-msgstr "Résultat du test:"
+msgstr "Résultat du test :"
 
 #: ../src/window.c
 msgid "Testing archive, please wait..."
@@ -1430,7 +1430,7 @@ msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
-"xarchiver: %s\n"
+"xarchiver : %s\n"
 "Essayer xarchiver --help pour avoir une liste complète d'options.\n"
 
 #, c-format
