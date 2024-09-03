@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2019-02-26 03:12+0300\n"
 "Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -151,7 +151,7 @@ msgstr "Напредно"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
 msgstr "Величина икона (потребан рестарт)"
 
@@ -297,7 +297,7 @@ msgstr "Вишеструко-распакивање архива није усп
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
+msgid "Can't open RPM file \"%s\":"
 msgstr "Не могу да отворим „RPM“ датотеку „%s“: "
 
 #: ../src/window.c
@@ -374,7 +374,7 @@ msgstr "Напомена"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 
 #: ../src/window.c
@@ -394,14 +394,14 @@ msgstr "Садржи напомену:\n"
 msgid "Compressed"
 msgstr "Компресовано"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "Компресовано: "
-
 #: ../src/interface.c
 msgid "Compressed size:"
 msgstr "Величина са сажимањем: "
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
+msgstr "Компресовано: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -524,7 +524,7 @@ msgstr ""
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
+"directory."
 msgstr ""
 
 #: ../src/interface.c
@@ -534,7 +534,7 @@ msgstr "Унеси_те лозинку"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 
 #: ../src/interface.c
@@ -580,7 +580,7 @@ msgstr "Распакуј архиву захтевајући директори�
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
+"the disk copies."
 msgstr ""
 "Распакује само оне датотеке новије од оних које већ постоје на диску са "
 "истим именом."
@@ -636,14 +636,9 @@ msgstr "Датотеке"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "Датотеке:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Датотеке:%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -664,14 +659,14 @@ msgid "Group"
 msgstr "Група"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Величина икона (потребан рестарт)"
+msgid "Icons size (requires restart):"
+msgstr "Величина икона (потребан рестарт): "
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
+msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr ""
 "Ако је ова опција означена, напомена за архиву се приказује након отварања "
-"архиве"
+"архиве."
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -686,8 +681,8 @@ msgstr ""
 #| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
-msgstr "Код сложене архиве датотеке се групишу ради бољег односа сажимања"
+"compression ratio."
+msgstr "Код сложене архиве датотеке се групишу ради бољег односа сажимања."
 
 #: ../src/add_dialog.c
 msgid "Include subdirectories"
@@ -923,7 +918,7 @@ msgstr "Веза до"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
 msgstr "Величина икона (потребан рестарт)"
 
@@ -932,8 +927,8 @@ msgid "Preferences"
 msgstr "Поставке"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Жељена врста архиве"
+msgid "Preferred archive format:"
+msgstr "Жељена врста архиве: "
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1063,6 +1058,12 @@ msgstr "Прикажи издање и изађи"
 msgid "Size"
 msgstr "Величина"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Size"
+msgid "Size:"
+msgstr "Величина"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "Дошло је до грешке: "
@@ -1122,7 +1123,7 @@ msgstr "Архива је шифрована!"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr ""
 "Структура директоријума архиве је поново направљена у директоријуму за "
 "распакивање"
@@ -1133,7 +1134,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr ""
 "Структура директоријума архиве је поново направљена у директоријуму за "
 "распакивање"
@@ -1144,7 +1145,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr ""
 "Структура директоријума архиве је поново направљена у директоријуму за "
 "распакивање"
@@ -1165,13 +1166,13 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "Колона са називима датотека је сортирана после учитавања архиве"
+msgid "The filename column is sorted after loading the archive."
+msgstr "Колона са називима датотека је сортирана после учитавања архиве."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
@@ -1197,7 +1198,7 @@ msgstr "Ово је АрХиверов показивач стања. Када �
 #| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "Ова опција укључује поддиректоријуме када додајете датотеке превуци и пусти "
 "техником"
@@ -1207,11 +1208,11 @@ msgstr ""
 #| msgid ""
 #| "This option performs the same function as the freshen one,extracting "
 #| "files that are newer than those with the same name on disk,and in "
-#| "addition it extracts those files that do not already exist on disk"
+#| "addition it extracts those files that do not already exist on disk."
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "Ова опција је слична опцији „обнови“. Распакује датотеке које су новије од "
 "оних са истим именом на диску али и оне датотеке које не постоје на диску."
@@ -1223,7 +1224,7 @@ msgstr ""
 #| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "Ова опција омогућава додавање нових датотека и освежавање постојећих "
 "датотека у архиву (уколико су измењене у односу на датум прављења/измене)"
@@ -1236,7 +1237,7 @@ msgstr ""
 #| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "Ова опција ће изменити архиву само ако је садржај скорије измењен у односу "
 "на онај који је већ у архиви .За разлику од опције „Освежи“, неће додати "
@@ -1320,10 +1321,10 @@ msgstr "Користи веб прегледник: "
 #| msgid ""
 #| "When this option is used,tar leaves the data modification times of the "
 #| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive"
+#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "Коришћењем ове опције, подаци о времену последње измене датотеке ће бити "
 "постављани према времену распакивања датотека из архиве, а не према времену "
@@ -1530,6 +1531,9 @@ msgstr "мале"
 msgid "small/medium"
 msgstr ""
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Превод на српски — Jay A. Fleming <tito.nehru.naser@gmail.com>"
@@ -1549,11 +1553,9 @@ msgstr ""
 "xarchiver: %s\n"
 "Покушајте „xarchiver --help“ да би сте видели доступне опције.\n"
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Size"
-msgid "|Size\n"
-msgstr "Величина"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "Датотеке:%*s%s"
 
 #~ msgid ""
 #~ "\n"

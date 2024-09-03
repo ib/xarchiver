@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2023-11-29 11:56+0000\n"
 "Last-Translator: Сергей Казорин <translation-team@basealt.ru>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -286,8 +286,8 @@ msgstr "Не удалось множественное извлечение из
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
-msgstr "Не удалось открыть файл RPM %s:"
+msgid "Can't open RPM file \"%s\":"
+msgstr "Не удалось открыть файл RPM «%s»:"
 
 #: ../src/window.c
 #, c-format
@@ -357,10 +357,10 @@ msgstr "Команда"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 "Вывод командной строки сохраняется и может быть просмотрен (требует "
-"дополнительной памяти)"
+"дополнительной памяти)."
 
 #: ../src/window.c
 msgid "Comment"
@@ -379,14 +379,14 @@ msgstr "Комментарий:\n"
 msgid "Compressed"
 msgstr "Сжатый"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "Сжатый: "
-
 #: ../src/interface.c
 msgid "Compressed size:"
 msgstr "Сжатый:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
+msgstr "Сжатый: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -499,8 +499,8 @@ msgstr "Извлечь архив во вложенный каталог"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
-msgstr "Содержимое архива извлекается во вложенный каталог"
+"directory."
+msgstr "Содержимое архива извлекается во вложенный каталог."
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -509,10 +509,10 @@ msgstr "_Введите пароль"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 "Даже если другая, возможно, более эффективная программа установлена для "
-"обработки zip-архивов, стандартные \"unzip\" и \"zip\" будут использованы"
+"обработки zip-архивов, стандартные \"unzip\" и \"zip\" будут использованы."
 
 #: ../src/interface.c
 msgid "Extract"
@@ -558,8 +558,8 @@ msgstr ""
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
-msgstr "Извлечь только более свежие версии существующих на диске файлов"
+"the disk copies."
+msgstr "Извлечь только более свежие версии существующих на диске файлов."
 
 #: ../src/extract_dialog.c
 msgid "Extract to directories with archive names"
@@ -606,14 +606,9 @@ msgstr "Файлы"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "Файлы:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Файлы:%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -632,13 +627,13 @@ msgid "Group"
 msgstr "Группа"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Размер значков (требует перезапуска)"
+msgid "Icons size (requires restart):"
+msgstr "Размер значков (требует перезапуска):"
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
+msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr ""
-"При установке параметра комментарий будет выводиться после загрузки архива"
+"При установке параметра комментарий будет выводиться после загрузки архива."
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -649,7 +644,7 @@ msgstr ""
 #: ../src/add_dialog.c
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
 "В непрерывном архиве файлы группируются вместе, обеспечивая лучшее сжатие."
 
@@ -881,8 +876,8 @@ msgid "Preferences"
 msgstr "Настройки"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Предпочитаемый формат архива"
+msgid "Preferred archive format:"
+msgstr "Предпочитаемый формат архива:"
 
 #: ../src/pref_dialog.c
 msgid "Preferred extraction directory:"
@@ -1007,6 +1002,10 @@ msgstr "Показать номер версии и выйти\n"
 msgid "Size"
 msgstr "Размер"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "Размер:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "Произошли ошибки:"
@@ -1055,26 +1054,26 @@ msgstr "Этот архив в порядке."
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr ""
 "При извлечении, в результирующем каталоге будет воссоздана полная структура "
-"каталогов"
+"каталогов."
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr ""
 "При извлечении, структура каталогов не воссоздается, все файлы будут "
-"размещены в результирующем каталоге"
+"размещены в результирующем каталоге."
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr ""
 "При извлечении, в результирующем каталоге будет воссоздана структура "
-"каталогов, но с удалением родительских каталогов выбранных файлов"
+"каталогов, но с удалением родительских каталогов выбранных файлов."
 
 #: ../src/add_dialog.c ../src/main.c
 msgid ""
@@ -1090,16 +1089,16 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr "Архиватор не поддерживает расшифровку архивов, защищённых паролем!"
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "Столбец имён файлов отсортирован после загрузки архива"
+msgid "The filename column is sorted after loading the archive."
+msgstr "Столбец имён файлов отсортирован после загрузки архива."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 "Инкрементный поиск также выполняется внутри имен файлов, а не только в их "
-"начале"
+"начале."
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, c-format
@@ -1119,37 +1118,37 @@ msgstr ""
 #: ../src/pref_dialog.c
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "Этот параметр позволяет включать в архив подкаталоги путём перетаскивания "
-"или из буфера обмена"
+"или из буфера обмена."
 
 #: ../src/extract_dialog.c
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "Этот параметр функционально соответствует опции «Обновить и заменить» и "
 "извлекаетболее свежие версии существующих на диске одноимённых файлов, но "
-"также извлекает и файлы, отсутствующие на диске"
+"также извлекает и файлы, отсутствующие на диске."
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "Этот параметр позволяет добавлять новые файлы и обновлять старые "
-"версиисуществующих файлов, уже находящихся в архиве"
+"версиисуществующих файлов, уже находящихся в архиве."
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "Этот параметр позволяет обновлять уже находящиеся в архиве, но более "
 "старыеверсии файлов. В отличие от параметра «Обновить и добавить», новые "
-"файлы добавлены не будут"
+"файлы добавлены не будут."
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
@@ -1225,11 +1224,11 @@ msgstr "Используемый веб-браузер:"
 #: ../src/extract_dialog.c
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "При использовании этого параметра время изменения извлекаемых файлов будет "
 "соответствовать времени их извлечения из архива, а не тем значениям, которые "
-"установлены у этих файлов в архиве"
+"установлены у этих файлов в архиве."
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
@@ -1416,6 +1415,9 @@ msgstr "маленький"
 msgid "small/medium"
 msgstr "маленький/средний"
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr ""
@@ -1436,9 +1438,9 @@ msgstr ""
 "Выполните команду xarchiver --help, чтобы получить список доступных "
 "параметров командной строки.\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Размер\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "Файлы:%*s%s"
 
 #~ msgid ""
 #~ "\n"

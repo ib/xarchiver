@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2021-10-22 04:23+0000\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -142,7 +142,7 @@ msgstr "高级"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
 msgstr "图标大小(需要重启)"
 
@@ -279,8 +279,8 @@ msgstr "未能多重解压归档文件："
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
-msgstr "未能打开 RPM 文件 %s："
+msgid "Can't open RPM file \"%s\":"
+msgstr "未能打开 RPM 文件 “%s”："
 
 #: ../src/window.c
 #, c-format
@@ -354,7 +354,7 @@ msgstr "注释"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 
 #: ../src/window.c
@@ -374,13 +374,13 @@ msgstr "注释：\n"
 msgid "Compressed"
 msgstr "压缩后"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "压缩后大小："
-
 #: ../src/interface.c
 msgid "Compressed size:"
+msgstr "压缩后大小："
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
 msgstr "压缩后大小："
 
 #: ../src/add_dialog.c
@@ -500,8 +500,8 @@ msgstr "确保包含在目录中"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
-msgstr "确保归档文件解压后的内容始终被包含在一个目录中"
+"directory."
+msgstr "确保归档文件解压后的内容始终被包含在一个目录中。"
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -510,7 +510,7 @@ msgstr "输入密码(_R)"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 
 #: ../src/interface.c
@@ -556,8 +556,8 @@ msgstr "询问目标目录解压后退出。"
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
-msgstr "只解压硬盘上已存在的且比其硬盘复更新的那些文件"
+"the disk copies."
+msgstr "只解压硬盘上已存在的且比其硬盘复更新的那些文件。"
 
 #: ../src/extract_dialog.c
 #, fuzzy
@@ -608,14 +608,9 @@ msgstr "文件"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "文件："
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "文件：%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -636,12 +631,12 @@ msgid "Group"
 msgstr "组别"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "图标大小(需要重启)"
+msgid "Icons size (requires restart):"
+msgstr "图标大小(需要重启)："
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr "选中此项后载入归档文件时会显示归档文件注释"
+msgid "If checked the archive comment is shown after the archive is loaded."
+msgstr "选中此项后载入归档文件时会显示归档文件注释。"
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -656,7 +651,7 @@ msgstr ""
 #| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr "在一体化归档文件中文件集结在一起得到更高的压缩率。"
 
 #: ../src/add_dialog.c
@@ -891,8 +886,8 @@ msgid "Preferences"
 msgstr "首选项"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "首选的归档文件格式"
+msgid "Preferred archive format:"
+msgstr "首选的归档文件格式："
 
 #: ../src/pref_dialog.c
 msgid "Preferred extraction directory:"
@@ -1020,6 +1015,10 @@ msgstr "显示版本并退出"
 msgid "Size"
 msgstr "大小"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "大小："
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "出了些错："
@@ -1073,7 +1072,7 @@ msgstr "此归档文件已加密！"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr "在解压目录中重新创建归档文件的目录结构"
 
 #: ../src/extract_dialog.c
@@ -1082,7 +1081,7 @@ msgstr "在解压目录中重新创建归档文件的目录结构"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr "在解压目录中重新创建归档文件的目录结构"
 
 #: ../src/extract_dialog.c
@@ -1091,7 +1090,7 @@ msgstr "在解压目录中重新创建归档文件的目录结构"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr "在解压目录中重新创建归档文件的目录结构"
 
 #: ../src/add_dialog.c ../src/main.c
@@ -1110,13 +1109,13 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr "归档管理器不支持使用密码解密！"
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "载入归档文件后排列文件名栏"
+msgid "The filename column is sorted after loading the archive."
+msgstr "载入归档文件后排列文件名栏。"
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
@@ -1142,14 +1141,14 @@ msgstr "此为 Xarchiver 状态灯，闪烁时 Xarchiver 忙"
 #| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr "此项在用拖放来添加文件时包括子目录"
 
 #: ../src/extract_dialog.c
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "此项和刷新选项执行相同的功能，解压那些比在硬盘上的相同名称文件新的文件，另外"
 "它还解压那些在硬盘上不存在的文件"
@@ -1161,7 +1160,7 @@ msgstr ""
 #| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr "此项将添加并更新自从归档上次创建/修改后的任何新文件"
 
 #: ../src/add_dialog.c
@@ -1172,7 +1171,7 @@ msgstr "此项将添加并更新自从归档上次创建/修改后的任何新�
 #| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "此项只影响修改后版本比归档文件中已存在版本新的归档文件；不像更新选项它不在归"
 "档文件中添加不存在的文件"
@@ -1255,10 +1254,10 @@ msgstr "要使用的网络浏览器："
 #| msgid ""
 #| "When this option is used,tar leaves the data modification times of the "
 #| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive"
+#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "使用此项后，tar 会将所解压的文件的修改时间设为解压时的时间，而不是设为在归档"
 "中记录的时间。"
@@ -1456,6 +1455,9 @@ msgstr "小"
 msgid "small/medium"
 msgstr "小/中"
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr ""
@@ -1478,9 +1480,9 @@ msgstr ""
 "xarchiver：%s\n"
 "试试 xarchiver --help 查看可用命令行选项的完整列表。\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|大小\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "文件：%*s%s"
 
 #~ msgid ""
 #~ "\n"

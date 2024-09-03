@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
-"PO-Revision-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"PO-Revision-Date: 2024-09-03 21:10+0200\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -278,8 +278,8 @@ msgstr "Impossibile l'estrazione multipla degli archivi:"
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
-msgstr "Impossibile aprire il file RPM %s:"
+msgid "Can't open RPM file \"%s\":"
+msgstr "Impossibile aprire il file RPM \"%s\":"
 
 #: ../src/window.c
 #, c-format
@@ -349,10 +349,10 @@ msgstr "Comando"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 "L'output della riga di comando viene catturato e può essere verificato, ma "
-"questo consuma ulteriore memoria"
+"questo consuma ulteriore memoria."
 
 #: ../src/window.c
 msgid "Comment"
@@ -371,14 +371,14 @@ msgstr "Commento:\n"
 msgid "Compressed"
 msgstr "Compresso"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "Dimensione   compressa: "
-
 #: ../src/interface.c
 msgid "Compressed size:"
 msgstr "Dimensione compressa:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
+msgstr "Dimensione compressa: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -489,10 +489,10 @@ msgstr "Assicurare una directory contenitrice"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
+"directory."
 msgstr ""
 "Assicurarsi che il contenuto dell'archivio estratto sia sempre in una "
-"directory contenitrice"
+"directory contenitrice."
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -501,10 +501,10 @@ msgstr "Inserisci passwo_rd"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 "Anche se sono installati altri programmi forse più potenti per gestire gli "
-"archivi zip, saranno comunque usati i tradizionali «unzip» e «zip»"
+"archivi zip, saranno comunque usati i tradizionali «unzip» e «zip»."
 
 #: ../src/interface.c
 msgid "Extract"
@@ -549,10 +549,10 @@ msgstr ""
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
+"the disk copies."
 msgstr ""
 "Estrae solo i file che già esistono e che sono più recenti delle copie del "
-"disco"
+"disco."
 
 #: ../src/extract_dialog.c
 msgid "Extract to directories with archive names"
@@ -599,14 +599,9 @@ msgstr "File"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr "I file con un nome del percorso assoluto non posso essere eliminati."
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "File:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "File: %*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -625,13 +620,13 @@ msgid "Group"
 msgstr "Gruppo"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Dimensione delle icone (richiede riavvio)"
+msgid "Icons size (requires restart):"
+msgstr "Dimensione delle icone (richiede riavvio):"
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
+msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr ""
-"Se abilitata, il commento viene mostrato dopo il caricamento dell'archivio"
+"Se abilitata, il commento viene mostrato dopo il caricamento dell'archivio."
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -644,10 +639,10 @@ msgstr ""
 #: ../src/add_dialog.c
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
 "In un archivio solido i file sono raggruppati insieme ottenendo un miglior "
-"rapporto di compressione"
+"rapporto di compressione."
 
 #: ../src/add_dialog.c
 msgid "Include subdirectories"
@@ -876,8 +871,8 @@ msgid "Preferences"
 msgstr "Preferenze"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Formato dell'archivio predefinito"
+msgid "Preferred archive format:"
+msgstr "Formato dell'archivio predefinito:"
 
 #: ../src/pref_dialog.c
 msgid "Preferred extraction directory:"
@@ -999,6 +994,10 @@ msgstr "Mostra la versione ed esce\n"
 msgid "Size"
 msgstr "Dimensione"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "Dimensione:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "Si sono verificati alcuni errori:"
@@ -1047,26 +1046,26 @@ msgstr "L'archivio non ha problemi."
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr ""
 "La struttura completa delle directory dell'archivio è ricreata nella "
-"directory di estrazione"
+"directory di estrazione."
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr ""
 "La struttura delle directory dell'archivio non è ricreata; tutti i file sono "
-"piazzati nella directory di estrazione"
+"piazzati nella directory di estrazione."
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr ""
 "La struttura delle directory dell'archivio è ricreata nella directory di "
-"estrazione, ma con le directory parenti dei file selezionati rimosse"
+"estrazione, ma con le directory parenti dei file selezionati rimosse."
 
 #: ../src/add_dialog.c ../src/main.c
 msgid ""
@@ -1085,17 +1084,17 @@ msgstr ""
 "protetta da password."
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
+msgid "The filename column is sorted after loading the archive."
 msgstr ""
-"La colonna del nome del file è ordinata dopo il caricamento dell'archivio"
+"La colonna del nome del file è ordinata dopo il caricamento dell'archivio."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 "La ricerca incrementale viene anche eseguita nei nomi dei file invece che "
-"solo al loro inizio"
+"solo al loro inizio."
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, c-format
@@ -1115,37 +1114,37 @@ msgstr ""
 #: ../src/pref_dialog.c
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "Questa opzione include le sotto-directory quando si aggiungono file tramite "
-"gli appunti o il trascina e rilascia"
+"gli appunti o il trascina e rilascia."
 
 #: ../src/extract_dialog.c
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "Questa opzione svolge la stessa funzione del rinnovamento, estraendo i file "
 "più recenti di quelli con lo stesso nome sul disco, ed inoltre estrae quei "
-"file che non sono già sul disco"
+"file che non sono già sul disco."
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "Questa opzione aggiungerà i nuovi file e aggiornerà tutti i file già "
-"presenti nell'archivio ma che sono più vecchi"
+"presenti nell'archivio ma che sono più vecchi."
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "Questa opzione aggiungerà solo i file che sono già nell'archivio ma che sono "
 "più vecchi; a differenza dell'opzione di aggiornamento non aggiungerà nuovi "
-"file"
+"file."
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
@@ -1221,10 +1220,10 @@ msgstr "Browser web da usare:"
 #: ../src/extract_dialog.c
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "Quando si usa questa opzione, l'orario di modifica dei file sarà quello di "
-"estrazione invece di quello registrato nell'archivio"
+"estrazione invece di quello registrato nell'archivio."
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
@@ -1414,6 +1413,9 @@ msgstr "piccole"
 msgid "small/medium"
 msgstr "piccole/medie"
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr ""
@@ -1436,9 +1438,9 @@ msgstr ""
 "Provare \"xarchiver --help\" per l'elenco completo delle opzioni disponibili "
 "da riga di comando.\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Dimensione\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "File: %*s%s"
 
 #~ msgid ""
 #~ "\n"

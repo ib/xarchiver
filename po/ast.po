@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2009-09-02 13:03+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: Asturian <alministradores@softastur.org>\n"
@@ -137,7 +137,7 @@ msgstr "Avanzáu"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
 msgstr "Tamañu d'iconu (requier reaniciu)"
 
@@ -277,8 +277,8 @@ msgstr "Nun pueden multi-estrayese ficheros:"
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
-msgstr "Nun puede abrise'l ficheru RPM %s:"
+msgid "Can't open RPM file \"%s\":"
+msgstr "Nun puede abrise'l ficheru RPM \"%s\":"
 
 #: ../src/window.c
 #, c-format
@@ -352,7 +352,7 @@ msgstr "Comentariu"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 
 #: ../src/window.c
@@ -372,13 +372,13 @@ msgstr "Comentariu:\n"
 msgid "Compressed"
 msgstr "Comprimíu"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "Tamañu comprimíu:"
-
 #: ../src/interface.c
 msgid "Compressed size:"
+msgstr "Tamañu comprimíu:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
 msgstr "Tamañu comprimíu:"
 
 #: ../src/add_dialog.c
@@ -502,7 +502,7 @@ msgstr "Direutoriu d'estraición preferíu:"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
+"directory."
 msgstr ""
 
 #: ../src/interface.c
@@ -512,7 +512,7 @@ msgstr "Introduz _contraseña"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 
 #: ../src/interface.c
@@ -558,10 +558,10 @@ msgstr "Estrái ficheru pidiendo'l direutoriu d'estraición y cuela."
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
+"the disk copies."
 msgstr ""
 "Estrayer namái aquellos ficheros que yá esisten nel discu y que son más "
-"nuevos que les copies en discu"
+"nuevos que les copies en discu."
 
 #: ../src/extract_dialog.c
 #, fuzzy
@@ -612,14 +612,9 @@ msgstr "Ficheros"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "Ficheros:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Ficheru: %*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -640,14 +635,14 @@ msgid "Group"
 msgstr "Grupu"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Tamañu d'iconu (requier reaniciu)"
+msgid "Icons size (requires restart):"
+msgstr "Tamañu d'iconu (requier reaniciu):"
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
+msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr ""
 "Si ta activáu, el comentariu de ficheru amuésase dempués de que se cargue'l "
-"ficheru"
+"ficheru."
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -662,10 +657,10 @@ msgstr ""
 #| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
 "Dientro d'un ficheru sólidu los ficheros agrúpense de mou qu'algame una "
-"meyor tasa de compresión"
+"meyor tasa de compresión."
 
 #: ../src/add_dialog.c
 msgid "Include subdirectories"
@@ -898,7 +893,7 @@ msgstr "Apunta a"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
 msgstr "Tamañu d'iconu (requier reaniciu)"
 
@@ -907,8 +902,8 @@ msgid "Preferences"
 msgstr "Preferencies"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Formatu de ficheru preferíu"
+msgid "Preferred archive format:"
+msgstr "Formatu de ficheru preferíu:"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1038,6 +1033,10 @@ msgstr "Amosar versión y colar"
 msgid "Size"
 msgstr "Tamañu"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "Tamañu:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "Asocedieron dalgunos fallos:"
@@ -1091,7 +1090,7 @@ msgstr "¡Esti ficheru ta cifráu!"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr ""
 "La estructura de direutorios del ficheru comprimíu ye recriada nel "
 "direutoriu d'estraición"
@@ -1102,7 +1101,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr ""
 "La estructura de direutorios del ficheru comprimíu ye recriada nel "
 "direutoriu d'estraición"
@@ -1113,7 +1112,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr ""
 "La estructura de direutorios del ficheru comprimíu ye recriada nel "
 "direutoriu d'estraición"
@@ -1134,13 +1133,13 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "La columna de nome axéitase dempués de cargar el ficheru comprimíu"
+msgid "The filename column is sorted after loading the archive."
+msgstr "La columna de nome axéitase dempués de cargar el ficheru comprimíu."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
@@ -1168,7 +1167,7 @@ msgstr ""
 #| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "Esta opción incluí los subdireutorios cuando amiestes ficheros con arrastrar "
 "y soltar"
@@ -1177,11 +1176,11 @@ msgstr ""
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "Esta opción fai la mesma función que la de refrescar, estrayendo los "
 "ficheros que son más nuevos qu'aquellos que tien el mesmu nome en discu, "
-"arriendes d'estrayer aquellos qu'entá nun esisten nel discu"
+"arriendes d'estrayer aquellos qu'entá nun esisten nel discu."
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1190,7 +1189,7 @@ msgstr ""
 #| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "Esta opción amestará cualesquier ficheru nuevu y anovará cualesquier ficheru "
 "qu'heba camudáose dempués de la criación/modificación del ficheru comprimíu"
@@ -1203,7 +1202,7 @@ msgstr ""
 #| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "Esta opción afeuta al ficheru comprimíu namái si foi camudáu enantes que la "
 "versión ya esistente dientro d'él. Al contrario que la opción anovar, nun "
@@ -1287,10 +1286,10 @@ msgstr "Restolador web a usar:"
 #| msgid ""
 #| "When this option is used,tar leaves the data modification times of the "
 #| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive"
+#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "Cuando s'usa esta opción, tar dexa la data de modificación de datos de los "
 "ficheros qu'estrái como la data en que los ficheros s'estrayeron, n'arróu de "
@@ -1491,6 +1490,9 @@ msgstr "pequeñu"
 msgid "small/medium"
 msgstr ""
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Softastur www.softastur.org"
@@ -1511,9 +1513,9 @@ msgstr ""
 "Preba xarchiver --help pa ver una llista completa d'opciones de llinia de "
 "comandos.\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Tamañu\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "Ficheru: %*s%s"
 
 #~ msgid ""
 #~ "\n"

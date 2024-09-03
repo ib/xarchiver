@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2011-08-26 12:33+0200\n"
 "Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -148,7 +148,7 @@ msgstr "Pokročilé"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
 msgstr "Veľkosť ikon (vyžaduje reštart)"
 
@@ -288,8 +288,8 @@ msgstr "Nie je možné rozbaliť viac archívov"
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
-msgstr "Nie je možné otvoriť súbor RPM %s:"
+msgid "Can't open RPM file \"%s\":"
+msgstr "Nie je možné otvoriť súbor RPM \"%s\":"
 
 #: ../src/window.c
 #, c-format
@@ -363,7 +363,7 @@ msgstr "Komentár"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 
 #: ../src/window.c
@@ -383,14 +383,14 @@ msgstr "Komentár:\n"
 msgid "Compressed"
 msgstr "Komprimovaný"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "Veľkosť komprimovaného:"
-
 #: ../src/interface.c
 msgid "Compressed size:"
 msgstr "Veľkosť komprimovaného súboru:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
+msgstr "Veľkosť komprimovaného:"
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -513,7 +513,7 @@ msgstr "Uprednostňovaný adresár pre rozbalenie"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
+"directory."
 msgstr ""
 
 #: ../src/interface.c
@@ -523,7 +523,7 @@ msgstr "_Zadať heslo"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 
 #: ../src/interface.c
@@ -569,8 +569,8 @@ msgstr "Rozbalí archív otázkou na cieľový priečinok a ukončí sa."
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
-msgstr "Rozbaliť len tie súbory, ktorých staršie kópie už na disku existujú"
+"the disk copies."
+msgstr "Rozbaliť len tie súbory, ktorých staršie kópie už na disku existujú."
 
 #: ../src/extract_dialog.c
 #, fuzzy
@@ -621,14 +621,9 @@ msgstr "Súbory"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "Súbory:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Súbory:%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -649,12 +644,12 @@ msgid "Group"
 msgstr "Skupina"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Veľkosť ikon (vyžaduje reštart)"
+msgid "Icons size (requires restart):"
+msgstr "Veľkosť ikon (vyžaduje reštart):"
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr "Ak je voľba zaškrtnutá, popis archívu sa zobrazí po jeho načítaní"
+msgid "If checked the archive comment is shown after the archive is loaded."
+msgstr "Ak je voľba zaškrtnutá, popis archívu sa zobrazí po jeho načítaní."
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -669,10 +664,10 @@ msgstr ""
 #| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
 "V archíve typu solid sú všetky súbory spojené do jedného, čo zlepšuje "
-"kompresný pomer"
+"kompresný pomer."
 
 #: ../src/add_dialog.c
 msgid "Include subdirectories"
@@ -903,7 +898,7 @@ msgstr "Ukazuje na"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
 msgstr "Veľkosť ikon (vyžaduje reštart)"
 
@@ -912,8 +907,8 @@ msgid "Preferences"
 msgstr "Predvoľby"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Uprednostňovaný formát archívu"
+msgid "Preferred archive format:"
+msgstr "Uprednostňovaný formát archívu:"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1044,6 +1039,10 @@ msgstr "Zobrazí informácie o verzii a ukončí sa"
 msgid "Size"
 msgstr "Veľkosť"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "Veľkosť:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "Došlo k niekoľkým chybám:"
@@ -1097,7 +1096,7 @@ msgstr "Tento archív je šifrovaný!"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr ""
 "Adresárová štruktúra archívu bude opätovne vytvorená do adresára určeného "
 "pre rozbalenie"
@@ -1108,7 +1107,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr ""
 "Adresárová štruktúra archívu bude opätovne vytvorená do adresára určeného "
 "pre rozbalenie"
@@ -1119,7 +1118,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr ""
 "Adresárová štruktúra archívu bude opätovne vytvorená do adresára určeného "
 "pre rozbalenie"
@@ -1140,13 +1139,13 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "Stĺpec s názvami súborov sa po načítaní archívu zoradí"
+msgid "The filename column is sorted after loading the archive."
+msgstr "Stĺpec s názvami súborov sa po načítaní archívu zoradí."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
@@ -1174,7 +1173,7 @@ msgstr ""
 #| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "Táto možnosť povolí zahrnutie podpriečinkov pri pridávaní súborov pomocou "
 "funkcie potiahni a pusť"
@@ -1183,7 +1182,7 @@ msgstr ""
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "Táto možnosť realizuje rovnakú akciu ako aktualizácia, rozbalí a prepíše "
 "súbory, ktorých staršie kópie sa vyskytujú na disku a naviac rozbalí aj také "
@@ -1196,7 +1195,7 @@ msgstr ""
 #| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "Táto možnosť pridá nové súbory a aktualizuje všetky súbory, ktoré boli "
 "zmenené od posledného vytvorenia alebo zmeny archívu"
@@ -1209,7 +1208,7 @@ msgstr ""
 #| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "Táto možnosť ovplyvní archív len kým bola položka určená k aktualizácii "
 "zmenená neskôr než verzia obsiahnutá v archíve. Na rozdiel od možnosti "
@@ -1294,10 +1293,10 @@ msgstr "Internetový prehliadač:"
 #| msgid ""
 #| "When this option is used,tar leaves the data modification times of the "
 #| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive"
+#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "Ak použijete túto možnosť, archivátor tar nastaví všetkým súborom po "
 "rozbalení aktuálne časy rozbalenia namiesto pôvodného času uloženého v "
@@ -1496,6 +1495,9 @@ msgstr "malé"
 msgid "small/medium"
 msgstr ""
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr ""
@@ -1518,9 +1520,9 @@ msgstr ""
 "Úplný zoznam dostupných volieb príkazového riadku získate príkazom xarchiver "
 "--help.\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Veľkosť\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "Súbory:%*s%s"
 
 #~ msgid ""
 #~ "\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -144,7 +144,7 @@ msgstr "اعلی"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
 msgstr "آئکن کا حجم (دوبارہ چلانا پڑے گا)"
 
@@ -286,8 +286,8 @@ msgstr "ملٹی-ایکسٹریکٹ محفوظہ نہیں:"
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
-msgstr "RPM فائل نہین کھولی جاسکتی %s:"
+msgid "Can't open RPM file \"%s\":"
+msgstr "RPM فائل نہین کھولی جاسکتی \"%s\":"
 
 #: ../src/window.c
 #, c-format
@@ -362,7 +362,7 @@ msgstr "تبصرہ"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 
 #: ../src/window.c
@@ -382,14 +382,14 @@ msgstr "تبصرہ:\n"
 msgid "Compressed"
 msgstr "دبی ہوئی"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "دباؤ کا   حجم: "
-
 #: ../src/interface.c
 msgid "Compressed size:"
 msgstr "دباؤ کا حجم"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
+msgstr "دباؤ کا حجم: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -511,7 +511,7 @@ msgstr "مجوزہ وقتی ڈائریکٹری:"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
+"directory."
 msgstr ""
 
 #: ../src/interface.c
@@ -521,7 +521,7 @@ msgstr "پاس _ورڈ لکھیں"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 
 #: ../src/interface.c
@@ -567,7 +567,7 @@ msgstr "نکالنے کی ڈائریکٹری کا پوچھ کر برخاست ک�
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
+"the disk copies."
 msgstr ""
 "وہ فائلیں نکالین جو ڈسک پر پہلے ہی موجود ہیں اور جو ڈسک پر موجود فائلوں سے "
 "نئی ہیں."
@@ -621,14 +621,9 @@ msgstr "فائلیں"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "فائلیں:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "فائلیں:%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -649,13 +644,13 @@ msgid "Group"
 msgstr "گروپ"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "آئکن کا حجم (دوبارہ چلانا پڑے گا)"
+msgid "Icons size (requires restart):"
+msgstr "آئکن کا حجم (دوبارہ چلانا پڑے گا):"
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
+msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr ""
-"اگر منتخب کیا گیا تو محفوظہ کا تبصرہ محفوظہ لوڈ کرنے کے بعد دکھایا جائے گا"
+"اگر منتخب کیا گیا تو محفوظہ کا تبصرہ محفوظہ لوڈ کرنے کے بعد دکھایا جائے گا."
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -670,10 +665,10 @@ msgstr ""
 #| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
 "سخت محفوظہ میں فائلیں ایک ساتھ گروپ کردی جاتی ہیں جس سے بہترین دباؤ حاصل "
-"ہوتا ہے"
+"ہوتا ہے."
 
 #: ../src/add_dialog.c
 msgid "Include subdirectories"
@@ -906,7 +901,7 @@ msgstr "پوائنٹ تا:"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
 msgstr "آئکن کا حجم (دوبارہ چلانا پڑے گا)"
 
@@ -915,8 +910,8 @@ msgid "Preferences"
 msgstr "ترجیحات"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "مجوزہ محفوظہ فارمیٹ"
+msgid "Preferred archive format:"
+msgstr "مجوزہ محفوظہ فارمیٹ:"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1046,6 +1041,10 @@ msgstr "ورژن دکھا کر برخاست کریں"
 msgid "Size"
 msgstr "حجم"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "حجم:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "کچھ غلطیاں ہوئی ہیں:"
@@ -1099,7 +1098,7 @@ msgstr "یہ محفوظہ رمز شدہ ہے!"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr ""
 "محفوظہ کا ڈائریکٹری ڈھانچہ کھلی ہوئی ڈائریکٹری میں پھر سے بنادیا گیا ہے."
 
@@ -1109,7 +1108,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr ""
 "محفوظہ کا ڈائریکٹری ڈھانچہ کھلی ہوئی ڈائریکٹری میں پھر سے بنادیا گیا ہے."
 
@@ -1119,7 +1118,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr ""
 "محفوظہ کا ڈائریکٹری ڈھانچہ کھلی ہوئی ڈائریکٹری میں پھر سے بنادیا گیا ہے."
 
@@ -1141,13 +1140,13 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr "اس محفوظہ میں فائلیں پاس ورڈ سے محفوظ کی گئی ہیں"
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "فائلوں کے نام کا کالم محفوظہ لوڈ کرنے کے بعد مرتب کردیا گیا ہے"
+msgid "The filename column is sorted after loading the archive."
+msgstr "فائلوں کے نام کا کالم محفوظہ لوڈ کرنے کے بعد مرتب کردیا گیا ہے."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
@@ -1175,7 +1174,7 @@ msgstr ""
 #| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "جب آپ گھسیٹ کر چھوڑنے سے فائلیں شامل کریں گے یہ اختیار ذیلی ڈائریکٹریاں بھی "
 "شامل کردے گا"
@@ -1184,7 +1183,7 @@ msgstr ""
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "یہ آپشن تازہ کاری کے آپشن کی طرح ہی کام کرتا ہے، وہ فائلیں کھولتا ہے جو ایک "
 "ہی نام کی ڈسک پر موجود فائلوں سے نئی ہوتی ہیں، اضافی طور پر وہ فائلیں بھی "
@@ -1197,7 +1196,7 @@ msgstr ""
 #| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "آخری بار محفوظہ بننے/مدون ہونے سے لے کر یہ آپشن فائلیں شامل اور تازہ کردے گا."
 
@@ -1209,7 +1208,7 @@ msgstr ""
 #| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "یہ آپشن صرف محفوظہ پر اثر انداز ہوتا ہے اگر یہ عنقریب مدون کی گئی ہو تازہ "
 "کاری کے آپشن کے برعکس یہ ایسی فائلیں محفوظہ میں شامل نہیں کرتا جو محفوظہ میں "
@@ -1293,10 +1292,10 @@ msgstr "استعمال کے لیے ویب براؤزر:"
 #| msgid ""
 #| "When this option is used,tar leaves the data modification times of the "
 #| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive"
+#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "جب یہ آپشن استعمال کیا جاتا ہے تو tar فائل کی ڈیٹا تبدیلی اوقات کو نظر انداز "
 "کردیتا ہے، یہ کھولتا ہے بطور وقت جب فائلیں کھولی گئیں تھیں بجائے اس وقت کی "
@@ -1504,6 +1503,9 @@ msgstr "چھوٹا"
 msgid "small/medium"
 msgstr ""
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr ""
@@ -1529,9 +1531,9 @@ msgstr ""
 "xarchiver: %s\n"
 "مکمل دستیاب کمانڈ لائن اختیارات دیکھنے کے لیے xarchiver --help ٹرائی کریں.\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|حجم\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "فائلیں:%*s%s"
 
 #~ msgid ""
 #~ "\n"
@@ -1874,9 +1876,6 @@ msgstr "|حجم\n"
 
 #~ msgid "Filename:"
 #~ msgstr "فائل نام:"
-
-#~ msgid "Size:"
-#~ msgstr "حجم:"
 
 #~ msgid "Extension:"
 #~ msgstr "ورژن:"

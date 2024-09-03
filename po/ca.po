@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -143,7 +143,7 @@ msgstr "Avançat"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
 msgstr "Mida de les icones (cal reiniciar)"
 
@@ -283,8 +283,8 @@ msgstr "No s’ha pogut fer l'extracció múltiple dels arxius:"
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
-msgstr "No s'ha pogut obrir el fitxer RPM %s"
+msgid "Can't open RPM file \"%s\":"
+msgstr "No s'ha pogut obrir el fitxer RPM «%s»"
 
 #: ../src/window.c
 #, c-format
@@ -358,7 +358,7 @@ msgstr "Comentari"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 
 #: ../src/window.c
@@ -378,14 +378,14 @@ msgstr "Comentari:\n"
 msgid "Compressed"
 msgstr "Comprimit"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "Mida    comprimit: "
-
 #: ../src/interface.c
 msgid "Compressed size:"
 msgstr "Mida comprimit:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
+msgstr "Mida comprimit: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -508,7 +508,7 @@ msgstr "Directori d'extracció preferit:"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
+"directory."
 msgstr ""
 
 #: ../src/interface.c
@@ -518,7 +518,7 @@ msgstr "Introduïu la cont_rasenya"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 
 #: ../src/interface.c
@@ -564,7 +564,7 @@ msgstr "Extreu l’arxiu demanant el directori de destí i tanca."
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
+"the disk copies."
 msgstr ""
 "Extreu tant sols els fitxers que ja existeixin al disc i que siguin nous que "
 "les seves còpies al disc."
@@ -618,14 +618,9 @@ msgstr "Fitxers"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "Fitxers:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Fitxers:%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -646,13 +641,13 @@ msgid "Group"
 msgstr "Grup"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Mida de les icones (cal reiniciar)"
+msgid "Icons size (requires restart):"
+msgstr "Mida de les icones (cal reiniciar):"
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
+msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr ""
-"Si està seleccionat el comentari de l'arxiu es mostra al carregar-se l'arxiu"
+"Si està seleccionat el comentari de l'arxiu es mostra al carregar-se l'arxiu."
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -667,7 +662,7 @@ msgstr ""
 #| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
 "En un arxiu sòlid els fitxers s’agrupen per proporcionar una ràtio de "
 "compressió millor."
@@ -900,7 +895,7 @@ msgstr "Apunta a"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
 msgstr "Mida de les icones (cal reiniciar)"
 
@@ -909,8 +904,8 @@ msgid "Preferences"
 msgstr "Preferències"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Format d'arxiu preferit"
+msgid "Preferred archive format:"
+msgstr "Format d'arxiu preferit:"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1040,6 +1035,10 @@ msgstr "Mostra la versió i surt"
 msgid "Size"
 msgstr "Mida"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "Mida:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "S’ha produït algun error:"
@@ -1093,7 +1092,7 @@ msgstr "L’arxiu està xifrat"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr ""
 "L’estructura de directoris de l'arxiu es recrea en el directori de destí"
 
@@ -1103,7 +1102,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr ""
 "L’estructura de directoris de l'arxiu es recrea en el directori de destí"
 
@@ -1113,7 +1112,7 @@ msgstr ""
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr ""
 "L’estructura de directoris de l'arxiu es recrea en el directori de destí"
 
@@ -1133,13 +1132,13 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "La columna de nom de fitxer s’ordena després d'haver carregat l'arxiu"
+msgid "The filename column is sorted after loading the archive."
+msgstr "La columna de nom de fitxer s’ordena després d'haver carregat l'arxiu."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
@@ -1167,7 +1166,7 @@ msgstr ""
 #| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "Aquesta opció inclou els subdirectoris quan s'afegeixen fitxers al "
 "arrossegar i deixar anar"
@@ -1176,11 +1175,11 @@ msgstr ""
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "Aquesta opció fa la mateixa funció que la de refresc, extraient els fitxers "
 "que siguin més nous que els del mateix nom al disc, i a més a més extraurà "
-"els fitxers que no existien ja al disc"
+"els fitxers que no existien ja al disc."
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1189,7 +1188,7 @@ msgstr ""
 #| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "Aquesta opció afegirà qualsevol fitxer nous i actualitzarà els que s'hagin "
 "modificat des de que es va crear o modificar l'arxiu"
@@ -1202,7 +1201,7 @@ msgstr ""
 #| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "Aquesta opció tant sols afecta l'arxiu si s'ha modificat més recentment que "
 "la versió de l'arxiu; al contrari que al cas de l'opció d'actualització, no "
@@ -1286,10 +1285,10 @@ msgstr "Navegador web a emprar:"
 #| msgid ""
 #| "When this option is used,tar leaves the data modification times of the "
 #| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive"
+#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "En activar aquesta opció, tar deixa les dates de modificació dels fitxers "
 "que extreu amb la data i hora del moment d'extracció, en lloc de la data i "
@@ -1489,6 +1488,9 @@ msgstr "petit"
 msgid "small/medium"
 msgstr ""
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr ""
@@ -1510,9 +1512,9 @@ msgstr ""
 "xarchiver: %s\n"
 "Proveu xarchiver --help per veure un llistat complet de les opcions.\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Mida\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "Fitxers:%*s%s"
 
 #~ msgid ""
 #~ "\n"

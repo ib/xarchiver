@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2008-11-11 00:15+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -140,7 +140,7 @@ msgstr "Të mëtejshme"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
 msgstr "Madhësi ikonash për tipe kartelash "
 
@@ -282,8 +282,8 @@ msgstr "S'mund të përftohen kartela shumëpërftimesh:"
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
-msgstr "S'hap dot kartelë RPM %s:"
+msgid "Can't open RPM file \"%s\":"
+msgstr "S'hap dot kartelë RPM \"%s\":"
 
 #: ../src/window.c
 #, c-format
@@ -358,7 +358,7 @@ msgstr "Koment"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 
 #: ../src/window.c
@@ -378,13 +378,13 @@ msgstr "Koment:\n"
 msgid "Compressed"
 msgstr "E ngjeshur"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "Madhësi e ngjeshur:"
-
 #: ../src/interface.c
 msgid "Compressed size:"
+msgstr "Madhësi e ngjeshur:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
 msgstr "Madhësi e ngjeshur:"
 
 #: ../src/add_dialog.c
@@ -506,7 +506,7 @@ msgstr "Drejtori e përkohshme e parapëlqyer:"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
+"directory."
 msgstr ""
 
 #: ../src/interface.c
@@ -516,7 +516,7 @@ msgstr "Jepni _fjalëkalimin"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 
 #: ../src/interface.c
@@ -562,7 +562,7 @@ msgstr "Përfton arkivën duke pyetur për drejtori vendmbërritje dhe del."
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
+"the disk copies."
 msgstr ""
 "Përfto vetëm ato kartela që gjenden tashmë në disk dhe që janë më të reja se "
 "kopjet në disk."
@@ -616,14 +616,9 @@ msgstr "Kartela"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "Kartela:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Kartela:%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -644,11 +639,12 @@ msgid "Group"
 msgstr "Grup"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Madhësi ikonash për tipe kartelash "
+msgid "Icons size (requires restart):"
+msgstr "Madhësi ikonash për tipe kartelash:"
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
+#, fuzzy
+msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr "Shfaq shtyllë vendesh"
 
 #: ../src/pref_dialog.c
@@ -664,7 +660,7 @@ msgstr ""
 #| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
 "Në një arkiv të qëndrueshëm kartelat grupohen bashkë duke bërë të mundur një "
 "përpjestim më të mirë ngjeshjeje."
@@ -901,7 +897,7 @@ msgstr "Shpie tek"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
 msgstr "Madhësi ikonash për tipe kartelash "
 
@@ -910,7 +906,7 @@ msgid "Preferences"
 msgstr "Parapëlqime"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
+msgid "Preferred archive format:"
 msgstr "Format i parapëlqyer arkivash:"
 
 #: ../src/pref_dialog.c
@@ -1040,6 +1036,10 @@ msgstr ""
 msgid "Size"
 msgstr "Madhësi"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "Madhësi:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "Ndodhën ca gabime:"
@@ -1094,7 +1094,7 @@ msgstr "Kjo arkivë është e koduar!"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr "Struktura e drejtorive të arkivit rikrijohet te drejtoria e përftimit."
 
 #: ../src/extract_dialog.c
@@ -1103,7 +1103,7 @@ msgstr "Struktura e drejtorive të arkivit rikrijohet te drejtoria e përftimit.
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr "Struktura e drejtorive të arkivit rikrijohet te drejtoria e përftimit."
 
 #: ../src/extract_dialog.c
@@ -1112,7 +1112,7 @@ msgstr "Struktura e drejtorive të arkivit rikrijohet te drejtoria e përftimit.
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr "Struktura e drejtorive të arkivit rikrijohet te drejtoria e përftimit."
 
 #: ../src/add_dialog.c ../src/main.c
@@ -1131,13 +1131,13 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "Shtylla me emrat e kartelave renditet pasi të jetë ngarkuar arkivi"
+msgid "The filename column is sorted after loading the archive."
+msgstr "Shtylla me emrat e kartelave renditet pasi të jetë ngarkuar arkivi."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
@@ -1165,7 +1165,7 @@ msgstr ""
 #| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "Kjo mundësi përfshin nëndrejtoritë kur shtoni kartela me \"merr dhe vër\""
 
@@ -1173,7 +1173,7 @@ msgstr ""
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "Kjo mundësi përmbush të njëjtin fuksion si ai për freskim, duke përftuar "
 "kartela që janë më të reja se sa ato me të njëjtin emër në disk, e si "
@@ -1186,7 +1186,7 @@ msgstr ""
 #| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "Kjo mundësi do të shtojë çfarëdo kartele të re dhe përditësojë çfarëdo "
 "kartele që është ndryshuar qëkur u krijua/ndryshua arkivi së fundmi."
@@ -1199,7 +1199,7 @@ msgstr ""
 #| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "Kjo mundësi prek arkivin vetëm nëse është ndryshuar së fundmi më vonë se "
 "versioni tashmë në arkiv; ndryshe nga mundësia e përditësimit, ky nuk do të "
@@ -1283,10 +1283,10 @@ msgstr "Firefox"
 #| msgid ""
 #| "When this option is used,tar leaves the data modification times of the "
 #| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive"
+#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "Kur përdoret kjo mundësi, në vend që të ndryshojë kohët e regjistruara në "
 "arkiv, tar-i lë si kohë ndryshimi të kartelave që përfton kohën kur u "
@@ -1491,6 +1491,9 @@ msgstr "të vogla"
 msgid "small/medium"
 msgstr ""
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "kredite përkthyesish"
@@ -1511,9 +1514,9 @@ msgstr ""
 "Provoni xarchiver --help për të parë një listë të plotë për mundësi rreshti "
 "urdhrash që mund të kihen.\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Madhësi\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "Kartela:%*s%s"
 
 #~ msgid ""
 #~ "\n"
@@ -1795,24 +1798,6 @@ msgstr "|Madhësi\n"
 #~ "Kur përdoret kjo mundësi, në vend që të ndryshojë kohët e regjistruara në "
 #~ "arkiv, tar-i lë si kohë ndryshimi të kartelave që përfton kohën kur u "
 #~ "përftuan kartelat."
-
-#, fuzzy
-#~ msgid ""
-#~ "Extract only those files that already exist on disk and that are newer "
-#~ "than the disk copies."
-#~ msgstr ""
-#~ "Përfto vetëm ato kartela që gjenden tashmë në disk dhe që janë më të reja "
-#~ "se kopjet në disk."
-
-#, fuzzy
-#~ msgid ""
-#~ "This option performs the same function as the freshen one, extracting "
-#~ "files that are newer than those with the same name on disk, and in "
-#~ "addition it extracts those files that do not already exist on disk."
-#~ msgstr ""
-#~ "Kjo mundësi përmbush të njëjtin fuksion si ai për freskim, duke përftuar "
-#~ "kartela që janë më të reja se sa ato me të njëjtin emër në disk, e si "
-#~ "shtesë, përfton edhe ato kartela që nuk gjenden në disk."
 
 #, fuzzy
 #~ msgid ""

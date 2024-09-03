@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -268,7 +268,7 @@ msgstr ""
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
+msgid "Can't open RPM file \"%s\":"
 msgstr ""
 
 #: ../src/window.c
@@ -343,7 +343,7 @@ msgstr "వ్యాఖ్య"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 
 #: ../src/window.c
@@ -363,14 +363,14 @@ msgstr "వ్యాఖ్య:\n"
 msgid "Compressed"
 msgstr ""
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "కుచించబడిన పరిమాణం: "
-
 #: ../src/interface.c
 msgid "Compressed size:"
 msgstr "కుచింపు స్థాయి:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
+msgstr "కుచించబడిన పరిమాణం: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -487,7 +487,7 @@ msgstr ""
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
+"directory."
 msgstr ""
 
 #: ../src/interface.c
@@ -497,7 +497,7 @@ msgstr "సంకేతపదాన్ని ప్రవేశపెట్ట�
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 
 #: ../src/interface.c
@@ -535,7 +535,7 @@ msgstr ""
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
+"the disk copies."
 msgstr ""
 
 #: ../src/extract_dialog.c
@@ -583,14 +583,9 @@ msgstr "ఫైళ్ళు"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "ఫైళ్ళు:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "ఫైళ్లు:%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -609,11 +604,11 @@ msgid "Group"
 msgstr "గుంపు"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
+msgid "Icons size (requires restart):"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
+msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr ""
 
 #: ../src/pref_dialog.c
@@ -625,7 +620,7 @@ msgstr ""
 #: ../src/add_dialog.c
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
 
 #: ../src/add_dialog.c
@@ -864,7 +859,7 @@ msgid "Preferences"
 msgstr "ప్రాధాన్యతలు"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
+msgid "Preferred archive format:"
 msgstr ""
 
 #: ../src/pref_dialog.c
@@ -991,6 +986,10 @@ msgstr "రూపాంతరం చూపించి నిష్క్రమ�
 msgid "Size"
 msgstr "పరిమాణం"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "పరిమాణం:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "కొన్ని దోషాలు సంభవించాయి:"
@@ -1041,19 +1040,19 @@ msgstr "ఈ సంగ్రహం ఎన్క్రిప్ట్ చేయబ
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr ""
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr ""
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr ""
 
 #: ../src/add_dialog.c ../src/main.c
@@ -1070,13 +1069,13 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
+msgid "The filename column is sorted after loading the archive."
 msgstr ""
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
@@ -1095,26 +1094,26 @@ msgstr ""
 #: ../src/pref_dialog.c
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 
 #: ../src/extract_dialog.c
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
@@ -1191,7 +1190,7 @@ msgstr "వాడవలసిన జాల విహారకం:"
 #: ../src/extract_dialog.c
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 
 #: ../src/zpaq.c
@@ -1379,6 +1378,9 @@ msgstr ""
 msgid "small/medium"
 msgstr ""
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Praveen Illa <mail2ipn@gmail.com>, 2011."
@@ -1394,9 +1396,9 @@ msgid ""
 "Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|పరిమాణం\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "ఫైళ్లు:%*s%s"
 
 #~ msgid "Archive Name"
 #~ msgstr "సంగ్రహం పేరు"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
-"PO-Revision-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"PO-Revision-Date: 2024-09-03 21:10+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
@@ -277,7 +277,7 @@ msgstr "Er kunnen geen meerdere archiefbestanden tegelijk worden uitgepakt:"
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
+msgid "Can't open RPM file \"%s\":"
 msgstr "Het RPM-bestand, ‘%s’, kan niet worden geopend:"
 
 #: ../src/window.c
@@ -348,7 +348,7 @@ msgstr "Opdracht"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 "De opdrachtregeluitvoer wordt vastgelegd en kan worden nagelopen, maar dit "
 "verhoogt het geheugengebruik."
@@ -370,14 +370,14 @@ msgstr "Opmerkingen:\n"
 msgid "Compressed"
 msgstr "Gecomprimeerd"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "Grootte na inpakken: "
-
 #: ../src/interface.c
 msgid "Compressed size:"
 msgstr "Grootte na inpakken:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
+msgstr "Grootte na inpakken: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -488,8 +488,8 @@ msgstr "Bijbehorende map aanmaken"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
-msgstr "Pak de inhoud van archieven altijd uit naar een bijbehorende map"
+"directory."
+msgstr "Pak de inhoud van archieven altijd uit naar een bijbehorende map."
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -498,7 +498,7 @@ msgstr "Wachtwoo_rd invoeren"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 "Zelfs als er andere, krachtigere programma's die met zipbestanden omgaan "
 "geïnstalleerd zijn, dan wordt nog steeds gebruikgemaakt van ‘unzip’ en ‘zip’."
@@ -546,10 +546,10 @@ msgstr ""
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
+"the disk copies."
 msgstr ""
 "Pak alleen bestanden uit die al op de schijf staan en die nieuwer zijn dan "
-"de exemplaren op de schijf"
+"de exemplaren op de schijf."
 
 #: ../src/extract_dialog.c
 msgid "Extract to directories with archive names"
@@ -596,14 +596,9 @@ msgstr "Bestanden"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr "Bestandsnamen met volledige locaties kunnen niet worden verwijderd!"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "Bestanden:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Bestanden:%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -622,13 +617,13 @@ msgid "Group"
 msgstr "Groep"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Pictogramgrootte (herstart vereist)"
+msgid "Icons size (requires restart):"
+msgstr "Pictogramgrootte (herstart vereist):"
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
+msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr ""
-"Kruis aan om de archiefopmerkingen te tonen na het laden van het archief"
+"Kruis aan om de archiefopmerkingen te tonen na het laden van het archief."
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -641,10 +636,10 @@ msgstr ""
 #: ../src/add_dialog.c
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
 "In een compact archief worden bestanden gegroepeerd om betere compressie toe "
-"te kunnen passen"
+"te kunnen passen."
 
 #: ../src/add_dialog.c
 msgid "Include subdirectories"
@@ -872,8 +867,8 @@ msgid "Preferences"
 msgstr "Voorkeuren"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Voorkeursarchiefformaat"
+msgid "Preferred archive format:"
+msgstr "Voorkeursarchiefformaat:"
 
 #: ../src/pref_dialog.c
 msgid "Preferred extraction directory:"
@@ -997,6 +992,10 @@ msgstr "Toon het versienummer en sluit af\n"
 msgid "Size"
 msgstr "Grootte"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "Grootte:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "Er zijn fouten opgetreden:"
@@ -1045,13 +1044,13 @@ msgstr "Dit archief is in orde."
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr "Hiermee wordt de volledige mappenstructuur uit het archief behouden."
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr ""
 "Hiermee wordt de mappenstructuur niet behouden, waardoor alle bestanden los "
 "in de uitgepakte map worden geplaatst."
@@ -1059,7 +1058,7 @@ msgstr ""
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr ""
 "Hiermee wordt de mappenstructuur behouden, met uitzondering van de "
 "hoofdmappen van de geselecteerde bestanden."
@@ -1082,13 +1081,13 @@ msgstr ""
 "wachtwoorden beveiligde archieven."
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "De bestandsnaamkolom wordt gesorteerd na het laden van het archief"
+msgid "The filename column is sorted after loading the archive."
+msgstr "De bestandsnaamkolom wordt gesorteerd na het laden van het archief."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 "Stapsgewijs zoeken wordt uitgevoerd op gehele bestandsnamen in plaats van "
 "alleen het begin."
@@ -1113,7 +1112,7 @@ msgstr ""
 #: ../src/pref_dialog.c
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "Deze optie omvat alle onderliggende mappen van bestanden die u toevoegt "
 "middels het klembord of slepen-en-neerzetten."
@@ -1122,7 +1121,7 @@ msgstr ""
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "Deze optie doet hetzelfde als herladen: uitpakken van bestanden die nieuwer "
 "zijn dan die met dezelfde naam op de schijf. Daarnaast pakt hij ook de "
@@ -1131,15 +1130,15 @@ msgstr ""
 #: ../src/add_dialog.c
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "Met deze optie worden alle nieuwe bestanden toegevoegd en alle reeds "
-"aanwezige bestanden, indien nodig, bijgewerkt"
+"aanwezige bestanden, indien nodig, bijgewerkt."
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "Deze optie voegt alleen bestanden toe die gewijzigd zijn sinds het "
 "samenstellen van het archief. In tegenstelling tot de optie ‘Bijwerken’, "
@@ -1219,7 +1218,7 @@ msgstr "Webbrowser:"
 #: ../src/extract_dialog.c
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "Met deze optie zal tar de tijdstippen van aanpassing van de uitgepakte "
 "bestanden instellen op het moment dat de bestanden zijn uitgepakt i.p.v. de "
@@ -1415,6 +1414,9 @@ msgstr "Klein"
 msgid "small/medium"
 msgstr "Klein/Gemiddeld"
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr ""
@@ -1437,9 +1439,9 @@ msgstr ""
 "Voer xarchiver --help uit om een lijst met beschikbare opties voor de "
 "opdrachtregel te tonen.\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Grootte\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "Bestanden:%*s%s"
 
 #~ msgid ""
 #~ "\n"
@@ -1844,9 +1846,6 @@ msgstr "|Grootte\n"
 
 #~ msgid "Filename:"
 #~ msgstr "Bestandnaam:"
-
-#~ msgid "Size:"
-#~ msgstr "Grootte:"
 
 #~ msgid "Extension:"
 #~ msgstr "Extensie:"

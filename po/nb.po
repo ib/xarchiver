@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-02-28 14:06+0100\n"
+"POT-Creation-Date: 2024-09-03 21:10+0200\n"
 "PO-Revision-Date: 2008-10-22 20:11+0200\n"
 "Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
 "Language-Team: Norwegian Bokmal\n"
@@ -139,7 +139,7 @@ msgstr "Avansert"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
 msgstr "Ikon størrelse (krever omstart)"
 
@@ -279,8 +279,8 @@ msgstr "Kan ikke Multiutpakke arkivene:"
 
 #: ../src/rpm.c
 #, c-format
-msgid "Can't open RPM file %s:"
-msgstr "Kan ikke åpne RPM fil %s"
+msgid "Can't open RPM file \"%s\":"
+msgstr "Kan ikke åpne RPM fil \"%s\""
 
 #: ../src/window.c
 #, c-format
@@ -354,7 +354,7 @@ msgstr "Kommentar"
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
-"additional memory"
+"additional memory."
 msgstr ""
 
 #: ../src/window.c
@@ -374,14 +374,14 @@ msgstr "Kommentar:\n"
 msgid "Compressed"
 msgstr "Pakket"
 
-#: ../src/window.c
-#, c-format
-msgid "Compressed   size: "
-msgstr "Komprimert størrelse: "
-
 #: ../src/interface.c
 msgid "Compressed size:"
 msgstr "Komprimert størrelse:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed size: "
+msgstr "Komprimert størrelse: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -504,7 +504,7 @@ msgstr "Foretrukket målmappe:"
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
-"directory"
+"directory."
 msgstr ""
 
 #: ../src/interface.c
@@ -514,7 +514,7 @@ msgstr "Skriv pass_ord"
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
-"archives, the traditional \"unzip\" and \"zip\" will still be used"
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
 
 #: ../src/interface.c
@@ -560,7 +560,7 @@ msgstr "Spør etter målkatalog. Pakk ut arkivet og avslutt."
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
+"the disk copies."
 msgstr ""
 "Pakk ut bare de filene som allerede finnes og er nyere enn de som ligger i "
 "filsystemet."
@@ -614,14 +614,9 @@ msgstr "Filer"
 msgid "Files with absolute pathnames cannot be deleted!"
 msgstr ""
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
 msgstr "Filer:"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Filer:%*s%s"
 
 #: ../src/interface.c
 msgid "Forward"
@@ -642,12 +637,12 @@ msgid "Group"
 msgstr "Gruppe"
 
 #: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Ikon størrelse (krever omstart)"
+msgid "Icons size (requires restart):"
+msgstr "Ikon størrelse (krever omstart):"
 
 #: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr "Hvis valgt vil arkivkommentar vises etter arkivet er lastet inn"
+msgid "If checked the archive comment is shown after the archive is loaded."
+msgstr "Hvis valgt vil arkivkommentar vises etter arkivet er lastet inn."
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -662,9 +657,9 @@ msgstr ""
 #| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
-"compression ratio"
+"compression ratio."
 msgstr ""
-"I et kompakt arkiv er filene gruppert sammen for å gi bedre komprimering"
+"I et kompakt arkiv er filene gruppert sammen for å gi bedre komprimering."
 
 #: ../src/add_dialog.c
 msgid "Include subdirectories"
@@ -894,7 +889,7 @@ msgstr "Peker til"
 
 #: ../src/pref_dialog.c
 #, fuzzy
-#| msgid "Icons size (requires restart)"
+#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
 msgstr "Ikon størrelse (krever omstart)"
 
@@ -903,8 +898,8 @@ msgid "Preferences"
 msgstr "Innstillinger"
 
 #: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Foretrukket arkivformat"
+msgid "Preferred archive format:"
+msgstr "Foretrukket arkivformat:"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1034,6 +1029,10 @@ msgstr "Vis versjonsnummer og avslutt"
 msgid "Size"
 msgstr "Størrelse"
 
+#: ../src/window.c
+msgid "Size:"
+msgstr "Størrelse:"
+
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "Feil oppsto:"
@@ -1087,7 +1086,7 @@ msgstr "Dette arkivet er kryptert"
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
-"directory"
+"directory."
 msgstr "Arkivet sin mappestruktur er gjenskapt i målkatalogen."
 
 #: ../src/extract_dialog.c
@@ -1096,7 +1095,7 @@ msgstr "Arkivet sin mappestruktur er gjenskapt i målkatalogen."
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
-"the extraction directory"
+"the extraction directory."
 msgstr "Arkivet sin mappestruktur er gjenskapt i målkatalogen."
 
 #: ../src/extract_dialog.c
@@ -1105,7 +1104,7 @@ msgstr "Arkivet sin mappestruktur er gjenskapt i målkatalogen."
 #| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
-"but with the parent directories of the selected files removed"
+"but with the parent directories of the selected files removed."
 msgstr "Arkivet sin mappestruktur er gjenskapt i målkatalogen."
 
 #: ../src/add_dialog.c ../src/main.c
@@ -1124,13 +1123,13 @@ msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "Filnavn kolonnen sorteres etter lasting av arkivet"
+msgid "The filename column is sorted after loading the archive."
+msgstr "Filnavn kolonnen sorteres etter lasting av arkivet."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
-"at the beginning of them"
+"at the beginning of them."
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
@@ -1156,7 +1155,7 @@ msgstr "Dette er Xarchiver lysstatus. Når den blinker er Xarchiver opptatt"
 #| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
-"clipboard or with drag-and-drop"
+"clipboard or with drag-and-drop."
 msgstr ""
 "Dette valget inkluderer undermapper når du legger til filer med dra og slipp"
 
@@ -1164,7 +1163,7 @@ msgstr ""
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk"
+"extracts those files that do not already exist on disk."
 msgstr ""
 "Dette valget pakker ut filer som allerede finnes i filsystemet og som har "
 "nyere date i arkivet. I tillegg tas også med alle filer som ikke finne i "
@@ -1177,7 +1176,7 @@ msgstr ""
 #| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
-"the archive but older there"
+"the archive but older there."
 msgstr ""
 "Dette valget vil legge til nye filer samt oppdatere filer som er endret "
 "siden arkivet ble laget/oppdatert"
@@ -1190,7 +1189,7 @@ msgstr ""
 #| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
-"there; unlike the update option it will not add any new files"
+"there; unlike the update option it will not add any new files."
 msgstr ""
 "Dette valget påvirker arkivet bare hvis filer er modifisert etter at de er "
 "lagt til i arkivet. I motsetning til Oppdater-valget vil det ikke legge til "
@@ -1274,10 +1273,10 @@ msgstr "Nettleser som skal bruker:"
 #| msgid ""
 #| "When this option is used,tar leaves the data modification times of the "
 #| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive"
+#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
-"times of extraction instead of the times recorded in the archive"
+"times of extraction instead of the times recorded in the archive."
 msgstr ""
 "Når dette valget brukes vil tar-programmet la endringsdato for filene den "
 "pakker ut være lik utpakkingstidpunktet, fremfor å sette endringstidspunktet "
@@ -1476,6 +1475,9 @@ msgstr "liten"
 msgid "small/medium"
 msgstr ""
 
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Oversettere"
@@ -1495,9 +1497,9 @@ msgstr ""
 "xarchiver: %s\n"
 "Prøv xarchiver --help for å se alle tilgjengelige kommandolinjevalg.\n"
 
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Størrelse\n"
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "Filer:%*s%s"
 
 #~ msgid ""
 #~ "\n"
