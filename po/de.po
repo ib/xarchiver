@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-03 21:10+0200\n"
-"PO-Revision-Date: 2024-09-03 21:10+0200\n"
+"PO-Revision-Date: 2024-09-03 21:16+0200\n"
 "Last-Translator: Ingo Brückl <ib@oddnet.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de\n"
@@ -384,7 +384,7 @@ msgstr "Komprimierte Größe: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
-msgstr "Komprimierungsrate"
+msgstr "Komprimierung"
 
 #: ../src/gzip_et_al.c
 msgid "Compression ratio"
@@ -1147,7 +1147,7 @@ msgid ""
 "there; unlike the update option it will not add any new files."
 msgstr ""
 "Es werden nur Dateien aktualisiert, die bereits im Archiv vorhanden und dort "
-"älter sind.  Es werden dem Archiv keine neuen Dateien hinzugefügt."
+"älter sind. Es werden dem Archiv keine neuen Dateien hinzugefügt."
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
