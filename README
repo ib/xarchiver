@@ -27,6 +27,13 @@ First author of Xarchiver (until 2014) was Giuseppe Torelli,
 current author of this continuation of the Xfce master branch
 and maintainer of Xarchiver is Ingo Brückl.
 
+Translations
+============
+Contributing to Xarchiver as a translator is easy. A translation is accepted
+as an issue (please attach files), as a pull request, or as a contribution on
+https://hosted.weblate.org/projects/xarchiver/translations/, courtesy of
+Weblate Libre hosting.
+
 Bug reports
 ===========
 https://github.com/ib/xarchiver/issues
