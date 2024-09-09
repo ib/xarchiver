@@ -11,16 +11,17 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4.18\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-03 21:10+0200\n"
-"PO-Revision-Date: 2024-09-03 21:10+0200\n"
-"Last-Translator: Matthaiks\n"
-"Language-Team: Polish <>\n"
+"PO-Revision-Date: 2024-09-11 01:09+0000\n"
+"Last-Translator: Matthaiks <kitynska@gmail.com>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/xarchiver/"
+"translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
-"%100<10 || n%100>=20)) ? 1 : 2));\n"
-"X-Generator: Poedit 3.1.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -327,7 +328,7 @@ msgstr "Suma kontrolna"
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
-msgstr "Wybierz aplikację"
+msgstr "Wybierz aplikację do użycia"
 
 #: ../src/new_dialog.c
 msgid "Choose the archive type to create"
@@ -413,7 +414,7 @@ msgstr "_Utwórz"
 
 #: ../src/interface.c ../src/new_dialog.c
 msgid "Create a new archive"
-msgstr "Tworzy nowe archiwum"
+msgstr "Utwórz nowe archiwum"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
@@ -708,7 +709,7 @@ msgstr "Liczba plików: "
 
 #: ../src/zip.c
 msgid "OS"
-msgstr "OS"
+msgstr "System"
 
 #: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
 msgid "Occupancy"
@@ -922,7 +923,7 @@ msgstr "Zapisz archiwum jako"
 
 #: ../src/window.c
 msgid "Save the self-extracting archive as"
-msgstr "Zapisz samorozpakowywujące się archiwum jako %s"
+msgstr "Zapisz samorozpakowywujące się archiwum jako"
 
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
@@ -954,7 +955,7 @@ msgstr "Zaznacz według wzoru"
 
 #: ../src/extract_dialog.c
 msgid "Selected files"
-msgstr "Zaznaczone"
+msgstr "Zaznaczone pliki"
 
 #: ../src/add_dialog.c
 msgid "Selection"
@@ -1103,7 +1104,7 @@ msgstr "Właściwy archiwizator do \"%s\" nie jest zainstalowany!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
-msgstr "To archiwum jest szyfrowane!"
+msgstr "To archiwum jest zaszyfrowane!"
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1152,7 +1153,7 @@ msgstr "Czas"
 
 #: ../src/interface.c
 msgid "Total Progress:"
-msgstr "Postęp:"
+msgstr "Całkowity postęp:"
 
 #: ../src/extract_dialog.c
 msgid "Touch files"
