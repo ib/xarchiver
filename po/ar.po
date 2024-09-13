@@ -4,17 +4,20 @@ msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-03 21:10+0200\n"
-"PO-Revision-Date: 2011-08-09 03:59-0000\n"
-"Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
-"Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
+"PO-Revision-Date: 2024-09-13 16:21+0000\n"
+"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/xarchiver/"
+"translations/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 5.8-dev\n"
 "X-Poedit-Language: Arabic\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: MOROCCO\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=n==1 \n"
 
 #: ../src/window.c
 #, c-format
@@ -484,7 +487,7 @@ msgstr "القيام بذلك على الأرجح سوف يفسد الأرشيف
 
 #: ../src/interface.c
 msgid "Edit"
-msgstr ""
+msgstr "تعديل"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -936,7 +939,7 @@ msgstr "أعد التسمية"
 
 #: ../src/interface.c
 msgid "Replace"
-msgstr ""
+msgstr "استبدال"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1014,7 +1017,7 @@ msgstr "إضافة الملفات المحدد بالسؤال عن اسم الا
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
-msgstr ""
+msgstr "إظهار شريط الأدوات"
 
 #: ../src/main.c
 #, fuzzy
@@ -1060,7 +1063,7 @@ msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
-msgstr ""
+msgstr "نتيجة الاختبار:"
 
 #: ../src/window.c
 msgid "Testing archive, please wait..."
@@ -1292,7 +1295,7 @@ msgstr "مسارات مخزن كامل"
 
 #: ../src/extract_dialog.c
 msgid "Without any path"
-msgstr ""
+msgstr "من دون أي مسار"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Without parent path"
@@ -1415,7 +1418,7 @@ msgstr "ملف نصي"
 
 #: ../src/window.c
 msgid "and"
-msgstr ""
+msgstr "و"
 
 #: ../xarchiver.desktop.in.h
 msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
@@ -1423,7 +1426,7 @@ msgstr ""
 
 #: ../src/add_dialog.c
 msgid "best"
-msgstr ""
+msgstr "أفضل"
 
 #: ../src/pref_dialog.c
 msgid "choose..."
