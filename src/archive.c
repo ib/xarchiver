@@ -909,6 +909,7 @@ gint xa_sort_dirs_before_files (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter
 		else
 			return 1;
 	}
-	/* This for sorting the files */
-	return strcasecmp (entry1->filename,entry2->filename);
+
+	/* sort files */
+	return g_utf8_collate(entry1->filename, entry2->filename);
 }
