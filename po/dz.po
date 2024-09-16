@@ -1507,6 +1507,7 @@ msgstr ""
 #. Instead, add your name here if you like.
 #. One translator per line!
 #: ../src/window.c
+#, fuzzy
 msgid "translator-credits"
 msgstr "སྐད་བསྒྱུར་པའི་-ངོ་བསྟོད་ཚུ།"
 

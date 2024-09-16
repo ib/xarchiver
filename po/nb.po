@@ -1479,6 +1479,7 @@ msgstr ""
 #. Instead, add your name here if you like.
 #. One translator per line!
 #: ../src/window.c
+#, fuzzy
 msgid "translator-credits"
 msgstr "Oversettere"
 
