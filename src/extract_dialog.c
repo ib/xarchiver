@@ -494,6 +494,8 @@ ExtractDialog *xa_create_extract_dialog ()
 
 void xa_set_extract_dialog_options (ExtractDialog *extract_dialog, gint selected, XArchive *archive)
 {
+	extract_dialog->archive = archive;
+
 	if (progress)
 		gtk_widget_hide(progress->window);
 
@@ -554,8 +556,6 @@ void xa_set_extract_dialog_options (ExtractDialog *extract_dialog, gint selected
 
 	gtk_widget_set_sensitive(extract_dialog->label_password, archive->has_password);
 	gtk_widget_set_sensitive(extract_dialog->password_entry, archive->has_password);
-
-	extract_dialog->archive = archive;
 
 	gtk_widget_show_all(extract_dialog->dialog);
 }
