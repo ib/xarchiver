@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-03 21:10+0200\n"
-"PO-Revision-Date: 2010-12-13 13:59+0200\n"
-"Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
-"Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
+"PO-Revision-Date: 2024-09-26 00:15+0000\n"
+"Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
+"Language-Team: Romanian <https://hosted.weblate.org/projects/xarchiver/"
+"translations/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2);;\n"
-"X-Generator: Virtaal 0.6.1\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -31,7 +32,7 @@ msgstr ""
 #: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr "„%s” este deja deschis"
+msgstr "„%s” este deja deschis!"
 
 #: ../src/window.c
 #, c-format
@@ -42,13 +43,12 @@ msgstr[1] "%d directoare %s (%s)"
 msgstr[2] "%d de directoare %s (%s)"
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Add files"
+#, c-format
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] "Adăugare fișiere"
-msgstr[1] "Adăugare fișiere"
-msgstr[2] "Adăugare fișiere"
+msgstr[0] "%d fișier"
+msgstr[1] "%d fișiere"
+msgstr[2] "%d de fișiere"
 
 #: ../src/window.c
 #, c-format
@@ -59,14 +59,15 @@ msgstr[1] "%d fișiere %s (%s)"
 msgstr[2] "%d de fișiere %s (%s)"
 
 #: ../src/add_dialog.c
-#, fuzzy, c-format
-#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+#, c-format
 msgid ""
 "%hu is least compression\n"
 "%hu is default compression\n"
 "%hu is best compression"
 msgstr ""
-"0 = necomprimat, 1 = implicit, 4 = cea mai rapidă comprimare, dar slabă"
+"%hu este comprimarea cea mai mică\n"
+"%hu este comprimarea implicită\n"
+"%hu este comprimarea cea mai bună (optimă)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -88,11 +89,11 @@ msgstr "<th>Fișiere:</th>"
 #: ../src/window.c
 #, c-format
 msgid "<th>Size:</th>"
-msgstr "<th>Mărime:</th>"
+msgstr "<th>Dimensiune:</th>"
 
 #: ../src/window.c
 msgid "A GTK+ only lightweight archive manager"
-msgstr "Un mic manager de arhive, scris în GTK+"
+msgstr "Un mic gestionar de arhive, scris în GTK+"
 
 #: ../src/interface.c
 msgid "A_ction"
@@ -107,29 +108,28 @@ msgid "Actions"
 msgstr "Acțiuni"
 
 #: ../src/interface.c
-#, fuzzy
 msgid "Add"
-msgstr "_Adaugă"
+msgstr "Adaugă"
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Add files"
 msgstr "Adăugare fișiere"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
-msgstr "Adaugă fișierele date cerând numele arhivei și apoi iese."
+msgstr ""
+"adaugă fișierele date cerând numele arhivei\n"
+"                                     și apoi iese"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Add files to archive by asking their filenames and quits."
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
-msgstr "Adaugă fișierele în arhivă cerând numele lor și apoi iese."
+msgstr ""
+"adaugă fișierele în arhivă cerând numele lor\n"
+"                                     și apoi iese"
 
 #: ../src/window.c
 msgid "Adding files to archive, please wait..."
@@ -144,20 +144,16 @@ msgid "Advanced"
 msgstr "Avansate"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
-msgstr "Mărimea iconițelor (necesită repornire)"
+msgstr "Căutare incrementală avansată (necesită repornire)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
 msgstr "Toate fișierele"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Allow subdirs with drag and drop"
 msgid "Allow subdirs with clipboard and drag-and-drop"
-msgstr "Include subdirectoarele la drag&drop"
+msgstr "Include subdirectoarele pentru clipboard și „trageți și plasați”"
 
 #: ../src/window.c
 msgid "An error occurred while accessing the archive:"
@@ -180,18 +176,17 @@ msgid "Archive _comment"
 msgstr "_Comentariu arhivă"
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Archive contents:\n"
+#, c-format
 msgid "Archive content:\n"
 msgstr "Conținutul arhivei:\n"
 
 #: ../src/window.c
 msgid "Archive format is not recognized!"
-msgstr "Formatul arhivei nu este cunoscut!"
+msgstr "Formatul arhivei nu este recunoscut!"
 
 #: ../xarchiver.desktop.in.h
 msgid "Archive manager"
-msgstr "Manager de arhive"
+msgstr "Gestionar de arhive"
 
 #: ../src/interface.c
 msgid "Archive tree"
@@ -202,24 +197,24 @@ msgid ""
 "Archive tree nodes already expand when the node name is selected by mouse "
 "click or keyboard shortcut."
 msgstr ""
+"Nodurile arborelui de arhivă se extind deja atunci când numele nodului este "
+"selectat prin ap[sarea butonului mouse-ului sau prin tasta de comandă rapidă."
 
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Tipul arhivei:"
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Can't run the archiver executable:"
 msgid "Archiver executable:"
-msgstr "Nu se poate executa arhivatorul:"
+msgstr "Executabilul de arhivare:"
 
 #: ../src/window.c
 msgid "Archiver output"
-msgstr "Output arhivator"
+msgstr "Ieșire arhivator"
 
 #: ../src/window.c
 msgid "Are you sure you want to do this?"
-msgstr "Sigur asta doriți?"
+msgstr "Sunteți sigur că doriți să faceți acest lucru?"
 
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
@@ -227,7 +222,7 @@ msgstr "Atribute"
 
 #: ../src/pref_dialog.c
 msgid "Automatically expand archive tree nodes on selection"
-msgstr ""
+msgstr "Extinde automat nodurile arborelui de arhivă la selecție"
 
 #: ../src/interface.c
 msgid "Back"
@@ -251,17 +246,15 @@ msgstr "Nu se poate aloca memorie pentru structura arhivei:"
 
 #: ../src/window.c
 msgid "Can't convert the archive to self-extracting:"
-msgstr "Nu se poate converti arhiva într-una executabilă:"
+msgstr "Nu se poate converti arhiva într-una auto-extractibilă:"
 
 #: ../src/new_dialog.c
 msgid "Can't create a new archive:"
 msgstr "Nu se poate crea o nouă arhivă:"
 
 #: ../src/extract_dialog.c ../src/main.c
-#, fuzzy
-#| msgid "Can't create temporary directory:"
 msgid "Can't create directory!"
-msgstr "Nu se poate crea directorul temporar:"
+msgstr "Nu se poate crea directorul!"
 
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
@@ -281,7 +274,7 @@ msgstr "Nu se poate căuta în fișier la poziția 104:"
 
 #: ../src/extract_dialog.c
 msgid "Can't multi-extract archives:"
-msgstr "Nu se poate aplica acțiunea de dezarhivare multiplă asupra arhivelor:"
+msgstr "Nu se pot extrage mai multe arhive:"
 
 #: ../src/rpm.c
 #, c-format
@@ -294,14 +287,12 @@ msgid "Can't open file \"%s\":"
 msgstr "Nu se poate deschide fișierul „%s”:"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Can't add files to the archive:"
 msgid "Can't open the archive!"
-msgstr "Nu se pot adăuga fișiere în arhivă:"
+msgstr "Nu se poate deschide arhiva!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
-msgstr "Nu se poate efectua dezarhivarea!"
+msgstr "Nu se poate efectua extragerea!"
 
 #: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
@@ -321,15 +312,15 @@ msgstr "Nu se poate scrie în arhivă modulul «sfx»:"
 
 #: ../src/interface.c
 msgid "Cancel current operation"
-msgstr "Anulează operațiunea curentă"
+msgstr "Anulează operația curentă"
 
 #: ../src/gzip_et_al.c
 msgid "Check Type"
-msgstr ""
+msgstr "Tipul de verificare"
 
 #: ../src/arj.c ../src/rar.c
 msgid "Checksum"
-msgstr ""
+msgstr "Sumă de control"
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -349,19 +340,19 @@ msgstr "Închide arhiva"
 
 #: ../src/interface.c
 msgid "Cmd-line outp_ut"
-msgstr "Output al _arhivatorului"
+msgstr "Ieșirea liniei de c_omandă"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Comment"
 msgid "Command"
-msgstr "Comentariu"
+msgstr "Comandă"
 
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
 "additional memory."
 msgstr ""
+"Ieșirea liniei de comandă este capturată și poate fi revizuită, dar această "
+"operație consumă memorie suplimentară."
 
 #: ../src/window.c
 msgid "Comment"
@@ -382,7 +373,7 @@ msgstr "Comprimat"
 
 #: ../src/interface.c
 msgid "Compressed size:"
-msgstr "Mărime arhivă:"
+msgstr "Dimensiune comprimată:"
 
 #: ../src/window.c
 #, c-format
@@ -395,21 +386,19 @@ msgstr "Comprimare"
 
 #: ../src/gzip_et_al.c
 msgid "Compression ratio"
-msgstr "Rată de comprimare"
+msgstr "Raportul de comprimare"
 
 #: ../src/interface.c
 msgid "Compression ratio:"
-msgstr "Rată de comprimare:"
+msgstr "Raportul de comprimare:"
 
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
 msgstr "Confirmare la ștergerea fișierelor"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Testing archive, please wait..."
 msgid "Converting archive, please wait..."
-msgstr "Se testează arhiva, așteptați..."
+msgstr "Se convertește arhiva, așteptați..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -421,17 +410,15 @@ msgstr "Cr_eează"
 
 #: ../src/interface.c ../src/new_dialog.c
 msgid "Create a new archive"
-msgstr "Creare arhivă nouă"
+msgstr "Creează o nouă arhivă"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
 msgstr "Creează o arhivă compactă"
 
 #: ../xarchiver.desktop.in.h
-#, fuzzy
-#| msgid "Create a solid archive"
 msgid "Create, extract and modify archives"
-msgstr "Creează o arhivă compactă"
+msgstr "Creează, extrage și modifică arhive"
 
 #: ../src/interface.c
 msgid "Cut"
@@ -439,7 +426,7 @@ msgstr "Taie"
 
 #: ../src/gzip_et_al.c
 msgid "Data Frames/Skippable Frames"
-msgstr ""
+msgstr "Cadre de date/Cadre care pot fi omise"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
@@ -448,10 +435,8 @@ msgid "Date"
 msgstr "Dată"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Use a custom command:"
 msgid "Default custom command:"
-msgstr "Utilizează o comandă personalizată:"
+msgstr "Comanda personalizată implicită:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -462,20 +447,16 @@ msgid "Delete files after adding"
 msgstr "Șterge fișierele după adăugare"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Extracting files from archive, please wait..."
 msgid "Deleting files from archive, please wait..."
-msgstr "Se extrag fișierele din arhivă, așteptați..."
+msgstr "Se șterg fișierele din arhivă, așteptați..."
 
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "De_selectează tot"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "destination archive"
 msgid "Destination"
-msgstr "arhivă de destinație"
+msgstr "Destinația"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -491,7 +472,7 @@ msgstr "Această acțiune probabil că vă va corupe arhiva!"
 
 #: ../src/interface.c
 msgid "Edit"
-msgstr ""
+msgstr "Editare"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -502,16 +483,16 @@ msgid "Encryption"
 msgstr "Criptare"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Preferred extract directory:"
 msgid "Ensure a containing directory"
-msgstr "Directorul destinație preferat:"
+msgstr "Asigurați un director container"
 
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
 "directory."
 msgstr ""
+"Asigurați-vă că conținutul arhivei extrase se află întotdeauna într-un "
+"director container."
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -522,46 +503,49 @@ msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
+"Chiar dacă sunt instalate alte programe, poate mai puternice, pentru a "
+"gestiona arhivele zip, programele tradiționale «unzip» și «zip» vor fi "
+"utilizate în continuare."
 
 #: ../src/interface.c
 msgid "Extract"
-msgstr "Dezarhivează"
+msgstr "Extrage"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
-msgstr "Desface arhiva cerând directorul de destinație și apoi iese."
+msgstr ""
+"extrage arhiva cerând numele directorului\n"
+"                                     de destinație și apoi iese"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive to the destination directory and quits."
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
-msgstr "Desfă arhiva în directorul de destinație și ieși."
+msgstr ""
+"extrage arhiva într-un director container\n"
+"                                     și apoi iese"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive to the destination directory and quits."
 msgid ""
 "Extract archive to the destination\n"
 "                                     directory and quit"
-msgstr "Desfă arhiva în directorul de destinație și ieși."
+msgstr ""
+"extrage arhiva în directorul de destinație\n"
+"                                     și apoi iese"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
-msgstr "Dezarhivare fișiere"
+msgstr "Extragere fișiere"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
-msgstr "Desface arhiva cerând directorul de destinație și apoi iese."
+msgstr ""
+"extrage mai multe arhive solicitând numele\n"
+"                                     directorului de destinație și apoi iese"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -572,25 +556,21 @@ msgstr ""
 "decât copiile de pe disc."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract to dir \"Archive Name\""
 msgid "Extract to directories with archive names"
-msgstr "Dezarhivare într-un director cu numele arhivei"
+msgstr "Extrage în directoare cu numele arhivei"
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
-msgstr "Dezarhivare în:"
+msgstr "Extrage în::"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract files with full path"
 msgid "Extract with full path"
-msgstr "Dezarhivează fișierele cu calea completă"
+msgstr "Extrage cu ruta completă"
 
 #: ../src/interface.c
 #, c-format
 msgid "Extracting \"%s\"..."
-msgstr ""
+msgstr "Se extrage „%s”..."
 
 #: ../src/window.c
 msgid "Extracting files from archive, please wait..."
@@ -606,7 +586,7 @@ msgstr "Pornirea aplicației a eșuat!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "File Paths"
-msgstr "Căile fișierelor"
+msgstr "Rutele fișierelor"
 
 #: ../src/window.c
 msgid "Filename"
@@ -618,7 +598,7 @@ msgstr "Fișiere"
 
 #: ../src/zpaq.c
 msgid "Files with absolute pathnames cannot be deleted!"
-msgstr ""
+msgstr "Fișierele cu nume de rută absolută nu pot fi șterse!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
@@ -629,10 +609,8 @@ msgid "Forward"
 msgstr "Înainte"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Freshen existing files"
 msgid "Freshen existing files only"
-msgstr "Împrospătează fișierele existente"
+msgstr "Împrospătează numai fișierele existente"
 
 #: ../src/window.c
 msgid "From File"
@@ -655,12 +633,10 @@ msgid ""
 "If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
 "be opened with its default application."
 msgstr ""
+"Dacă instalați «xdg-open» din pachetul „xdg-utils”, fiecare fișier va fi "
+"deschis cu aplicația sa implicită."
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid ""
-#| "In a solid archive the files are grouped together featuring a better "
-#| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
 "compression ratio."
@@ -674,16 +650,16 @@ msgstr "Include subdirectoarele"
 
 #: ../src/interface.c
 msgid "Location:"
-msgstr "Cale:"
+msgstr "Locație:"
 
 #: ../src/main.c
 #, c-format
 msgid "Maintained by "
-msgstr ""
+msgstr "Pachetul este întreținut de "
 
 #: ../src/interface.c
 msgid "Make SF_X"
-msgstr "Creează o arhivă e_xecutabilă"
+msgstr "Creează o arhivă auto-extractibilă"
 
 #: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
@@ -695,7 +671,7 @@ msgstr "Modificat la:"
 
 #: ../src/extract_dialog.c
 msgid "Multi-Extract"
-msgstr "Dezarhivare multiplă"
+msgstr "Extragere multiplă"
 
 #: ../src/interface.c
 msgid "Name:"
@@ -703,21 +679,19 @@ msgstr "Nume:"
 
 #: ../src/interface.c
 msgid "New"
-msgstr ""
+msgstr "Nouă"
 
 #: ../src/window.c
 msgid "No"
 msgstr "Nu"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Compression"
 msgid "No compression"
-msgstr "Comprimare"
+msgstr "Fără comprimare"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
-msgstr ""
+msgstr "Instalatorul Nullsoft"
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -734,16 +708,15 @@ msgstr "SO"
 
 #: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
 msgid "Occupancy"
-msgstr ""
+msgstr "Ocuparea"
 
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Doar arhive"
 
 #: ../src/interface.c
-#, fuzzy
 msgid "Open"
-msgstr "Deschide cu"
+msgstr "Deschide"
 
 #: ../src/open-with-dlg.c
 #, c-format
@@ -763,10 +736,8 @@ msgid "Open an archive"
 msgstr "Deschide o arhivă"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Open image files with:"
 msgid "Open archive files with:"
-msgstr "Deschide fișierele de tip imagine cu:"
+msgstr "Deschide fișierele arhivă cu:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -785,14 +756,12 @@ msgid "Opening archive, please wait..."
 msgstr "Se deschide arhiva, așteptați..."
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Opening archive:"
-msgstr "Deschide o arhivă"
+msgstr "Se deschide arhiva:"
 
 #: ../src/window.c
 msgid "Operation aborted!"
-msgstr "Operațiune abandonată!"
+msgstr "Operație abandonată!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Options"
@@ -801,10 +770,8 @@ msgstr "Opțiuni"
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c ../src/zpaq.c
-#, fuzzy
-#| msgid "Original"
 msgid "Original Size"
-msgstr "Original"
+msgstr "Dimensiunea originală"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
@@ -812,15 +779,15 @@ msgstr "Suprascrie fișierele existente"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
-msgstr "Deținător"
+msgstr "Proprietar"
 
 #: ../src/squashfs.c ../src/tar.c
 msgid "Owner/Group"
-msgstr "Deținător/Grup"
+msgstr "Proprietar/Grup"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Password:"
-msgstr "Parolă:"
+msgstr "Parola:"
 
 #: ../src/interface.c
 msgid "Paste"
@@ -828,11 +795,11 @@ msgstr "Lipește"
 
 #: ../src/extract_dialog.c
 msgid "Path"
-msgstr "Cale"
+msgstr "Ruta"
 
 #: ../src/interface.c
 msgid "Path:"
-msgstr "Cale:"
+msgstr "Ruta:"
 
 #: ../src/interface.c
 msgid "Pattern:"
@@ -841,20 +808,21 @@ msgstr "Model:"
 #: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/squashfs.c ../src/tar.c ../src/zip.c ../src/zpaq.c
 msgid "Permissions"
-msgstr "Drepturi"
+msgstr "Permisiuni"
 
 #: ../src/window.c
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr ""
-"Încercați opțiunea „Păstrează outputul arhivatorului” pentru vizualizare."
+"Vă rugăm să bifați opțiunea „Stochează ieșirea arhivatorului” pentru a o "
+"vedea."
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Please enter it!"
-msgstr "Introduceți parola!"
+msgstr "Introduceți-l!"
 
 #: ../src/extract_dialog.c
 msgid "Please enter the extraction path."
-msgstr "Introduceți calea destinației."
+msgstr "Introduceți ruta destinației."
 
 #: ../src/extract_dialog.c
 msgid "Please enter the password."
@@ -862,11 +830,11 @@ msgstr "Introduceți parola."
 
 #: ../src/extract_dialog.c
 msgid "Please fill the \"Extract to\" field!"
-msgstr "Completați câmpul „Dezarhivare în”!"
+msgstr "Completați câmpul „Extragere în”!"
 
 #: ../src/window.c
 msgid "Please go to Preferences->Advanced and set it."
-msgstr "Precizați-vă opțiunea în secțiunea avansată a preferințelor."
+msgstr "Accesați Preferințe->Avansate și definiți-l."
 
 #: ../src/main.c
 #, c-format
@@ -879,17 +847,15 @@ msgstr "Selectați modulul «7zCon.sfx»"
 
 #: ../src/extract_dialog.c
 msgid "Please select the archives you want to extract"
-msgstr "Selectați arhivele pe care doriți sa le desfaceți"
+msgstr "Selectați arhivele pe care doriți să-le extrageți"
 
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Selectați directorul de destinație"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Please enter it!"
 msgid "Please wait..."
-msgstr "Introduceți parola!"
+msgstr "Vă rugăm, așteptați..."
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c
@@ -897,10 +863,8 @@ msgid "Points to"
 msgstr "Indică spre"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
-msgstr "Mărimea iconițelor (necesită repornire)"
+msgstr "Preferă «unzip» pentru fișierele „zip” (necesită repornire)"
 
 #: ../src/pref_dialog.c
 msgid "Preferences"
@@ -911,8 +875,6 @@ msgid "Preferred archive format:"
 msgstr "Format preferat de arhivă:"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Preferred extract directory:"
 msgid "Preferred extraction directory:"
 msgstr "Directorul destinație preferat:"
 
@@ -922,25 +884,23 @@ msgstr "Directorul temporar preferat:"
 
 #: ../src/window.c
 msgid "Print the archive content as HTML"
-msgstr "Enumeră conținutul arhivei în format HTML"
+msgstr "Afișează conținutul arhivei în format HTML"
 
 #: ../src/window.c
 msgid "Print the archive content as text"
-msgstr "Enumeră conținutul arhivei în format text"
+msgstr "Afișează conținutul arhivei în format text"
 
 #: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
-msgstr "Rată"
+msgstr "Raport"
 
 #: ../src/interface.c
 msgid "Re_name"
 msgstr "Rede_numește"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Opening archive, please wait..."
 msgid "Reloading archive, please wait..."
-msgstr "Se deschide arhiva, așteptați..."
+msgstr "Se reîncarcă arhiva, așteptați..."
 
 #: ../src/interface.c
 msgid "Rename"
@@ -948,7 +908,7 @@ msgstr "Redenumire"
 
 #: ../src/interface.c
 msgid "Replace"
-msgstr ""
+msgstr "Înlocuiește"
 
 #: ../src/interface.c
 msgid "Root"
@@ -960,7 +920,7 @@ msgstr "Salvează arhiva ca"
 
 #: ../src/window.c
 msgid "Save the self-extracting archive as"
-msgstr "Salvează arhiva executabilă ca"
+msgstr "Salvează arhiva auto-extractibilă ca"
 
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
@@ -968,12 +928,12 @@ msgstr "Salvează geometria ferestrei"
 
 #: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
 msgid "Saving"
-msgstr ""
+msgstr "Se salvează..."
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
-"Selectați „Nou” pentru a crea sau „Deschide” pentru a deschide o arhivă"
+"Selectați „Nouă” pentru a crea sau „Deschide” pentru a deschide o arhivă"
 
 #: ../src/interface.c
 msgid "Select _all"
@@ -1001,43 +961,39 @@ msgstr "Selecție"
 
 #: ../src/pref_dialog.c
 msgid "Show archive comment"
-msgstr "Arată comentariul arhivei"
+msgstr "Afișează comentariul arhivei"
 
 #: ../src/pref_dialog.c
 msgid "Show archive location bar"
-msgstr "Arată bara cu calea arhivei"
+msgstr "Afișează bara de locație a arhivei"
 
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
-msgstr "Arată arborele arhivei în bara laterală"
+msgstr "Afișează arborele arhivei în bara laterală"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Show archive comment"
 msgid "Show command"
-msgstr "Arată comentariul arhivei"
+msgstr "Afișează comanda"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Show found command-line programs to be\n"
 "                                     used and exit"
-msgstr "Adaugă fișierele date cerând numele arhivei și apoi iese."
+msgstr ""
+"afișează programele găsite care urmează\n"
+"                                     să fie utilizate și iese"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
-msgstr ""
+msgstr "Afișează bara de unelte"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Show version and exit"
 msgid "Show version and exit\n"
-msgstr "Arată versiunea și ieși"
+msgstr "afișează versiunea și iese\n"
 
 #: ../src/extract_dialog.c
 msgid "Size"
-msgstr "Mărime"
+msgstr "Dimensiune"
 
 #: ../src/window.c
 msgid "Size:"
@@ -1049,11 +1005,11 @@ msgstr "Au apărut unele erori:"
 
 #: ../src/extract_dialog.c ../src/interface.c ../src/window.c
 msgid "Sorry, I could not perform the operation!"
-msgstr "Scuze, dar nu se poate efectua această operațiune!"
+msgstr "Scuze, dar nu se poate efectua această operație!"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
-msgstr "Din păcate acest tip de format nu este suportat:"
+msgstr "Din păcate acest tip de format nu este acceptat:"
 
 #: ../src/pref_dialog.c
 msgid "Sort archive by filename"
@@ -1061,19 +1017,19 @@ msgstr "Sortează conținutul arhivei după numele de fișiere"
 
 #: ../src/interface.c
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: ../src/pref_dialog.c
 msgid "Store archiver output"
-msgstr "Păstrează outputul arhivatorului"
+msgstr "Stochează ieșirea arhivatorului"
 
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
-msgstr ""
+msgstr "Fluxuri/Blocuri/Umplutură"
 
 #: ../src/window.c
 msgid "Test result:"
-msgstr ""
+msgstr "Rezultatul testului:"
 
 #: ../src/window.c
 msgid "Testing archive, please wait..."
@@ -1085,55 +1041,47 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Arhiva „%s” există deja!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
-msgstr "Această arhivă este criptată!"
+msgstr "Această arhivă este ok!"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
 "directory."
 msgstr ""
-"Structura de directoare a arhivei este recreată în directorul de destinație"
+"Structura de directoare a arhivei este recreată în directorul de destinație."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
 "the extraction directory."
 msgstr ""
-"Structura de directoare a arhivei este recreată în directorul de destinație"
+"Structura de directoare a arhivei nu este recreată; toate fișierele sunt "
+"plasate în directorul de destinație."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
 "but with the parent directories of the selected files removed."
 msgstr ""
-"Structura de directoare a arhivei este recreată în directorul de destinație"
+"Structura de directoare a arhivei este recreată în directorul de destinație, "
+"dar cu directoarele părinte ale fișierelor selectate eliminate."
 
 #: ../src/add_dialog.c ../src/main.c
-#, fuzzy
-#| msgid "The archiver doesn't support this feature!"
 msgid ""
 "The archiver doesn't support compression of directories or multiple files!"
-msgstr "Arhivatorul nu suportă această facilitate!"
+msgstr ""
+"Arhivatorul nu acceptă comprimarea directoarelor sau fișierelor multiple!"
 
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
-msgstr "Arhivatorul nu suportă această facilitate!"
+msgstr "Arhivatorul nu oferă suport pentru această caracteristică!"
 
 #: ../src/gzip_et_al.c
 msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
+"Arhivatorul nu dispune de suportul necesar pentru decriptarea protejată prin "
+"parolă!"
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive."
@@ -1144,36 +1092,31 @@ msgid ""
 "The incremental search is also performed within filenames rather than just "
 "at the beginning of them."
 msgstr ""
+"De asemenea, căutarea incrementală este efectuată în interiorul numelor de "
+"fișiere, nu doar la începutul acestora."
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy, c-format
-#| msgid "the proper archiver is not installed!"
+#, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
-msgstr "arhivatorul potrivit nu este instalat!"
+msgstr "Arhivatorul adecvat pentru „%s” nu este instalat!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Această arhivă este criptată!"
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
 "Acesta este ledul de stare al aplicației Xarchiver. Când se aprinde "
 "intermitent, Xarchiver lucrează."
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid ""
-#| "This option includes the subdirectories when you add files with drag and "
-#| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
 "clipboard or with drag-and-drop."
 msgstr ""
-"Când adăugați fișiere cu drag&drop, această opțiune permite includerea "
-"subdirectoarelor"
+"Această opțiune include subdirectoarele atunci când adăugați fișiere din "
+"clipboard sau prin operația de glisare și plasare."
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -1187,32 +1130,21 @@ msgstr ""
 "disc."
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid ""
-#| "This option will add any new files and update any files which have been "
-#| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
 "the archive but older there."
 msgstr ""
-"Această opțiune va adăuga orice fișier nou la arhivă și va actualiza "
-"fișierele care s-au schimbat de când arhiva a fost creată ori modificată "
-"ultima dată."
+"Această opțiune va adăuga orice fișiere noi și va actualiza orice fișiere "
+"care se află deja în arhivă, dar sunt mai vechi."
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid ""
-#| "This option affects the archive only if it has been modified more "
-#| "recently than the version already in the archive; unlike the update "
-#| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
 "there; unlike the update option it will not add any new files."
 msgstr ""
-"Această opțiune actualizează arhiva doar dacă unul sau mai multe fișiere au "
-"fost modificate mai recent decât echivalentul lor existent deja în arhivă. "
-"Spre deosebire de opțiunea de actualizare, această opțiune nu va adăuga "
-"fișiere care nu au în arhivă o versiune mai veche."
+"Această opțiune va adăuga numai fișiere care sunt deja în arhivă, dar mai "
+"vechi; spre deosebire de opțiunea de actualizare, nu va adăuga niciun fișier "
+"nou."
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
@@ -1222,7 +1154,7 @@ msgstr "Oră"
 
 #: ../src/interface.c
 msgid "Total Progress:"
-msgstr "Progres total:"
+msgstr "Progresul total:"
 
 #: ../src/extract_dialog.c
 msgid "Touch files"
@@ -1238,24 +1170,24 @@ msgstr "UID/GID"
 
 #: ../src/interface.c
 msgid "Uncompressed size:"
-msgstr "Mărime originală:"
+msgstr "Dimensiune decomprimată:"
 
 #: ../src/window.c
 #, c-format
 msgid "Uncompressed size: "
-msgstr "Mărime necomprimat: "
+msgstr "Dimensiune decomprimată: "
 
 #: ../src/rpm.c
 msgid "Unknown compression type!"
-msgstr ""
+msgstr "Tip de comprimare necunoscut!"
 
 #: ../src/interface.c
 msgid "Uns_ort"
-msgstr ""
+msgstr "Anulare s_ortare"
 
 #: ../src/7zip.c
 msgid "Unsupported binary format!"
-msgstr ""
+msgstr "Format binar neadmis!"
 
 #: ../src/interface.c
 msgid "Up"
@@ -1266,10 +1198,8 @@ msgid "Update existing files"
 msgstr "Actualizează fișierele existente"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Update existing files"
 msgid "Update existing files and add new ones"
-msgstr "Actualizează fișierele existente"
+msgstr "Actualizează fișierele existente și adaugă altele noi"
 
 #: ../src/open-with-dlg.c
 msgid "Use a custom command:"
@@ -1288,40 +1218,35 @@ msgid "Web browser to use:"
 msgstr "Navigator de utilizat:"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "When this option is used,tar leaves the data modification times of the "
-#| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
 "times of extraction instead of the times recorded in the archive."
 msgstr ""
-"Când această opțiune este folosită, «tar» lasă data ultimei modificări "
-"pentru fișierele pe care le dezarhivează ca data la care fișierele au fost "
-"dezarhivate, în loc de a folosi data originală a fișierelor din arhivă"
+"Atunci când se utilizează această opțiune, data și ora de modificare a "
+"fișierelor va fi data și ora de extracție în loc de data și ora înregistrată "
+"în arhivă."
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
 msgstr ""
+"Nu se vor gestiona fișierele cu caractere Joker (cu nume conținând "
+"metacaractere)!"
 
 #: ../src/pref_dialog.c
 msgid "Window"
 msgstr "Fereastră"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Store full paths"
 msgid "With full path"
-msgstr "Include căi complete"
+msgstr "Cu ruta completă"
 
 #: ../src/extract_dialog.c
 msgid "Without any path"
-msgstr ""
+msgstr "Fără nicio rută"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Without parent path"
-msgstr ""
+msgstr "Fără ruta părintelui"
 
 #: ../src/window.c
 msgid "Yes"
@@ -1336,16 +1261,16 @@ msgid ""
 "You can drop either archives to open or files to add. It is not possible to "
 "do both at the same time."
 msgstr ""
+"Puteți renunța fie la arhive pentru a le deschide, fie la fișiere pentru a "
+"le adăuga. Nu este posibil să le faceți pe amândouă în același timp."
 
 #: ../src/interface.c ../src/window.c
-#, fuzzy
-#| msgid "You can't add content to deb packages!"
 msgid "You can't add content to this archive type!"
-msgstr "Nu se poate adăuga conținut pachetelor «deb»!"
+msgstr "Nu puteți adăuga conținut la acest tip de arhivă!"
 
 #: ../src/window.c
 msgid "You didn't set which browser to use!"
-msgstr "Nu ați selectat ce navigator folosiți!"
+msgstr "Nu ați stabilit ce navigator folosiți!"
 
 #: ../src/window.c
 msgid "You didn't set which program to use for opening this file!"
@@ -1359,7 +1284,7 @@ msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr ""
-"Nu aveți drepturile necesare pentru a dezarhiva fișierele în directorul „%s”."
+"Nu aveți permisiunile necesare pentru a extrage fișierele în directorul „%s”."
 
 #: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
@@ -1379,11 +1304,11 @@ msgstr "Parolă greșită!"
 
 #: ../src/extract_dialog.c
 msgid "You missed where to extract the files!"
-msgstr "Ați uitat să precizați unde să se dezarhiveze fișierele!"
+msgstr "Ați uitat să precizați unde să se extragă fișierele!"
 
 #: ../src/main.c
 msgid "[ARCHIVE]"
-msgstr ""
+msgstr "[ARHIVĂ]"
 
 #: ../src/add_dialog.c
 msgid "_Add"
@@ -1399,7 +1324,7 @@ msgstr "_Cuprins"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "_Extract"
-msgstr "De_zarhivează"
+msgstr "_Extrage"
 
 #: ../src/interface.c
 msgid "_HTML file"
@@ -1411,11 +1336,11 @@ msgstr "_Ajutor"
 
 #: ../src/interface.c
 msgid "_List as"
-msgstr "_Enumeră în"
+msgstr "_Listează în"
 
 #: ../src/interface.c
 msgid "_Multi-Extract"
-msgstr "Dezarhivare _multiplă"
+msgstr "Extragere _multiplă"
 
 #: ../src/interface.c
 msgid "_Password:"
@@ -1443,35 +1368,31 @@ msgstr "Fișier _text"
 
 #: ../src/window.c
 msgid "and"
-msgstr ""
+msgstr "șt"
 
 #: ../xarchiver.desktop.in.h
 msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
-msgstr ""
+msgstr "arhiva;comprima;decomprima;extrage;împacheta; dezarhiva;despacheta;"
 
 #: ../src/add_dialog.c
 msgid "best"
-msgstr ""
+msgstr "cea mai bună"
 
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "alegeți..."
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "destination archive"
 msgid "destination"
-msgstr "arhivă de destinație"
+msgstr "destinația"
 
 #: ../src/interface.c
 msgid "example: *.txt; ac*"
-msgstr "exemple: *.txt; ac*"
+msgstr "exemplu: *.txt; ac*"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "file1 file2 file3 ... fileN"
 msgid "file1 ... fileN"
-msgstr "fișierul1 fișierul2 fișierul3 ... fișierulN"
+msgstr "fișier1... fișierN"
 
 #: ../src/pref_dialog.c
 msgid "large"
@@ -1479,11 +1400,11 @@ msgstr "mare"
 
 #: ../src/add_dialog.c
 msgid "least"
-msgstr ""
+msgstr "cea mai mică"
 
 #: ../src/pref_dialog.c
 msgid "medium"
-msgstr ""
+msgstr "medie"
 
 #: ../src/window.c
 msgid "selected"
@@ -1495,7 +1416,7 @@ msgstr "mică"
 
 #: ../src/pref_dialog.c
 msgid "small/medium"
-msgstr ""
+msgstr "mică/medie"
 
 #. Do not translate this string.
 #. Instead, add your name here if you like.
@@ -1504,13 +1425,12 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Ionuț Ovejanu <ovejanu@yahoo.com>\n"
-"Mișu Moldovan <dumol@xfce.org>"
+"Mișu Moldovan <dumol@xfce.org>\n"
+"Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
 msgid "very large"
-msgstr "mare"
+msgstr "foarte mare"
 
 #: ../src/main.c
 #, c-format
@@ -1519,7 +1439,7 @@ msgid ""
 "Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"Încercați „xarchiver --help” pentru a vedea lista completă a opțiunilor "
+"Încercați «xarchiver --help» pentru a vedea lista completă a opțiunilor "
 "disponibile în linia de comandă.\n"
 
 #, c-format
