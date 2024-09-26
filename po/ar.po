@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2024-09-13 16:21+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/xarchiver/"
@@ -742,7 +742,7 @@ msgstr "إفتح بـ"
 msgid "Open <i>%s</i> with:"
 msgstr "افتح <i>%s</i> باستخدام:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "إفتح بـ"
 
@@ -760,6 +760,12 @@ msgstr "فتح الأرشيف"
 msgid "Open archive files with:"
 msgstr "فتح الصور باستخدام:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "إفتح ملف نصي"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "فتح الصور باستخدام:"
@@ -769,7 +775,9 @@ msgid "Open text files with:"
 msgstr "فتح الملفات النصية باستخدام:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "فتح الملفات المحددة مع"
 
 #: ../src/window.c

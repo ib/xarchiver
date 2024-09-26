@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2024-09-03 19:22+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/xarchiver/"
@@ -715,7 +715,7 @@ msgstr "Aç"
 msgid "Open <i>%s</i> with:"
 msgstr "<i>%s</i> dosyasını şununla aç:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Şununla Aç"
 
@@ -731,6 +731,12 @@ msgstr "Bir arşiv aç"
 msgid "Open archive files with:"
 msgstr "Arşiv dosyalarını şununla aç:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Bir metin dosyası aç"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Resim dosyalarını şununla aç:"
@@ -740,7 +746,9 @@ msgid "Open text files with:"
 msgstr "Metin dosyalarını şununla aç:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Seçili dosyaları şununla aç:"
 
 #: ../src/window.c

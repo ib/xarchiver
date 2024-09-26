@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2009-09-02 13:03+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: Asturian <alministradores@softastur.org>\n"
@@ -744,7 +744,7 @@ msgstr "Abrir con"
 msgid "Open <i>%s</i> with:"
 msgstr "Abrir <i>%s</i> con:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Abrir con"
 
@@ -762,6 +762,12 @@ msgstr "Abrir un ficheru comprimíu"
 msgid "Open archive files with:"
 msgstr "Abrir imáxenes con:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Abrir un ficheru de testu"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Abrir imáxenes con:"
@@ -771,7 +777,9 @@ msgid "Open text files with:"
 msgstr "Abrir ficheros de testu con:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Abrir los ficheros seleicionaos con"
 
 #: ../src/window.c

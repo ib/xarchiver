@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2024-09-03 21:10+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -723,7 +723,7 @@ msgstr "Openen"
 msgid "Open <i>%s</i> with:"
 msgstr "<i>%s</i> openen met:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Openen met"
 
@@ -739,6 +739,12 @@ msgstr "Archief openen"
 msgid "Open archive files with:"
 msgstr "Archieven openen met:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Tekstbestand openen"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Afbeeldingen openen met:"
@@ -748,7 +754,9 @@ msgid "Open text files with:"
 msgstr "Tekstbestanden openen met:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Selectie openen met"
 
 #: ../src/window.c

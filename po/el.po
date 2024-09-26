@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver git\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2009-09-08 20:07+0200\n"
 "Last-Translator: Evaggelos Balaskas <ebalaskas@ebalaskas.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -757,7 +757,7 @@ msgstr "Άνοιγμα με"
 msgid "Open <i>%s</i> with:"
 msgstr "Άνοιγμα <i>%s</i> με:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Άνοιγμα με"
 
@@ -775,6 +775,12 @@ msgstr "Άνοιγμα συμπιεσμένου αρχείου"
 msgid "Open archive files with:"
 msgstr "Άνοιγμα εικόνων με:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Άνοιγμα ενός αρχείου κειμένου"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Άνοιγμα εικόνων με:"
@@ -784,7 +790,9 @@ msgid "Open text files with:"
 msgstr "Άνοιγμα αρχείων κειμένου με:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Άνοιγμα των επιλεγμένων αρχείων με"
 
 #: ../src/window.c

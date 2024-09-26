@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2024-09-26 00:15+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/xarchiver/"
@@ -723,7 +723,7 @@ msgstr "Deschide"
 msgid "Open <i>%s</i> with:"
 msgstr "Deschide <i>%s</i> cu:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Deschide cu"
 
@@ -739,6 +739,12 @@ msgstr "Deschide o arhivă"
 msgid "Open archive files with:"
 msgstr "Deschide fișierele arhivă cu:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Deschide un fișier text"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Deschide fișierele de tip imagine cu:"
@@ -748,7 +754,9 @@ msgid "Open text files with:"
 msgstr "Deschide fișierele text cu:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Deschide fișierele selectate cu"
 
 #: ../src/window.c

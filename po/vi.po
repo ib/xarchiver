@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2019-02-26 03:13+0300\n"
 "Last-Translator: Đặng Thị Mỹ Tiên <dangthimytien93@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -761,7 +761,7 @@ msgstr "Mở với"
 msgid "Open <i>%s</i> with:"
 msgstr "Mở <i>%s</i> với:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Mở với"
 
@@ -779,6 +779,12 @@ msgstr "Mở kho lưu trữ"
 msgid "Open archive files with:"
 msgstr "Mở tập tin ảnh với:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Mở tập tin văn bản"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Mở tập tin ảnh với:"
@@ -788,7 +794,9 @@ msgid "Open text files with:"
 msgstr "Mở tập tin văn bản với:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Mở tập tin được chọn với"
 
 #: ../src/window.c

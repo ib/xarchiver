@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -729,7 +729,7 @@ msgstr "Көмегімен ашу"
 msgid "Open <i>%s</i> with:"
 msgstr "\"%s\" ненің көмегімен ашу"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Көмегімен ашу"
 
@@ -747,6 +747,12 @@ msgstr "Архивті ашу"
 msgid "Open archive files with:"
 msgstr "Сурет файлдарын немен ашу:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Мәтіндік файлын ашу"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Сурет файлдарын немен ашу:"
@@ -756,7 +762,9 @@ msgid "Open text files with:"
 msgstr "Мәтіндік файлдарын немен ашу:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Таңдалған файлдарды көмегімен ашу"
 
 #: ../src/window.c

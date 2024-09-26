@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -759,7 +759,7 @@ msgstr "アプリケーションを選択して開く"
 msgid "Open <i>%s</i> with:"
 msgstr "アプリケーションを選択して <i>%s</i> を開く:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "アプリケーションを選択して開く"
 
@@ -777,6 +777,12 @@ msgstr "アーカイブを開きます"
 msgid "Open archive files with:"
 msgstr "アプリケーションを選択してイメージファイルを開く:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "テキストファイルを開く"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "アプリケーションを選択してイメージファイルを開く:"
@@ -786,7 +792,9 @@ msgid "Open text files with:"
 msgstr "アプリケーションを選択してテキストファイルを開く:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "アプリケーションを選択して選択されたファイルを開く"
 
 #: ../src/window.c

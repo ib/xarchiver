@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -741,7 +741,7 @@ msgstr "සමඟ විවෘත කරන්න"
 msgid "Open <i>%s</i> with:"
 msgstr "<i>%s</i> සමඟ විවෘත කරන්න:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "සමඟ විවෘත කරන්න"
 
@@ -759,6 +759,12 @@ msgstr "සංරක්ෂණයක් විවෘත කරන්න"
 msgid "Open archive files with:"
 msgstr "පින්තූර ගොනු මේ සමඟ විවෘත කරන්න:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "පෙළ ගොනුවක් විවෘත කරන්න"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "පින්තූර ගොනු මේ සමඟ විවෘත කරන්න:"
@@ -768,7 +774,9 @@ msgid "Open text files with:"
 msgstr "පෙළ ගොනු මේ සමඟ විවෘත කරන්න:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "තේරූ ගොනු මේ සමඟ විවෘත කරන්න"
 
 #: ../src/window.c

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2024-09-03 21:10+0200\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italian <gnome-it-list@gnome.org>\n"
@@ -723,7 +723,7 @@ msgstr "Apri"
 msgid "Open <i>%s</i> with:"
 msgstr "Apri <i>%s</i> con:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Apri con"
 
@@ -739,6 +739,12 @@ msgstr "Apri un archivio"
 msgid "Open archive files with:"
 msgstr "Apri file dell'archivio con:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Apri un file di testo"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Apri file delle immagini con:"
@@ -748,7 +754,9 @@ msgid "Open text files with:"
 msgstr "Apri file di testo con:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Apri i file selezionati con"
 
 #: ../src/window.c

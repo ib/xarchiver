@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -751,7 +751,7 @@ msgstr "Atvērt"
 msgid "Open <i>%s</i> with:"
 msgstr "Atvērt <i>%s</i> ar:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Atvērt ar"
 
@@ -769,6 +769,12 @@ msgstr "Atvērt arhīvu"
 msgid "Open archive files with:"
 msgstr "Atvērt attēla failus ar:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Atvērt teksta failu"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Atvērt attēla failus ar:"
@@ -778,7 +784,9 @@ msgid "Open text files with:"
 msgstr "Atvert teksta failus ar:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Atvērt atlasītos failus ar:"
 
 #: ../src/window.c

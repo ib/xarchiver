@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2020-12-08 11:32+0100\n"
 "Last-Translator: Юрій Яновський <lytvyn349@ukr.net>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -735,7 +735,7 @@ msgstr "Відкрити"
 msgid "Open <i>%s</i> with:"
 msgstr "Відкрити <i>%s</i> з:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Відкрити з"
 
@@ -751,6 +751,12 @@ msgstr "Відкрити архів"
 msgid "Open archive files with:"
 msgstr "Відкривати файли архіву за допомогою:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Відкрити текстовий файл"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Відкривати файли зображень за допомогою:"
@@ -760,7 +766,9 @@ msgid "Open text files with:"
 msgstr "Відкривати текстові файли за допомогою:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Відкривати вибрані файли за допомогою"
 
 #: ../src/window.c

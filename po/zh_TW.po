@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -744,7 +744,7 @@ msgstr "開啟"
 msgid "Open <i>%s</i> with:"
 msgstr "以...開啟 <i>%s</i>："
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "以...開啟"
 
@@ -762,6 +762,12 @@ msgstr "開啟封存檔"
 msgid "Open archive files with:"
 msgstr "以...開啟圖片檔："
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "開啟文字檔"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "以...開啟圖片檔："
@@ -771,7 +777,9 @@ msgid "Open text files with:"
 msgstr "以...開啟文字檔："
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "以...開啟選取的檔案"
 
 #: ../src/window.c

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2010-04-04 10:58+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -709,7 +709,7 @@ msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
 msgid "Open <i>%s</i> with:"
 msgstr ""
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
 
@@ -727,6 +727,12 @@ msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
 msgid "Open archive files with:"
 msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "ਟੈਕਸਟ ਫਾਇਲ ਖੋਲ੍ਹੋ"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr ""
@@ -736,8 +742,10 @@ msgid "Open text files with:"
 msgstr ""
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
-msgstr ""
+#, fuzzy
+#| msgid "Selected files"
+msgid "Open the selected files"
+msgstr "ਚੁਣੀਆਂ ਫਾਇਲਾਂ"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."

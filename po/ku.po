@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2008-10-07 22:35+0000\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -732,7 +732,7 @@ msgstr "Vekirin"
 msgid "Open <i>%s</i> with:"
 msgstr ""
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 #, fuzzy
 msgid "Open With"
 msgstr "Vekirin"
@@ -751,6 +751,11 @@ msgstr "Arşîvekê veke"
 msgid "Open archive files with:"
 msgstr "Arşîvekê veke"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+msgid "Open file"
+msgstr "Vekirin"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr ""
@@ -760,8 +765,9 @@ msgid "Open text files with:"
 msgstr ""
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
-msgstr ""
+#, fuzzy
+msgid "Open the selected files"
+msgstr "TENÊ pelên hilbijartî derxe"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."

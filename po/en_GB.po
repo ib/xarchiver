@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
-"PO-Revision-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"PO-Revision-Date: 2024-09-26 11:30+0200\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "Language: en_GB\n"
@@ -716,7 +716,7 @@ msgstr "Open"
 msgid "Open <i>%s</i> with:"
 msgstr "Open <i>%s</i> with:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Open With"
 
@@ -732,6 +732,10 @@ msgstr "Open an archive"
 msgid "Open archive files with:"
 msgstr "Open archive files with:"
 
+#: ../src/open-with-dlg.c
+msgid "Open file"
+msgstr "Open file"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Open image files with:"
@@ -741,8 +745,8 @@ msgid "Open text files with:"
 msgstr "Open text files with:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
-msgstr "Open the selected files with"
+msgid "Open the selected files"
+msgstr "Open the selected files"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."

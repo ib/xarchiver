@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchivr\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2006-11-23 12:28+0530\n"
 "Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -758,7 +758,7 @@ msgstr "ཁ་ཕྱེ།"
 msgid "Open <i>%s</i> with:"
 msgstr ""
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 #, fuzzy
 msgid "Open With"
 msgstr "ཁ་ཕྱེ།"
@@ -777,6 +777,11 @@ msgstr "ཡིག་མཛོད་ཅིག་ཁ་ཕྱེ།"
 msgid "Open archive files with:"
 msgstr "ཡིག་མཛོད་ཆིག་སྒྲིལ་བརྟག་ཞིབ་འབད་དོ་  བསྒུག་གནང་..."
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+msgid "Open file"
+msgstr "བཀོལ་སྤྱོད་འཐུས་ཤོར་འབྱུང་ཡོདཔ།"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr ""
@@ -787,7 +792,7 @@ msgstr ""
 
 #: ../src/open-with-dlg.c
 #, fuzzy
-msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "ཆ་མཉམ་སེལ་འཐུ་འབད།(_c)"
 
 #: ../src/window.c

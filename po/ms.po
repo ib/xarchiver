@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2019-02-26 03:11+0300\n"
 "Last-Translator: abuyop <abuyop@gmail.com>\n"
 "Language-Team: Malay (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -762,7 +762,7 @@ msgstr "Buka Dengan"
 msgid "Open <i>%s</i> with:"
 msgstr "Buka <i>%s</i> dengan:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Buka Dengan"
 
@@ -780,6 +780,12 @@ msgstr "Buka arkib"
 msgid "Open archive files with:"
 msgstr "Buka fail imej dengan:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Buka fail teks"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Buka fail imej dengan:"
@@ -789,7 +795,9 @@ msgid "Open text files with:"
 msgstr "Buka fail teks dengan:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Buka fail terpilih dengan"
 
 #: ../src/window.c

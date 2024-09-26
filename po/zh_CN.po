@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2024-09-22 12:40+0000\n"
 "Last-Translator: JY3 <GeeyunJY3@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -736,7 +736,7 @@ msgstr "打开方式"
 msgid "Open <i>%s</i> with:"
 msgstr "打开 <i>%s</i> 用："
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "打开方式"
 
@@ -754,6 +754,12 @@ msgstr "打开归档文件文件"
 msgid "Open archive files with:"
 msgstr "图片文件打开方式："
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "打开文本文件"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "图片文件打开方式："
@@ -763,7 +769,9 @@ msgid "Open text files with:"
 msgstr "文本文件打开方式："
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "选中的文件的打开方式"
 
 #: ../src/window.c

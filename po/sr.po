@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2019-02-26 03:12+0300\n"
 "Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -767,7 +767,7 @@ msgstr "Отвори помоћу"
 msgid "Open <i>%s</i> with:"
 msgstr "Отвори <i>%s</i> са:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Отвори помоћу"
 
@@ -785,6 +785,12 @@ msgstr "Отворите архиву"
 msgid "Open archive files with:"
 msgstr "Отвори слике са: "
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Oтвaрaм текстуалну датотеку"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Отвори слике са: "
@@ -794,7 +800,9 @@ msgid "Open text files with:"
 msgstr "Отвори текстуалне датотеке помоћу: "
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Отворите означене датотеке са "
 
 #: ../src/window.c

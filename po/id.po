@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -743,7 +743,7 @@ msgstr "Buka"
 msgid "Open <i>%s</i> with:"
 msgstr "Buka <i>%s</i> dengan:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Buka Dengan"
 
@@ -761,6 +761,12 @@ msgstr "Buka arsip"
 msgid "Open archive files with:"
 msgstr "Buka berkas citra dengan:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Buka berkas teks"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Buka berkas citra dengan:"
@@ -770,7 +776,9 @@ msgid "Open text files with:"
 msgstr "Buka berkas teks dengan:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Buka berkas terpilih dengan"
 
 #: ../src/window.c

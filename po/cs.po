@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2009-10-16 19:47+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -747,7 +747,7 @@ msgstr "Otevřít"
 msgid "Open <i>%s</i> with:"
 msgstr "Otevřít <i>%s</i> pomocí:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Otevřít pomocí"
 
@@ -765,6 +765,12 @@ msgstr "Otevřít archiv"
 msgid "Open archive files with:"
 msgstr "Otevřít obrázky pomocí:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Otevřít textový soubor"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Otevřít obrázky pomocí:"
@@ -774,7 +780,9 @@ msgid "Open text files with:"
 msgstr "Otevřít textové soubory pomocí:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Otevřít vybrané soubory pomocí"
 
 #: ../src/window.c

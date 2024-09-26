@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4.18\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2024-09-11 01:09+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/xarchiver/"
@@ -728,7 +728,7 @@ msgstr "Otwórz"
 msgid "Open <i>%s</i> with:"
 msgstr "Otwórz <i>%s</i> za pomocą:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Otwórz za pomocą"
 
@@ -744,6 +744,12 @@ msgstr "Otwiera archiwum"
 msgid "Open archive files with:"
 msgstr "Otwieraj pliki archiwum za pomocą:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Otwórz plik tekstowy"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Otwieraj pliki graficzne za pomocą:"
@@ -753,7 +759,9 @@ msgid "Open text files with:"
 msgstr "Otwieraj pliki tekstowe za pomocą:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Otwórz zaznaczone pliki za pomocą"
 
 #: ../src/window.c

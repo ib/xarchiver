@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -752,7 +752,7 @@ msgstr "کھولیں بذریعہ"
 msgid "Open <i>%s</i> with:"
 msgstr "کھولیں <i>%s</i> بذریعہ:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "کھولیں بذریعہ"
 
@@ -770,6 +770,12 @@ msgstr "محفوظہ کھولیں"
 msgid "Open archive files with:"
 msgstr "تصویر فائل کھولیں بذریعہ:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "متن فائل کھولیں"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "تصویر فائل کھولیں بذریعہ:"
@@ -779,7 +785,9 @@ msgid "Open text files with:"
 msgstr "متن فائلیں کھولیں بذریعہ:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "منتخب فائل کھولیں بذریعہ"
 
 #: ../src/window.c

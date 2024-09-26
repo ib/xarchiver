@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -748,7 +748,7 @@ msgstr "Obre"
 msgid "Open <i>%s</i> with:"
 msgstr "Obre «<i>%s</i>» amb:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Obre amb"
 
@@ -766,6 +766,12 @@ msgstr "Obre un arxiu"
 msgid "Open archive files with:"
 msgstr "Obre els fitxers d'imatges amb:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Obre un fitxer de text"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Obre els fitxers d'imatges amb:"
@@ -775,7 +781,9 @@ msgid "Open text files with:"
 msgstr "Obre els fitxers de text amb:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Obre els fitxers seleccionats amb"
 
 #: ../src/window.c

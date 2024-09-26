@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2021-11-07 09:54+0000\n"
 "Last-Translator: Asier Iturralde Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: Euskara <librezale@librezale.eus>\n"
@@ -731,7 +731,7 @@ msgstr "Ireki"
 msgid "Open <i>%s</i> with:"
 msgstr "Ireki <i>%s</i> honekin:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Ireki honekin"
 
@@ -747,6 +747,12 @@ msgstr "Ireki artxibo bat"
 msgid "Open archive files with:"
 msgstr "Ireki artxibo-fitxategiak honekin:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Ireki testu fitxategi bat"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Ireki irudi-fitxategiak honekin:"
@@ -756,7 +762,9 @@ msgid "Open text files with:"
 msgstr "Ireki testu-fitxategiak honekin:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Ireki hautatutako fitxategiak honekin:"
 
 #: ../src/window.c

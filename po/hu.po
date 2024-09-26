@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2017-01-23 23:58+0100\n"
 "Last-Translator: Páder Rezső <rezso@rezso.net>\n"
 "Language-Team: Hungarian\n"
@@ -745,7 +745,7 @@ msgstr "Megnyitás"
 msgid "Open <i>%s</i> with:"
 msgstr "<i>%s</i> megnyitása ezzel:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Megnyitás ezzel:"
 
@@ -763,6 +763,12 @@ msgstr "Archívum megnyitása"
 msgid "Open archive files with:"
 msgstr "Képfájlok megnyitása ezzel:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Szövegfájl megnyitása"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Képfájlok megnyitása ezzel:"
@@ -772,7 +778,9 @@ msgid "Open text files with:"
 msgstr "Szövegfájlok megnyitása ezzel:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "A kijelölt fájlok megnyitása ezzel"
 
 #: ../src/window.c

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2008-10-22 20:11+0200\n"
 "Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
 "Language-Team: Norwegian Bokmal\n"
@@ -742,7 +742,7 @@ msgstr "Åpne"
 msgid "Open <i>%s</i> with:"
 msgstr "Åpne <i>%s</i> med:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Åpne med"
 
@@ -760,6 +760,12 @@ msgstr "Åpne et arkiv"
 msgid "Open archive files with:"
 msgstr "Åpne bildefiler med:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Åpne en tekstfil"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Åpne bildefiler med:"
@@ -769,7 +775,9 @@ msgid "Open text files with:"
 msgstr "Åpne tekstfiler med:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Åpne valgte filer med"
 
 #: ../src/window.c

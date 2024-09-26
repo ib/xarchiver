@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2009-08-22 15:53+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: DANISH <dansk@dansk-gruppen.dk>\n"
@@ -751,7 +751,7 @@ msgstr "Åbn med"
 msgid "Open <i>%s</i> with:"
 msgstr "Åbn <i>%s</i> med:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Åbn med"
 
@@ -769,6 +769,12 @@ msgstr "Åbn et arkiv"
 msgid "Open archive files with:"
 msgstr "Åbn billedfiler med:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Åben en tekstfil"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Åbn billedfiler med:"
@@ -778,7 +784,9 @@ msgid "Open text files with:"
 msgstr "Åbn tekstfiler med:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Åbn markerede filer med"
 
 #: ../src/window.c

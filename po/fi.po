@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2010-10-23 14:01+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <None>\n"
@@ -750,7 +750,7 @@ msgstr "Avaa sovelluksessa"
 msgid "Open <i>%s</i> with:"
 msgstr "Avaa <i>%s</i> sovelluksessa:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "Avaa sovelluksessa"
 
@@ -768,6 +768,12 @@ msgstr "Avaa arkisto"
 msgid "Open archive files with:"
 msgstr "Avaa kuvatiedostot käyttäen:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Avaa tekstitiedosto"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Avaa kuvatiedostot käyttäen:"
@@ -777,7 +783,9 @@ msgid "Open text files with:"
 msgstr "Näytä tekstitiedostot käyttäen:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "Avaa valitut tiedostot sovelluksessa"
 
 #: ../src/window.c

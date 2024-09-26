@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -744,7 +744,7 @@ msgstr "פתח"
 msgid "Open <i>%s</i> with:"
 msgstr "פתיחת <i>%s</i> באמצעות:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "פתיחה באמצעות"
 
@@ -762,6 +762,12 @@ msgstr "פתיחת ארכיון"
 msgid "Open archive files with:"
 msgstr "פתיחת קובצי תמונה באמצעות:"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "פתיחת קובץ טקסט"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "פתיחת קובצי תמונה באמצעות:"
@@ -771,7 +777,9 @@ msgid "Open text files with:"
 msgstr "פתיחת קובצי טקסט באמצעות:"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "פתיחת הקבצים הנבחרים באמצעות"
 
 #: ../src/window.c

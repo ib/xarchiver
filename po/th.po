@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-03 21:10+0200\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
 "PO-Revision-Date: 2019-02-26 03:13+0300\n"
 "Last-Translator: Nudjaree <poonim_p@hotmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -761,7 +761,7 @@ msgstr "เปิดด้วย"
 msgid "Open <i>%s</i> with:"
 msgstr "เปิด <i>%s</i> ด้วย:"
 
-#: ../src/interface.c ../src/open-with-dlg.c
+#: ../src/interface.c
 msgid "Open With"
 msgstr "เปิดด้วย"
 
@@ -779,6 +779,12 @@ msgstr "เปิดแฟ้มจัดเก็บ"
 msgid "Open archive files with:"
 msgstr "เปิดแฟ้มรูปภาพ"
 
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "เปิดแฟ้มข้อความ"
+
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "เปิดแฟ้มรูปภาพ"
@@ -788,7 +794,9 @@ msgid "Open text files with:"
 msgstr "เปิดแฟ้มข้อมูล"
 
 #: ../src/open-with-dlg.c
-msgid "Open the selected files with"
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
 msgstr "เปิดแฟ้มที่เลือกด้วย"
 
 #: ../src/window.c
