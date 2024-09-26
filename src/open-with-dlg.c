@@ -399,7 +399,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 
 		open_text = gtk_label_new("");
 		gtk_box_pack_start (GTK_BOX (hbox1),open_text,FALSE,FALSE,10);
-		text = g_strdup_printf(_("Open <i>%s</i> with:"), xa_set_max_width_chars_ellipsize(filename, 40, PANGO_ELLIPSIZE_END));
+		text = g_strdup_printf(_("Open <i>%s</i> with:"), xa_set_max_width_chars_ellipsize(filename, 38, PANGO_ELLIPSIZE_END));
 		gtk_label_set_use_markup (GTK_LABEL (open_text),TRUE);
 		gtk_label_set_markup (GTK_LABEL (open_text),text);
 		g_free(text);
