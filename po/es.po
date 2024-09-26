@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2024-09-03 19:22+0000\n"
+"PO-Revision-Date: 2024-09-26 14:53+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/xarchiver/"
 "translations/es/>\n"
@@ -744,10 +744,8 @@ msgid "Open archive files with:"
 msgstr "Abrir los archivos comprimidos con:"
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Open a text file"
 msgid "Open file"
-msgstr "Abrir un archivo de texto"
+msgstr "Abrir un archivo"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -758,10 +756,8 @@ msgid "Open text files with:"
 msgstr "Abrir los ficheros de texto con:"
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Open the selected files with"
 msgid "Open the selected files"
-msgstr "Abrir los ficheros seleccionados con"
+msgstr "Abrir los archivos seleccionados"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."
