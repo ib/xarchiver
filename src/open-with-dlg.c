@@ -368,9 +368,9 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	data->files = filenames;
 	data->dialog1 = gtk_dialog_new ();
 	if (nr == 1)
-		title = _("Open With");
+		title = _("Open file");
 	else
-		title = _("Open the selected files with");
+		title = _("Open the selected files");
 
 	gtk_window_set_title (GTK_WINDOW (data->dialog1),title);
 	gtk_window_set_position (GTK_WINDOW (data->dialog1), GTK_WIN_POS_CENTER_ON_PARENT);
