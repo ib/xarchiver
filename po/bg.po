@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2024-09-13 07:20+0000\n"
+"PO-Revision-Date: 2024-09-27 19:17+0000\n"
 "Last-Translator: cybercop <cybercop_montana@abv.bg>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/xarchiver/"
 "translations/bg/>\n"
@@ -734,10 +734,8 @@ msgid "Open archive files with:"
 msgstr "Отвори архивираните файлове с:"
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Open a text file"
 msgid "Open file"
-msgstr "Отвори текстов файл"
+msgstr "Отваряне на файл"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -748,10 +746,8 @@ msgid "Open text files with:"
 msgstr "Отваряй текстовите файлове с:"
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Open the selected files with"
 msgid "Open the selected files"
-msgstr "Отвори избраните файлове с"
+msgstr "Отваряне на избраните файлове"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."
