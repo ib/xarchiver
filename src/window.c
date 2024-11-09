@@ -2315,12 +2315,12 @@ failed:
 				files = TRUE;
 			else
 			{
-			xa = xa_detect_archive_type(filename);
+				xa = xa_detect_archive_type(filename);
 
-			if (xa.type != XARCHIVETYPE_UNKNOWN && xa.type != XARCHIVETYPE_NOT_FOUND)
-				archives = TRUE;
-			else
-				files = TRUE;
+				if (xa.type != XARCHIVETYPE_UNKNOWN && xa.type != XARCHIVETYPE_NOT_FOUND)
+					archives = TRUE;
+				else
+					files = TRUE;
 			}
 		}
 
