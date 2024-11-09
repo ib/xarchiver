@@ -2279,6 +2279,7 @@ done:
 void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
 	gchar **uris;
+	GdkModifierType mask;
 	gchar *filename;
 	unsigned int n = 0;
 	GSList *list = NULL, *flist;
@@ -2300,6 +2301,8 @@ failed:
 		return;
 	}
 
+	gdk_window_get_pointer(gtk_widget_get_window(widget), NULL, NULL, &mask);
+
 	while (uris[n])
 	{
 		filename = g_filename_from_uri(uris[n], NULL, NULL);
@@ -2307,12 +2310,18 @@ failed:
 		if (filename)
 		{
 			list = g_slist_append(list, filename);
+
+			if (mask & GDK_CONTROL_MASK)
+				files = TRUE;
+			else
+			{
 			xa = xa_detect_archive_type(filename);
 
 			if (xa.type != XARCHIVETYPE_UNKNOWN && xa.type != XARCHIVETYPE_NOT_FOUND)
 				archives = TRUE;
 			else
 				files = TRUE;
+			}
 		}
 
 		n++;

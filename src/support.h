@@ -77,6 +77,7 @@ static inline GtkWidget *gtk_dialog_get_content_area (GtkDialog *dialog)
 }
 #define gtk_selection_data_get_data(selection_data) selection_data->data
 #define gtk_selection_data_get_target(selection_data) selection_data->target
+#define gtk_widget_get_window(widget) widget->window
 #endif
 
 #if !GTK_CHECK_VERSION(2,16,0)
