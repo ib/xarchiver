@@ -2276,6 +2276,12 @@ done:
 	gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) send, 1);
 }
 
+void xa_treeview_drag_end (GtkWidget *widget, GdkDragContext *context, gpointer user_data)
+{
+	gdk_property_delete(gdk_drag_context_get_source_window(context),
+	                    gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0));
+}
+
 void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
 	gchar **uris;
