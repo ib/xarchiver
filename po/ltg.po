@@ -1,0 +1,1594 @@
+# Latgalian translation for xarchiver package.
+# Copyright (C) 2005-2007 Giuseppe Torelli.
+# This file is distributed under the same license as the xarchiver package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xarchiver 0.4.2rc2\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"PO-Revision-Date: 2009-10-16 15:03+0100\n"
+"Last-Translator: Andrejs Meinerts <inni96@inbox.lv>\n"
+"Language-Team: Latgalian\n"
+"Language: ltg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latgalian\n"
+"X-Poedit-Country: Latvia\n"
+"X-Generator: Lokalize 1.0\n"
+
+#: ../src/window.c
+#, c-format
+msgid ""
+"\n"
+"Name: "
+msgstr ""
+"\n"
+"Nūsaukums: "
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "\"%s\" is already open!"
+msgstr "\"%s\" jau ir attaiseits!"
+
+#: ../src/window.c
+#, c-format
+msgid "%d dir %s (%s)"
+msgid_plural "%d dirs %s (%s)"
+msgstr[0] "%d mapá %s (%s)"
+msgstr[1] "%d mapis %s (%s)"
+msgstr[2] "%d maṕu %s (%s)"
+
+#: ../src/window.c
+#, c-format
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "%d fails"
+msgstr[1] "%d faily"
+msgstr[2] "%d failu"
+
+#: ../src/window.c
+#, c-format
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
+msgstr[0] "%d fails %s (%s)"
+msgstr[1] "%d faily %s (%s)"
+msgstr[2] "%d failu %s (%s)"
+
+#: ../src/add_dialog.c
+#, fuzzy, c-format
+#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgid ""
+"%hu is least compression\n"
+"%hu is default compression\n"
+"%hu is best compression"
+msgstr ""
+"0 = nasaspīsț, 1 = nūkluseitō saspīsšona, 4 = vysdreizōkō i vysšvakōkō "
+"saspīsšona"
+
+#: ../src/pref_dialog.c
+msgid "/tmp"
+msgstr ""
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr "<span weight='bold' size='larger'>Parolș arhivam:</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr "<span weight='bold' size='larger'>Vajdzeigs parolș deļ:</span>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>Faily:</th>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Size:</th>"
+msgstr "<th>Izmārs:</th>"
+
+#: ../src/window.c
+msgid "A GTK+ only lightweight archive manager"
+msgstr "Vīnkōršs arhivu menedžers deļ GTK+"
+
+#: ../src/interface.c
+msgid "A_ction"
+msgstr "_Darbeiba"
+
+#: ../src/interface.c
+msgid "A_dd"
+msgstr "_Dalikț"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Actions: "
+msgid "Actions"
+msgstr "Dareibys: "
+
+#: ../src/interface.c
+msgid "Add"
+msgstr "Dalikț"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Add files"
+msgstr "Dalikț failus"
+
+#: ../src/main.c
+msgid ""
+"Add the given files by asking the name of\n"
+"                                     the archive and quit"
+msgstr ""
+"Dalikț nūrōdeitūs failus, paprasäț\n"
+"                                     arhiva nūsaukumu i izīț."
+
+#: ../src/main.c
+msgid ""
+"Add to archive by asking which files and\n"
+"                                     quit"
+msgstr ""
+"Dalikț failus arhivam, paprosūt\n"
+"                                     tūs nūsaukumus i izīț."
+
+#: ../src/window.c
+msgid "Adding files to archive, please wait..."
+msgstr "Līk klōt failus arhivam, jōpagaida..."
+
+#: ../src/interface.c
+msgid "Adding to archive:"
+msgstr "Dalikšona arhivam:"
+
+#: ../src/pref_dialog.c
+msgid "Advanced"
+msgstr "Papyldu"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Advanced incremental search (requires restart)"
+msgstr "Ikonu izmārs (jōpalaiž programu nu jauna)"
+
+#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
+msgid "All files"
+msgstr "Vysi faily"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Allow subdirs with drag and drop"
+msgid "Allow subdirs with clipboard and drag-and-drop"
+msgstr "Atļauț īškdejū maṕu pōrviļkšonu"
+
+#: ../src/window.c
+msgid "An error occurred while accessing the archive:"
+msgstr "Kļūda attaisūt arhivu:"
+
+#: ../src/add_dialog.c ../src/main.c ../src/window.c
+msgid "An error occurred!"
+msgstr "Gadäjäs kļūda!"
+
+#: ../src/extract_dialog.c ../src/pref_dialog.c
+msgid "Archive"
+msgstr "Arhivs"
+
+#: ../src/interface.c
+msgid "Archive Properties"
+msgstr "Arhiva rekviziti"
+
+#: ../src/interface.c
+msgid "Archive _comment"
+msgstr "Arhiva _komentars"
+
+#: ../src/window.c
+#, c-format
+msgid "Archive content:\n"
+msgstr "Arhiva saturs:\n"
+
+#: ../src/window.c
+msgid "Archive format is not recognized!"
+msgstr "Arhiva formats nav atpazeits!"
+
+#: ../xarchiver.desktop.in.h
+msgid "Archive manager"
+msgstr "Arhivu menedžers"
+
+#: ../src/interface.c
+msgid "Archive tree"
+msgstr "Arhiva kūks"
+
+#: ../src/pref_dialog.c
+msgid ""
+"Archive tree nodes already expand when the node name is selected by mouse "
+"click or keyboard shortcut."
+msgstr ""
+
+#: ../src/new_dialog.c
+msgid "Archive type:"
+msgstr "Arhiva tips:"
+
+#: ../src/interface.c
+msgid "Archiver executable:"
+msgstr "Atpakōšonys programa(ys):"
+
+#: ../src/window.c
+msgid "Archiver output"
+msgstr "Arhiva izvods"
+
+#: ../src/window.c
+msgid "Are you sure you want to do this?"
+msgstr "Asot pōrlīcynōts, ka grybot tū daräț?"
+
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
+msgid "Attributes"
+msgstr "Atributi"
+
+#: ../src/pref_dialog.c
+msgid "Automatically expand archive tree nodes on selection"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Back"
+msgstr "Atpakaļ"
+
+#: ../src/open-with-dlg.c
+msgid "Browse"
+msgstr "Värtīs"
+
+#: ../src/add_dialog.c ../src/main.c
+msgid "Can't add files to the archive:"
+msgstr "Naizadává dalikț failus arhivam:"
+
+#: ../src/main.c
+msgid "Can't allocate memory for the archive structure!"
+msgstr "Naizadává izdaläț atmini arhiva strukturai!"
+
+#: ../src/window.c
+msgid "Can't allocate memory for the archive structure:"
+msgstr "Naizadává izdaläț atmini arhiva strukturai:"
+
+#: ../src/window.c
+msgid "Can't convert the archive to self-extracting:"
+msgstr "Naizadává pōrtaisäț arhivu, lai tys patș atsapakōtu:"
+
+#: ../src/new_dialog.c
+msgid "Can't create a new archive:"
+msgstr "Naizadává sataisäț jaunu arhivu:"
+
+#: ../src/extract_dialog.c ../src/main.c
+msgid "Can't create directory!"
+msgstr "Naizadává sataisäț mapi \"%s\""
+
+#: ../src/archive.c
+msgid "Can't create temporary directory:"
+msgstr "Naizadává sataisäț pagaidu mapi:"
+
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
+msgid "Can't extract files from the archive:"
+msgstr "Naizadává izviļkț failus nu arhiva:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Naizadává pōrīț iz failu:"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Naizadává izīț nu 104 pozicejis:"
+
+#: ../src/extract_dialog.c
+msgid "Can't multi-extract archives:"
+msgstr "Naizadává attaisäț vairōkus arhivus:"
+
+#: ../src/rpm.c
+#, fuzzy, c-format
+#| msgid "Can't open RPM file %s:"
+msgid "Can't open RPM file \"%s\":"
+msgstr "Naizadává attaisäț RMP failu %s:"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "Naizadává attaisäț failu \"%s\":"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Can't open the archive!\n"
+msgid "Can't open the archive!"
+msgstr "Naizadává attaisäț arhivu!\n"
+
+#: ../src/extract_dialog.c ../src/window.c
+msgid "Can't perform extraction!"
+msgstr "Naizadává atspīsț!"
+
+#: ../src/interface.c ../src/main.c ../src/window.c
+msgid "Can't perform this action:"
+msgstr "Naizadává izdaräț darbeibu:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Naizadává nūlasäț datus nu faila:"
+
+#: ../src/archive.c
+msgid "Can't run the archiver executable:"
+msgstr "Naizadává palaisț programu - arhivu menedžers:"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Can't write the unzipsfx module to the archive:"
+msgid "Can't write the sfx module to the archive:"
+msgstr "Naizadává īlikț moduli unzipsfx arhivā:"
+
+#: ../src/interface.c
+msgid "Cancel current operation"
+msgstr "Atcálț tānejū operaceji"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr "Pōrbaudäț tipu"
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr "Kontrolsumma"
+
+#: ../src/pref_dialog.c
+msgid "Choose the application to use"
+msgstr "Izavielejit programu"
+
+#: ../src/new_dialog.c
+msgid "Choose the archive type to create"
+msgstr "Nūrōdit veidojamō arhiva tipu"
+
+#: ../src/pref_dialog.c
+msgid "Choose the directory to use"
+msgstr "Izavielejit mapi"
+
+#: ../src/interface.c
+msgid "Close archive"
+msgstr "Aiztaisäț arhivu"
+
+#: ../src/interface.c
+msgid "Cmd-line outp_ut"
+msgstr "_Komandryndys izvods"
+
+#: ../src/window.c
+msgid "Command"
+msgstr "Komanda"
+
+#: ../src/pref_dialog.c
+msgid ""
+"Command-line output is captured and can be reviewed, but this consumes "
+"additional memory."
+msgstr ""
+
+#: ../src/window.c
+msgid "Comment"
+msgstr "Komentars"
+
+#: ../src/interface.c
+msgid "Comment:"
+msgstr "Komentars:"
+
+#: ../src/window.c
+#, c-format
+msgid "Comment:\n"
+msgstr "Komentars:\n"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Compressed"
+msgstr "Saspīstīs"
+
+#: ../src/interface.c
+msgid "Compressed size:"
+msgstr "Saspīstō izmārs:"
+
+#: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Compressed size:"
+msgid "Compressed size: "
+msgstr "Saspīstō izmārs:"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Compression: "
+msgid "Compression"
+msgstr "Saspīsšona: "
+
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Saspīsšonys koeficents"
+
+#: ../src/interface.c
+msgid "Compression ratio:"
+msgstr "Saspīsšonys koeficents:"
+
+#: ../src/pref_dialog.c
+msgid "Confirm deletion of files"
+msgstr "Apstyprynōț faila dziesšonu"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Testing archive, please wait..."
+msgid "Converting archive, please wait..."
+msgstr "Nūteik arhiva pōrbaudá, pagaidit lyudzu..."
+
+#: ../src/interface.c
+msgid "Copy"
+msgstr "Kopäț"
+
+#: ../src/new_dialog.c
+msgid "Cr_eate"
+msgstr "_Sataisäț"
+
+#: ../src/interface.c ../src/new_dialog.c
+msgid "Create a new archive"
+msgstr "Taisäț jaunu arhivu"
+
+#: ../src/add_dialog.c
+msgid "Create a solid archive"
+msgstr "Taisäț napōrtrauktu arhivu"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "Create a solid archive"
+msgid "Create, extract and modify archives"
+msgstr "Taisäț napōrtrauktu arhivu"
+
+#: ../src/interface.c
+msgid "Cut"
+msgstr "Izgrīzț"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr "Datu freimi/Izlaižamī freimi"
+
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
+msgid "Date"
+msgstr "Datums"
+
+#: ../src/pref_dialog.c
+msgid "Default custom command:"
+msgstr "Nūrōdeitō komanda pec nūkluseišonys:"
+
+#: ../src/interface.c
+msgid "Delete"
+msgstr "Dzäsț"
+
+#: ../src/add_dialog.c
+msgid "Delete files after adding"
+msgstr "Dzäsț failus pec dalikšonys"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive, please wait..."
+msgid "Deleting files from archive, please wait..."
+msgstr "Nūteik failu atspīsšona nu arhiva, pagaidit lyudzu..."
+
+#: ../src/interface.c
+msgid "Dese_lect all"
+msgstr "Atcálț izvieli"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "destination"
+msgid "Destination"
+msgstr "iz kureini"
+
+#: ../src/window.c
+msgid "Do you really want to cancel?"
+msgstr "Apstyprynōț atceļšonu?"
+
+#: ../src/new_dialog.c
+msgid "Do you want to overwrite it?"
+msgstr "Voi grybot pōrrakstäț?"
+
+#: ../src/window.c
+msgid "Doing so will probably corrupt your archive!"
+msgstr "Itei darbeiba var samaitōț arhivu!"
+
+#: ../src/interface.c
+msgid "Edit"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Encrypted:"
+msgstr "Šifreits:"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Encryption: "
+msgid "Encryption"
+msgstr "Šifreišona: "
+
+#: ../src/extract_dialog.c
+msgid "Ensure a containing directory"
+msgstr "Pōrbaudit atspīsšonys mapi"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "Ensure that the contents of the extracted archive is always in a "
+#| "containing directory"
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory."
+msgstr "Pōrbaudit, voi atspīstō arhiva saturs vysod ir atspīsšonys mapī"
+
+#: ../src/interface.c
+msgid "Enter passwo_rd"
+msgstr "Ī_rokstit paroli"
+
+#: ../src/pref_dialog.c
+msgid ""
+"Even if other, perhaps more powerful programs are installed to handle zip "
+"archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/interface.c
+msgid "Extract"
+msgstr "Atspīsț"
+
+#: ../src/main.c
+msgid ""
+"Extract archive by asking the extraction\n"
+"                                     directory and quit"
+msgstr ""
+"Atspīsț arhivu, paprosūt mapi iz kureini,\n"
+"                                     i izīț"
+
+#: ../src/main.c
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr ""
+"Atspīsț arhivu mapī, kur tys atsarūn\n"
+"                                     i izīț"
+
+#: ../src/main.c
+msgid ""
+"Extract archive to the destination\n"
+"                                     directory and quit"
+msgstr ""
+"Atspīsț arhivu nūrōdeitijā mapī\n"
+"                                     i izīț"
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "Extract files"
+msgstr "Atspīsț failus"
+
+#: ../src/main.c
+msgid ""
+"Extract multiple archives by asking the\n"
+"                                     extraction directory and quit"
+msgstr ""
+"Atspīsț vairōkus arhivus, paprosūt mapi iz kureini,\n"
+"                                     i izīț"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "Extract only those files that already exist on disk and that are newer "
+#| "than the disk copies"
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies."
+msgstr ""
+"Atspīsț viņ tūs failus, kas jau eksistej iz diska i kurī ir jaunōki par tūs "
+"kopejom iz diska."
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Extract to dir \"Archive Name\""
+msgid "Extract to directories with archive names"
+msgstr "Atspīsț mapī \"Arhiva nūsaukums\""
+
+#: ../src/extract_dialog.c
+msgid "Extract to:"
+msgstr "Atspīsț iz:"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Extract files with full path"
+msgid "Extract with full path"
+msgstr "Atspīsț failus ar pylnu ceļu"
+
+#: ../src/interface.c
+#, c-format
+msgid "Extracting \"%s\"..."
+msgstr ""
+
+#: ../src/window.c
+msgid "Extracting files from archive, please wait..."
+msgstr "Nūteik failu atspīsšona nu arhiva, pagaidit lyudzu..."
+
+#: ../src/interface.c
+msgid "Extracting from archive:"
+msgstr "Nūteik failu atspīsšona nu arhiva:"
+
+#: ../src/window.c
+msgid "Failed to launch the application!"
+msgstr "Naizadává palaisț programu!"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "File Paths: "
+msgid "File Paths"
+msgstr "Faila celi: "
+
+#: ../src/window.c
+msgid "Filename"
+msgstr "Faila nūsaukums"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Files "
+msgid "Files"
+msgstr "Faily "
+
+#: ../src/zpaq.c
+msgid "Files with absolute pathnames cannot be deleted!"
+msgstr ""
+
+#: ../src/extract_dialog.c ../src/window.c
+#, fuzzy
+#| msgid "Files: "
+msgid "Files:"
+msgstr "Faily: "
+
+#: ../src/interface.c
+msgid "Forward"
+msgstr "Iz prīšku"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Freshen existing files"
+msgid "Freshen existing files only"
+msgstr "Atsvaidzynōț jau asūšūs failus"
+
+#: ../src/window.c
+msgid "From File"
+msgstr "Nu faila"
+
+#: ../src/cpio.c ../src/rpm.c
+msgid "Group"
+msgstr "Grupa"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Icons size (requires restart):"
+msgstr "Ikonu izmārs (jōpalaiž programu nu jauna)"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "If checked the archive comment is shown after the archive is loaded"
+msgid "If checked the archive comment is shown after the archive is loaded."
+msgstr "Ka atzeimāts, to arhiva komentars tikș rōdeits pec tō īlōdeišonys"
+
+#: ../src/pref_dialog.c
+msgid ""
+"If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
+"be opened with its default application."
+msgstr ""
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "In a solid archive the files are grouped together resulting in a better "
+#| "compression ratio"
+msgid ""
+"In a solid archive the files are grouped together resulting in a better "
+"compression ratio."
+msgstr ""
+"Napōrtrauktūs arhivūs faily teik grupeiti kūpā, tai izīt lelōks saspīsšonys "
+"koeficents"
+
+#: ../src/add_dialog.c
+msgid "Include subdirectories"
+msgstr "Dalikț apakšmapis"
+
+#: ../src/interface.c
+msgid "Location:"
+msgstr "Vīta:"
+
+#: ../src/main.c
+#, c-format
+msgid "Maintained by "
+msgstr "Izstrōdōja "
+
+#: ../src/interface.c
+msgid "Make SF_X"
+msgstr "Sataisäț SF_X"
+
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
+msgid "Method"
+msgstr "Metodá"
+
+#: ../src/interface.c
+msgid "Modified on:"
+msgstr "Modificeits:"
+
+#: ../src/extract_dialog.c
+msgid "Multi-Extract"
+msgstr "Vairōku atspīsšona"
+
+#: ../src/interface.c
+msgid "Name:"
+msgstr "Nūsaukums:"
+
+#: ../src/interface.c
+msgid "New"
+msgstr "Jauns"
+
+#: ../src/window.c
+msgid "No"
+msgstr "Nā"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Compression: "
+msgid "No compression"
+msgstr "Saspīsšona: "
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Number of files:"
+msgstr "Failu skaits:"
+
+#: ../src/window.c
+#, c-format
+msgid "Number of files: "
+msgstr "Failu skaits: "
+
+#: ../src/zip.c
+msgid "OS"
+msgstr ""
+
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr "Pajimšona"
+
+#: ../src/new_dialog.c ../src/window.c
+msgid "Only archives"
+msgstr "Viņ arhivi"
+
+#: ../src/interface.c
+msgid "Open"
+msgstr "Attaisäț"
+
+#: ../src/open-with-dlg.c
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr "Attaisäț <i>%s</i> ai:"
+
+#: ../src/interface.c
+msgid "Open With"
+msgstr "Attaisäț ai"
+
+#: ../src/window.c
+msgid "Open a text file"
+msgstr "Attaisäț teksta failu"
+
+#: ../src/interface.c ../src/window.c
+msgid "Open an archive"
+msgstr "Attaisäț arhivu"
+
+#: ../src/pref_dialog.c
+msgid "Open archive files with:"
+msgstr "Attaisäț arhiva failus ai:"
+
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open a text file"
+msgid "Open file"
+msgstr "Attaisäț teksta failu"
+
+#: ../src/pref_dialog.c
+msgid "Open image files with:"
+msgstr "Attaisäț attāla failus ai:"
+
+#: ../src/pref_dialog.c
+msgid "Open text files with:"
+msgstr "Attaisäț teksta failus ai:"
+
+#: ../src/open-with-dlg.c
+#, fuzzy
+#| msgid "Open the selected files with"
+msgid "Open the selected files"
+msgstr "Attaisäț izvieleitūs failus ai:"
+
+#: ../src/window.c
+msgid "Opening archive, please wait..."
+msgstr "Nūteik arhiva attaiseišona, pagaidit lyudzu..."
+
+#: ../src/interface.c
+msgid "Opening archive:"
+msgstr "Teik atpakōts arhivs:"
+
+#: ../src/window.c
+msgid "Operation aborted!"
+msgstr "Operaceja pōrtraukta!"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Options"
+msgstr "Īstatiejumi"
+
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
+msgid "Original Size"
+msgstr "Sōkuma izmārs"
+
+#: ../src/extract_dialog.c
+msgid "Overwrite existing files"
+msgstr "Pōrrakstäț asūšūs failus"
+
+#: ../src/cpio.c ../src/rpm.c
+msgid "Owner"
+msgstr "Īpašnīks"
+
+#: ../src/squashfs.c ../src/tar.c
+msgid "Owner/Group"
+msgstr "Īpašnīks/Grupa"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Password:"
+msgstr "Parolș:"
+
+#: ../src/interface.c
+msgid "Paste"
+msgstr "Īlikț"
+
+#: ../src/extract_dialog.c
+msgid "Path"
+msgstr "Ceļš"
+
+#: ../src/interface.c
+msgid "Path:"
+msgstr "Ceļš:"
+
+#: ../src/interface.c
+msgid "Pattern:"
+msgstr "Šablons:"
+
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
+#: ../src/squashfs.c ../src/tar.c ../src/zip.c ../src/zpaq.c
+msgid "Permissions"
+msgstr "Tīseibys"
+
+#: ../src/window.c
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr "Atzeimejit opceji \"Saglobōț arhiva izvodu\", lai tū rádzātu."
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Please enter it!"
+msgstr "Īrokstit itū!"
+
+#: ../src/extract_dialog.c
+msgid "Please enter the extraction path."
+msgstr "Īrokstit atspīsšonys ceļu."
+
+#: ../src/extract_dialog.c
+msgid "Please enter the password."
+msgstr "Īrokstit paroli."
+
+#: ../src/extract_dialog.c
+msgid "Please fill the \"Extract to\" field!"
+msgstr "Īrokstit kū naviņ \"Atspīsț iz\" laukā!"
+
+#: ../src/window.c
+msgid "Please go to Preferences->Advanced and set it."
+msgstr "Ájtá iz Īstatiejumi->Papyldu i sakonfigurejit."
+
+#: ../src/main.c
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr "Par kļūdom ziņojit iz <%s>."
+
+#: ../src/window.c
+msgid "Please select the 7zCon.sfx module"
+msgstr "Nūrōdit 7zCon.sfx moduli"
+
+#: ../src/extract_dialog.c
+msgid "Please select the archives you want to extract"
+msgstr "Nūrōdit arhivus, kurūs jōatspīž"
+
+#: ../src/extract_dialog.c
+msgid "Please select the destination directory"
+msgstr "Nūrōdit mapi, iz kureini atspīsț!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Please enter it!"
+msgid "Please wait..."
+msgstr "Īrokstit itū!"
+
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c
+msgid "Points to"
+msgstr "Nūrōdá iz"
+
+#: ../src/pref_dialog.c
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Deļ zip failym lītōț komandu unzip (jōpalaiž programu nu jauna)"
+
+#: ../src/pref_dialog.c
+msgid "Preferences"
+msgstr "Īstatiejumi"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Preferred archive format"
+msgid "Preferred archive format:"
+msgstr "Nūkluseitīs arhiva formats"
+
+#: ../src/pref_dialog.c
+msgid "Preferred extraction directory:"
+msgstr "Nūkluseitō atspīsšonys mapá:"
+
+#: ../src/pref_dialog.c
+msgid "Preferred temp directory:"
+msgstr "Nūkluseitō pagaidu mapá:"
+
+#: ../src/window.c
+msgid "Print the archive content as HTML"
+msgstr "Drukōț arhiva saturu kei HTML"
+
+#: ../src/window.c
+msgid "Print the archive content as text"
+msgstr "Drukōț arhiva saturu kei tekstu"
+
+#: ../src/arj.c ../src/gzip_et_al.c
+msgid "Ratio"
+msgstr "Koeficents"
+
+#: ../src/interface.c
+msgid "Re_name"
+msgstr "Pō_rsaukț"
+
+#: ../src/window.c
+msgid "Reloading archive, please wait..."
+msgstr "Nūteik arhiva nūlaseišona, pagaidit lyudzu..."
+
+#: ../src/interface.c
+msgid "Rename"
+msgstr "Pōrsaukț"
+
+#: ../src/interface.c
+msgid "Replace"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Root"
+msgstr ""
+
+#: ../src/window.c
+msgid "Save the archive as"
+msgstr "Saglobōț arhivu kei"
+
+#: ../src/window.c
+msgid "Save the self-extracting archive as"
+msgstr "Saglobōț arhivu lai tys patș atsapakōtu"
+
+#: ../src/pref_dialog.c
+msgid "Save window geometry"
+msgstr "Saglobōț lūga izmārus"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr "Saglobōšona"
+
+#: ../src/main.c ../src/window.c
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+"Izavielejūt \"Jauns\", var sataisäț arhivu, izavielejūt \"Attaisäț\", var tū "
+"attaisäț"
+
+#: ../src/interface.c
+msgid "Select _all"
+msgstr "Iz_avieläț vysu"
+
+#: ../src/interface.c
+msgid "Select _by pattern"
+msgstr "Izavieläț pec ša_blona"
+
+#: ../src/open-with-dlg.c
+msgid "Select an application"
+msgstr "Izavieläț programu"
+
+#: ../src/interface.c
+msgid "Select by Pattern"
+msgstr "Izavieläț pec šablona:"
+
+#: ../src/extract_dialog.c
+msgid "Selected files"
+msgstr "Izavieleitī faily"
+
+#: ../src/add_dialog.c
+msgid "Selection"
+msgstr "Atlasá"
+
+#: ../src/pref_dialog.c
+msgid "Show archive comment"
+msgstr "Rōdäț arhiva komentaru"
+
+#: ../src/pref_dialog.c
+msgid "Show archive location bar"
+msgstr "Rōdäț arhiva atsarasšonōs vītys jūslu"
+
+#: ../src/pref_dialog.c
+msgid "Show archive tree sidebar"
+msgstr "Rōdäț arhiva kūku sōnu jūslā"
+
+#: ../src/window.c
+msgid "Show command"
+msgstr "Rōdäț komandu"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid ""
+#| "Show found command line programs to be\n"
+#| "                                     used and exit"
+msgid ""
+"Show found command-line programs to be\n"
+"                                     used and exit"
+msgstr ""
+"Parōdäț atrostōs komandys, kas tikș\n"
+"                                     lītōtys i izīț"
+
+#: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr "Rōdäț reikjūslu"
+
+#: ../src/main.c
+msgid "Show version and exit\n"
+msgstr "Parōdäț verseji i izīț\n"
+
+#: ../src/extract_dialog.c
+msgid "Size"
+msgstr "Izmārs"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Size"
+msgid "Size:"
+msgstr "Izmārs"
+
+#: ../src/extract_dialog.c
+msgid "Some errors occurred:"
+msgstr "Nūtyka itaidys kļūdys:"
+
+#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
+msgid "Sorry, I could not perform the operation!"
+msgstr "Naizadává izdaräț operaceji!"
+
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
+msgid "Sorry, this archive format is not supported:"
+msgstr "Itys arhiva formats nav atpazeits:"
+
+#: ../src/pref_dialog.c
+msgid "Sort archive by filename"
+msgstr "Kōrtōț arhivu pec failu nūsaukumim"
+
+#: ../src/interface.c
+msgid "Stop"
+msgstr "Apturäț"
+
+#: ../src/pref_dialog.c
+msgid "Store archiver output"
+msgstr "Saglobōț arhiva izvodu"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr "Raideišona/Bloki/Atkōpis"
+
+#: ../src/window.c
+msgid "Test result:"
+msgstr "Testa rezultati:"
+
+#: ../src/window.c
+msgid "Testing archive, please wait..."
+msgstr "Nūteik arhiva pōrbaudá, pagaidit lyudzu..."
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr "Arhivs \"%s\" jau eksistej!"
+
+#: ../src/window.c
+msgid "The archive is okay."
+msgstr "Arhivs ir kōrteibā!"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's complete directory structure is recreated in the extraction "
+"directory."
+msgstr "Arhiva maṕu struktura tikș sataiseita atspīsšonys mapī"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is not recreated; all files are placed in "
+"the extraction directory."
+msgstr "Arhiva maṕu struktura tikș sataiseita atspīsšonys mapī"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is recreated in the extraction directory, "
+"but with the parent directories of the selected files removed."
+msgstr "Arhiva maṕu struktura tikș sataiseita atspīsšonys mapī"
+
+#: ../src/add_dialog.c ../src/main.c
+msgid ""
+"The archiver doesn't support compression of directories or multiple files!"
+msgstr "Itys arviva tips navar saspīsț vairōkus failus ci mapis!"
+
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Arhivu menedžers navar sataisäț itū īspieju!"
+
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr "Arhivu menedžers navar attaisäț ai paroli šifreitūs arhivus!"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "The filename column is sorted after loading the archive"
+msgid "The filename column is sorted after loading the archive."
+msgstr "Faila nūsaukumu kolonna bȳș sakōrtōta pec arhiva īlōdeišonys"
+
+#: ../src/pref_dialog.c
+msgid ""
+"The incremental search is also performed within filenames rather than just "
+"at the beginning of them."
+msgstr ""
+
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
+#, fuzzy, c-format
+#| msgid "The proper archiver is not installed!"
+msgid "The proper archiver for \"%s\" is not installed!"
+msgstr "Vajdzeigīs atpakōtōjs nav instaleits!"
+
+#: ../src/extract_dialog.c
+msgid "This archive is encrypted!"
+msgstr "Itys arhivs ir šifreits!"
+
+#: ../src/interface.c
+msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
+msgstr ""
+"Itys ir arhivu menedžera statusa izgaismōjums. Ka tys myrgoj - menedžers ir "
+"aizjymts"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option includes the subdirectories when you add files with drag and "
+#| "drop"
+msgid ""
+"This option includes the subdirectories when you add files from the "
+"clipboard or with drag-and-drop."
+msgstr "Itei opceja pajem i īškdejōs mapis, kod nūteik failu pōrviļkšona"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option performs the same function as the freshen one, extracting "
+#| "files that are newer than those with the same name on disk, and in "
+#| "addition it extracts those files that do not already exist on disk"
+msgid ""
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
+"extracts those files that do not already exist on disk."
+msgstr ""
+"Itei opceja atspīžūt failus dora tū pašu kū atsvaidzynōšona, kas pōrroksta "
+"vacōkus failus ai jaunōkim, kod tīm ir vīnaidi nūsaukumi; papyldu atspīž "
+"failus, kurī väļ naeksistej iz diska."
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option will add any new files and update any files which are already "
+#| "in the archive but older there"
+msgid ""
+"This option will add any new files and update any files which are already in "
+"the archive but older there."
+msgstr ""
+"Itei opceja dalikș jaunūs failus i atjaunōș asūšūs, ka tī arhivā beja vacōki"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option will only add files which are already in the archive but "
+#| "older there; unlike the update option it will not add any new files"
+msgid ""
+"This option will only add files which are already in the archive but older "
+"there; unlike the update option it will not add any new files."
+msgstr ""
+"Itei opceja samainäs asūšūs failus iz vacōkim, kas beja arhivā; jauni "
+"failynatikș dalykti"
+
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c ../src/zpaq.c
+msgid "Time"
+msgstr "Laiks"
+
+#: ../src/interface.c
+msgid "Total Progress:"
+msgstr "Kūpejīs progress:"
+
+#: ../src/extract_dialog.c
+msgid "Touch files"
+msgstr "Pajemit failus"
+
+#: ../src/interface.c
+msgid "Type:"
+msgstr "Tips:"
+
+#: ../src/ar.c ../src/lha.c
+msgid "UID/GID"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Uncompressed size:"
+msgstr "Nasaspīstō izmārs:"
+
+#: ../src/window.c
+#, c-format
+msgid "Uncompressed size: "
+msgstr "Nasaspīstō izmārs: "
+
+#: ../src/rpm.c
+msgid "Unknown compression type!"
+msgstr "Nazynoms saspīsšonys tips!"
+
+#: ../src/interface.c
+msgid "Uns_ort"
+msgstr "Nasakōrtōts"
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
+msgstr "Nazynoms binārīs formats"
+
+#: ../src/interface.c
+msgid "Up"
+msgstr "Iz augšu"
+
+#: ../src/extract_dialog.c
+msgid "Update existing files"
+msgstr "Atjaunynōț asūšūs failus"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Update existing files"
+msgid "Update existing files and add new ones"
+msgstr "Atjaunynōț asūšūs failus"
+
+#: ../src/open-with-dlg.c
+msgid "Use a custom command:"
+msgstr "Lītōț cytu komandu:"
+
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Version"
+msgstr "Verseja"
+
+#: ../src/interface.c
+msgid "View"
+msgstr "Izskots"
+
+#: ../src/pref_dialog.c
+msgid "Web browser to use:"
+msgstr "WEB pōrlūks:"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "When this option is used, the modification times of the files will be the "
+#| "times of extraction instead of the times recorded in the archive"
+msgid ""
+"When this option is used, the modification times of the files will be the "
+"times of extraction instead of the times recorded in the archive."
+msgstr ""
+"Itei opceja samaina failym modificeišonys laiku iz tū, kod tyka atspīsts "
+"arhivs i nūjem failu īlikšonys arhivā laiku"
+
+#: ../src/zpaq.c
+msgid "Will not handle files with wildcard characters!"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Window"
+msgstr "Lūgs"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Store full paths"
+msgid "With full path"
+msgstr "Saglobōț pylnūs ceļus"
+
+#: ../src/extract_dialog.c
+msgid "Without any path"
+msgstr ""
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Without parent path"
+msgstr ""
+
+#: ../src/window.c
+msgid "Yes"
+msgstr "Da"
+
+#: ../src/window.c
+msgid "You are about to delete entries from the archive."
+msgstr "Jiuș taisotäs dzäsț īrokstus nu arhiva."
+
+#: ../src/window.c
+msgid ""
+"You can drop either archives to open or files to add. It is not possible to "
+"do both at the same time."
+msgstr ""
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to this archive type!"
+msgstr "Itam arhiva tipam saturu dalikț navar!"
+
+#: ../src/window.c
+msgid "You didn't set which browser to use!"
+msgstr "Nūkluseitīs WEB pōrlūks nav nūrōdeits!"
+
+#: ../src/window.c
+msgid "You didn't set which program to use for opening this file!"
+msgstr "Nav nūrōdeita programa, ai kurū attaisäț failu!"
+
+#: ../src/extract_dialog.c ../src/window.c
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr "Jiusim nav tīseibu atspīsț failus mapī \"%s\"."
+
+#: ../src/extract_dialog.c
+msgid "You haven't added any of them!"
+msgstr "Nivīns nu tīm nav dalykts!"
+
+#: ../src/add_dialog.c ../src/main.c
+msgid "You haven't selected any files to add!"
+msgstr "Nivīns fails nav izvieleits deļ dalikšonys!"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "You missed the archive name!\n"
+msgid "You missed the archive name!"
+msgstr "Nav nūrōdeits arhiva nūsaukums!\n"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
+msgid "You missed the password!"
+msgstr "Nav īraksteits parolș!"
+
+#: ../src/extract_dialog.c
+msgid "You missed where to extract the files!"
+msgstr "Nav nūrōdeita vīta, kur atspīsț failus!"
+
+#: ../src/main.c
+msgid "[ARCHIVE]"
+msgstr "[ARHIVS]"
+
+#: ../src/add_dialog.c
+msgid "_Add"
+msgstr "_D_alikț"
+
+#: ../src/interface.c
+msgid "_Archive"
+msgstr "_Arhivs"
+
+#: ../src/interface.c
+msgid "_Contents"
+msgstr "_Saturs"
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "_Extract"
+msgstr "A_tspīsț"
+
+#: ../src/interface.c
+msgid "_HTML file"
+msgstr "_HTML failā"
+
+#: ../src/interface.c
+msgid "_Help"
+msgstr "_Paleigs"
+
+#: ../src/interface.c
+msgid "_List as"
+msgstr "Saglobōț saturu"
+
+#: ../src/interface.c
+msgid "_Multi-Extract"
+msgstr "_Vairōku atspīsšona"
+
+#: ../src/interface.c
+msgid "_Password:"
+msgstr "_Parolș:"
+
+#: ../src/interface.c
+msgid "_Preferences"
+msgstr "Ī_statiejumi"
+
+#: ../src/interface.c
+msgid "_Properties"
+msgstr "_Rekviziti"
+
+#: ../src/interface.c
+msgid "_Select"
+msgstr "At_lasäț"
+
+#: ../src/interface.c
+msgid "_Test"
+msgstr "_Tests"
+
+#: ../src/interface.c
+msgid "_Text file"
+msgstr "_Teksta failā"
+
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h
+msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "best"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "choose..."
+msgstr "izavieläț..."
+
+#: ../src/main.c
+msgid "destination"
+msgstr "iz kureini"
+
+#: ../src/interface.c
+msgid "example: *.txt; ac*"
+msgstr "pīmārs: *.txt; ac*"
+
+#: ../src/main.c
+msgid "file1 ... fileN"
+msgstr "fails1 ... failsN"
+
+#: ../src/pref_dialog.c
+msgid "large"
+msgstr "lels"
+
+#: ../src/add_dialog.c
+msgid "least"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr "videjs"
+
+#: ../src/window.c
+msgid "selected"
+msgstr "izvieleitī"
+
+#: ../src/pref_dialog.c
+msgid "small"
+msgstr "mozs"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr "mozs/videjs"
+
+#. Do not translate this string.
+#. Instead, add your name here if you like.
+#. One translator per line!
+#: ../src/window.c
+msgid "translator-credits"
+msgstr "Andrejs Meinerts"
+
+#: ../src/pref_dialog.c
+msgid "very large"
+msgstr "cīži lels"
+
+#: ../src/main.c
+#, fuzzy, c-format
+#| msgid ""
+#| "xarchiver: %s\n"
+#| "Try xarchiver --help to see a full list of available command line "
+#| "options.\n"
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command-line options.\n"
+msgstr ""
+"xarchiver: %s\n"
+"Īrokstūt xarchiver --help , rádzäsit sarokstu ai vysom komandryndys "
+"īspiejom.\n"
+
+#~ msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = nasaspīsț, 3 = nūkluseitō saspīsšona, 9 = lobōkō i lānōkō saspīsšona"
+
+#~ msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = nasaspīsț, 5 = nūkluseitō saspīsšona, 9 = lobōkō i lānōkō saspīsšona"
+
+#~ msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+#~ msgstr ""
+#~ "0 = nasaspīsț, 6 = nūkluseitō saspīsšona, 9 = lobōkō i lānōkō saspīsšona"
+
+#~ msgid "5 = default compression, 7 = max compression"
+#~ msgstr "5 = nūkluseitō saspīsšona, 7 = vyslobōkō saspīsšona"
+
+#~ msgid ""
+#~ "<span color='red' style='italic'>Please install xdg-utils package so "
+#~ "that\n"
+#~ "Xarchiver can recognize more file types.</span>"
+#~ msgstr ""
+#~ "<span color='red' style='italic'>Jōpīinstalej xdg-utils paku, lai\n"
+#~ "arhivu menedžers var atpazeiț vairōk failu tipu.</span>"
+
+#~ msgid "A GTK+ only archive manager"
+#~ msgstr "Arhivu menedžers deļ GTK+"
+
+#~ msgid "Archive Name"
+#~ msgstr "Arhiva nūsaukums"
+
+#, c-format
+#~ msgid "Can't open file %s:"
+#~ msgstr "Naizadává attaisäț failu %s:"
+
+#, c-format
+#~ msgid "Compressed   size: "
+#~ msgstr "Saspīstō izmārs: "
+
+#~ msgid "Destination dirs:"
+#~ msgstr "Mapá iz kureini:"
+
+#~ msgid "Do not store paths"
+#~ msgstr "Nasaglobōț ceļus"
+
+#~ msgid "Extract pathnames"
+#~ msgstr "Atspīsț ceļu nūsaukumus"
+
+#, c-format
+#~ msgid "Files:%*s%s"
+#~ msgstr "Faily:%*s%s"
+
+#~ msgid "Freshen and replace"
+#~ msgstr "Atsvaidzynōț i sameiț"
+
+#~ msgid "Options "
+#~ msgstr "Īstatiejumi "
+
+#~ msgid "Options:"
+#~ msgstr "Īstatiejumi:"
+
+#~ msgid "This option consumes more memory with large archives"
+#~ msgstr "Itai opcejai vajag vairōk atminis dorbam ai lelȳm arhivim"
+
+#~ msgid ""
+#~ "This option extracts archives in directories named with the archive names"
+#~ msgstr ""
+#~ "Itei opceja atspīž arhivus maṕōs ar taidu pošu nūsaukumu kei arhiva "
+#~ "nūsaukums"
+
+#~ msgid "Update and add"
+#~ msgstr "Atjaunynōț i dalikț"
+
+#~ msgid "|Size\n"
+#~ msgstr "|Izmārs\n"
