@@ -48,6 +48,7 @@
 #define compress (archive->type == XARCHIVETYPE_COMPRESS)
 #define lrzip    (archive->type == XARCHIVETYPE_LRZIP)
 #define lz4      (archive->type == XARCHIVETYPE_LZ4)
+#define mozlz4   (archive->type == XARCHIVETYPE_LZ4 && archive->tag == 'm')
 #define rzip     (archive->type == XARCHIVETYPE_RZIP)
 #define xz       (archive->type == XARCHIVETYPE_XZ)
 #define zstd     (archive->type == XARCHIVETYPE_ZSTD)
@@ -250,7 +251,7 @@ static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 	/* only if archive is new and empty */
 	archive->can_add = (can && archiver[archive->type].is_compressor);
 
-	archive->can_compress = (can && archiver[archive->type].is_compressor);
+	archive->can_compress = (can && archiver[archive->type].is_compressor && !mozlz4);
 	archive->compressor = xa_gzip_et_al_compressor(archive);
 	archive->compression = archive->compressor.preset;
 }
@@ -1007,7 +1008,22 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *compression, *files_str, *archive_path, *move, *password_str, *args, *command;
+	struct stat st;
 	gboolean success;
+
+	if (mozlz4)
+	{
+		gchar *file;
+
+		if (!xa_create_working_directory(archive))
+			return;
+
+		archive->path[2] = g_strconcat(archive->working_dir, "/", "xa-tmp.lz4", NULL);
+
+		file = g_strconcat(archive->child_dir, "/", file_list->data, NULL);
+		stat(file, &st);
+		g_free(file);
+	}
 
 	compression = g_strdup_printf("%hu", archive->compression);
 
@@ -1027,11 +1043,46 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 	else
 		args = g_strconcat(" -c", bzip ? "" : " --", files_str, " > ", archive_path, NULL);
 
-	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress || bzip3 ? "b " : (lrzip ? (*compression == '0' ? "n" : "L ") : ""), lrzip && (*compression == '0') ? "" : compression, password_str, args, "\"", NULL);
+	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress || bzip3 ? "b " : (lrzip ? (*compression == '0' ? "n" : "L ") : ""), lrzip && (*compression == '0') ? "" : (mozlz4 ? "l" : compression), password_str, args, "\"", NULL);
 	success = xa_run_command(archive, command);
 
 	g_free(command);
 	command = NULL;
+
+	if (success && mozlz4)
+	{
+		FILE *in, *out;
+		uint32_t size;
+		size_t bytes;
+		char buffer[4096];
+
+		in = fopen(archive->path[2], "r");
+
+		if (!in)
+			goto finish;
+
+		out = fopen(archive->path[0], "w");
+
+		if (!out)
+		{
+			fclose(in);
+			goto finish;
+		}
+
+		fwrite(MOZLZ4_MAGIC, 8, 1, out);
+		size = htole32((uint32_t) st.st_size);
+		fwrite(&size, sizeof(size), 1, out);
+
+		if (fseek(in, 8, SEEK_SET) == 0)
+		{
+			/* copy lz4 data */
+			while ((bytes = fread(buffer, 1, sizeof(buffer), in)) > 0)
+				fwrite(buffer, bytes, 1, out);
+		}
+
+		fclose(out);
+		fclose(in);
+	}
 
 	if (success)
 	{
@@ -1039,6 +1090,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 		archive->status = XARCHIVESTATUS_ADD;   // restore status
 	}
 
+finish:
 	g_free(args);
 	g_free(password_str);
 	g_free(move);

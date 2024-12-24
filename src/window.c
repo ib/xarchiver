@@ -1830,7 +1830,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_LRZIP;
 	else if (memcmp(magic, LZ4_MAGIC, 4) == 0 ||
 	         memcmp(magic, "\x02\x21\x4c\x18", 4) == 0 ||
-	         memcmp(magic, "mozLz40\x00", 8) == 0 ||
+	         memcmp(magic, MOZLZ4_MAGIC, 8) == 0 ||
 	         memcmp(magic, "mozJSSCLz40v001\x00", 16) == 0)
 	{
 		xa.type = XARCHIVETYPE_LZ4;

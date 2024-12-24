@@ -39,6 +39,7 @@
                                          archive->type == XARCHIVETYPE_ZSTD)
 
 #define LZ4_MAGIC "\x04\x22\x4d\x18"
+#define MOZLZ4_MAGIC "mozLz40\x00"
 
 void xa_gzip_et_al_add(XArchive *, GSList *);
 void xa_gzip_et_al_ask(XArchive *);
