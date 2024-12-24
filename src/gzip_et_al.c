@@ -1006,7 +1006,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *compression, *files_str, *archive_path, *move, *password_str, *out, *command;
+	gchar *compression, *files_str, *archive_path, *move, *password_str, *args, *command;
 	gboolean success;
 
 	compression = g_strdup_printf("%hu", archive->compression);
@@ -1023,11 +1023,11 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 	password_str = xa_gzip_et_al_password_str(archive->password, archive->type);
 
 	if (lrzip || rzip)
-		out = g_strconcat(lrzip ? " -fo " : " -kfo ", archive_path, " --", files_str, NULL);
+		args = g_strconcat(lrzip ? " -fo " : " -kfo ", archive_path, " --", files_str, NULL);
 	else
-		out = g_strconcat(" -c", bzip ? "" : " --", files_str, " > ", archive_path, NULL);
+		args = g_strconcat(" -c", bzip ? "" : " --", files_str, " > ", archive_path, NULL);
 
-	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress || bzip3 ? "b " : (lrzip ? (*compression == '0' ? "n" : "L ") : ""), lrzip && (*compression == '0') ? "" : compression, password_str, out, "\"", NULL);
+	command = g_strconcat("sh -c \"exec ", archiver[archive->type].program[0], " -", compress || bzip3 ? "b " : (lrzip ? (*compression == '0' ? "n" : "L ") : ""), lrzip && (*compression == '0') ? "" : compression, password_str, args, "\"", NULL);
 	success = xa_run_command(archive, command);
 
 	g_free(command);
@@ -1039,7 +1039,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list)
 		archive->status = XARCHIVESTATUS_ADD;   // restore status
 	}
 
-	g_free(out);
+	g_free(args);
 	g_free(password_str);
 	g_free(move);
 	g_free(archive_path);
