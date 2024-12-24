@@ -290,7 +290,7 @@ void xa_set_add_dialog_options (AddDialog *add_dialog, XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->full_path, full_path);
 	gtk_widget_set_sensitive(add_dialog->update, archive->can_update[1]);
 	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen[1]);
-	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse[1] != FORCED);
+	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse[1] != FORCED && !SINGLE_FILE_COMPRESSOR(archive));
 	gtk_widget_set_sensitive(add_dialog->remove, archive->can_remove);
 	gtk_widget_set_sensitive(add_dialog->solid, archive->can_solid);
 
