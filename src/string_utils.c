@@ -227,26 +227,21 @@ gchar *xa_remove_level_from_path (const gchar *path)
     return local_path;
 }
 
-void xa_set_window_title (GtkWidget *window,gchar *title)
+void xa_set_window_title (GtkWidget *window, const gchar *pathname)
 {
-	gchar *x 	= NULL;
-	gchar *slash= NULL;
+	gchar *title, *basename;
 
-	if (title)
-	{
-		slash = g_strrstr (title , "/");
-		if (slash)
-			slash++;
-	}
-	if (!slash)
-		slash = title;
-
-	if (title == NULL)
-		x = g_strconcat(PACKAGE_NAME, " ", PACKAGE_VERSION, NULL);
+	if (!pathname)
+		title = g_strconcat(PACKAGE_NAME, " ", PACKAGE_VERSION, NULL);
 	else
-		x = g_strconcat(slash, " - ", PACKAGE_NAME, " ", PACKAGE_VERSION, NULL);
-	gtk_window_set_title (GTK_WINDOW (window),x);
-	g_free (x);
+	{
+		basename = g_filename_display_basename(pathname);
+		title = g_strconcat(basename, " - ", PACKAGE_NAME, " ", PACKAGE_VERSION, NULL);
+		g_free(basename);
+	}
+
+	gtk_window_set_title(GTK_WINDOW(window), title);
+	g_free(title);
 }
 
 gboolean match_patterns (char **patterns,const char *string,int flags)
