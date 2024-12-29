@@ -899,6 +899,9 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.sfs");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.sqfs");
 
+		/* AppImage */
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('a'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, "AppImage");
 		/* snap package */
 		archiver[type].type = g_slist_append(archiver[type].type, "snap");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.snap");

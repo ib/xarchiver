@@ -7,6 +7,8 @@ xarchiver_SOURCES = \
 	7zip.h \
 	add_dialog.c \
 	add_dialog.h \
+	appimage.c \
+	appimage.h \
 	ar.c \
 	ar.h \
 	archive.c \

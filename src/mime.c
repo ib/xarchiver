@@ -75,6 +75,7 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	else if (strcmp(mime,"application/gzip") == 0 ||
 	         strcmp(mime,"application/java-archive") == 0 || /* legacy */ strcmp(mime,"application/x-java-archive") == 0 ||
 	         strcmp(mime,"application/vnd.android.package-archive") == 0 ||
+	         strcmp(mime,"application/vnd.appimage") == 0 ||
 	         strcmp(mime,"application/vnd.debian.binary-package") == 0 ||
 	         strcmp(mime,"application/vnd.ms-cab-compressed") == 0 ||
 	         strcmp(mime,"application/vnd.ms-htmlhelp") == 0 ||

@@ -17,6 +17,7 @@
  *  MA 02110-1301 USA.
  */
 
+#include <stdio.h>
 #include <string.h>
 #include "squashfs.h"
 #include "main.h"
@@ -25,10 +26,65 @@
 #include "support.h"
 #include "window.h"
 
+static void xa_squashfs_appimage (XArchive *archive)
+{
+	FILE *in, *out;
+	size_t bytes;
+	gchar buffer[4096], *workfile;
+
+	in = fopen(archive->path[0], "r");
+
+	if (!in)
+		return;
+
+	/* seek the SquashFS */
+	while ((bytes = fread(buffer, 4, 1, in)) == 1)
+	{
+		if (memcmp(buffer, "hsqs", 4) == 0)
+		{
+			if (!xa_create_working_directory(archive))
+				goto finish;
+
+			workfile = g_strconcat(archive->working_dir, "/", "xa-tmp.squashfs", NULL);
+
+			g_free(archive->path[1]);
+			archive->path[1] = xa_quote_shell_command(workfile, TRUE);
+
+			out = fopen(workfile, "w");
+
+			if (!out)
+			{
+				g_free(workfile);
+				goto finish;
+			}
+
+			fseek(in, -4, SEEK_CUR);
+
+			/* copy the SquashFS */
+			while ((bytes = fread(buffer, 1, sizeof(buffer), in)) > 0)
+				fwrite(buffer, bytes, 1, out);
+
+			fclose(out);
+			g_free(workfile);
+
+			break;
+		}
+	}
+
+finish:
+	fclose(in);
+
+	return;
+}
+
 void xa_squashfs_ask (XArchive *archive)
 {
+	gboolean read_only;
+
+	read_only = (archive->tag == 'a');   // AppImage
+
 	archive->can_extract = TRUE;
-	archive->can_add = archiver[archive->type].is_compressor;
+	archive->can_add = (archiver[archive->type].is_compressor && !read_only);
 	archive->can_full_path[0] = TRUE;
 	archive->can_full_path[1] = archiver[archive->type].is_compressor;
 	archive->can_overwrite = TRUE;
@@ -103,6 +159,9 @@ void xa_squashfs_list (XArchive *archive)
 	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Date"), _("Time"), _("Permissions"), _("Owner/Group")};
 	gchar *command;
 	guint i;
+
+	if (archive->tag == 'a')
+		xa_squashfs_appimage(archive);   // extract the SquashFS
 
 	archive->files = 0;
 	archive->files_size = 0;

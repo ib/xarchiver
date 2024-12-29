@@ -106,11 +106,11 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
-	ar.c ar.h archive.c archive.h arj.c arj.h cpio.c cpio.h \
-	date_utils.c date_utils.h exe.c exe.h extract_dialog.c \
-	extract_dialog.h gzip_et_al.c gzip_et_al.h interface.c \
-	interface.h iso.c iso.h lha.c lha.h main.c main.h mime.c \
-	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
+	appimage.c appimage.h ar.c ar.h archive.c archive.h arj.c \
+	arj.h cpio.c cpio.h date_utils.c date_utils.h exe.c exe.h \
+	extract_dialog.c extract_dialog.h gzip_et_al.c gzip_et_al.h \
+	interface.c interface.h iso.c iso.h lha.c lha.h main.c main.h \
+	mime.c mime.h new_dialog.c new_dialog.h open-with-dlg.c \
 	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
 	rpm.h socket.c socket.h squashfs.c squashfs.h string_utils.c \
 	string_utils.h support.h tar.c tar.h unar.c unar.h \
@@ -118,10 +118,11 @@ am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
 	zpaq.c zpaq.h sexy-icon-entry.c sexy-icon-entry.h
 @GTK_V2_16_FALSE@am__objects_1 = xarchiver-sexy-icon-entry.$(OBJEXT)
 am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
-	xarchiver-add_dialog.$(OBJEXT) xarchiver-ar.$(OBJEXT) \
-	xarchiver-archive.$(OBJEXT) xarchiver-arj.$(OBJEXT) \
-	xarchiver-cpio.$(OBJEXT) xarchiver-date_utils.$(OBJEXT) \
-	xarchiver-exe.$(OBJEXT) xarchiver-extract_dialog.$(OBJEXT) \
+	xarchiver-add_dialog.$(OBJEXT) xarchiver-appimage.$(OBJEXT) \
+	xarchiver-ar.$(OBJEXT) xarchiver-archive.$(OBJEXT) \
+	xarchiver-arj.$(OBJEXT) xarchiver-cpio.$(OBJEXT) \
+	xarchiver-date_utils.$(OBJEXT) xarchiver-exe.$(OBJEXT) \
+	xarchiver-extract_dialog.$(OBJEXT) \
 	xarchiver-gzip_et_al.$(OBJEXT) xarchiver-interface.$(OBJEXT) \
 	xarchiver-iso.$(OBJEXT) xarchiver-lha.$(OBJEXT) \
 	xarchiver-main.$(OBJEXT) xarchiver-mime.$(OBJEXT) \
@@ -160,8 +161,9 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/xarchiver-7zip.Po \
 	./$(DEPDIR)/xarchiver-add_dialog.Po \
-	./$(DEPDIR)/xarchiver-ar.Po ./$(DEPDIR)/xarchiver-archive.Po \
-	./$(DEPDIR)/xarchiver-arj.Po ./$(DEPDIR)/xarchiver-cpio.Po \
+	./$(DEPDIR)/xarchiver-appimage.Po ./$(DEPDIR)/xarchiver-ar.Po \
+	./$(DEPDIR)/xarchiver-archive.Po ./$(DEPDIR)/xarchiver-arj.Po \
+	./$(DEPDIR)/xarchiver-cpio.Po \
 	./$(DEPDIR)/xarchiver-date_utils.Po \
 	./$(DEPDIR)/xarchiver-exe.Po \
 	./$(DEPDIR)/xarchiver-extract_dialog.Po \
@@ -431,16 +433,17 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = xdgmime
-xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h ar.c ar.h \
-	archive.c archive.h arj.c arj.h cpio.c cpio.h date_utils.c \
-	date_utils.h exe.c exe.h extract_dialog.c extract_dialog.h \
-	gzip_et_al.c gzip_et_al.h interface.c interface.h iso.c iso.h \
-	lha.c lha.h main.c main.h mime.c mime.h new_dialog.c \
-	new_dialog.h open-with-dlg.c open-with-dlg.h pref_dialog.c \
-	pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c socket.h \
-	squashfs.c squashfs.h string_utils.c string_utils.h support.h \
-	tar.c tar.h unar.c unar.h utf8-fnmatch.c utf8-fnmatch.h \
-	window.c window.h zip.c zip.h zpaq.c zpaq.h $(am__append_1)
+xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h appimage.c \
+	appimage.h ar.c ar.h archive.c archive.h arj.c arj.h cpio.c \
+	cpio.h date_utils.c date_utils.h exe.c exe.h extract_dialog.c \
+	extract_dialog.h gzip_et_al.c gzip_et_al.h interface.c \
+	interface.h iso.c iso.h lha.c lha.h main.c main.h mime.c \
+	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
+	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
+	rpm.h socket.c socket.h squashfs.c squashfs.h string_utils.c \
+	string_utils.h support.h tar.c tar.h unar.c unar.h \
+	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
+	zpaq.c zpaq.h $(am__append_1)
 xarchiver_CFLAGS = -Wall -Wextra -Wno-unused-parameter @GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" -DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\" -Wno-deprecated-declarations
@@ -543,6 +546,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-7zip.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-add_dialog.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-appimage.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-ar.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-archive.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-arj.Po@am__quote@ # am--include-marker
@@ -626,6 +630,20 @@ xarchiver-add_dialog.obj: add_dialog.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='add_dialog.c' object='xarchiver-add_dialog.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-add_dialog.obj `if test -f 'add_dialog.c'; then $(CYGPATH_W) 'add_dialog.c'; else $(CYGPATH_W) '$(srcdir)/add_dialog.c'; fi`
+
+xarchiver-appimage.o: appimage.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-appimage.o -MD -MP -MF $(DEPDIR)/xarchiver-appimage.Tpo -c -o xarchiver-appimage.o `test -f 'appimage.c' || echo '$(srcdir)/'`appimage.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-appimage.Tpo $(DEPDIR)/xarchiver-appimage.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='appimage.c' object='xarchiver-appimage.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-appimage.o `test -f 'appimage.c' || echo '$(srcdir)/'`appimage.c
+
+xarchiver-appimage.obj: appimage.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-appimage.obj -MD -MP -MF $(DEPDIR)/xarchiver-appimage.Tpo -c -o xarchiver-appimage.obj `if test -f 'appimage.c'; then $(CYGPATH_W) 'appimage.c'; else $(CYGPATH_W) '$(srcdir)/appimage.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-appimage.Tpo $(DEPDIR)/xarchiver-appimage.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='appimage.c' object='xarchiver-appimage.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-appimage.obj `if test -f 'appimage.c'; then $(CYGPATH_W) 'appimage.c'; else $(CYGPATH_W) '$(srcdir)/appimage.c'; fi`
 
 xarchiver-ar.o: ar.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-ar.o -MD -MP -MF $(DEPDIR)/xarchiver-ar.Tpo -c -o xarchiver-ar.o `test -f 'ar.c' || echo '$(srcdir)/'`ar.c
@@ -1226,6 +1244,7 @@ clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 distclean: distclean-recursive
 		-rm -f ./$(DEPDIR)/xarchiver-7zip.Po
 	-rm -f ./$(DEPDIR)/xarchiver-add_dialog.Po
+	-rm -f ./$(DEPDIR)/xarchiver-appimage.Po
 	-rm -f ./$(DEPDIR)/xarchiver-ar.Po
 	-rm -f ./$(DEPDIR)/xarchiver-archive.Po
 	-rm -f ./$(DEPDIR)/xarchiver-arj.Po
@@ -1301,6 +1320,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-recursive
 		-rm -f ./$(DEPDIR)/xarchiver-7zip.Po
 	-rm -f ./$(DEPDIR)/xarchiver-add_dialog.Po
+	-rm -f ./$(DEPDIR)/xarchiver-appimage.Po
 	-rm -f ./$(DEPDIR)/xarchiver-ar.Po
 	-rm -f ./$(DEPDIR)/xarchiver-archive.Po
 	-rm -f ./$(DEPDIR)/xarchiver-arj.Po

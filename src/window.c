@@ -29,6 +29,7 @@
 #include <sys/stat.h>
 #include "window.h"
 #include "add_dialog.h"
+#include "appimage.h"
 #include "exe.h"
 #include "extract_dialog.h"
 #include "gzip_et_al.h"
@@ -1908,6 +1909,11 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	/* file positioning methods come next to last */
 	else if (isISO(file))
 		xa.type = XARCHIVETYPE_ISO;
+	else if (isAppImage(file))
+	{
+		xa.type = XARCHIVETYPE_SQUASHFS;   // has yet to be extracted
+		xa.tag = 'a';
+	}
 	/* partly heuristic methods must come last */
 	else if (isTar(file))
 	{
