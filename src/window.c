@@ -2042,7 +2042,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	else
 		file_size = 0;
     archive_properties_window = xa_create_archive_properties_window();
-    dummy_string = g_path_get_basename(archive[idx]->path[1]);
+    dummy_string = g_path_get_basename(archive[idx]->path[0]);
     utf8_string = g_filename_display_name(dummy_string);
 	gtk_label_set_text(GTK_LABEL(name_data),utf8_string);
 	g_free (utf8_string);
