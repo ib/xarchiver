@@ -719,7 +719,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 		/* copy lz4 data */
 		while ((bytes = fread(buffer, 1, sizeof(buffer), file)) > 0)
-			fwrite(buffer, 1, bytes, wfile);
+			fwrite(buffer, bytes, 1, wfile);
 
 		fwrite(endmark, sizeof(endmark), 1, wfile);
 
