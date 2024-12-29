@@ -511,7 +511,7 @@ gboolean xa_create_working_directory (XArchive *archive)
 	else
 		tmp = g_get_tmp_dir();
 
-	tmp_dir = g_strconcat(tmp, "/xa-XXXXXX", NULL);
+	tmp_dir = g_strconcat(tmp, "/", "xa-XXXXXX", NULL);
 
 	g_free(value_local);
 	g_free(value);
@@ -536,7 +536,7 @@ gchar *xa_create_working_subdirectory (XArchive *archive)
 	if (!xa_create_working_directory(archive))
 		return NULL;
 
-	subdir = g_strconcat(archive->working_dir, "/xa-tmp.XXXXXX", NULL);
+	subdir = g_strconcat(archive->working_dir, "/", "xa-tmp.XXXXXX", NULL);
 
 	if (g_mkdtemp(subdir))
 		return subdir;

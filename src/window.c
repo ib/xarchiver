@@ -639,7 +639,7 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 	content = gtk_text_buffer_get_text(buf,&start,&end,FALSE);
 
 	xa_create_working_directory(archive[idx]);
-	tmp = g_strconcat(archive[idx]->working_dir, "/xa-tmp.comment", NULL);
+	tmp = g_strconcat(archive[idx]->working_dir, "/", "xa-tmp.comment", NULL);
 	gtk_widget_destroy(comment_dialog);
 
 	if (archive[idx]->comment == NULL)

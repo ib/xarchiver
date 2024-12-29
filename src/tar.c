@@ -295,7 +295,7 @@ void xa_tar_add (XArchive *archive, GSList *file_list)
 				return;
 			}
 
-			workfile = g_strconcat(archive->working_dir, "/xa-tmp.tar", NULL);
+			workfile = g_strconcat(archive->working_dir, "/", "xa-tmp.tar", NULL);
 			archive->path[2] = g_shell_quote(workfile);
 			g_free(workfile);
 		}

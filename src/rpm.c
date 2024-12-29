@@ -106,7 +106,7 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 	if (!xa_create_working_directory(archive))
 		return g_strdup("");
 
-	cpio_z = g_strconcat(archive->working_dir, "/xa-tmp.cpio_z", NULL);
+	cpio_z = g_strconcat(archive->working_dir, "/", "xa-tmp.cpio_z", NULL);
 	ibs = g_strdup_printf("%lu", offset);
 
 	/* run dd to have the payload (compressed cpio archive) in /tmp */
@@ -148,7 +148,7 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 			return g_strdup(_("Unknown compression type!"));
 	}
 
-	command = g_strconcat("sh -c \"exec ", executable, cpio_z, " > ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
+	command = g_strconcat("sh -c \"exec ", executable, cpio_z, " > ", archive->working_dir, "/", "xa-tmp.cpio\"", NULL);
 	g_free(cpio_z);
 
 	archive->status = XARCHIVESTATUS_LIST;        // restore status
@@ -189,7 +189,7 @@ void xa_rpm_list (XArchive *archive)
 		g_free(result);
 	}
 	else
-		command = g_strconcat(archiver[archive->type].program[0], " -tv -I ", archive->working_dir, "/xa-tmp.cpio", NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " -tv -I ", archive->working_dir, "/", "xa-tmp.cpio", NULL);
 
 	archive->parse_output = xa_cpio_parse_output;
 	xa_spawn_async_process (archive,command);
@@ -202,7 +202,7 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 	gboolean result;
 
 	path = archive->path[1];
-	archive->path[1] = g_strconcat(archive->working_dir, "/xa-tmp.cpio", NULL);
+	archive->path[1] = g_strconcat(archive->working_dir, "/", "xa-tmp.cpio", NULL);
 
 	result = xa_cpio_extract(archive, file_list);
 
