@@ -6,23 +6,7 @@
  * Copyright (C) 2003  Red Hat, Inc.
  * Copyright (C) 2003  Jonathan Blandford <jrb@alum.mit.edu>
  *
- * Licensed under the Academic Free License version 2.0
- * Or under the following terms:
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
+ * SPDX-License-Identifier: LGPL-2.1-or-later or AFL-2.0
  */
 
 #ifdef HAVE_CONFIG_H
@@ -30,16 +14,16 @@
 #endif
 
 #include "xdgmimeint.h"
-#include <ctype.h>
+//#include <ctype.h>
 #include <string.h>
 
-#ifndef	FALSE
-#define	FALSE	(0)
-#endif
+//#ifndef	FALSE
+//#define	FALSE	(0)
+//#endif
 
-#ifndef	TRUE
-#define	TRUE	(!FALSE)
-#endif
+//#ifndef	TRUE
+//#define	TRUE	(!FALSE)
+//#endif
 
 static const char _xdg_utf8_skip_data[256] = {
   1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -131,7 +115,7 @@ _xdg_utf8_to_ucs4(const char *source)
 //}
 
 //int
-//_xdg_utf8_validate (const char *source)
+//_xdg_utf8_validate (const char *source __attribute__((unused)))
 //{
 //  /* FIXME: actually write */
 //  return TRUE;
@@ -193,10 +177,10 @@ _xdg_reverse_ucs4 (xdg_unichar_t *source, int len)
 //_xdg_binary_or_text_fallback(const void *data, size_t len)
 //{
 //  unsigned char *chardata;
-//  int i;
+//  size_t i;
 //
 //  chardata = (unsigned char *) data;
-//  for (i = 0; i < 32 && i < len; ++i)
+//  for (i = 0; i < 128 && i < len; ++i)
 //    {
 //       if (chardata[i] < 32 && chardata[i] != 9 && chardata[i] != 10 && chardata[i] != 13)
 //         return XDG_MIME_TYPE_UNKNOWN; /* binary data */

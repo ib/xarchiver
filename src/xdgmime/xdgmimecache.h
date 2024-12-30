@@ -5,23 +5,7 @@
  *
  * Copyright (C) 2005  Matthias Clasen <mclasen@redhat.com>
  *
- * Licensed under the Academic Free License version 2.0
- * Or under the following terms:
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
+ * SPDX-License-Identifier: LGPL-2.1-or-later or AFL-2.0
  */
 
 #ifndef __XDG_MIME_CACHE_H__
@@ -31,22 +15,22 @@
 
 typedef struct _XdgMimeCache XdgMimeCache;
 
-#ifdef XDG_PREFIX
-#define _xdg_mime_cache_new_from_file                 XDG_RESERVED_ENTRY(cache_new_from_file)
-#define _xdg_mime_cache_ref                           XDG_RESERVED_ENTRY(cache_ref)
-#define _xdg_mime_cache_unref                         XDG_RESERVED_ENTRY(cache_unref)
-#define _xdg_mime_cache_get_max_buffer_extents        XDG_RESERVED_ENTRY(cache_get_max_buffer_extents)
-#define _xdg_mime_cache_get_mime_type_for_data        XDG_RESERVED_ENTRY(cache_get_mime_type_for_data)
-#define _xdg_mime_cache_get_mime_type_for_file        XDG_RESERVED_ENTRY(cache_get_mime_type_for_file)
-#define _xdg_mime_cache_get_mime_type_from_file_name  XDG_RESERVED_ENTRY(cache_get_mime_type_from_file_name)
-#define _xdg_mime_cache_get_mime_types_from_file_name XDG_RESERVED_ENTRY(cache_get_mime_types_from_file_name)
-#define _xdg_mime_cache_list_mime_parents             XDG_RESERVED_ENTRY(cache_list_mime_parents)
-#define _xdg_mime_cache_mime_type_subclass            XDG_RESERVED_ENTRY(cache_mime_type_subclass)
-#define _xdg_mime_cache_unalias_mime_type             XDG_RESERVED_ENTRY(cache_unalias_mime_type)
-#define _xdg_mime_cache_get_icon                      XDG_RESERVED_ENTRY(cache_get_icon)
-#define _xdg_mime_cache_get_generic_icon              XDG_RESERVED_ENTRY(cache_get_generic_icon)
-#define _xdg_mime_cache_glob_dump                     XDG_RESERVED_ENTRY(cache_glob_dump)
-#endif
+//#ifdef XDG_PREFIX
+//#define _xdg_mime_cache_new_from_file                 XDG_RESERVED_ENTRY(cache_new_from_file)
+//#define _xdg_mime_cache_ref                           XDG_RESERVED_ENTRY(cache_ref)
+//#define _xdg_mime_cache_unref                         XDG_RESERVED_ENTRY(cache_unref)
+//#define _xdg_mime_cache_get_max_buffer_extents        XDG_RESERVED_ENTRY(cache_get_max_buffer_extents)
+//#define _xdg_mime_cache_get_mime_type_for_data        XDG_RESERVED_ENTRY(cache_get_mime_type_for_data)
+//#define _xdg_mime_cache_get_mime_type_for_file        XDG_RESERVED_ENTRY(cache_get_mime_type_for_file)
+//#define _xdg_mime_cache_get_mime_type_from_file_name  XDG_RESERVED_ENTRY(cache_get_mime_type_from_file_name)
+//#define _xdg_mime_cache_get_mime_types_from_file_name XDG_RESERVED_ENTRY(cache_get_mime_types_from_file_name)
+//#define _xdg_mime_cache_list_mime_parents             XDG_RESERVED_ENTRY(cache_list_mime_parents)
+//#define _xdg_mime_cache_mime_type_subclass            XDG_RESERVED_ENTRY(cache_mime_type_subclass)
+//#define _xdg_mime_cache_unalias_mime_type             XDG_RESERVED_ENTRY(cache_unalias_mime_type)
+//#define _xdg_mime_cache_get_icon                      XDG_RESERVED_ENTRY(cache_get_icon)
+//#define _xdg_mime_cache_get_generic_icon              XDG_RESERVED_ENTRY(cache_get_generic_icon)
+//#define _xdg_mime_cache_glob_dump                     XDG_RESERVED_ENTRY(cache_glob_dump)
+//#endif
 
 extern XdgMimeCache **_caches;
 
@@ -70,7 +54,8 @@ const char  *_xdg_mime_cache_get_mime_type_from_file_name (const char *file_name
 //int          _xdg_mime_cache_media_type_equal             (const char *mime_a,
 //							   const char *mime_b);
 //int          _xdg_mime_cache_mime_type_subclass           (const char *mime_a,
-//							   const char *mime_b);
+//							   const char *mime_b,
+//							   const char ***seen);
 //char       **_xdg_mime_cache_list_mime_parents		  (const char *mime);
 //const char  *_xdg_mime_cache_unalias_mime_type            (const char *mime);
 //int          _xdg_mime_cache_get_max_buffer_extents       (void);
