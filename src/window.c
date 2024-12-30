@@ -1026,7 +1026,7 @@ void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	gint idx;
 	GtkWidget *save = NULL;
-	gchar *path = NULL, *command, *filename, *filename_utf8;
+	gchar *path = NULL, *command, *filename_utf8;
 	int response;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
@@ -1038,12 +1038,10 @@ void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 	                                   GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 	                                   NULL);
 
-	filename = g_path_get_basename(archive[idx]->path[1]);
-	filename_utf8 = g_filename_display_name(filename);
+	filename_utf8 = g_filename_display_basename(archive[idx]->path[1]);
 	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(save), filename_utf8);
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (save),TRUE);
 	g_free(filename_utf8);
-	g_free(filename);
 	response = gtk_dialog_run (GTK_DIALOG(save));
 	if (response == GTK_RESPONSE_ACCEPT)
 		path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER(save));
@@ -2042,10 +2040,8 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	else
 		file_size = 0;
     archive_properties_window = xa_create_archive_properties_window();
-    dummy_string = g_path_get_basename(archive[idx]->path[0]);
-    utf8_string = g_filename_display_name(dummy_string);
-	gtk_label_set_text(GTK_LABEL(name_data),utf8_string);
-	g_free (utf8_string);
+    dummy_string = g_filename_display_basename(archive[idx]->path[0]);
+    gtk_label_set_text(GTK_LABEL(name_data), dummy_string);
     g_free(dummy_string);
     /* Path */
     dummy_string = xa_remove_level_from_path(archive[idx]->path[0]);
@@ -2776,7 +2772,7 @@ void xa_clipboard_edit (GtkMenuItem *item, gpointer user_data)
 {
 	gint idx;
 	struct stat st;
-	gchar *basename, *basename_utf8;
+	gchar *basename_utf8;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
@@ -2790,13 +2786,11 @@ void xa_clipboard_edit (GtkMenuItem *item, gpointer user_data)
 		stat(XA_Clipboard.paths->data, &st);
 		XA_Clipboard.mtime = st.st_mtim;
 
-		basename = g_path_get_basename(XA_Clipboard.paths->data);
-		basename_utf8 = g_filename_display_name(basename);
+		basename_utf8 = g_filename_display_basename(XA_Clipboard.paths->data);
 
 		xa_create_open_with_dialog(basename_utf8, g_shell_quote(XA_Clipboard.paths->data), 1);
 
 		g_free(basename_utf8);
-		g_free(basename);
 	}
 }
 

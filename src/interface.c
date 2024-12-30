@@ -1381,7 +1381,7 @@ void xa_add_page (XArchive *archive)
 gboolean xa_check_password (XArchive *archive)
 {
 	GtkWidget *password_dialog,*dialog_vbox1,*vbox1,*hbox2,*image2,*vbox2,*label_pwd_required,*label_filename,*hbox1,*label34,*pw_password_entry;
-	gchar *name, *name_utf8;
+	gchar *name_utf8;
 	gboolean done = FALSE;
 
 	if (archive->password)
@@ -1434,11 +1434,9 @@ gboolean xa_check_password (XArchive *archive)
   	gtk_label_set_use_markup (GTK_LABEL (label_pwd_required),TRUE);
   	gtk_misc_set_alignment (GTK_MISC (label_pwd_required),0,0.5);
 
-  	name = g_path_get_basename(archive->path[0]);
-  	name_utf8 = g_filename_display_name(name);
+	name_utf8 = g_filename_display_basename(archive->path[0]);
   	label_filename = gtk_label_new(name_utf8);
   	g_free(name_utf8);
-  	g_free(name);
   	gtk_widget_show (label_filename);
   	gtk_box_pack_start (GTK_BOX (vbox2),label_filename,FALSE,FALSE,12);
   	gtk_misc_set_alignment (GTK_MISC (label_filename),0,0.5);

@@ -847,7 +847,7 @@ MultiExtractDialog *xa_create_multi_extract_dialog ()
 void xa_multi_extract_dialog_add_file (gchar *file_path, MultiExtractDialog *multi_extract)
 {
 	GtkTreeIter iter;
-	gchar *path, *path_utf8, *file, *file_utf8;
+	gchar *path, *path_utf8, *file_utf8;
 	ArchiveType xa;
 	XArchive archive = {0};
 	struct stat my_stat;
@@ -897,13 +897,11 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, MultiExtractDialog *mul
 	file_size = my_stat.st_size;
 	path = xa_remove_level_from_path(file_path);
 	path_utf8 = g_filename_display_name(path);
-	file = g_path_get_basename(file_path);
-	file_utf8 = g_filename_display_name(file);
+	file_utf8 = g_filename_display_basename(file_path);
 	gtk_list_store_append(multi_extract->liststore, &iter);
 	gtk_list_store_set(multi_extract->liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.tag, 5, archive.can_overwrite, 6, archive.can_full_path[0], -1);
 	multi_extract->nr_total++;
 	g_free(file_utf8);
-	g_free(file);
 	g_free(path_utf8);
 	g_free(path);
 }
