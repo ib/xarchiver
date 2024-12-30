@@ -1106,7 +1106,7 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 	{
 		gchar *name, *msg;
 
-		name = g_path_get_basename(path);
+		name = g_filename_display_basename(path);
 		msg = g_strdup_printf(_("The proper archiver for \"%s\" is not installed!"), name);
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), msg);
 		g_free(msg);

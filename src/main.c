@@ -1230,7 +1230,7 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 	{
 		gchar *name, *msg;
 
-		name = g_path_get_basename(filename);
+		name = g_filename_display_basename(filename);
 		msg = g_strdup_printf(_("The proper archiver for \"%s\" is not installed!"), name);
 		xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), msg);
 		g_free(msg);
