@@ -177,9 +177,8 @@ void xa_unar_list (XArchive *archive)
 		if (!archive->has_password)
 			archive->has_password = is7zip_mhe(archive->path[0]);
 
-		if (archive->has_password)
-			if (!xa_check_password(archive))
-				return;
+		if (archive->has_password && !xa_check_password(archive))
+			return;
 	}
 
 	data_line = FALSE;

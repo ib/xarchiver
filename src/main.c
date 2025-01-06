@@ -1350,11 +1350,8 @@ int main (int argc, char **argv)
 			if (archive->status == XARCHIVESTATUS_ERROR)
 				goto leave;
 
-			if (archive->has_password)
-			{
-				if (!xa_check_password(archive))
-					goto leave;
-			}
+			if (archive->has_password && !xa_check_password(archive))
+				goto leave;
 
 			if (opt_ensure_dir)
 			{
@@ -1407,11 +1404,8 @@ int main (int argc, char **argv)
 			if (archive->status == XARCHIVESTATUS_ERROR)
 				goto leave;
 
-			if (archive->has_password)
-			{
-				if (!xa_check_password(archive))
-					goto leave;
-			}
+			if (archive->has_password && !xa_check_password(archive))
+				goto leave;
 
 			xa_set_extract_dialog_options(extract_window,0,archive);
 			xa_parse_extract_dialog_options (archive,extract_window,NULL);
@@ -1504,11 +1498,8 @@ int main (int argc, char **argv)
 			if (archive->status == XARCHIVESTATUS_ERROR)
 				goto leave;
 
-			if (archive->has_password)
-			{
-				if (!xa_check_password(archive))
-					goto leave;
-			}
+			if (archive->has_password && !xa_check_password(archive))
+				goto leave;
 
 			xa_set_add_dialog_options(add_window, archive);
 			xa_parse_add_dialog_options(archive, add_window, NULL);

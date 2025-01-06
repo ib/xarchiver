@@ -422,9 +422,8 @@ void xa_rar_list (XArchive *archive)
 
 		g_io_channel_shutdown(file, FALSE, NULL);
 
-		if (archive->has_password)
-			if (!xa_check_password(archive))
-				return;
+		if (archive->has_password && !xa_check_password(archive))
+			return;
 	}
 
 	header_line = FALSE;

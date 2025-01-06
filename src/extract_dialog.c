@@ -263,11 +263,8 @@ static gchar *xa_multi_extract_one_archive (MultiExtractDialog *multi_extract, g
 
 	xa_detect_encrypted_archive(archive);
 
-	if (archive->has_password)
-	{
-		if (!xa_check_password(archive))
-			error = _("You missed the password!");
-	}
+	if (archive->has_password && !xa_check_password(archive))
+		error = _("You missed the password!");
 
 	if (!error)
 	{

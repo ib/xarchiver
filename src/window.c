@@ -404,11 +404,10 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 	if (gtk_tree_model_get_iter_from_string(model,&iter,path_string))
 	{
 		gtk_tree_model_get(model, &iter, archive->columns - 1, &entry, -1);
-		if (entry->is_encrypted)
-		{
-			if (!xa_check_password(archive))
-				goto done;
-		}
+
+		if (entry->is_encrypted && !xa_check_password(archive))
+			goto done;
+
 		g_free(archive->extraction_dir);
 		xa_create_working_directory(archive);
 		archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);
@@ -706,11 +705,8 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 	if (archive->child_pid || !xa_create_working_directory(archive))
 		return;
 
-	if (archive->has_password)
-	{
-		if (!xa_check_password(archive))
-			return;
-	}
+	if (archive->has_password && !xa_check_password(archive))
+		return;
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 	gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &files);
@@ -1155,11 +1151,8 @@ void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	if (archive[idx]->has_password)
-	{
-		if (!xa_check_password(archive[idx]))
-			return;
-	}
+	if (archive[idx]->has_password && !xa_check_password(archive[idx]))
+		return;
 
 	archive[idx]->status = XARCHIVESTATUS_TEST;
 	(*archive[idx]->archiver->test)(archive[idx]);
@@ -2255,11 +2248,8 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		GtkTreeSelection *selection;
 		GSList *names = NULL;
 
-		if (archive->has_password)
-		{
-			if (!xa_check_password(archive))
-				goto done;
-		}
+		if (archive->has_password && !xa_check_password(archive))
+			goto done;
 
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 		gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &names);
@@ -2946,11 +2936,10 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 		gtk_tree_model_get_iter(archive[idx]->model,&iter,row_list->data);
 		gtk_tree_model_get(archive[idx]->model, &iter, archive[idx]->columns - 1, &entry, -1);
 		gtk_tree_path_free(row_list->data);
-		if (entry->is_encrypted)
-		{
-			if (!xa_check_password(archive[idx]))
-				return;
-		}
+
+		if (entry->is_encrypted && !xa_check_password(archive[idx]))
+			return;
+
 		list = g_slist_append(list, xa_build_full_path_name_from_entry(entry));
 		row_list = row_list->next;
 	}
@@ -3008,11 +2997,9 @@ void xa_view_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	list = g_slist_append(list, xa_build_full_path_name_from_entry(entry));
 	g_list_free(row_list);
 
-	if (entry->is_encrypted)
-	{
-		if (!xa_check_password(archive[idx]))
-			return;
-	}
+	if (entry->is_encrypted && !xa_check_password(archive[idx]))
+		return;
+
 	entry_local = g_filename_from_utf8(entry->filename, -1, NULL, NULL, NULL);
 	filename = g_strconcat(archive[idx]->working_dir, "/", entry_local, NULL);
 	g_free(entry_local);
@@ -3058,11 +3045,9 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	/* The selected entry it's not a dir so extract it to the tmp dir and send it to xa_determine_program_to_run() */
 	else
 	{
-		if (entry->is_encrypted)
-		{
-	    if (!xa_check_password(archive))
-	     return;
-		}
+		if (entry->is_encrypted && !xa_check_password(archive))
+			return;
+
 	   	g_free(archive->extraction_dir);
 	   	xa_create_working_directory(archive);
 		archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);

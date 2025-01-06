@@ -736,9 +736,8 @@ void xa_gzip_et_al_list (XArchive *archive)
 		archive->path[3] = g_strdup(archive->path[1]);
 	}
 
-	if (archive->has_password)
-		if (!xa_check_password(archive))
-			return;
+	if (archive->has_password && !xa_check_password(archive))
+		return;
 
 	password_str = xa_gzip_et_al_password_str(archive->password, archive->type);
 	archive_path = xa_quote_shell_command(archive->path[2], TRUE);
