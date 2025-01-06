@@ -2217,25 +2217,25 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		gint length;
 		gchar *destination;
 
-	gdk_property_get(gdk_drag_context_get_source_window(context),
-	                 gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
-	                 gdk_atom_intern_static_string(XDS_STR_TEXT_PLAIN),
-	                 0, 4096, FALSE, NULL, NULL, &length, &uri);
+		gdk_property_get(gdk_drag_context_get_source_window(context),
+	                   gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
+	                   gdk_atom_intern_static_string(XDS_STR_TEXT_PLAIN),
+	                   0, 4096, FALSE, NULL, NULL, &length, &uri);
 
-	if (!uri)
-		goto done;
+		if (!uri)
+			goto done;
 
-	uri = g_realloc(uri, length + 1);
-	uri[length] = 0;
+		uri = g_realloc(uri, length + 1);
+		uri[length] = 0;
 
-	destination = g_filename_from_uri((gchar *) uri, NULL, NULL);
-	g_free(uri);
+		destination = g_filename_from_uri((gchar *) uri, NULL, NULL);
+		g_free(uri);
 
-	if (!destination)
-		goto done;
+		if (!destination)
+			goto done;
 
-	extraction_dir = g_path_get_dirname(destination);
-	g_free(destination);
+		extraction_dir = g_path_get_dirname(destination);
+		g_free(destination);
 	}
 	else
 		extraction_dir = xa_create_working_subdirectory(archive);
@@ -2282,7 +2282,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 done:
 
 	if (xds)
-	gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) send, 1);
+		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) send, 1);
 	else
 	{
 		if (*send == 'S')
