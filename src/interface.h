@@ -24,6 +24,12 @@
 #include <gtk/gtk.h>
 #include "archive.h"
 
+enum
+{
+  TARGET_TYPE_DIRECT_SAVE,
+  TARGET_TYPE_URI_LIST
+};
+
 typedef struct
 {
 	GtkWidget *window;

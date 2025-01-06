@@ -100,7 +100,8 @@ static gulong changed;
 
 static const GtkTargetEntry drag_targets[] =
 {
-	{"XdndDirectSave0", 0, 0}
+	{"XdndDirectSave0", 0, TARGET_TYPE_DIRECT_SAVE},
+	{"text/uri-list", 0, TARGET_TYPE_URI_LIST}
 };
 
 static const GtkTargetEntry drop_targets[] =

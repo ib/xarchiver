@@ -2194,10 +2194,10 @@ void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchiv
 
 void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *data, guint info, guint time, XArchive *archive)
 {
-	gchar *send, *destination, *extraction_dir;
-	guchar *uri = NULL;
-	gint length;
+	gboolean xds;
+	gchar *send, *extraction_dir = NULL;
 
+	xds = (info == TARGET_TYPE_DIRECT_SAVE);
 	send = "E";
 
 	if (archive->child_pid)
@@ -2210,6 +2210,12 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		g_free(path_utf8);
 		goto done;
 	}
+
+	if (xds)
+	{
+		guchar *uri = NULL;
+		gint length;
+		gchar *destination;
 
 	gdk_property_get(gdk_drag_context_get_source_window(context),
 	                 gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0),
@@ -2230,6 +2236,9 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 
 	extraction_dir = g_path_get_dirname(destination);
 	g_free(destination);
+	}
+	else
+		extraction_dir = xa_create_working_subdirectory(archive);
 
 	if (access(extraction_dir, R_OK | W_OK | X_OK) == -1)
 	{
@@ -2249,10 +2258,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		if (archive->has_password)
 		{
 			if (!xa_check_password(archive))
-			{
-				g_free(extraction_dir);
 				goto done;
-			}
 		}
 
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
@@ -2273,10 +2279,35 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 			send = "S";
 	}
 
-	g_free(extraction_dir);
-
 done:
+
+	if (xds)
 	gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) send, 1);
+	else
+	{
+		if (*send == 'S')
+		{
+			GSList *uri, *uris = NULL;
+			GString *uri_list = g_string_new(NULL);
+
+			xa_local_directory_uris(extraction_dir, &uris);
+
+			for (uri = uris; uri; uri = uri->next)
+			{
+				g_string_append(uri_list, (gchar *) uri->data);
+				g_string_append(uri_list, "\r\n");
+			}
+
+			gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) uri_list->str, uri_list->len);
+
+			g_string_free(uri_list, TRUE);
+			g_slist_free_full(uris, g_free);
+		}
+		else
+			gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, NULL, -1);
+	}
+
+	g_free(extraction_dir);
 }
 
 void xa_treeview_drag_end (GtkWidget *widget, GdkDragContext *context, gpointer user_data)

@@ -360,6 +360,32 @@ void xa_recurse_local_directory (gchar *path, GSList **list, gboolean full_path,
 	}
 }
 
+void xa_local_directory_uris (const gchar *path, GSList **list)
+{
+	DIR *dir;
+	struct dirent *dirlist;
+	gchar *fullname, *uri;
+
+	dir = opendir(path);
+
+	if (dir)
+	{
+		while ((dirlist = readdir(dir)))
+		{
+			if (strcmp(dirlist->d_name, ".") == 0 || strcmp(dirlist->d_name, "..") == 0)
+				continue;
+
+			fullname = g_strconcat(path, "/", dirlist->d_name, NULL);
+			uri = g_filename_to_uri(fullname, NULL, NULL);
+			*list = g_slist_prepend(*list, uri);
+
+			g_free(fullname);
+		}
+
+		closedir(dir);
+	}
+}
+
 GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gint dir_pattern)
 {
 	GString *files;

@@ -43,6 +43,7 @@ gboolean match_patterns(char **, const char *, int);
 gchar *xa_escape_bad_chars(const gchar *, const gchar *);
 GSList *xa_collect_filenames(XArchive *, GSList *);
 GString *xa_collect_files_in_dir(const gchar *);
+void xa_local_directory_uris(const gchar *, GSList **);
 gchar *xa_make_full_path(const char *);
 GString *xa_quote_dir_contents(const gchar *);
 GString *xa_quote_filenames(GSList *, const gchar *, gint);
