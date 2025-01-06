@@ -2197,8 +2197,6 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	gchar *send, *destination, *extraction_dir;
 	guchar *uri = NULL;
 	gint length;
-	GtkTreeSelection *selection;
-	GSList *names = NULL;
 
 	send = "E";
 
@@ -2245,6 +2243,9 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	}
 	else
 	{
+		GtkTreeSelection *selection;
+		GSList *names = NULL;
+
 		if (archive->has_password)
 		{
 			if (!xa_check_password(archive))
