@@ -64,6 +64,8 @@ static const gchar * const XDS_FILENAME = "xds.txt";
 static const gchar * const XDS_STR_XDND_DIRECT_SAVE0 = "XdndDirectSave0";
 static const gchar * const XDS_STR_TEXT_PLAIN = "text/plain";
 
+static gchar *text_uri_list;
+
 #define bswap(word) (((word << 8) & 0xff00) | ((word >> 8) & 0x00ff))
 
 gchar *current_open_directory;
@@ -2193,6 +2195,13 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	xds = (info == TARGET_TYPE_DIRECT_SAVE);
 	send = "E";
 
+	if(!xds && text_uri_list)
+	{
+		/* there is nothing new to report */
+		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) text_uri_list, strlen(text_uri_list));
+		return;
+	}
+
 	if (archive->child_pid)
 		goto done;
 
@@ -2254,6 +2263,13 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 		gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &names);
 
+		if (!xds)
+		{
+			/* that's all we can report for now */
+			text_uri_list = g_filename_to_uri(extraction_dir, NULL, NULL);
+			gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) text_uri_list, strlen(text_uri_list));
+		}
+
 		archive->do_full_path = TRUE;
 		archive->do_overwrite = FALSE;
 		archive->do_update = FALSE;
@@ -2275,6 +2291,8 @@ done:
 		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) send, 1);
 	else
 	{
+		g_free(text_uri_list);
+
 		if (*send == 'S')
 		{
 			GSList *uri, *uris = NULL;
@@ -2288,13 +2306,14 @@ done:
 				g_string_append(uri_list, "\r\n");
 			}
 
-			gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) uri_list->str, uri_list->len);
-
-			g_string_free(uri_list, TRUE);
 			g_slist_free_full(uris, g_free);
+
+			text_uri_list = g_string_free(uri_list, FALSE);
 		}
 		else
-			gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, NULL, -1);
+			text_uri_list = g_strdup("");
+
+		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) text_uri_list, strlen(text_uri_list));
 	}
 
 	g_free(extraction_dir);
@@ -2304,6 +2323,9 @@ void xa_treeview_drag_end (GtkWidget *widget, GdkDragContext *context, gpointer 
 {
 	gdk_property_delete(gdk_drag_context_get_source_window(context),
 	                    gdk_atom_intern_static_string(XDS_STR_XDND_DIRECT_SAVE0));
+
+	g_free(text_uri_list);
+	text_uri_list = NULL;
 }
 
 void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
