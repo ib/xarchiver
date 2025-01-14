@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2010-10-23 14:01+0300\n"
-"Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
-"Language-Team: Finnish <None>\n"
+"PO-Revision-Date: 2025-01-16 00:00+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"Language-Team: Finnish <https://hosted.weblate.org/projects/xarchiver/"
+"translations/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -39,12 +41,11 @@ msgstr[0] "%d kansio %s (%s)"
 msgstr[1] "%d kansiota %s (%s)"
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Add files"
+#, c-format
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] "Lisää tiedostoja"
-msgstr[1] "Lisää tiedostoja"
+msgstr[0] "%d tiedosto"
+msgstr[1] "%d tiedostoa"
 
 #: ../src/window.c
 #, c-format
@@ -54,13 +55,15 @@ msgstr[0] "%d tiedosto %s (%s)"
 msgstr[1] "%d tiedostoa %s (%s)"
 
 #: ../src/add_dialog.c
-#, fuzzy, c-format
-#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+#, c-format
 msgid ""
 "%hu is least compression\n"
 "%hu is default compression\n"
 "%hu is best compression"
-msgstr "0 = ei pakkausta, 1 on oletus, 4 = nopein mutta pakkaa vähiten"
+msgstr ""
+"%hu on vähiten pakkaus\n"
+"%hu on oletuspakkaus\n"
+"%hu on paras pakkaus"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -1153,10 +1156,9 @@ msgid ""
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy, c-format
-#| msgid "the proper archiver is not installed!"
+#, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
-msgstr "tarvittavaa pakkausohjelmaa ei ole asennettu!"
+msgstr "Asianmukaista arkistointiohjelmaa \"%s\":lle ei ole asennettu!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
