@@ -640,8 +640,8 @@ void xa_gzip_et_al_list (XArchive *archive)
 	if (archive->type == XARCHIVETYPE_LZ4 && TAGTYPE(archive->tag) == 'm')
 	{
 		int skip, offset;
-		uint32_t uncompressed, blocksize;
-		guint8 flg, bd, hc, endmark[4] = "\x00\x00\x00\x00";
+		uint32_t uncompressed, blocksize, endmark = 0;
+		guint8 flg, bd, hc;
 		size_t bytes;
 
 		file = fopen(archive->path[0], "r");
@@ -721,7 +721,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 		while ((bytes = fread(buffer, 1, sizeof(buffer), file)) > 0)
 			fwrite(buffer, bytes, 1, wfile);
 
-		fwrite(endmark, sizeof(endmark), 1, wfile);
+		fwrite(&endmark, sizeof(endmark), 1, wfile);
 
 		fclose(wfile);
 		fclose(file);
