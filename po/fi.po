@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2025-01-16 00:00+0000\n"
+"PO-Revision-Date: 2025-01-18 23:00+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/xarchiver/"
 "translations/fi/>\n"
@@ -136,7 +136,7 @@ msgstr "Lisätään tiedostoja arkistoon, odota..."
 
 #: ../src/interface.c
 msgid "Adding to archive:"
-msgstr "Lisätään arkistoon"
+msgstr "Lisätään arkistoon:"
 
 #: ../src/pref_dialog.c
 msgid "Advanced"
@@ -188,7 +188,7 @@ msgstr "Arkiston sisältö:\n"
 
 #: ../src/window.c
 msgid "Archive format is not recognized!"
-msgstr "Tuntematon arkistotyyppi."
+msgstr "Arkiston muotoa ei tunnisteta!"
 
 #: ../xarchiver.desktop.in.h
 msgid "Archive manager"
@@ -259,10 +259,8 @@ msgid "Can't create a new archive:"
 msgstr "Uutta arkistoa ei voi luoda:"
 
 #: ../src/extract_dialog.c ../src/main.c
-#, fuzzy
-#| msgid "Can't create temporary directory:"
 msgid "Can't create directory!"
-msgstr "Väliaikaiskansiota ei voi luoda:"
+msgstr "Hakemistoa ei voi luoda!"
 
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
@@ -295,10 +293,8 @@ msgid "Can't open file \"%s\":"
 msgstr "Tiedostoa \"%s\" ei voi avata:"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Can't add files to the archive:"
 msgid "Can't open the archive!"
-msgstr "Ei voi lisätä tiedostoja arkistoon:"
+msgstr "Arkistoa ei voi avata!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -388,7 +384,7 @@ msgstr "Pakattu koko:"
 #: ../src/window.c
 #, c-format
 msgid "Compressed size: "
-msgstr "Pakattu koko:   "
+msgstr "Pakattu koko: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -503,10 +499,8 @@ msgid "Encryption"
 msgstr "Salaus"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Preferred extract directory:"
 msgid "Ensure a containing directory"
-msgstr "Oletuspurkukansio:"
+msgstr "Varmista sisältävä hakemisto"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -796,10 +790,8 @@ msgid "Opening archive, please wait..."
 msgstr "Avataan arkistoa, odota..."
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Opening archive:"
-msgstr "Avaa arkisto"
+msgstr "Avataan arkisto:"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -896,10 +888,8 @@ msgid "Please select the destination directory"
 msgstr "Valitse kohdekansio"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Please enter it!"
 msgid "Please wait..."
-msgstr "Ole hyvä ja syötä se!"
+msgstr "Ole hyvä ja odota..."
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c
@@ -1098,10 +1088,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Arkisto \"%s\" on jo olemassa!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
-msgstr "Arkisto on salattu!"
+msgstr "Arkisto on kunnossa."
 
 #: ../src/extract_dialog.c
 #, fuzzy
@@ -1289,7 +1277,7 @@ msgstr "Näytä"
 
 #: ../src/pref_dialog.c
 msgid "Web browser to use:"
-msgstr "Käytettävä www-selain"
+msgstr "Käytettävä verkkoselain:"
 
 #: ../src/extract_dialog.c
 #, fuzzy
