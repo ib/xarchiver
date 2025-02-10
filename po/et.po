@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2024-10-04 18:15+0000\n"
+"PO-Revision-Date: 2025-02-10 21:40+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/xarchiver/"
 "translations/et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -93,984 +93,1024 @@ msgstr "Vaid GTK+ teekidel põhinev lihtne pakkimisrakendus"
 
 #: ../src/interface.c
 msgid "A_ction"
-msgstr ""
+msgstr "Te_gevus"
 
 #: ../src/interface.c
 msgid "A_dd"
-msgstr ""
+msgstr "_Lisa"
 
 #: ../src/add_dialog.c
 msgid "Actions"
-msgstr ""
+msgstr "Tegevused"
 
 #: ../src/interface.c
 msgid "Add"
-msgstr ""
+msgstr "Lisa"
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Add files"
-msgstr ""
+msgstr "Lisa faile"
 
 #: ../src/main.c
 msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
 msgstr ""
+"Küsides arhiivi nime, lisa antud failid\n"
+"                                     ja välju"
 
 #: ../src/main.c
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
 msgstr ""
+"Küsides failide nimesid lisa arhiivi\n"
+"                                     ja välju"
 
 #: ../src/window.c
 msgid "Adding files to archive, please wait..."
-msgstr ""
+msgstr "Lisame faile arhiivi, palun oota..."
 
 #: ../src/interface.c
 msgid "Adding to archive:"
-msgstr ""
+msgstr "Lisame arhiivi:"
 
 #: ../src/pref_dialog.c
 msgid "Advanced"
-msgstr ""
+msgstr "Lisaseadistused"
 
 #: ../src/pref_dialog.c
 msgid "Advanced incremental search (requires restart)"
-msgstr ""
+msgstr "Täpne järkjärguline otsing (eeldab uuesti käivitamist)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
-msgstr ""
+msgstr "Kõik failid"
 
 #: ../src/pref_dialog.c
 msgid "Allow subdirs with clipboard and drag-and-drop"
-msgstr ""
+msgstr "Luba lõikelaualt ja lohistades kaasata ka alamkaustu"
 
 #: ../src/window.c
 msgid "An error occurred while accessing the archive:"
-msgstr ""
+msgstr "Arhiivi lugemisel tekkis viga:"
 
 #: ../src/add_dialog.c ../src/main.c ../src/window.c
 msgid "An error occurred!"
-msgstr ""
+msgstr "Tekkis viga!"
 
 #: ../src/extract_dialog.c ../src/pref_dialog.c
 msgid "Archive"
-msgstr ""
+msgstr "Arhiiv"
 
 #: ../src/interface.c
 msgid "Archive Properties"
-msgstr ""
+msgstr "Arhiivi omadused"
 
 #: ../src/interface.c
 msgid "Archive _comment"
-msgstr ""
+msgstr "Arhiivi _kommentaar"
 
 #: ../src/window.c
 #, c-format
 msgid "Archive content:\n"
-msgstr ""
+msgstr "Arhiivi sisu:\n"
 
 #: ../src/window.c
 msgid "Archive format is not recognized!"
-msgstr ""
+msgstr "Arhiivi vormingut ei õnnestu ära tunda!"
 
 #: ../xarchiver.desktop.in.h
 msgid "Archive manager"
-msgstr ""
+msgstr "Arhiivihaldur"
 
 #: ../src/interface.c
 msgid "Archive tree"
-msgstr ""
+msgstr "Arhiivipuu"
 
 #: ../src/pref_dialog.c
 msgid ""
 "Archive tree nodes already expand when the node name is selected by mouse "
 "click or keyboard shortcut."
 msgstr ""
+"Arhiivipuu harud avatakse automaatselt, kui valid sõlme hiirega või "
+"klaviatuurilt."
 
 #: ../src/new_dialog.c
 msgid "Archive type:"
-msgstr ""
+msgstr "Arhiivi tüüp:"
 
 #: ../src/interface.c
 msgid "Archiver executable:"
-msgstr ""
+msgstr "Arhiivirakenduse käsufail:"
 
 #: ../src/window.c
 msgid "Archiver output"
-msgstr ""
+msgstr "Arhiivirakenduse väljund"
 
 #: ../src/window.c
 msgid "Are you sure you want to do this?"
-msgstr ""
+msgstr "Kas sa oled kindel, et soovid seda teha?"
 
 #: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
-msgstr ""
+msgstr "Omadused"
 
 #: ../src/pref_dialog.c
 msgid "Automatically expand archive tree nodes on selection"
-msgstr ""
+msgstr "Arhiivipuu sõlme valimisel ava haru automaatselt"
 
 #: ../src/interface.c
 msgid "Back"
-msgstr ""
+msgstr "Tagasi"
 
 #: ../src/open-with-dlg.c
 msgid "Browse"
-msgstr ""
+msgstr "Sirvi"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
-msgstr ""
+msgstr "Failide lisamine arhiivi ei õnnestu:"
 
 #: ../src/main.c
 msgid "Can't allocate memory for the archive structure!"
-msgstr ""
+msgstr "Arhiivi struktuuri loomiseks ei õnnestu mälu eraldada!"
 
 #: ../src/window.c
 msgid "Can't allocate memory for the archive structure:"
-msgstr ""
+msgstr "Arhiivi struktuuri loomiseks ei õnnestu mälu eraldada:"
 
 #: ../src/window.c
 msgid "Can't convert the archive to self-extracting:"
-msgstr ""
+msgstr "Arhiivi ei õnnestu konverteerida ise lahtipakkivaks:"
 
 #: ../src/new_dialog.c
 msgid "Can't create a new archive:"
-msgstr ""
+msgstr "Uue arhiivi loomine ei õnnestu:"
 
 #: ../src/extract_dialog.c ../src/main.c
 msgid "Can't create directory!"
-msgstr ""
+msgstr "Kausta loomine ei õnnestu!"
 
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
-msgstr ""
+msgstr "Ajutise kausta loomine ei õnnestu:"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Can't extract files from the archive:"
-msgstr ""
+msgstr "Failide lahtipakkimine arhiivist ei õnnestu:"
 
 #: ../src/rpm.c
 msgid "Can't fseek in file:"
-msgstr ""
+msgstr "fseek meetodi kasutamine failis ei õnnestu:"
 
 #: ../src/rpm.c
 msgid "Can't fseek to position 104:"
-msgstr ""
+msgstr "fseek meetodiga asukoha 104 avamine ei õnnestu:"
 
 #: ../src/extract_dialog.c
 msgid "Can't multi-extract archives:"
-msgstr ""
+msgstr "Mitme arhiivi lahtipakkimine ei õnnestu:"
 
 #: ../src/rpm.c
 #, c-format
 msgid "Can't open RPM file \"%s\":"
-msgstr ""
+msgstr "„%s“ rpm-faili avamine ei õnnestu:"
 
 #: ../src/window.c
 #, c-format
 msgid "Can't open file \"%s\":"
-msgstr ""
+msgstr "„%s“ faili avamine ei õnnestu:"
 
 #: ../src/main.c
 msgid "Can't open the archive!"
-msgstr ""
+msgstr "Arhiivifaili avamine ei õnnestu!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
-msgstr ""
+msgstr "Lahtipakkimine ei õnnestu!"
 
 #: ../src/interface.c ../src/main.c ../src/window.c
 msgid "Can't perform this action:"
-msgstr ""
+msgstr "Seda toimingut ei saa teha:"
 
 #: ../src/rpm.c
 msgid "Can't read data from file:"
-msgstr ""
+msgstr "Failist ei õnnestu lugeda andmeid:"
 
 #: ../src/archive.c
 msgid "Can't run the archiver executable:"
-msgstr ""
+msgstr "Ei õnnestu arhiveerimisprogrammi käivitada:"
 
 #: ../src/window.c
 msgid "Can't write the sfx module to the archive:"
-msgstr ""
+msgstr "Ei õnnestu kirjutada sfx-moodulit arhiivifaili:"
 
 #: ../src/interface.c
 msgid "Cancel current operation"
-msgstr ""
+msgstr "Katkesta praegune tegevus"
 
 #: ../src/gzip_et_al.c
 msgid "Check Type"
-msgstr ""
+msgstr "Kontrolli tüüpi"
 
 #: ../src/arj.c ../src/rar.c
 msgid "Checksum"
-msgstr ""
+msgstr "Kontrollsumma"
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
-msgstr ""
+msgstr "Vali kasutatav rakendus"
 
 #: ../src/new_dialog.c
 msgid "Choose the archive type to create"
-msgstr ""
+msgstr "Vali loodava arhiivi tüüp"
 
 #: ../src/pref_dialog.c
 msgid "Choose the directory to use"
-msgstr ""
+msgstr "Vali kasutatav kaust"
 
 #: ../src/interface.c
 msgid "Close archive"
-msgstr ""
+msgstr "Sulge arhiiv"
 
 #: ../src/interface.c
 msgid "Cmd-line outp_ut"
-msgstr ""
+msgstr "Käsureavälj_und"
 
 #: ../src/window.c
 msgid "Command"
-msgstr ""
+msgstr "Käsk"
 
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
 "additional memory."
 msgstr ""
+"Käsurea väljundit on võimalik salvestada ja üle vaadata, aga see suurendab "
+"mälukasutust."
 
 #: ../src/window.c
 msgid "Comment"
-msgstr ""
+msgstr "Kommentaar"
 
 #: ../src/interface.c
 msgid "Comment:"
-msgstr ""
+msgstr "Kommentaar:"
 
 #: ../src/window.c
 #, c-format
 msgid "Comment:\n"
-msgstr ""
+msgstr "Kommentaar:\n"
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Compressed"
-msgstr ""
+msgstr "Pakitud"
 
 #: ../src/interface.c
 msgid "Compressed size:"
-msgstr ""
+msgstr "Suurus pakituna:"
 
 #: ../src/window.c
 #, c-format
 msgid "Compressed size: "
-msgstr ""
+msgstr "Suurus pakituna: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
-msgstr ""
+msgstr "Pakkimine"
 
 #: ../src/gzip_et_al.c
 msgid "Compression ratio"
-msgstr ""
+msgstr "Pakkimistihedus"
 
 #: ../src/interface.c
 msgid "Compression ratio:"
-msgstr ""
+msgstr "Pakkimistihedus:"
 
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
-msgstr ""
+msgstr "Failide kustutamisel küsi kinnitust"
 
 #: ../src/window.c
 msgid "Converting archive, please wait..."
-msgstr ""
+msgstr "Konverteerime arhiivi, palun oota..."
 
 #: ../src/interface.c
 msgid "Copy"
-msgstr ""
+msgstr "Kopeeri"
 
 #: ../src/new_dialog.c
 msgid "Cr_eate"
-msgstr ""
+msgstr "_Loo"
 
 #: ../src/interface.c ../src/new_dialog.c
 msgid "Create a new archive"
-msgstr ""
+msgstr "Loo uus arhiiv"
 
 #: ../src/add_dialog.c
 msgid "Create a solid archive"
-msgstr ""
+msgstr "Loo pidev arhiivifail"
 
 #: ../xarchiver.desktop.in.h
 msgid "Create, extract and modify archives"
-msgstr ""
+msgstr "Loo, paki lahti ja muuda arhiivifaile"
 
 #: ../src/interface.c
 msgid "Cut"
-msgstr ""
+msgstr "Lõika"
 
 #: ../src/gzip_et_al.c
 msgid "Data Frames/Skippable Frames"
-msgstr ""
+msgstr "Andmeplokid/Vahelejäetavad plokid"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Date"
-msgstr ""
+msgstr "Kuupäev"
 
 #: ../src/pref_dialog.c
 msgid "Default custom command:"
-msgstr ""
+msgstr "Sinu lisatud vaikimisi käsk:"
 
 #: ../src/interface.c
 msgid "Delete"
-msgstr ""
+msgstr "Kustuta"
 
 #: ../src/add_dialog.c
 msgid "Delete files after adding"
-msgstr ""
+msgstr "Peale lisamist kustuta failid"
 
 #: ../src/window.c
 msgid "Deleting files from archive, please wait..."
-msgstr ""
+msgstr "Kustutame arhiivist faile, palun oota..."
 
 #: ../src/interface.c
 msgid "Dese_lect all"
-msgstr ""
+msgstr "_Eemalda kogu valik"
 
 #: ../src/extract_dialog.c
 msgid "Destination"
-msgstr ""
+msgstr "Sihtkaust või -fail"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
-msgstr ""
+msgstr "Kas sa kindlasti soovid katkestada?"
 
 #: ../src/new_dialog.c
 msgid "Do you want to overwrite it?"
-msgstr ""
+msgstr "Kas sa soovid seda üle kirjutada?"
 
 #: ../src/window.c
 msgid "Doing so will probably corrupt your archive!"
-msgstr ""
+msgstr "Nii tehes ilmselt muudad arhiivifaili kasutuskõlbmatuks!"
 
 #: ../src/interface.c
 msgid "Edit"
-msgstr ""
+msgstr "Muuda"
 
 #: ../src/interface.c
 msgid "Encrypted:"
-msgstr ""
+msgstr "Krüptitud:"
 
 #: ../src/add_dialog.c
 msgid "Encryption"
-msgstr ""
+msgstr "Krüptimine"
 
 #: ../src/extract_dialog.c
 msgid "Ensure a containing directory"
-msgstr ""
+msgstr "Taga sisalduva kausta olemasolu"
 
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
 "directory."
-msgstr ""
+msgstr "Taga, et lahtipakitud arhiivifaili sisu asub alati sisalduvas kaustas."
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
-msgstr ""
+msgstr "Sisesta _salasõna"
 
 #: ../src/pref_dialog.c
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
+"Kui ka muid rakendusi, isegi kui nad on tõhusamad, on zip-failide jaoks "
+"paigaldatud, siis kasutame traditsioonilisi „unzip“ ja „zip“ tarvikuid."
 
 #: ../src/interface.c
 msgid "Extract"
-msgstr ""
+msgstr "Paki lahti"
 
 #: ../src/main.c
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr ""
+"Paki arhiivifail lahti, küsides\n"
+"                                     lahtipakkimise kausta ja välju"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
 msgstr ""
+"Paki arhiivifail lahti sisalduvasse kausta\n"
+"                                     ja välju"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to the destination\n"
 "                                     directory and quit"
 msgstr ""
+"Paki arhiivifail lahti sihtkausta\n"
+"                                     ja välju"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
-msgstr ""
+msgstr "Paki failid lahti"
 
 #: ../src/main.c
 msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
 msgstr ""
+"Paki mitu arhiivifail lahti, küsides\n"
+"                                     lahtipakkimise kausta ja välju"
 
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies."
 msgstr ""
+"Paki lahti vaid need failid, mis andmekandjal on juba olemas ning mis on "
+"uuemad andmekandjal leiduvatest koopiatest."
 
 #: ../src/extract_dialog.c
 msgid "Extract to directories with archive names"
-msgstr ""
+msgstr "Paki lahti arhiivifailide-põhistesse kaustadesse"
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
-msgstr ""
+msgstr "Paki asukohta:"
 
 #: ../src/extract_dialog.c
 msgid "Extract with full path"
-msgstr ""
+msgstr "Paki lahti täisasukohaga"
 
 #: ../src/interface.c
 #, c-format
 msgid "Extracting \"%s\"..."
-msgstr ""
+msgstr "„%s“ on lahtipakkimisel..."
 
 #: ../src/window.c
 msgid "Extracting files from archive, please wait..."
-msgstr ""
+msgstr "Pakime arhiivist faile lahti, palun oota..."
 
 #: ../src/interface.c
 msgid "Extracting from archive:"
-msgstr ""
+msgstr "Pakime arhiivist faile lahti:"
 
 #: ../src/window.c
 msgid "Failed to launch the application!"
-msgstr ""
+msgstr "Rakenduse käivitamine ei õnnestunud!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "File Paths"
-msgstr ""
+msgstr "Failide asukohad"
 
 #: ../src/window.c
 msgid "Filename"
-msgstr ""
+msgstr "Failinimi"
 
 #: ../src/extract_dialog.c
 msgid "Files"
-msgstr ""
+msgstr "Failid"
 
 #: ../src/zpaq.c
 msgid "Files with absolute pathnames cannot be deleted!"
-msgstr ""
+msgstr "Absoluutse asukohaga faile ei saa kustutada!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
-msgstr ""
+msgstr "Failid:"
 
 #: ../src/interface.c
 msgid "Forward"
-msgstr ""
+msgstr "Järgmine"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Freshen existing files only"
-msgstr ""
+msgstr "Värskenda vaid olemasolevad failid"
 
 #: ../src/window.c
 msgid "From File"
-msgstr ""
+msgstr "Failist"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
-msgstr ""
+msgstr "Grupp"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart):"
-msgstr ""
+msgstr "Ikooni suurus (eeldab uuesti käivitamist):"
 
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded."
 msgstr ""
+"Selle eelistuse valimisel näitame peale arhiivifaili avamist temas leiduvat "
+"kommentaari."
 
 #: ../src/pref_dialog.c
 msgid ""
 "If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
 "be opened with its default application."
 msgstr ""
+"Kui paigaldad „xdg-utils“ paketist „xdg-utils“ rakenduse, siis iga fail "
+"avatakse oma vaikimisi rakendusega."
 
 #: ../src/add_dialog.c
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
 "compression ratio."
 msgstr ""
+"Pidevas arhiivis sisalduvad failid on rühmitatud või liidetud üheks "
+"andmeblokiks ning see tagab parema pakkimistiheduse."
 
 #: ../src/add_dialog.c
 msgid "Include subdirectories"
-msgstr ""
+msgstr "Kaasa alamkaustad"
 
 #: ../src/interface.c
 msgid "Location:"
-msgstr ""
+msgstr "Asukoht:"
 
 #: ../src/main.c
 #, c-format
 msgid "Maintained by "
-msgstr ""
+msgstr "Rakenduse haldaja on "
 
 #: ../src/interface.c
 msgid "Make SF_X"
-msgstr ""
+msgstr "Muuda _iselahtipakkivaks"
 
 #: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
-msgstr ""
+msgstr "Meetod"
 
 #: ../src/interface.c
 msgid "Modified on:"
-msgstr ""
+msgstr "Muudetud:"
 
 #: ../src/extract_dialog.c
 msgid "Multi-Extract"
-msgstr ""
+msgstr "Paki lahti mitu faili"
 
 #: ../src/interface.c
 msgid "Name:"
-msgstr ""
+msgstr "Nimi:"
 
 #: ../src/interface.c
 msgid "New"
-msgstr ""
+msgstr "Uus"
 
 #: ../src/window.c
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
 #: ../src/add_dialog.c
 msgid "No compression"
-msgstr ""
+msgstr "Ilma tihendamiseta"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
-msgstr ""
+msgstr "Nullsoft Installer"
 
 #: ../src/interface.c
 msgid "Number of files:"
-msgstr ""
+msgstr "Failide arv:"
 
 #: ../src/window.c
 #, c-format
 msgid "Number of files: "
-msgstr ""
+msgstr "Failide arv: "
 
 #: ../src/zip.c
 msgid "OS"
-msgstr ""
+msgstr "Operatsioonisüsteem"
 
 #: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
 msgid "Occupancy"
-msgstr ""
+msgstr "Täituvus"
 
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
-msgstr ""
+msgstr "Vaid arhiivifailid"
 
 #: ../src/interface.c
 msgid "Open"
-msgstr ""
+msgstr "Ava"
 
 #: ../src/open-with-dlg.c
 #, c-format
 msgid "Open <i>%s</i> with:"
-msgstr ""
+msgstr "Ava <i>%s</i> rakendusega:"
 
 #: ../src/interface.c
 msgid "Open With"
-msgstr ""
+msgstr "Ava rakendusega"
 
 #: ../src/window.c
 msgid "Open a text file"
-msgstr ""
+msgstr "Ava tekstifail"
 
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
-msgstr ""
+msgstr "Ava arhiivifail"
 
 #: ../src/pref_dialog.c
 msgid "Open archive files with:"
-msgstr ""
+msgstr "Ava arhiivifailid rakendusega:"
 
 #: ../src/open-with-dlg.c
 msgid "Open file"
-msgstr ""
+msgstr "Ava fail"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
-msgstr ""
+msgstr "Ava pildifailid rakendusega:"
 
 #: ../src/pref_dialog.c
 msgid "Open text files with:"
-msgstr ""
+msgstr "Ava tekstifailid rakendusega:"
 
 #: ../src/open-with-dlg.c
 msgid "Open the selected files"
-msgstr ""
+msgstr "Ava valitud failid"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."
-msgstr ""
+msgstr "Avame arhiivi, palun oota..."
 
 #: ../src/interface.c
 msgid "Opening archive:"
-msgstr ""
+msgstr "Avame arhiivi:"
 
 #: ../src/window.c
 msgid "Operation aborted!"
-msgstr ""
+msgstr "Tegevus on katkestatud!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Options"
-msgstr ""
+msgstr "Valikud"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Original Size"
-msgstr ""
+msgstr "Algne suurus"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
-msgstr ""
+msgstr "Kirjuta olemasolevad failid üle"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
-msgstr ""
+msgstr "Omanik"
 
 #: ../src/squashfs.c ../src/tar.c
 msgid "Owner/Group"
-msgstr ""
+msgstr "Omanik/grupp"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Password:"
-msgstr ""
+msgstr "Salasõna:"
 
 #: ../src/interface.c
 msgid "Paste"
-msgstr ""
+msgstr "Aseta"
 
 #: ../src/extract_dialog.c
 msgid "Path"
-msgstr ""
+msgstr "Asukoht"
 
 #: ../src/interface.c
 msgid "Path:"
-msgstr ""
+msgstr "Asukoht:"
 
 #: ../src/interface.c
 msgid "Pattern:"
-msgstr ""
+msgstr "Muster:"
 
 #: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/squashfs.c ../src/tar.c ../src/zip.c ../src/zpaq.c
 msgid "Permissions"
-msgstr ""
+msgstr "Õigused"
 
 #: ../src/window.c
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr ""
+"Nägemiseks palun vali eelistus „Salvesta arhiveerimisrakenduse väljund“."
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Please enter it!"
-msgstr ""
+msgstr "Palun sisesta see!"
 
 #: ../src/extract_dialog.c
 msgid "Please enter the extraction path."
-msgstr ""
+msgstr "Palun sisesta asukoht lahtipakkimiseks."
 
 #: ../src/extract_dialog.c
 msgid "Please enter the password."
-msgstr ""
+msgstr "Palun sisesta salasõna."
 
 #: ../src/extract_dialog.c
 msgid "Please fill the \"Extract to\" field!"
-msgstr ""
+msgstr "Palun täida „Paki asukohta“ väli!"
 
 #: ../src/window.c
 msgid "Please go to Preferences->Advanced and set it."
-msgstr ""
+msgstr "Palun ava „Eelistused“ -> „Lisaseadistused“ ja märgi see valik."
 
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
-msgstr ""
+msgstr "Palun teata vigadest siin: <%s>."
 
 #: ../src/window.c
 msgid "Please select the 7zCon.sfx module"
-msgstr ""
+msgstr "Palun vali 7zCon.sfx moodul"
 
 #: ../src/extract_dialog.c
 msgid "Please select the archives you want to extract"
-msgstr ""
+msgstr "Palun vali lahtipakitavad arhiivifailid"
 
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
-msgstr ""
+msgstr "Palun vali sihtkaust"
 
 #: ../src/window.c
 msgid "Please wait..."
-msgstr ""
+msgstr "Palun oota..."
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c
 msgid "Points to"
-msgstr ""
+msgstr "Viitab asukohta"
 
 #: ../src/pref_dialog.c
 msgid "Prefer unzip for zip files (requires restart)"
-msgstr ""
+msgstr "Eelista zip-failide jaoks unzip tarvikut (eeldab uuesti käivitamist)"
 
 #: ../src/pref_dialog.c
 msgid "Preferences"
-msgstr ""
+msgstr "Eelistused"
 
 #: ../src/pref_dialog.c
 msgid "Preferred archive format:"
-msgstr ""
+msgstr "Eelistatud arhiivifaili vorming:"
 
 #: ../src/pref_dialog.c
 msgid "Preferred extraction directory:"
-msgstr ""
+msgstr "Eelistatud kaust lahtipakkimiseks:"
 
 #: ../src/pref_dialog.c
 msgid "Preferred temp directory:"
-msgstr ""
+msgstr "Eelistatud ajutine töökaust:"
 
 #: ../src/window.c
 msgid "Print the archive content as HTML"
-msgstr ""
+msgstr "Väljasta arhiivifaili sisu HTML-vormingus"
 
 #: ../src/window.c
 msgid "Print the archive content as text"
-msgstr ""
+msgstr "Väljasta arhiivifaili sisu tekstivormingus"
 
 #: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
-msgstr ""
+msgstr "Suhtarv"
 
 #: ../src/interface.c
 msgid "Re_name"
-msgstr ""
+msgstr "Muuda _nime"
 
 #: ../src/window.c
 msgid "Reloading archive, please wait..."
-msgstr ""
+msgstr "Laadime arhiivifaili uuesti, palun oota..."
 
 #: ../src/interface.c
 msgid "Rename"
-msgstr ""
+msgstr "Muuda nime"
 
 #: ../src/interface.c
 msgid "Replace"
-msgstr ""
+msgstr "Asenda"
 
 #: ../src/interface.c
 msgid "Root"
-msgstr ""
+msgstr "Juurkaust"
 
 #: ../src/window.c
 msgid "Save the archive as"
-msgstr ""
+msgstr "Salvesta arhiivifail kui"
 
 #: ../src/window.c
 msgid "Save the self-extracting archive as"
-msgstr ""
+msgstr "Salvesta ise lahtipakkiv arhiivifail kui"
 
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
-msgstr ""
+msgstr "Salvesta akna mõõdud ja asukoht"
 
 #: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
 msgid "Saving"
-msgstr ""
+msgstr "Salvestame"
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
+msgstr "Uue arhiivifaili loomiseks vali „Uus“ või olemasoleva avamiseks „Ava“"
 
 #: ../src/interface.c
 msgid "Select _all"
-msgstr ""
+msgstr "Vali _kõik"
 
 #: ../src/interface.c
 msgid "Select _by pattern"
-msgstr ""
+msgstr "Vali _mustri alusel"
 
 #: ../src/open-with-dlg.c
 msgid "Select an application"
-msgstr ""
+msgstr "Vali rakendus"
 
 #: ../src/interface.c
 msgid "Select by Pattern"
-msgstr ""
+msgstr "Vali mustri alusel"
 
 #: ../src/extract_dialog.c
 msgid "Selected files"
-msgstr ""
+msgstr "Valitud failid"
 
 #: ../src/add_dialog.c
 msgid "Selection"
-msgstr ""
+msgstr "Valik"
 
 #: ../src/pref_dialog.c
 msgid "Show archive comment"
-msgstr ""
+msgstr "Näita arhiivifaili kommentaari"
 
 #: ../src/pref_dialog.c
 msgid "Show archive location bar"
-msgstr ""
+msgstr "Näita arhiivi asukohariba"
 
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
-msgstr ""
+msgstr "Näita arhiivipuu külgpaani"
 
 #: ../src/window.c
 msgid "Show command"
-msgstr ""
+msgstr "Näita käsku"
 
 #: ../src/main.c
 msgid ""
 "Show found command-line programs to be\n"
 "                                     used and exit"
 msgstr ""
+"Näita võimalikke käsureavõtmeid\n"
+"                                     ja välju"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
-msgstr ""
+msgstr "Näita tööriistariba"
 
 #: ../src/main.c
 msgid "Show version and exit\n"
-msgstr ""
+msgstr "Näita rakenduse versiooni ja välju\n"
 
 #: ../src/extract_dialog.c
 msgid "Size"
-msgstr ""
+msgstr "Suurus"
 
 #: ../src/window.c
 msgid "Size:"
-msgstr ""
+msgstr "Suurus:"
 
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
-msgstr ""
+msgstr "Tekkisid mõned vead:"
 
 #: ../src/extract_dialog.c ../src/interface.c ../src/window.c
 msgid "Sorry, I could not perform the operation!"
-msgstr ""
+msgstr "Vabandust, seda toimingut ei õnnestunud teha!"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
-msgstr ""
+msgstr "Vabandust, see arhiivivorming pole toetatud:"
 
 #: ../src/pref_dialog.c
 msgid "Sort archive by filename"
-msgstr ""
+msgstr "Järjesta arhiiv failinime alusel"
 
 #: ../src/interface.c
 msgid "Stop"
-msgstr ""
+msgstr "Peata"
 
 #: ../src/pref_dialog.c
 msgid "Store archiver output"
-msgstr ""
+msgstr "Salvesta arhiveerimisrakenduse väljund"
 
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
-msgstr ""
+msgstr "Andmevood/plokid/täitemärgid"
 
 #: ../src/window.c
 msgid "Test result:"
-msgstr ""
+msgstr "Testtulemus:"
 
 #: ../src/window.c
 msgid "Testing archive, please wait..."
-msgstr ""
+msgstr "Testime arhiivifaili, palun oota..."
 
 #: ../src/new_dialog.c
 #, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr ""
+msgstr "Arhiivifail nimega „%s“ on juba olemas!"
 
 #: ../src/window.c
 msgid "The archive is okay."
-msgstr ""
+msgstr "Arhiivifail on korras."
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
 "directory."
-msgstr ""
+msgstr "Arhiivifaili kogu kaustapuu luuakse ka lahtipakkimise sihtkausta."
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
 "the extraction directory."
 msgstr ""
+"Arhiivifaili kaustapuu jääb loomata ning lahtipakitavad failid jäävad "
+"lahtipakkimiseks mõeldud kausta."
 
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
 "but with the parent directories of the selected files removed."
 msgstr ""
+"Arhiivifaili kogu kaustapuu luuakse ka lahtipakkimise sihtkausta, aga "
+"valitud failide ülemkaustad eemaldatakse."
 
 #: ../src/add_dialog.c ../src/main.c
 msgid ""
 "The archiver doesn't support compression of directories or multiple files!"
-msgstr ""
+msgstr "Arhiveerimisrakendus ei toeta kaustade ega mitmete failide pakkimist!"
 
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
-msgstr ""
+msgstr "Arhiveerimisrakendus ei toeta seda funktsionaalsust!"
 
 #: ../src/gzip_et_al.c
 msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
+"Arhiveerimisrakendusel puudub vajalik tugi salasõnaga kaitstud faili "
+"dekrüptimiseks!"
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive."
-msgstr ""
+msgstr "Failinime veerg järjestub peale arhiivifaili laadimist."
 
 #: ../src/pref_dialog.c
 msgid ""
 "The incremental search is also performed within filenames rather than just "
 "at the beginning of them."
 msgstr ""
+"Teeme järkjärgulise otsingu ka failinimede sees, mitte ainult nende alguses."
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
-msgstr ""
+msgstr "Õige arhiivirakendus „%s“ jaoks pole paigaldatud!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
-msgstr ""
+msgstr "See arhiivifail on krüptitud!"
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
+"See on Xarchiveri oleku märgutuli. Kui ta vilgub, siis Xarchiver on tööga "
+"hõivatud."
 
 #: ../src/pref_dialog.c
 msgid ""
 "This option includes the subdirectories when you add files from the "
 "clipboard or with drag-and-drop."
 msgstr ""
+"See eelistus tagab failide lõikelaualt ja lohistades lisades alamkaustade "
+"kaasamise."
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -1078,291 +1118,305 @@ msgid ""
 "that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk."
 msgstr ""
+"See eelistus tagab peaaegu sama tulemuse, kui andmevärskenduse valik - pakib "
+"lahti vaid need failid, mis andmekandjal on juba olemas ning mis on uuemad "
+"andmekandjal leiduvatest koopiatest, aga lisab ka need failid, mida "
+"andmekandjal veel pole."
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will add any new files and update any files which are already in "
 "the archive but older there."
 msgstr ""
+"See eelistus uuendab neid faile, mis arhiivis on juba olemas (aga on vanemad)"
+" ja täiendavalt lisab uued failid."
 
 #: ../src/add_dialog.c
 msgid ""
 "This option will only add files which are already in the archive but older "
 "there; unlike the update option it will not add any new files."
 msgstr ""
+"See eelistus vaid uuendab neid faile, mis arhiivis on juba olemas (aga on "
+"vanemad), kuid ei lisa täiendavalt uusi faile."
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c ../src/zpaq.c
 msgid "Time"
-msgstr ""
+msgstr "Aeg"
 
 #: ../src/interface.c
 msgid "Total Progress:"
-msgstr ""
+msgstr "Edenemine kokku:"
 
 #: ../src/extract_dialog.c
 msgid "Touch files"
-msgstr ""
+msgstr "Puuduta faile (ajatempli kontekstis)"
 
 #: ../src/interface.c
 msgid "Type:"
-msgstr ""
+msgstr "Tüüp:"
 
 #: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
-msgstr ""
+msgstr "UID/GID"
 
 #: ../src/interface.c
 msgid "Uncompressed size:"
-msgstr ""
+msgstr "Suurus lahtipakkimata kujul:"
 
 #: ../src/window.c
 #, c-format
 msgid "Uncompressed size: "
-msgstr ""
+msgstr "Suurus lahtipakkimata kujul: "
 
 #: ../src/rpm.c
 msgid "Unknown compression type!"
-msgstr ""
+msgstr "Tundmatu pakkimisalgoritm!"
 
 #: ../src/interface.c
 msgid "Uns_ort"
-msgstr ""
+msgstr "Eemalda _järjestamine"
 
 #: ../src/7zip.c
 msgid "Unsupported binary format!"
-msgstr ""
+msgstr "Mittetoetatud binaarne vorming!"
 
 #: ../src/interface.c
 msgid "Up"
-msgstr ""
+msgstr "Üles"
 
 #: ../src/extract_dialog.c
 msgid "Update existing files"
-msgstr ""
+msgstr "Uuenda olemasolevaid faile"
 
 #: ../src/add_dialog.c
 msgid "Update existing files and add new ones"
-msgstr ""
+msgstr "Uuenda olemasolevaid faile ja lisa uusi"
 
 #: ../src/open-with-dlg.c
 msgid "Use a custom command:"
-msgstr ""
+msgstr "Kasuta enda lisatud käsku:"
 
 #: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
-msgstr ""
+msgstr "Versioon"
 
 #: ../src/interface.c
 msgid "View"
-msgstr ""
+msgstr "Vaata"
 
 #: ../src/pref_dialog.c
 msgid "Web browser to use:"
-msgstr ""
+msgstr "Kasutatav veebibrauser:"
 
 #: ../src/extract_dialog.c
 msgid ""
 "When this option is used, the modification times of the files will be the "
 "times of extraction instead of the times recorded in the archive."
 msgstr ""
+"Selle eelistuse valimisel failide muutmise ajatempliks jääb lahtipakkimise "
+"ajahetk, mitte aga see, mis arhiivifailis kirjas on."
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
-msgstr ""
+msgstr "Failides ei tohi olla metamärke/erisümboleid!"
 
 #: ../src/pref_dialog.c
 msgid "Window"
-msgstr ""
+msgstr "Aken"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "With full path"
-msgstr ""
+msgstr "Terviklike kaustadega"
 
 #: ../src/extract_dialog.c
 msgid "Without any path"
-msgstr ""
+msgstr "Ilma kaustadeta"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Without parent path"
-msgstr ""
+msgstr "Ilma ülemkaustadeta"
 
 #: ../src/window.c
 msgid "Yes"
-msgstr ""
+msgstr "Jah"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
-msgstr ""
+msgstr "Sa oled kustutamas arhiivist faile."
 
 #: ../src/window.c
 msgid ""
 "You can drop either archives to open or files to add. It is not possible to "
 "do both at the same time."
 msgstr ""
+"Sa saad lohistada faile kas avamiseks või lisamiseks. Mõlemat korraga teha "
+"ei saa."
 
 #: ../src/interface.c ../src/window.c
 msgid "You can't add content to this archive type!"
-msgstr ""
+msgstr "Sellist tüüpi arhiivifaili sisu ei saa lisada!"
 
 #: ../src/window.c
 msgid "You didn't set which browser to use!"
-msgstr ""
+msgstr "Sa pole valinud, mis brauserit tahaksid kasutada!"
 
 #: ../src/window.c
 msgid "You didn't set which program to use for opening this file!"
-msgstr ""
+msgstr "Sa pole valinud, mis programmi tahaksid selle faili avamiseks kasutada!"
 
 #: ../src/extract_dialog.c ../src/window.c
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
-msgstr ""
+msgstr "Sinu õigused pole piisavad failide lahtipakkimiseks kausta „%s“."
 
 #: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
-msgstr ""
+msgstr "Sa pole ühtegi neist lisanud!"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "You haven't selected any files to add!"
-msgstr ""
+msgstr "Sa pole lisamiseks valinud ühtegi faili!"
 
 #: ../src/main.c
 msgid "You missed the archive name!"
-msgstr ""
+msgstr "Sa oled arhiivifaili nime unustanud!"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
-msgstr ""
+msgstr "Salasõna on puudu!"
 
 #: ../src/extract_dialog.c
 msgid "You missed where to extract the files!"
-msgstr ""
+msgstr "Sa pole märkinud, kuhu tahad faile lahti pakkida!"
 
 #: ../src/main.c
 msgid "[ARCHIVE]"
-msgstr ""
+msgstr "[ARHIIV]"
 
 #: ../src/add_dialog.c
 msgid "_Add"
-msgstr ""
+msgstr "_Lisa"
 
 #: ../src/interface.c
 msgid "_Archive"
-msgstr ""
+msgstr "_Arhiivifail"
 
 #: ../src/interface.c
 msgid "_Contents"
-msgstr ""
+msgstr "_Sisu"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "_Extract"
-msgstr ""
+msgstr "Paki _lahti"
 
 #: ../src/interface.c
 msgid "_HTML file"
-msgstr ""
+msgstr "_HTML-fail"
 
 #: ../src/interface.c
 msgid "_Help"
-msgstr ""
+msgstr "_Abiteave"
 
 #: ../src/interface.c
 msgid "_List as"
-msgstr ""
+msgstr "_Loetle kui"
 
 #: ../src/interface.c
 msgid "_Multi-Extract"
-msgstr ""
+msgstr "Paki lahti _mitu faili"
 
 #: ../src/interface.c
 msgid "_Password:"
-msgstr ""
+msgstr "_Salasõna:"
 
 #: ../src/interface.c
 msgid "_Preferences"
-msgstr ""
+msgstr "_Eelistused"
 
 #: ../src/interface.c
 msgid "_Properties"
-msgstr ""
+msgstr "_Omadused"
 
 #: ../src/interface.c
 msgid "_Select"
-msgstr ""
+msgstr "_Vali"
 
 #: ../src/interface.c
 msgid "_Test"
-msgstr ""
+msgstr "_Testi"
 
 #: ../src/interface.c
 msgid "_Text file"
-msgstr ""
+msgstr "_Tekstifail"
 
 #: ../src/window.c
 msgid "and"
-msgstr ""
+msgstr "ja"
 
 #: ../xarchiver.desktop.in.h
 msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
 msgstr ""
+"archive;compress;decompress;extract;pack;uncompress;unpack;pakkimine;lahtipakkimine;arhiiv;arhiveerija;pakkimisrakendus;pakkimisprogramm;pakkija;"
+""
 
 #: ../src/add_dialog.c
 msgid "best"
-msgstr ""
+msgstr "parim"
 
 #: ../src/pref_dialog.c
 msgid "choose..."
-msgstr ""
+msgstr "vali..."
 
 #: ../src/main.c
 msgid "destination"
-msgstr ""
+msgstr "sihtkaust või -fail"
 
 #: ../src/interface.c
 msgid "example: *.txt; ac*"
-msgstr ""
+msgstr "näiteks: *.txt; ac*"
 
 #: ../src/main.c
 msgid "file1 ... fileN"
-msgstr ""
+msgstr "fail1 ... failN"
 
 #: ../src/pref_dialog.c
 msgid "large"
-msgstr ""
+msgstr "suur"
 
 #: ../src/add_dialog.c
 msgid "least"
-msgstr ""
+msgstr "väikseim"
 
 #: ../src/pref_dialog.c
 msgid "medium"
-msgstr ""
+msgstr "keskmine"
 
 #: ../src/window.c
 msgid "selected"
-msgstr ""
+msgstr "valitud"
 
 #: ../src/pref_dialog.c
 msgid "small"
-msgstr ""
+msgstr "väike"
 
 #: ../src/pref_dialog.c
 msgid "small/medium"
-msgstr ""
+msgstr "väike/keskmine"
 
 #. Do not translate this string.
 #. Instead, add your name here if you like.
 #. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
-msgstr ""
+msgstr "Priit Jõerüüt 2025"
 
 #: ../src/pref_dialog.c
 msgid "very large"
-msgstr ""
+msgstr "väga suur"
 
 #: ../src/main.c
 #, c-format
@@ -1370,3 +1424,5 @@ msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
+"xarchiver: %s\n"
+"Kõikide käsureavõtmete nägemiseks proovi xarchiver --help .\n"
