@@ -77,6 +77,7 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/vnd.android.package-archive") == 0 ||
 	         strcmp(mime,"application/vnd.appimage") == 0 ||
 	         strcmp(mime,"application/vnd.debian.binary-package") == 0 ||
+	         strcmp(mime,"application/vnd.efi.iso") == 0 ||
 	         strcmp(mime,"application/vnd.ms-cab-compressed") == 0 ||
 	         strcmp(mime,"application/vnd.ms-htmlhelp") == 0 ||
 	         strcmp(mime,"application/vnd.openofficeorg.extension") == 0 ||
