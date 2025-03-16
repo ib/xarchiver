@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2009-09-02 13:03+0100\n"
-"Last-Translator: astur <malditoastur@gmail.com>\n"
-"Language-Team: Asturian <alministradores@softastur.org>\n"
+"PO-Revision-Date: 2025-03-16 15:32+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Asturian <https://hosted.weblate.org/projects/xarchiver/"
+"translations/ast/>\n"
 "Language: ast\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -24,7 +26,7 @@ msgstr ""
 #: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr "¡\"%s\" yá ta abiertu!"
+msgstr "«%s» yá ta abiertu."
 
 #: ../src/window.c
 #, c-format
@@ -34,12 +36,11 @@ msgstr[0] "%d direutoriu %s (%s)"
 msgstr[1] "%d direutorios %s (%s)"
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Add files"
+#, c-format
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] "Amestar ficheros"
-msgstr[1] "Amestar ficheros"
+msgstr[0] "%d ficheru"
+msgstr[1] "%d ficheros"
 
 #: ../src/window.c
 #, c-format
@@ -98,9 +99,8 @@ msgid "Actions"
 msgstr "Aiciones"
 
 #: ../src/interface.c
-#, fuzzy
 msgid "Add"
-msgstr "_Amestar"
+msgstr "Amestar"
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Add files"
@@ -172,8 +172,7 @@ msgid "Archive _comment"
 msgstr "Comentariu d'arch_ivu"
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Archive contents:\n"
+#, c-format
 msgid "Archive content:\n"
 msgstr "Conteníu del ficheru:\n"
 
@@ -250,10 +249,8 @@ msgid "Can't create a new archive:"
 msgstr "Nun puede criase un ficheru nuevu:"
 
 #: ../src/extract_dialog.c ../src/main.c
-#, fuzzy
-#| msgid "Can't create temporary directory:"
 msgid "Can't create directory!"
-msgstr "Nun puede criase un direutoriu temporal:"
+msgstr "Nun puede criase'l direutoriu."
 
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
@@ -278,18 +275,16 @@ msgstr "Nun pueden multi-estrayese ficheros:"
 #: ../src/rpm.c
 #, c-format
 msgid "Can't open RPM file \"%s\":"
-msgstr "Nun puede abrise'l ficheru RPM \"%s\":"
+msgstr "Nun puede abrise'l ficheru RPM «%s»:"
 
 #: ../src/window.c
 #, c-format
 msgid "Can't open file \"%s\":"
-msgstr "Nun puede abrise'l ficheru \"%s\":"
+msgstr "Nun puede abrise'l ficheru «%s»:"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Can't add files to the archive:"
 msgid "Can't open the archive!"
-msgstr "Nun pueden amestase ficheros al ficheru comprimíu:"
+msgstr "Nun puede abrise l'archivu."
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -344,10 +339,8 @@ msgid "Cmd-line outp_ut"
 msgstr "Salida de la _llinia de comandos"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Comment"
 msgid "Command"
-msgstr "Comentariu"
+msgstr "Orde"
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -440,10 +433,8 @@ msgid "Date"
 msgstr "Data"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Use a custom command:"
 msgid "Default custom command:"
-msgstr "Usar un comandu personalizáu:"
+msgstr "Orde personalizada predeterminada:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -464,10 +455,8 @@ msgid "Dese_lect all"
 msgstr "Dese_leicionar too"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "destination archive"
 msgid "Destination"
-msgstr "ficheru de destín"
+msgstr "Destín"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -564,10 +553,8 @@ msgstr ""
 "nuevos que les copies en discu."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract to dir \"Archive Name\""
 msgid "Extract to directories with archive names"
-msgstr "Estrayer al direutoriu \"Nome del ficheru\""
+msgstr "Estrayer en direutorios con nomes d'archivos"
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
@@ -763,10 +750,8 @@ msgid "Open archive files with:"
 msgstr "Abrir imáxenes con:"
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Open a text file"
 msgid "Open file"
-msgstr "Abrir un ficheru de testu"
+msgstr "Abrir un ficheru"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -803,10 +788,8 @@ msgstr "Opciones"
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c ../src/zpaq.c
-#, fuzzy
-#| msgid "Original"
 msgid "Original Size"
-msgstr "Orixinal"
+msgstr "Tamañu orixinal"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
@@ -818,7 +801,7 @@ msgstr "Propietariu"
 
 #: ../src/squashfs.c ../src/tar.c
 msgid "Owner/Group"
-msgstr "Propietariu/Grupu"
+msgstr "Propietariu/grupu"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Password:"
@@ -1014,10 +997,8 @@ msgid "Show archive tree sidebar"
 msgstr "Amosar la barra llateral del árbol de ficheru"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Show archive comment"
 msgid "Show command"
-msgstr "Amosar comentariu de ficheru"
+msgstr "Amosar orde"
 
 #: ../src/main.c
 #, fuzzy
@@ -1084,7 +1065,7 @@ msgstr "Comprobando ficheru. Por favor, espera..."
 #: ../src/new_dialog.c
 #, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr "¡El ficheru \"%s\" yá esiste!"
+msgstr "El ficheru «%s» yá esiste."
 
 #: ../src/window.c
 #, fuzzy
@@ -1275,7 +1256,7 @@ msgstr "Anovar ficheros esistentes"
 
 #: ../src/open-with-dlg.c
 msgid "Use a custom command:"
-msgstr "Usar un comandu personalizáu:"
+msgstr "Usar una orde personalizada:"
 
 #: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
@@ -1360,7 +1341,7 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "Nun tienes los permisos necesarios pa estrayer los ficheros nel direutoriu "
-"\"%s\"."
+"«%s»."
 
 #: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
@@ -1444,7 +1425,7 @@ msgstr "Fic_heru de testu"
 
 #: ../src/window.c
 msgid "and"
-msgstr ""
+msgstr "y"
 
 #: ../xarchiver.desktop.in.h
 msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
@@ -1459,10 +1440,8 @@ msgid "choose..."
 msgstr "escoyer..."
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "destination archive"
 msgid "destination"
-msgstr "ficheru de destín"
+msgstr "destín"
 
 #: ../src/interface.c
 msgid "example: *.txt; ac*"
@@ -1506,10 +1485,8 @@ msgid "translator-credits"
 msgstr "Softastur www.softastur.org"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
 msgid "very large"
-msgstr "grande"
+msgstr "pergrande"
 
 #: ../src/main.c
 #, c-format
