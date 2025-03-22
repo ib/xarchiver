@@ -32,12 +32,12 @@ do                                                           \
 {                                                            \
   unsigned int part = 1;                                     \
                                                              \
-  item = NULL;                                               \
+  item = line;                                               \
                                                              \
   do                                                         \
   {                                                          \
     while (*line && (*line == ' ' || *line == '\t')) line++; \
-    if (!item) item = line;                                  \
+    if (part == 1) item = line;                              \
     while (*line && (cond)) line++;                          \
   }                                                          \
   while (++part <= parts);                                   \
