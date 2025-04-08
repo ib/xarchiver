@@ -2257,8 +2257,15 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		GtkTreeSelection *selection;
 		GSList *names = NULL;
 
-		if (archive->has_password && !xa_check_password(archive))
-			goto done;
+		if (archive->has_password)
+		{
+			text_uri_list = g_strdup("");   // block drag-data-get
+
+			if (!xa_check_password(archive))
+				goto done;
+
+			g_free(text_uri_list);
+		}
 
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 		gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &names);
