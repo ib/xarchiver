@@ -2267,15 +2267,15 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 			g_free(text_uri_list);
 		}
 
-		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
-		gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &names);
-
 		if (!xds)
 		{
 			/* that's all we can report for now */
 			text_uri_list = g_filename_to_uri(extraction_dir, NULL, NULL);
 			gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) text_uri_list, strlen(text_uri_list));
 		}
+
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
+		gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &names);
 
 		archive->do_full_path = TRUE;
 		archive->do_overwrite = FALSE;
