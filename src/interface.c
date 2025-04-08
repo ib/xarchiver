@@ -1728,7 +1728,8 @@ void xa_show_progress_bar (XArchive *archive)
 	pixbuf = gtk_icon_theme_load_icon(icon_theme, "gnome-mime-application-zip", 40, (GtkIconLookupFlags) 0, NULL);
 	if (!pixbuf) pixbuf = gtk_icon_theme_load_icon(icon_theme,"package-x-generic",40,GTK_ICON_LOOKUP_FORCE_SIZE,NULL);
 	icon_pixbuf = gtk_image_new_from_pixbuf(pixbuf);
-	g_object_unref(pixbuf);
+	if (pixbuf)
+		g_object_unref(pixbuf);
 
 	gtk_box_pack_start (GTK_BOX (hbox1),icon_pixbuf,FALSE,FALSE,0);
 	gtk_misc_set_alignment(GTK_MISC(icon_pixbuf), 0, 0);
