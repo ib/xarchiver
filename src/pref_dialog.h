@@ -49,6 +49,7 @@ typedef struct PrefsDialog
 	GtkWidget *preferred_extract_dir;
 	GtkWidget *save_geometry;
 	GtkWidget *allow_sub_dir;
+	GtkWidget *extended_dnd;
 	GtkListStore *liststore;
 	gint main_win_geometry[5];
 	gint extract_win_size[2];
