@@ -2259,12 +2259,14 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 
 		if (archive->has_password)
 		{
-			text_uri_list = g_strdup("");   // block drag-data-get
+			if (!xds)
+				text_uri_list = g_strdup("");   // block drag-data-get
 
 			if (!xa_check_password(archive))
 				goto done;
 
-			g_free(text_uri_list);
+			if (!xds)
+				g_free(text_uri_list);
 		}
 
 		if (!xds)
