@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2025-03-27 09:12+0000\n"
+"PO-Revision-Date: 2025-04-19 19:16+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/xarchiver/"
 "translations/ta/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -55,15 +55,15 @@ msgstr[0] "%d கோப்பு %s ( %s)"
 msgstr[1] "%d கோப்புகள் %s ( %s)"
 
 #: ../src/add_dialog.c
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "%hu is least compression\n"
 "%hu is default compression\n"
 "%hu is best compression"
 msgstr ""
-"%HU குறைந்த சுருக்கமானது\n"
-" %HU என்பது இயல்புநிலை சுருக்கமாகும்\n"
-" %HU சிறந்த சுருக்கமாகும்"
+"%hu குறைந்த சுருக்கமானது\n"
+"%hu என்பது இயல்புநிலை சுருக்கமாகும்\n"
+"%hu சிறந்த சுருக்கமாகும்"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -94,7 +94,7 @@ msgstr "ஒரு சி.டி.கே+ இலகுரக காப்பக �
 
 #: ../src/interface.c
 msgid "A_ction"
-msgstr "A_ction"
+msgstr "செயல்"
 
 #: ../src/interface.c
 msgid "A_dd"
@@ -404,7 +404,7 @@ msgstr "நகலெடு"
 
 #: ../src/new_dialog.c
 msgid "Cr_eate"
-msgstr "Cr_eate"
+msgstr "உருவாக்கு"
 
 #: ../src/interface.c ../src/new_dialog.c
 msgid "Create a new archive"
