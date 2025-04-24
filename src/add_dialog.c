@@ -331,6 +331,7 @@ void xa_set_add_dialog_options (AddDialog *add_dialog, XArchive *archive)
 	g_free(compression_msg);
 
 	gtk_widget_set_sensitive(add_dialog->password, archive->can_password && !epub);
+	gtk_widget_set_sensitive(add_dialog->password_entry, gtk_widget_get_sensitive(add_dialog->password));
 	gtk_widget_show_all(add_dialog->dialog);
 }
 
