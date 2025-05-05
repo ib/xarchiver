@@ -264,7 +264,7 @@ AddDialog *xa_create_add_dialog ()
 void xa_set_add_dialog_options (AddDialog *add_dialog, XArchive *archive)
 {
 	GTK_COMPAT_TOOLTIPS;
-	gboolean epub, full_path, normal;
+	gboolean epub, full_path, normal, use_password;
 	gchar *compression_msg;
 
 	if (progress)
@@ -331,7 +331,8 @@ void xa_set_add_dialog_options (AddDialog *add_dialog, XArchive *archive)
 	g_free(compression_msg);
 
 	gtk_widget_set_sensitive(add_dialog->password, archive->can_password && !epub);
-	gtk_widget_set_sensitive(add_dialog->password_entry, gtk_widget_get_sensitive(add_dialog->password));
+	use_password = (gtk_widget_get_sensitive(add_dialog->password) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->password)));
+	gtk_widget_set_sensitive(add_dialog->password_entry, use_password);
 	gtk_widget_show_all(add_dialog->dialog);
 }
 
