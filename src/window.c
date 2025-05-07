@@ -63,6 +63,7 @@ XAClipboard XA_Clipboard;
 static const gchar * const XDS_FILENAME = "xds.txt";
 static const gchar * const XDS_STR_XDND_DIRECT_SAVE0 = "XdndDirectSave0";
 static const gchar * const XDS_STR_TEXT_PLAIN = "text/plain";
+static const gchar * const XDS_STR_TEXT_URI_LIST = "text/uri-list";
 
 static gchar *text_uri_list;
 
@@ -2273,7 +2274,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		{
 			/* that's all we can report for now */
 			text_uri_list = g_filename_to_uri(extraction_dir, NULL, NULL);
-			gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) text_uri_list, strlen(text_uri_list));
+			gtk_selection_data_set(data, gdk_atom_intern_static_string(XDS_STR_TEXT_URI_LIST), 8, (guchar *) text_uri_list, strlen(text_uri_list));
 		}
 
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
@@ -2322,7 +2323,7 @@ done:
 		else
 			text_uri_list = g_strdup("");
 
-		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) text_uri_list, strlen(text_uri_list));
+		gtk_selection_data_set(data, gdk_atom_intern_static_string(XDS_STR_TEXT_URI_LIST), 8, (guchar *) text_uri_list, strlen(text_uri_list));
 	}
 
 	g_free(extraction_dir);

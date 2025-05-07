@@ -101,12 +101,14 @@ static gulong changed;
 static const GtkTargetEntry drag_targets[] =
 {
 	{"XdndDirectSave0", 0, TARGET_TYPE_DIRECT_SAVE},
-	{"text/uri-list", 0, TARGET_TYPE_URI_LIST}
+	{"xa-internal/uri-list", 0, TARGET_TYPE_XA_INTERNAL},   // identical to text/uri-list, but necessary
+	{"text/uri-list", 0, TARGET_TYPE_URI_LIST}              // because text/uri-list may be disabled
 };
 
 static const GtkTargetEntry drop_targets[] =
 {
-	{"text/uri-list", 0, 0}
+	{"xa-internal/uri-list", 0, TARGET_TYPE_XA_INTERNAL},
+	{"text/uri-list", 0, TARGET_TYPE_URI_LIST}
 };
 
 static void xa_create_popup_menu ()
@@ -1366,7 +1368,7 @@ void xa_add_page (XArchive *archive)
 	gtk_tree_selection_set_mode(sel,GTK_SELECTION_MULTIPLE);
 	gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(archive->treeview),TRUE);
 
-	gtk_drag_source_set(archive->treeview, GDK_BUTTON1_MASK, drag_targets, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->extended_dnd)) ? G_N_ELEMENTS(drag_targets) : 1, GDK_ACTION_COPY);
+	gtk_drag_source_set(archive->treeview, GDK_BUTTON1_MASK, drag_targets, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->extended_dnd)) ? G_N_ELEMENTS(drag_targets) : 2, GDK_ACTION_COPY);
 	g_signal_connect(sel, "changed", G_CALLBACK(xa_row_selected), archive);
 	g_signal_connect(G_OBJECT(archive->treeview), "drag-begin", G_CALLBACK(xa_treeview_drag_begin), archive);
 	g_signal_connect(G_OBJECT(archive->treeview), "drag-data-get", G_CALLBACK(xa_treeview_drag_data_get), archive);
