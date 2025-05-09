@@ -158,6 +158,7 @@ struct _XArchive
 	/* data */
 	XEntry *root_entry;
 	XEntry *current_entry;
+	GHashTable *entry_table;
 	/* user interface */
 	GtkWidget *page;
 	GtkWidget *treeview;
