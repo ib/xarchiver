@@ -58,6 +58,12 @@
 #include "socket.h"
 #endif
 
+typedef struct
+{
+	XArchive *archive;
+	GSList *names;
+} DragSelection;
+
 XAClipboard XA_Clipboard;
 
 static const gchar * const XDS_FILENAME = "xds.txt";
@@ -2177,6 +2183,24 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	g_free(msg);
 }
 
+/* Note: keep this in sync with xa_concat_selected_filenames() */
+static void xa_concat_dragged_filenames (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, DragSelection *data)
+{
+	XEntry *entry;
+
+	gtk_tree_model_get(model, iter, data->archive->columns - 1, &entry, -1);
+
+	if (entry->is_dir)
+	{
+		if (data->archive->can_recurse[0])
+			data->archive->do_recurse = TRUE;
+		else
+			xa_fill_list_with_recursed_entries(entry->child, &data->names);
+	}
+
+	data->names = g_slist_prepend(data->names, xa_build_full_path_name_from_entry(entry));
+}
+
 void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchive *archive)
 {
 	gtk_drag_source_set_icon_name(widget, archive->child_pid ? "process-stop" : "xarchiver");
@@ -2256,7 +2280,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	else
 	{
 		GtkTreeSelection *selection;
-		GSList *names = NULL;
+		DragSelection ds;
 
 		if (archive->has_password)
 		{
@@ -2278,7 +2302,9 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		}
 
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
-		gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_selected_filenames, &names);
+		ds.archive = archive;
+		ds.names = NULL;
+		gtk_tree_selection_selected_foreach(selection, (GtkTreeSelectionForeachFunc) xa_concat_dragged_filenames, &ds);
 
 		archive->do_full_path = TRUE;
 		archive->do_overwrite = FALSE;
@@ -2289,7 +2315,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 		g_free(archive->extraction_dir);
 		archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
 
-		xa_execute_extract_commands(archive, names, TRUE);
+		xa_execute_extract_commands(archive, ds.names, TRUE);
 
 		if (archive->status == XARCHIVESTATUS_IDLE)   // no error occurred
 			send = "S";
