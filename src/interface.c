@@ -1210,6 +1210,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 
 	total_label = gtk_label_new (NULL);
 	gtk_misc_set_alignment(GTK_MISC(total_label), 0, 0.5);
+	gtk_misc_set_padding(GTK_MISC(total_label), 1, 0);
 	gtk_widget_show (total_label);
 	gtk_container_add (GTK_CONTAINER (total_frame),total_label);
 
@@ -1220,6 +1221,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 
 	selected_label = gtk_label_new (NULL);
 	gtk_misc_set_alignment(GTK_MISC(selected_label), 0, 0.5);
+	gtk_misc_set_padding(GTK_MISC(selected_label), 1, 0);
 	gtk_widget_show (selected_label);
 	gtk_container_add (GTK_CONTAINER (selected_frame),selected_label);
 
