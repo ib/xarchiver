@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2010-04-04 10:58+0530\n"
-"Last-Translator: A S Alam <aalam@users.sf.net>\n"
-"Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2025-05-16 09:34+0000\n"
+"Last-Translator: Mandeep <mandeeps708@gmail.com>\n"
+"Language-Team: Punjabi <https://hosted.weblate.org/projects/xarchiver/"
+"translations/pa/>\n"
 "Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -29,7 +30,7 @@ msgstr ""
 #: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr ""
+msgstr "\"%s\" ਪਹਿਲਾਂ ਹੀ ਖੁੱਲਿਆ ਹੋਇਆ ਹੈ!"
 
 #: ../src/window.c
 #, c-format
@@ -39,12 +40,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Add files"
+#, c-format
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] "ਫਾਇਲਾਂ ਜੋੜ੍ਹੋ"
-msgstr[1] "ਫਾਇਲਾਂ ਜੋੜ੍ਹੋ"
+msgstr[0] "%d ਫਾਇਲ"
+msgstr[1] "%d ਫਾਇਲਾਂ"
 
 #: ../src/window.c
 #, c-format
@@ -100,9 +100,8 @@ msgid "Actions"
 msgstr "ਐਕਸ਼ਨ"
 
 #: ../src/interface.c
-#, fuzzy
 msgid "Add"
-msgstr "ਜੋੜ੍ਹੋ(_A)"
+msgstr "ਜੋੜ੍ਹੋ"
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Add files"
@@ -165,10 +164,9 @@ msgid "Archive _comment"
 msgstr ""
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Archiver output"
+#, c-format
 msgid "Archive content:\n"
-msgstr "ਅਕਾਇਵਰ ਆਉਟਪੁੱਟ"
+msgstr "ਅਕਾਇਵ ਕੰਟੈਂਟ\n"
 
 #: ../src/window.c
 msgid "Archive format is not recognized!"
@@ -193,10 +191,8 @@ msgid "Archive type:"
 msgstr ""
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Archiver output"
 msgid "Archiver executable:"
-msgstr "ਅਕਾਇਵਰ ਆਉਟਪੁੱਟ"
+msgstr "ਆਰਕਾਈਵਰ ਐਕਸੀਕਿਊਟੇਬਲ:"
 
 #: ../src/window.c
 msgid "Archiver output"
@@ -277,10 +273,8 @@ msgid "Can't open file \"%s\":"
 msgstr ""
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Save the archive as"
 msgid "Can't open the archive!"
-msgstr "ਅਕਾਇਵ ਇੰਝ ਸੰਭਾਲੋ"
+msgstr "ਆਰਕਾਈਵ ਨਹੀਂ ਖੁੱਲ੍ਹ ਰਿਹਾ!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -335,10 +329,8 @@ msgid "Cmd-line outp_ut"
 msgstr ""
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Comment"
 msgid "Command"
-msgstr "ਟਿੱਪਣੀ"
+msgstr "ਹੁਕਮ"
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -377,10 +369,8 @@ msgid "Compression"
 msgstr "ਕੰਪਰੈਸ਼ਨ"
 
 #: ../src/gzip_et_al.c
-#, fuzzy
-#| msgid "Compression: "
 msgid "Compression ratio"
-msgstr "ਕੰਪਰੈਸ਼ਨ: "
+msgstr "ਕੰਪਰੈਸ਼ਨ ਰੇਸ਼ੋ"
 
 #: ../src/interface.c
 msgid "Compression ratio:"
@@ -391,10 +381,8 @@ msgid "Confirm deletion of files"
 msgstr ""
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Converting archive, please wait..."
-msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
+msgstr "ਆਰਕਾਈਵ ਤਬਦੀਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ…"
 
 #: ../src/interface.c
 msgid "Copy"
@@ -413,10 +401,8 @@ msgid "Create a solid archive"
 msgstr "ਸਾਲਡ ਅਕਾਇਵ ਬਣਾਓ"
 
 #: ../xarchiver.desktop.in.h
-#, fuzzy
-#| msgid "Create a solid archive"
 msgid "Create, extract and modify archives"
-msgstr "ਸਾਲਡ ਅਕਾਇਵ ਬਣਾਓ"
+msgstr "ਆਰਕਾਈਵ ਬਣਾਓ, ਖੋਲ੍ਹੋ ਜਾਂ ਤਬਦੀਲ ਕਰੋ"
 
 #: ../src/interface.c
 msgid "Cut"
@@ -445,10 +431,8 @@ msgid "Delete files after adding"
 msgstr "ਜੋੜ੍ਹਨ ਬਾਅਦ ਫਾਇਲਾਂ ਹਟਾਓ"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Deleting files from archive, please wait..."
-msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
+msgstr "ਆਰਕਾਈਵ ਵਿੱਚੋਂ ਫਾਇਲਾਂ ਮਿਟਾਈਆਂ ਜਾ ਰਹੀਆਂ ਹਨ, ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ…"
 
 #: ../src/interface.c
 msgid "Dese_lect all"
@@ -549,10 +533,8 @@ msgid "Extract to:"
 msgstr ""
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Store full paths"
 msgid "Extract with full path"
-msgstr "ਪੂਰਾ ਪਾਥ ਸਟੋਰ ਕਰੋ"
+msgstr "ਪੂਰੇ ਪਾਥ ਨਾਲ ਐਕਸਟਰੈਕਟ ਕਰੋ"
 
 #: ../src/interface.c
 #, c-format
@@ -669,10 +651,8 @@ msgid "No"
 msgstr "ਨਹੀਂ"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Compression"
 msgid "No compression"
-msgstr "ਕੰਪਰੈਸ਼ਨ"
+msgstr "ਕੰਪਰੈਸ਼ਨ ਨਹੀਂ"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
@@ -700,9 +680,8 @@ msgid "Only archives"
 msgstr "ਕੇਵਲ ਅਕਾਇਵ"
 
 #: ../src/interface.c
-#, fuzzy
 msgid "Open"
-msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
+msgstr "ਖੋਲ੍ਹੋ"
 
 #: ../src/open-with-dlg.c
 #, c-format
@@ -722,16 +701,12 @@ msgid "Open an archive"
 msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Open archive files with:"
-msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
+msgstr "ਆਰਕਾਈਵ ਫਾਈਲਾਂ ਖੋਲ੍ਹੋ (ਨਾਲ):"
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Open a text file"
 msgid "Open file"
-msgstr "ਟੈਕਸਟ ਫਾਇਲ ਖੋਲ੍ਹੋ"
+msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -742,20 +717,16 @@ msgid "Open text files with:"
 msgstr ""
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Selected files"
 msgid "Open the selected files"
-msgstr "ਚੁਣੀਆਂ ਫਾਇਲਾਂ"
+msgstr "ਚੁਣੀਆਂ ਫਾਇਲਾਂ ਖੋਲ੍ਹੋ"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr ""
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Opening archive:"
-msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
+msgstr "ਅਕਾਇਵ ਖੁੱਲ ਰਿਹਾ ਹੈ:"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -768,10 +739,8 @@ msgstr "ਚੋਣਾਂ"
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c ../src/zpaq.c
-#, fuzzy
-#| msgid "Original"
 msgid "Original Size"
-msgstr "ਅਸਲੀ"
+msgstr "ਅਸਲੀ ਆਕਾਰ"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
@@ -852,10 +821,8 @@ msgid "Please select the destination directory"
 msgstr ""
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Please enter it!"
 msgid "Please wait..."
-msgstr "ਇੱਥੇ ਦਿਓ ਜੀ!"
+msgstr "ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ…"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c
@@ -899,10 +866,8 @@ msgid "Re_name"
 msgstr ""
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Reloading archive, please wait..."
-msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
+msgstr "ਆਰਕਾਈਵ ਰੀਲੋਡ ਹੋ ਰਿਹਾ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ…"
 
 #: ../src/interface.c
 msgid "Rename"
@@ -1040,10 +1005,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr ""
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Save the archive as"
 msgid "The archive is okay."
-msgstr "ਅਕਾਇਵ ਇੰਝ ਸੰਭਾਲੋ"
+msgstr "ਆਰਕਾਈਵ ਠੀਕ ਹੈ।"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -1210,10 +1173,8 @@ msgid "Window"
 msgstr ""
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Store full paths"
 msgid "With full path"
-msgstr "ਪੂਰਾ ਪਾਥ ਸਟੋਰ ਕਰੋ"
+msgstr "ਪੂਰੇ ਪਾਥ ਨਾਲ"
 
 #: ../src/extract_dialog.c
 msgid "Without any path"
