@@ -1192,6 +1192,16 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_show (hbox_sb);
 	gtk_box_pack_end (GTK_BOX (vbox1),hbox_sb,FALSE,TRUE,0);
 
+	green_led = xa_main_window_find_image("xarchiver-green.png", GTK_ICON_SIZE_BUTTON);
+	gtk_widget_show(green_led);
+	gtk_box_pack_start(GTK_BOX(hbox_sb), green_led, FALSE, FALSE, 0);
+	gtk_misc_set_alignment(GTK_MISC(green_led), 1, 1);
+	gtk_widget_set_tooltip_text(green_led, _("This is Xarchiver's LED status. When it's flashing Xarchiver is busy."));
+
+	red_led = xa_main_window_find_image("xarchiver-red.png", GTK_ICON_SIZE_BUTTON);
+	gtk_box_pack_start(GTK_BOX(hbox_sb), red_led, FALSE, FALSE, 0);
+	gtk_misc_set_alignment(GTK_MISC(red_led), 1, 1);
+
 	total_frame = gtk_frame_new (NULL);
 	gtk_widget_show (total_frame);
 	gtk_box_pack_start (GTK_BOX (hbox_sb),total_frame,TRUE,TRUE,0);
@@ -1212,16 +1222,6 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_misc_set_alignment(GTK_MISC(selected_label), 0, 0.5);
 	gtk_widget_show (selected_label);
 	gtk_container_add (GTK_CONTAINER (selected_frame),selected_label);
-
-	green_led = xa_main_window_find_image("xarchiver-green.png", GTK_ICON_SIZE_BUTTON);
-	gtk_widget_show (green_led);
-	gtk_box_pack_start (GTK_BOX (hbox_sb),green_led,FALSE,FALSE,0);
-	gtk_misc_set_alignment (GTK_MISC (green_led),1,1);
-	gtk_widget_set_tooltip_text(green_led, _("This is Xarchiver's LED status. When it's flashing Xarchiver is busy."));
-
-	red_led = xa_main_window_find_image("xarchiver-red.png", GTK_ICON_SIZE_BUTTON);
-	gtk_box_pack_start (GTK_BOX (hbox_sb),red_led,FALSE,FALSE,0);
-	gtk_misc_set_alignment (GTK_MISC (red_led),1,1);
 
 	g_signal_connect(new1, "activate", G_CALLBACK(xa_new_archive), NULL);
 	g_signal_connect(open1, "activate", G_CALLBACK(xa_open_archive), NULL);
