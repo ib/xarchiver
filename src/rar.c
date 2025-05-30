@@ -71,6 +71,7 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_delete = (archiver[archive->type].is_compressor && !read_only);
 	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_password = archiver[archive->type].is_compressor;
+	archive->can_encrypt = archiver[archive->type].is_compressor;
 	archive->can_full_path[0] = TRUE;
 	archive->can_full_path[1] = archiver[archive->type].is_compressor;
 	archive->can_touch = TRUE;
@@ -95,7 +96,7 @@ static gchar *xa_rar_password_str (XArchive *archive)
 	if (archive->password)
 	{
 		escaped = xa_escape_bad_chars(archive->password, ESCAPES);
-		password_str = g_strconcat(" -p", escaped, NULL);
+		password_str = g_strconcat(" -", archive->do_encrypt ? "h" : "", "p", escaped, NULL);
 		g_free(escaped);
 
 		return password_str;
@@ -556,10 +557,12 @@ void xa_rar_add (XArchive *archive, GSList *file_list)
 void xa_rar_delete (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *command;
+	gchar *password_str, *command;
 
 	files = xa_quote_filenames(file_list, NULL, DIR_WITHOUT_SLASH);
-	command = g_strconcat(archiver[archive->type].program[0], " d -idp -y ", archive->path[1], " --", files->str, NULL);
+	password_str = xa_rar_password_str(archive);
+	command = g_strconcat(archiver[archive->type].program[0], " d", password_str, " -idp -y ", archive->path[1], " --", files->str, NULL);
+	g_free(password_str);
 	g_string_free(files,TRUE);
 
 	xa_run_command(archive, command);
