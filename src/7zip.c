@@ -251,6 +251,7 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_delete = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive) && !READ_ONLY);
 	archive->can_sfx = (archive->type == XARCHIVETYPE_7ZIP);
 	archive->can_password = (archive->type == XARCHIVETYPE_7ZIP);
+	archive->can_encrypt = (archive->type == XARCHIVETYPE_7ZIP);
 	archive->can_full_path[0] = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_update[1] = archiver[archive->type].is_compressor;
@@ -271,7 +272,7 @@ static gchar *xa_7zip_password_str (XArchive *archive)
 	if (archive->password)
 	{
 		escaped = xa_escape_bad_chars(archive->password, ESCAPES);
-		password_str = g_strconcat(" -p", escaped, NULL);
+		password_str = g_strconcat(" -p", escaped, archive->do_encrypt ? " -mhe" : "", NULL);
 		g_free(escaped);
 
 		return password_str;
