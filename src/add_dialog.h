@@ -43,6 +43,8 @@ typedef struct AddDialog
 	GtkWidget *uncompressed;
 	GtkWidget *password;
 	GtkWidget *password_entry;
+	GtkWidget *encrypt;
+	gboolean can_encrypt;
 } AddDialog;
 
 AddDialog *xa_create_add_dialog();

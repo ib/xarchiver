@@ -54,9 +54,13 @@ static void password_toggled_cb (GtkToggleButton *button, AddDialog *add_dialog)
 	{
 		gtk_widget_set_sensitive(add_dialog->password_entry, TRUE);
 		gtk_widget_grab_focus(add_dialog->password_entry);
+		gtk_widget_set_sensitive(add_dialog->encrypt, add_dialog->can_encrypt);
 	}
 	else
+	{
 		gtk_widget_set_sensitive(add_dialog->password_entry, FALSE);
+		gtk_widget_set_sensitive(add_dialog->encrypt, FALSE);
+	}
 }
 
 static void toggle_compression (GtkToggleButton *button, AddDialog *add_dialog)
@@ -221,10 +225,13 @@ AddDialog *xa_create_add_dialog ()
 
 	alignment = gtk_alignment_new(0.5, 0.5, 1, 0);
 	gtk_container_add(GTK_CONTAINER(frame), alignment);
-	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 12, 12);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 16, 0, 12, 12);
+
+	table = gtk_table_new(2, 1, FALSE);
+	gtk_container_add(GTK_CONTAINER(alignment), table);
 
 	hbox = gtk_hbox_new(FALSE, 4);
-	gtk_container_add(GTK_CONTAINER(alignment), hbox);
+	gtk_table_attach(GTK_TABLE(table), hbox, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 
 	add_dialog->password = gtk_check_button_new_with_mnemonic(_("Password:"));
 	gtk_box_pack_start(GTK_BOX(hbox), add_dialog->password, FALSE, FALSE, 0);
@@ -236,6 +243,10 @@ AddDialog *xa_create_add_dialog ()
 	gtk_entry_set_visibility(GTK_ENTRY(add_dialog->password_entry), FALSE);
 	gtk_widget_set_sensitive(add_dialog->password_entry, FALSE);
 	gtk_entry_set_activates_default(GTK_ENTRY(add_dialog->password_entry), TRUE);
+
+	add_dialog->encrypt = gtk_check_button_new_with_mnemonic(_("Encrypt filenames"));
+	gtk_table_attach(GTK_TABLE(table), add_dialog->encrypt, 0, 1, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 16);
+	gtk_button_set_focus_on_click(GTK_BUTTON(add_dialog->encrypt), FALSE);
 
 	button = gtk_button_new_from_stock("gtk-cancel");
 	gtk_dialog_add_action_widget(GTK_DIALOG(add_dialog->dialog), button, GTK_RESPONSE_CANCEL);
@@ -333,6 +344,10 @@ void xa_set_add_dialog_options (AddDialog *add_dialog, XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->password, archive->can_password && !epub);
 	use_password = (gtk_widget_get_sensitive(add_dialog->password) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->password)));
 	gtk_widget_set_sensitive(add_dialog->password_entry, use_password);
+	gtk_widget_set_sensitive(add_dialog->encrypt, use_password && archive->can_encrypt);
+
+	add_dialog->can_encrypt = archive->can_encrypt;   // for access in password_toggled_cb()
+
 	gtk_widget_show_all(add_dialog->dialog);
 }
 
@@ -383,6 +398,8 @@ void xa_parse_add_dialog_options (XArchive *archive, AddDialog *add_dialog, GSLi
 					archive->password = NULL;
 				}
 			}
+
+			archive->do_encrypt = (gtk_widget_is_sensitive(add_dialog->encrypt) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->encrypt)));
 
 			done = TRUE;
 			if (gtk_widget_is_sensitive(add_dialog->full_path) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->full_path)))

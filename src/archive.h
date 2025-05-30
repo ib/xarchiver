@@ -194,6 +194,7 @@ struct _XArchive
 	//       can_rename             see macro below: can_extract AND can_delete AND can_add
 	gboolean can_sfx;            // can create a self-extracting archive
 	gboolean can_password;       // can password protect an archive
+	gboolean can_encrypt;        // can encrypt whole archive, incl. metadata
 	gboolean can_full_path[2];   // can carry out activity with or without full path
 	gboolean can_touch;          // can modify timestamp of files on extraction
 	gboolean can_overwrite;      // can overwrite files on extraction
@@ -213,6 +214,7 @@ struct _XArchive
 	gboolean do_recurse;     // extract_func, add_func
 	gboolean do_remove;      // add_func
 	gboolean do_solid;       // add_func
+	gboolean do_encrypt;     // add_func
 	/* child process */
 	guint timeout;
 	gchar *child_dir;   // (free and set NULL after use)
