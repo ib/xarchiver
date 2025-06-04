@@ -129,7 +129,8 @@ static gboolean is_encrypted (XArchive *archive)
 	return result;
 }
 
-gboolean is7zip_mhe (const gchar *filename)
+/* check for header encryption */
+gboolean is_7zip_mhe (const gchar *filename)
 {
 	GIOChannel *file;
 	guint i;
@@ -396,7 +397,7 @@ void xa_7zip_list (XArchive *archive)
 	if (!archive->has_password)
 	{
 		if (archive->type == XARCHIVETYPE_7ZIP)
-			archive->has_password = is7zip_mhe(archive->path[0]);
+			archive->has_password = is_7zip_mhe(archive->path[0]);
 		else
 			archive->has_password = is_encrypted(archive);
 	}
