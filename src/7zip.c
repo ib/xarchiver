@@ -297,6 +297,10 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 
 	if (!data_line)
 	{
+		/* Since 7zip's plain list command does not indicate whether files are
+		 * encrypted, let's assume that 7zAES means all files are encrypted
+		 * (although some may be unencrypted).
+		 */
 		if (strncmp(line, "Method = ", 9) == 0 && strstr(line, "7zAES"))
 		{
 			encrypted = TRUE;
@@ -409,6 +413,10 @@ void xa_7zip_list (XArchive *archive)
 			header_encryption = archive->has_password;
 		}
 		else
+			/* Since 7zip's plain list command does not indicate whether files are
+			 * encrypted, let's assume that, in archives of other types, either all
+			 * or none of the files are encrypted (although some may be unencrypted).
+			 */
 			archive->has_password = is_encrypted(archive);
 	}
 
