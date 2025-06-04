@@ -23,6 +23,7 @@
 #include "interface.h"
 #include "main.h"
 #include "parser.h"
+#include "rar.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -172,14 +173,16 @@ void xa_unar_list (XArchive *archive)
 	gchar *password_str, *command;
 	guint i;
 
-	if (archive->type == XARCHIVETYPE_7ZIP)
+	if (!archive->has_password)
 	{
-		if (!archive->has_password)
+		if (archive->type == XARCHIVETYPE_7ZIP)
 			archive->has_password = is_7zip_mhe(archive->path[0]);
+		else if (archive->type == XARCHIVETYPE_RAR)
+			archive->has_password = is_rar_hp(archive->path[0]);
+	}
 
 		if (archive->has_password && !xa_check_password(archive))
 			return;
-	}
 
 	data_line = FALSE;
 	last_line = FALSE;
