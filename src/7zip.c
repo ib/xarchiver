@@ -413,7 +413,7 @@ void xa_7zip_list (XArchive *archive)
 	}
 
 	if (header_encryption && !xa_check_password(archive))
-			return;
+		return;
 
 	/* a single file compressor archive is no longer new and empty now */
 	archive->can_add = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive) && !READ_ONLY);
