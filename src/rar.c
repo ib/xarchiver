@@ -58,6 +58,62 @@ void xa_rar_check_version (gchar *path)
 	g_free(output);
 }
 
+/* check for header encryption */
+gboolean is_rar_hp (const gchar *filename)
+{
+	GIOChannel *file;
+	gboolean result = FALSE;
+
+	file = g_io_channel_new_file(filename, "r", NULL);
+
+	if (file)
+	{
+		gchar byte[2];
+
+		g_io_channel_set_encoding(file, NULL, NULL);
+
+		/* skip RAR 4 and 5 common signature part */
+		g_io_channel_seek_position(file, 6, G_SEEK_SET, NULL);
+
+		g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
+
+		/* RAR 4 archive */
+		if (*byte == 0)
+		{
+			/* skip header CRC16 */
+			g_io_channel_seek_position(file, 2, G_SEEK_CUR, NULL);
+
+			/* block type */
+			g_io_channel_read_chars(file, &byte[0], sizeof(*byte), NULL, NULL);
+
+			/* block flag */
+			g_io_channel_read_chars(file, &byte[1], sizeof(*byte), NULL, NULL);
+
+			result = (byte[0] == 0x73 && byte[1] & 0x80);
+		}
+		/* RAR 5 archive */
+		else
+		{
+			/* skip last signature byte and header CRC32 */
+			g_io_channel_seek_position(file, 5, G_SEEK_CUR, NULL);
+
+			/* skip vint header size */
+			do
+				g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
+			while (*byte & 0x80);
+
+			/* header type */
+			g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
+
+			result = (*byte == 4);
+		}
+
+		g_io_channel_shutdown(file, FALSE, NULL);
+	}
+
+	return result;
+}
+
 void xa_rar_ask (XArchive *archive)
 {
 	gboolean read_only;
@@ -373,59 +429,14 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 
 void xa_rar_list (XArchive *archive)
 {
-	GIOChannel *file;
 	gchar *password_str, *command;
 	guint i;
 
-	file = g_io_channel_new_file(archive->path[0], "r", NULL);
-
-	if (file)
-	{
-		gchar byte[2];
-
-		g_io_channel_set_encoding(file, NULL, NULL);
-
-		/* skip RAR 4 and 5 common signature part */
-		g_io_channel_seek_position(file, 6, G_SEEK_SET, NULL);
-
-		g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
-
-		/* RAR 4 archive */
-		if (*byte == 0)
-		{
-			/* skip header CRC16 */
-			g_io_channel_seek_position(file, 2, G_SEEK_CUR, NULL);
-
-			/* block type */
-			g_io_channel_read_chars(file, &byte[0], sizeof(*byte), NULL, NULL);
-
-			/* block flag */
-			g_io_channel_read_chars(file, &byte[1], sizeof(*byte), NULL, NULL);
-
-			archive->has_password = (byte[0] == 0x73 && byte[1] & 0x80);
-		}
-		/* RAR 5 archive */
-		else
-		{
-			/* skip last signature byte and header CRC32 */
-			g_io_channel_seek_position(file, 5, G_SEEK_CUR, NULL);
-
-			/* skip vint header size */
-			do
-				g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
-			while (*byte & 0x80);
-
-			/* header type */
-			g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
-
-			archive->has_password = (*byte == 4);
-		}
-
-		g_io_channel_shutdown(file, FALSE, NULL);
+	if (!archive->has_password)
+		archive->has_password = is_rar_hp(archive->path[0]);
 
 		if (archive->has_password && !xa_check_password(archive))
 			return;
-	}
 
 	header_line = FALSE;
 	data_line = FALSE;

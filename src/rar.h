@@ -26,6 +26,7 @@
 
 extern int rar_version;
 
+gboolean is_rar_hp(const gchar *);
 void xa_rar_add(XArchive *, GSList *);
 void xa_rar_ask(XArchive *);
 void xa_rar_check_version(gchar *);
