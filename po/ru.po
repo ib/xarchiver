@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2024-12-12 07:00+0000\n"
-"Last-Translator: Alexander Kurakin <kuraga333@mail.ru>\n"
+"PO-Revision-Date: 2025-06-08 23:01+0000\n"
+"Last-Translator: Yurt Page <yurtpage@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/xarchiver/"
 "translations/ru/>\n"
 "Language: ru\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -1236,7 +1236,6 @@ msgstr ""
 "установлены у этих файлов в архиве."
 
 #: ../src/zpaq.c
-#, fuzzy
 msgid "Will not handle files with wildcard characters!"
 msgstr "Файлы с символами подстановки не обрабатываются!"
 
