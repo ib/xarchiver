@@ -100,8 +100,16 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	dir = (*(char *) item[5] == 'd');
 	link = (*(char *) item[5] == 'l');
 
-	/* uid/gid */
-	NEXT_ITEM(item[6]);
+	/* uid/gid. Only Unix archives have this field, so if we see a run of
+           whitespace it's because it's an archive from another system. */
+	if (!g_str_has_prefix(line, "           "))
+	{
+		NEXT_ITEM(item[6]);
+	}
+	else
+	{
+		item[6] = "";
+	}
 
 	/* size */
 	NEXT_ITEM(item[1]);
