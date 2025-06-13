@@ -1824,7 +1824,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||
 	         memcmp(magic, "\x1f\x9e", 2) == 0)
 		xa.type = XARCHIVETYPE_GZIP;
-	else if ((memcmp(magic + 2, "-lh", 3) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd') && magic[6] == '-') ||
+	else if ((memcmp(magic + 2, "-lh", 3) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd' || magic[5] == 'x') && magic[6] == '-') ||
 	         (memcmp(magic + 2, "-lz", 3) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
 		xa.type = XARCHIVETYPE_LHA;
 	else if (memcmp(magic, "LRZI", 4) == 0)
