@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4.18\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2024-09-26 14:53+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/xarchiver/"
@@ -479,6 +479,12 @@ msgstr ""
 msgid "Edit"
 msgstr "Edycja"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "nazwy plików"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Szyfrowanie:"
@@ -511,6 +517,10 @@ msgstr ""
 "Nawet jeśli do obsługi archiwów ZIP zostaną zainstalowane inne, być może "
 "bardziej zaawansowane programy, tradycyjne \"unzip\" i \"zip\" będą nadal "
 "używane."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1048,6 +1058,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Archiwum \"%s\" już istnieje!"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "Archiwum jest w porządku."
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Archiwum jest w porządku."
 
@@ -1109,6 +1125,15 @@ msgstr "Właściwy archiwizator do \"%s\" nie jest zainstalowany!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "To archiwum jest zaszyfrowane!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1581,9 +1606,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "archiwum"
-
-#~ msgid "filenames"
-#~ msgstr "nazwy plików"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Skompresowane\n"

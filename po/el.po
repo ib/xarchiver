@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver git\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2025-04-24 04:12+0000\n"
 "Last-Translator: GiannosOB <giannos2105@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/xarchiver/"
@@ -476,6 +476,12 @@ msgstr "Αν προχωρήσετε, είναι πιθανό να καταστρ
 msgid "Edit"
 msgstr "Επεξεργασία"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "Ονόματα αρχείων"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Κρυπτογράφηση:"
@@ -508,6 +514,10 @@ msgstr ""
 "Ακόμα και αν εγκατασταθούν άλλα, ίσως πιο ισχυρά προγράμματα για το χειρισμό "
 "αρχείων zip, τα παραδοσιακά «unzip» και «zip» θα εξακολουθήσουν να "
 "χρησιμοποιούνται."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1048,6 +1058,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Το συμπιεσμένο αρχείο \"%s\" υπάρχει ήδη!"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "Η αρχειοθέτηση είναι εντάξει."
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Η αρχειοθέτηση είναι εντάξει."
 
@@ -1111,6 +1127,15 @@ msgstr "Ο κατάλληλος αρχειοθέτης για το «%s» δεν
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Αυτό το συμπιεσμένο αρχείο είναι κρυπτογραφημένο!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1378,8 +1403,8 @@ msgstr "και"
 #: ../xarchiver.desktop.in.h
 msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
 msgstr ""
-"αρχειοθέτηση;συμπίεση;αποσυμπίεση;εξαγωγή;πακετάρισμα;Αποσυμπίεση;ξεπακετάρετε;"
-""
+"αρχειοθέτηση;συμπίεση;αποσυμπίεση;εξαγωγή;πακετάρισμα;Αποσυμπίεση;"
+"ξεπακετάρετε;"
 
 #: ../src/add_dialog.c
 msgid "best"
@@ -1584,9 +1609,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "συμπιεσμένο αρχείο"
-
-#~ msgid "filenames"
-#~ msgstr "Ονόματα αρχείων"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Συμπιεσμένο\n"

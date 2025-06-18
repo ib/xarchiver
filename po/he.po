@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -491,6 +491,12 @@ msgstr "פעולה זאת עלולה להרוס את הארכיון."
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "filenames"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "מוצפן:"
@@ -519,6 +525,10 @@ msgstr "ה_זנת ססמה"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1087,6 +1097,12 @@ msgstr "כבר קיים ארכיון בשם \"%s\"."
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "ארכיון זה מוצפן."
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "ארכיון זה מוצפן."
 
@@ -1153,6 +1169,15 @@ msgstr "תכנית הכיווץ הדרושה אינה מותקנת!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "ארכיון זה מוצפן."
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1643,9 +1668,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "archive"
-
-#~ msgid "filenames"
-#~ msgstr "filenames"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|מכווץ\n"

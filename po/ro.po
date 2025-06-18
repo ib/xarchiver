@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2024-09-27 08:03+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/xarchiver/"
@@ -474,6 +474,12 @@ msgstr "Această acțiune probabil că vă va corupe arhiva!"
 msgid "Edit"
 msgstr "Editare"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "nume fișiere"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Criptare:"
@@ -506,6 +512,10 @@ msgstr ""
 "Chiar dacă sunt instalate alte programe, poate mai puternice, pentru a "
 "gestiona arhivele zip, programele tradiționale «unzip» și «zip» vor fi "
 "utilizate în continuare."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1045,6 +1055,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Arhiva „%s” există deja!"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "Această arhivă este ok!"
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Această arhivă este ok!"
 
@@ -1107,6 +1123,15 @@ msgstr "Arhivatorul adecvat pentru „%s” nu este instalat!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Această arhivă este criptată!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1582,9 +1607,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "arhivă"
-
-#~ msgid "filenames"
-#~ msgstr "nume fișiere"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Comprimat\n"

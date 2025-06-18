@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2017-01-23 23:58+0100\n"
 "Last-Translator: Páder Rezső <rezso@rezso.net>\n"
 "Language-Team: Hungarian\n"
@@ -489,6 +489,12 @@ msgstr "Emiatt valószínűleg meg fog sérülni az archívum"
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "fájlnevek"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Titkosítva:"
@@ -517,6 +523,10 @@ msgstr "_Jelszó megadása"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1091,6 +1101,12 @@ msgstr "Az archívum („%s”) már létezik"
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "Ez az archívum titkosított"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "Ez az archívum titkosított"
 
@@ -1155,6 +1171,15 @@ msgstr "Nincs telepítve a megfelelő archiváló"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Ez az archívum titkosított"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1650,9 +1675,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "archívum"
-
-#~ msgid "filenames"
-#~ msgstr "fájlnevek"
 
 #~ msgid "|Compressed\n"
 #~ msgstr " Tömörítve\n"

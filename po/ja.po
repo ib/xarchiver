@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2024-09-27 22:38+0200\n"
 "Last-Translator: Ingo Brückl <ib@oddnet.de>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -501,6 +501,12 @@ msgstr "これを行うとアーカイブを壊してしまうかもしれませ
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "ファイル名"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "暗号化:"
@@ -529,6 +535,10 @@ msgstr "パスワードを入力(_R)"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1101,6 +1111,12 @@ msgstr "アーカイブ \"%s\" はすでに存在します!"
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "このアーカイブは暗号化されています!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "このアーカイブは暗号化されています!"
 
@@ -1165,6 +1181,15 @@ msgstr "適切なアーカイブツールがインストールされていませ
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "このアーカイブは暗号化されています!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1658,9 +1683,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "アーカイブ"
-
-#~ msgid "filenames"
-#~ msgstr "ファイル名"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|圧縮済\n"

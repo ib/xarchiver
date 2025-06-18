@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -488,6 +488,12 @@ msgstr "එසේ කිරීමෙන් පෙනෙන හැටියට �
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "ගොනු නාම"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "සංකේතාංකනය කල:"
@@ -516,6 +522,10 @@ msgstr "මුරපදය ඇතුල් කරන්න (_r)"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1084,6 +1094,12 @@ msgstr "\"%s\" සංරක්ෂණය දැනටමත් පවතී!"
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "සංරක්ෂණය සංකේතාංකනය කර ඇත!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "සංරක්ෂණය සංකේතාංකනය කර ඇත!"
 
@@ -1148,6 +1164,15 @@ msgstr "උචිත සංරක්ෂකය ස්ථාපනය කර න�
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "සංරක්ෂණය සංකේතාංකනය කර ඇත!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1632,9 +1657,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "සංරක්ෂණය"
-
-#~ msgid "filenames"
-#~ msgstr "ගොනු නාම"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|සම්පීඩිත\n"

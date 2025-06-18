@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2011-05-19 22:12+0200\n"
 "Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian\n"
@@ -489,6 +489,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "imena datoteka"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Kodiranoi:"
@@ -517,6 +523,10 @@ msgstr "Unesi lozin_ku"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1079,6 +1089,12 @@ msgstr "Arhiva \"%s\" već postoji! "
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "Ova arhiva je kodirana!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "Ova arhiva je kodirana!"
 
@@ -1134,6 +1150,15 @@ msgstr "odgovarajući arhiver nije instaliran!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Ova arhiva je kodirana!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1588,9 +1613,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "arhiva"
-
-#~ msgid "filenames"
-#~ msgstr "imena datoteka"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Zbijeno\n"

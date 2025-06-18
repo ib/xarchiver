@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2025-02-10 21:40+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/xarchiver/"
@@ -470,6 +470,12 @@ msgstr "Nii tehes ilmselt muudad arhiivifaili kasutuskõlbmatuks!"
 msgid "Edit"
 msgstr "Muuda"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Encryption"
+msgid "Encrypt filenames"
+msgstr "Krüptimine"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Krüptitud:"
@@ -499,6 +505,10 @@ msgid ""
 msgstr ""
 "Kui ka muid rakendusi, isegi kui nad on tõhusamad, on zip-failide jaoks "
 "paigaldatud, siis kasutame traditsioonilisi „unzip“ ja „zip“ tarvikuid."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1038,6 +1048,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Arhiivifail nimega „%s“ on juba olemas!"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "Arhiivifail on korras."
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Arhiivifail on korras."
 
@@ -1098,6 +1114,15 @@ msgstr "Õige arhiivirakendus „%s“ jaoks pole paigaldatud!"
 msgid "This archive is encrypted!"
 msgstr "See arhiivifail on krüptitud!"
 
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
+
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
@@ -1128,8 +1153,8 @@ msgid ""
 "This option will add any new files and update any files which are already in "
 "the archive but older there."
 msgstr ""
-"See eelistus uuendab neid faile, mis arhiivis on juba olemas (aga on vanemad)"
-" ja täiendavalt lisab uued failid."
+"See eelistus uuendab neid faile, mis arhiivis on juba olemas (aga on "
+"vanemad) ja täiendavalt lisab uued failid."
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1264,7 +1289,8 @@ msgstr "Sa pole valinud, mis brauserit tahaksid kasutada!"
 
 #: ../src/window.c
 msgid "You didn't set which program to use for opening this file!"
-msgstr "Sa pole valinud, mis programmi tahaksid selle faili avamiseks kasutada!"
+msgstr ""
+"Sa pole valinud, mis programmi tahaksid selle faili avamiseks kasutada!"
 
 #: ../src/extract_dialog.c ../src/window.c
 #, c-format
@@ -1360,8 +1386,8 @@ msgstr "ja"
 #: ../xarchiver.desktop.in.h
 msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
 msgstr ""
-"archive;compress;decompress;extract;pack;uncompress;unpack;pakkimine;lahtipakkimine;arhiiv;arhiveerija;pakkimisrakendus;pakkimisprogramm;pakkija;"
-""
+"archive;compress;decompress;extract;pack;uncompress;unpack;pakkimine;"
+"lahtipakkimine;arhiiv;arhiveerija;pakkimisrakendus;pakkimisprogramm;pakkija;"
 
 #: ../src/add_dialog.c
 msgid "best"

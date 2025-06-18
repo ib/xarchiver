@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -484,6 +484,12 @@ msgstr "Melakukan ini mungkin dapat mengorupsi arsip anda!"
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "nama berkas"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Terenkripsi:"
@@ -512,6 +518,10 @@ msgstr "Masukkan san_di lewat"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1086,6 +1096,12 @@ msgstr "Arsip \"%s\" telah ada!"
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "Arsip ini terenkripsi!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "Arsip ini terenkripsi!"
 
@@ -1150,6 +1166,15 @@ msgstr "Pengarsip yang sesuai tidak terinstal!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Arsip ini terenkripsi!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1652,9 +1677,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "arsip"
-
-#~ msgid "filenames"
-#~ msgstr "nama berkas"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Terkompresi\n"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2024-09-27 06:11+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/xarchiver/"
@@ -474,6 +474,12 @@ msgstr "Bu işlem arşivinizi bozabilir!"
 msgid "Edit"
 msgstr "Düzenle"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "dosya isimleri"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Şifrelenmiş:"
@@ -504,6 +510,10 @@ msgid ""
 msgstr ""
 "Zip arşivlerini işlemek için belki de daha güçlü başka programlar kurulu "
 "olsa bile, geleneksel \"unzip\" ve \"zip\" kullanılmaya devam edecektir."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1036,6 +1046,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "\"%s\" arşivi zaten var!"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "Arşiv tamam."
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Arşiv tamam."
 
@@ -1097,6 +1113,15 @@ msgstr "\"%s\" için uygun arşivleyici kurulu değil!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Bu arşiv şifrelenmiş!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1562,9 +1587,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "arşiv"
-
-#~ msgid "filenames"
-#~ msgstr "dosya isimleri"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Sıkıştırılmış\n"

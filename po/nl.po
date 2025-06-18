@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2024-09-30 12:14+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/xarchiver/"
@@ -476,6 +476,12 @@ msgstr "Hiermee beschadigt u mogelijk uw archief."
 msgid "Edit"
 msgstr "Bewerken"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "bestandnamen"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Versleuteld:"
@@ -505,6 +511,10 @@ msgid ""
 msgstr ""
 "Zelfs als er andere, krachtigere programma's die met zipbestanden omgaan "
 "geïnstalleerd zijn, dan wordt nog steeds gebruikgemaakt van ‘unzip’ en ‘zip’."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1046,6 +1056,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "‘%s’ bestaat al."
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "Dit archief is in orde."
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Dit archief is in orde."
 
@@ -1110,6 +1126,15 @@ msgstr ""
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Dit archief is versleuteld."
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1583,9 +1608,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "archief"
-
-#~ msgid "filenames"
-#~ msgstr "bestandnamen"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Gecomprimeerd\n"

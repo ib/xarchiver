@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -488,6 +488,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "файл_аттары"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Шифрленген:"
@@ -516,6 +522,10 @@ msgstr "_Парольді енгізіңіз"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1068,6 +1078,12 @@ msgstr "\"%s\" бар болып тұр!"
 #: ../src/window.c
 #, fuzzy
 #| msgid "The archive \"%s\" already exists!"
+msgid "The archive is empty."
+msgstr "\"%s\" бар болып тұр!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "The archive \"%s\" already exists!"
 msgid "The archive is okay."
 msgstr "\"%s\" бар болып тұр!"
 
@@ -1119,6 +1135,15 @@ msgstr ""
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
 msgstr ""
 
 #: ../src/interface.c
@@ -1513,9 +1538,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "Архив:"
-
-#~ msgid "filenames"
-#~ msgstr "файл_аттары"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Сығылған\n"

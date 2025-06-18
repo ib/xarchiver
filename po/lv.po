@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -495,6 +495,12 @@ msgstr "Šī darbība var sabojāt arhīvu!"
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "faila nosaukumi"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Šifrēts:"
@@ -523,6 +529,10 @@ msgstr "Ievadiet pa_roli"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1094,6 +1104,12 @@ msgstr "Arhīvs \"%s\" jau eksistē!"
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "Arhīvs ir šifrēts!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "Arhīvs ir šifrēts!"
 
@@ -1158,6 +1174,15 @@ msgstr "atbilstošais arhivātors nav instalēts!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Arhīvs ir šifrēts!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1651,9 +1676,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "arhīvs"
-
-#~ msgid "filenames"
-#~ msgstr "faila nosaukumi"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Saspiests\n"

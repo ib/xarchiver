@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -491,6 +491,12 @@ msgstr "Dur a terme aquesta acció probablement corromprà l’arxiu"
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "Noms de fitxers"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Xifrat"
@@ -519,6 +525,10 @@ msgstr "Introduïu la cont_rasenya"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1091,6 +1101,12 @@ msgstr "Ja existeix l'arxiu «%s»."
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "L’arxiu està xifrat"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "L’arxiu està xifrat"
 
@@ -1158,6 +1174,15 @@ msgstr "l’arxivador corresponent no està instaŀlat"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "L’arxiu està xifrat"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1655,9 +1680,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "arxiu"
-
-#~ msgid "filenames"
-#~ msgstr "Noms de fitxers"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Comprimit\n"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2019-02-26 03:13+0300\n"
 "Last-Translator: Đặng Thị Mỹ Tiên <dangthimytien93@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -502,6 +502,12 @@ msgstr "Làm thế có thể trục trặc kho lưu trữ của bạn!"
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "tên tập tin"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Mã hóa:"
@@ -528,6 +534,10 @@ msgstr "Nhập mật _khẩu"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1114,6 +1124,12 @@ msgstr "Kho lưu trữ \"%s\" đã tồn tại!"
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "Kho lưu trữ này đã được mã hóa."
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "Kho lưu trữ này đã được mã hóa."
 
@@ -1178,6 +1194,15 @@ msgstr "Trình kho lưu trữ tương ứng chưa được cài đặt!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Kho lưu trữ này đã được mã hóa."
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1669,9 +1694,6 @@ msgstr ""
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Giải nén nhiều kho lưu trữ"
-
-#~ msgid "filenames"
-#~ msgstr "tên tập tin"
 
 #~ msgid "[archive name]"
 #~ msgstr "[archive name]"

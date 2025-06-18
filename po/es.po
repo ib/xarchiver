@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2024-09-26 14:53+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/xarchiver/"
@@ -474,6 +474,12 @@ msgstr "¡Es probable que al hacer esto corrompa el archivo comprimido!"
 msgid "Edit"
 msgstr "Editar"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "nombres de archivo"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Cifrado:"
@@ -506,6 +512,10 @@ msgstr ""
 "Incluso si hay instalados otros programas, quizás más potentes, para "
 "gestionar archivos zip, se seguirán utilizando los habituales «unzip» y "
 "«zip»."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1049,6 +1059,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "¡El archivo \"%s\" ya existe!"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "El archivo está bien."
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "El archivo está bien."
 
@@ -1115,6 +1131,15 @@ msgstr "¡El programa de compresión adecuado para \"%s\" no está instalado!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "¡Este archivo está cifrado!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1581,9 +1606,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "archivo"
-
-#~ msgid "filenames"
-#~ msgstr "nombres de archivo"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "Comprimido\n"

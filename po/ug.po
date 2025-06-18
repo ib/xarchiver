@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Gheyret T.Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -483,6 +483,12 @@ msgstr "بۇنداق قىلسا ئارخىپ بۇزۇلۇپ كېتىشى مۇم�
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "filenames"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "شىفىرلانغان:"
@@ -511,6 +517,10 @@ msgstr "ئىم كىرگۈز(_R)"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1076,6 +1086,12 @@ msgstr "ئارخىپ \"%s\" بار ئىكەن."
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "ئارخىپ شىفىرلىنىپتۇ!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "ئارخىپ شىفىرلىنىپتۇ!"
 
@@ -1131,6 +1147,15 @@ msgstr "مۇۋاپىق archiver ئورنىتىلمىغان"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "ئارخىپ شىفىرلىنىپتۇ!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1594,9 +1619,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "ئارخىپ"
-
-#~ msgid "filenames"
-#~ msgstr "filenames"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|پرېسلانغان\n"

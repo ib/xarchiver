@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2019-02-26 03:13+0300\n"
 "Last-Translator: Nudjaree <poonim_p@hotmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -507,6 +507,12 @@ msgstr "การทำเช่นนี้แฟ้มจัดเก็บข
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "ชื่อแฟ้ม"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "การเข้ารหัสลับ:"
@@ -533,6 +539,10 @@ msgstr "ใส่รหัส_ผ่าน"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1114,6 +1124,12 @@ msgstr "แฟ้มจัดเก็บ \"%s\" มีอยู่แล้ว!
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "แฟ้มจัดเก็บนี้จะถูกเข้ารหัส!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "แฟ้มจัดเก็บนี้จะถูกเข้ารหัส!"
 
@@ -1178,6 +1194,15 @@ msgstr "แฟ้มจัดเก็บที่เหมาะสมไม่
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "แฟ้มจัดเก็บนี้จะถูกเข้ารหัส!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1661,9 +1686,6 @@ msgstr ""
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "แยกแฟ้มจัดเก็บแบบหลายอัน "
-
-#~ msgid "filenames"
-#~ msgstr "ชื่อแฟ้ม"
 
 #~ msgid "[archive name]"
 #~ msgstr "[ชื่อแฟ้มจัดเก็บ]"

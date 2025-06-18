@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2024-09-26 14:53+0000\n"
 "Last-Translator: Jean Philippe EIMER <phil@jpmr.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/xarchiver/"
@@ -474,6 +474,12 @@ msgstr "Cette action risque de corrompre l'archive !"
 msgid "Edit"
 msgstr "Modifier"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Encryption"
+msgid "Encrypt filenames"
+msgstr "Cryptage"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Crypté :"
@@ -505,6 +511,10 @@ msgid ""
 msgstr ""
 "Même si d'autres programmes, peut-être plus puissants, gèrent les archives "
 "zip, les habituels \"zip\" et \"unzip\" seront toujours utilisés."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1044,6 +1054,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "L'archive \"%s\" existe déjà !"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "Cette archive est correcte."
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Cette archive est correcte."
 
@@ -1107,6 +1123,15 @@ msgstr "L'archiveur approprié pour \"%s\" n'est pas installé !"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Cette archive est cryptée !"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."

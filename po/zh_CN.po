@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2024-12-07 16:00+0000\n"
 "Last-Translator: Loge Xu <wazolm5643@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -465,6 +465,12 @@ msgstr "这样做可能会损坏您的压缩文件！"
 msgid "Edit"
 msgstr "编辑"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "文件名"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "已加密："
@@ -492,6 +498,10 @@ msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr "即使安装了其他更强大的压缩软件，软件仍然会使用传统的“解压”和“压缩”。"
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -608,8 +618,9 @@ msgstr "选中此项后，载入压缩包时会显示压缩文件注释。"
 msgid ""
 "If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
 "be opened with its default application."
-msgstr "如果通过“xdg-utils”软件包安装“xdg-"
-"open”，则每个文件都将使用其默认应用程序打开。"
+msgstr ""
+"如果通过“xdg-utils”软件包安装“xdg-open”，则每个文件都将使用其默认应用程序打"
+"开。"
 
 #: ../src/add_dialog.c
 msgid ""
@@ -1013,6 +1024,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "压缩文件“%s”已存在！"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "压缩文件已完成。"
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "压缩文件已完成。"
 
@@ -1066,6 +1083,15 @@ msgstr "未安装合适“%s”的压缩文件管理器！"
 msgid "This archive is encrypted!"
 msgstr "此压缩包已加密！"
 
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
+
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr "此为 Xarchiver 的状态灯，闪烁表示 Xarchiver 正忙。"
@@ -1081,7 +1107,8 @@ msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk."
-msgstr "此项的功能与刷新选项相同，提取比硬盘中同名文件要新的文件，另外此项还会提取在"
+msgstr ""
+"此项的功能与刷新选项相同，提取比硬盘中同名文件要新的文件，另外此项还会提取在"
 "硬盘中不存在的文件。"
 
 #: ../src/add_dialog.c
@@ -1094,7 +1121,8 @@ msgstr "此项将添加并更新压缩包中已有但较旧的文件。"
 msgid ""
 "This option will only add files which are already in the archive but older "
 "there; unlike the update option it will not add any new files."
-msgstr "此项只会添加压缩包中已有但较旧的文件；与更新选项不同，不会添加任何新文件。"
+msgstr ""
+"此项只会添加压缩包中已有但较旧的文件；与更新选项不同，不会添加任何新文件。"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
@@ -1514,9 +1542,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "归档文件"
-
-#~ msgid "filenames"
-#~ msgstr "文件名"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "已压缩\n"

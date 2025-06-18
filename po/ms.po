@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2019-02-26 03:11+0300\n"
 "Last-Translator: abuyop <abuyop@gmail.com>\n"
 "Language-Team: Malay (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -504,6 +504,12 @@ msgstr "Berbuat demikian boleh menyebabkan arkib anda rosak!"
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "nama fail"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Disulitkan:"
@@ -530,6 +536,10 @@ msgstr "Masukkan kata _laluan"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1115,6 +1125,12 @@ msgstr "Arkib \"%s\" sudah wujud!"
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "Arkib ini disulitkan!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "Arkib ini disulitkan!"
 
@@ -1179,6 +1195,15 @@ msgstr "arkib yang betul tidak dipasang!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Arkib ini disulitkan!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1685,9 +1710,6 @@ msgstr ""
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Arkib ekstrak-berbilang"
-
-#~ msgid "filenames"
-#~ msgstr "nama fail"
 
 #~ msgid "[archive name]"
 #~ msgstr "[nama arkib]"

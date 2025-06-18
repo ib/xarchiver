@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2025-03-24 16:14+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Latgalian <https://hosted.weblate.org/projects/xarchiver/"
@@ -493,6 +493,12 @@ msgstr "Itei darbeiba var samaitōț arhivu!"
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Encryption: "
+msgid "Encrypt filenames"
+msgstr "Šifreišona: "
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Šifreits:"
@@ -525,6 +531,10 @@ msgstr "Ī_rokstit paroli"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1102,6 +1112,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Arhivs \"%s\" jau eksistej!"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "Arhivs ir kōrteibā!"
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Arhivs ir kōrteibā!"
 
@@ -1166,6 +1182,15 @@ msgstr "Vajdzeigīs atpakōtōjs nav instaleits!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Itys arhivs ir šifreits!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."

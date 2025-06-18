@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2024-09-27 19:17+0000\n"
 "Last-Translator: cybercop <cybercop_montana@abv.bg>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/xarchiver/"
@@ -469,6 +469,12 @@ msgstr "Правейки това, вероятно ще повредите ар
 msgid "Edit"
 msgstr "Редактирай"
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "имена на файловете"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Криптиран:"
@@ -499,6 +505,10 @@ msgid ""
 msgstr ""
 "Дори ако са инсталирани други, вероятно по-мощни програми за работа със zip "
 "архиви, традиционните „unzip“ и „zip“ ще продължат да се използват."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1036,6 +1046,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Архива \"%s\", вече съществува!"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "Архива е в добро състояние."
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Архива е в добро състояние."
 
@@ -1099,6 +1115,15 @@ msgstr "Подходящият архиватор за \"%s\" не е инста
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Този архив е кодиран!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1558,9 +1583,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "архив"
-
-#~ msgid "filenames"
-#~ msgstr "имена на файловете"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Компресиран\n"

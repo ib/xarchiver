@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2008-10-22 20:11+0200\n"
 "Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
 "Language-Team: Norwegian Bokmal\n"
@@ -487,6 +487,12 @@ msgstr "Å gjøre dette vil antakeligvis gjøre arkivet ditt korrupt!"
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "filnavn"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Kryptert:"
@@ -515,6 +521,10 @@ msgstr "Skriv pass_ord"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1085,6 +1095,12 @@ msgstr "Arkivet \"%s\" finnes allerede"
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "Dette arkivet er kryptert"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "Dette arkivet er kryptert"
 
@@ -1149,6 +1165,15 @@ msgstr "riktig akrivprogram er ikke installert!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Dette arkivet er kryptert"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1641,9 +1666,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "arkiv"
-
-#~ msgid "filenames"
-#~ msgstr "filnavn"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Komprimert\n"

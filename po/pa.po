@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2025-05-16 09:34+0000\n"
 "Last-Translator: Mandeep <mandeeps708@gmail.com>\n"
 "Language-Team: Punjabi <https://hosted.weblate.org/projects/xarchiver/"
@@ -458,6 +458,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "Encryption"
+msgid "Encrypt filenames"
+msgstr "ਇੰਕ੍ਰਿਪਸ਼ਨ"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr ""
@@ -484,6 +490,10 @@ msgstr ""
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1005,6 +1015,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr ""
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "The archive is okay."
+msgid "The archive is empty."
+msgstr "ਆਰਕਾਈਵ ਠੀਕ ਹੈ।"
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "ਆਰਕਾਈਵ ਠੀਕ ਹੈ।"
 
@@ -1056,6 +1072,15 @@ msgstr ""
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
 msgstr ""
 
 #: ../src/interface.c

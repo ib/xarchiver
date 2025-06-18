@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -495,6 +495,12 @@ msgstr "ایسا کرنے سے ممکنہ طور پر محفوظہ خراب ہو
 msgid "Edit"
 msgstr ""
 
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "filenames"
+msgid "Encrypt filenames"
+msgstr "فائلوں کے نام"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "رمز شدہ:"
@@ -522,6 +528,10 @@ msgstr "پاس _ورڈ لکھیں"
 msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
 
 #: ../src/interface.c
@@ -1097,6 +1107,12 @@ msgstr "محفوظہ \"%s\" پہلے ہی موجود ہے!"
 #: ../src/window.c
 #, fuzzy
 #| msgid "This archive is encrypted!"
+msgid "The archive is empty."
+msgstr "یہ محفوظہ رمز شدہ ہے!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "یہ محفوظہ رمز شدہ ہے!"
 
@@ -1166,6 +1182,15 @@ msgstr "درست محفوظہ نصب نہیں ہے!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "یہ محفوظہ رمز شدہ ہے!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
 
 #: ../src/interface.c
 #, fuzzy
@@ -1674,9 +1699,6 @@ msgstr ""
 
 #~ msgid "archive"
 #~ msgstr "محفوظہ"
-
-#~ msgid "filenames"
-#~ msgstr "فائلوں کے نام"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|دبی ہوئی\n"
