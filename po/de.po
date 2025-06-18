@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2024-09-26 11:30+0200\n"
-"PO-Revision-Date: 2024-09-26 11:30+0200\n"
+"POT-Creation-Date: 2025-06-18 09:53+0200\n"
+"PO-Revision-Date: 2025-06-18 10:03+0200\n"
 "Last-Translator: Ingo Brückl <ib@oddnet.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de\n"
@@ -476,6 +476,10 @@ msgstr "Dies wird das Archiv wahrscheinlich beschädigen!"
 msgid "Edit"
 msgstr "Bearbeiten"
 
+#: ../src/add_dialog.c
+msgid "Encrypt filenames"
+msgstr "Dateinamen verschlüsseln"
+
 #: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Verschlüsselt:"
@@ -508,6 +512,10 @@ msgstr ""
 "Auch wenn andere, vielleicht leistungsfähigere Programme installiert sind, "
 "um zip-Archive zu bearbeiten, werden trotzdem die klassischen »unzip« und "
 "»zip« verwendet."
+
+#: ../src/pref_dialog.c
+msgid "Extended drag-and-drop support (requires restart)"
+msgstr "Erweiterte »Drag und Drop«-Unterstützung (Neustart erforderlich)"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1048,6 +1056,10 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Das Archiv »%s« existiert bereits!"
 
 #: ../src/window.c
+msgid "The archive is empty."
+msgstr "Das Archiv ist leer."
+
+#: ../src/window.c
 msgid "The archive is okay."
 msgstr "Das Archiv ist in Ordnung."
 
@@ -1113,6 +1125,21 @@ msgstr "Das passende Archivprogramm für »%s« ist nicht installiert!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Dieses Archiv ist verschlüsselt!"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This enables drag-and-drop transfers of type \"text/uri-list\", which is "
+"only necessary if you are not using the X Window System or if the targets do "
+"not support XDirectSave.\n"
+"If you are using the X Window System and drag-and-drop works without this "
+"extension, do not enable it to avoid drawbacks."
+msgstr ""
+"Dies ermöglicht »Drag und Drop«-Übertragungen vom Typ »text/uri-list« und "
+"ist nur notwendig, wenn Sie nicht das X Window System verwenden oder die "
+"Ziele XDirectSave nicht unterstützen.\n"
+"Wenn Sie das X Window System verwenden und »Drag und Drop« ohne diese "
+"Erweiterung funktioniert, dann aktivieren Sie sie nicht, um mögliche "
+"Nachteile zu vermeiden."
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
