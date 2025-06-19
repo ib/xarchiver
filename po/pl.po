@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4.18\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-06-18 09:53+0200\n"
-"PO-Revision-Date: 2024-09-26 14:53+0000\n"
+"PO-Revision-Date: 2025-06-21 01:01+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/xarchiver/"
 "translations/pl/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -480,10 +480,8 @@ msgid "Edit"
 msgstr "Edycja"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "filenames"
 msgid "Encrypt filenames"
-msgstr "nazwy plików"
+msgstr "Szyfruj nazwy plików"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -521,6 +519,8 @@ msgstr ""
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
+"Rozszerzone wsparcie funkcji „przeciągnij i upuść” (wymaga ponownego "
+"uruchomienia)"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1058,10 +1058,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Archiwum \"%s\" już istnieje!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "The archive is okay."
 msgid "The archive is empty."
-msgstr "Archiwum jest w porządku."
+msgstr "Archiwum jest puste."
 
 #: ../src/window.c
 msgid "The archive is okay."
@@ -1134,6 +1132,11 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"Umożliwia transfery „przeciągnij i upuść” typu „text/uri-list”, co jest "
+"konieczne tylko wtedy, gdy nie używasz X Window System lub gdy cele nie "
+"obsługują XDirectSave.\n"
+"Jeśli używasz X Window System i funkcja „przeciągnij i upuść” działa bez "
+"tego rozszerzenia, nie włączaj go, aby uniknąć niedogodności."
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
