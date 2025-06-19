@@ -190,27 +190,25 @@ static XEntry *xa_alloc_memory_for_each_row (guint columns, GType column_types[]
 	return entry;
 }
 
-static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name)
+static XEntry *xa_find_directory_entry_in_list(XEntry *entry, const gchar *name)
 {
-	gchar *filename;
+    if (entry == NULL)
+        return NULL;
 
-	if (entry == NULL)
-		return NULL;
+    gchar *entry_name = g_utf8_validate(entry->filename, -1, NULL) ? 
+                        g_strdup(entry->filename) : g_filename_display_name(entry->filename);
+    gchar *search_name = g_utf8_validate(name, -1, NULL) ? 
+                         g_strdup(name) : g_filename_display_name(name);
 
-	if (g_utf8_validate(entry->filename, -1, NULL))
-		filename = g_filename_display_name(name);
-	else
-		filename = g_strdup(name);
+    if (strcmp(entry_name, search_name) == 0) {
+        g_free(entry_name);
+        g_free(search_name);
+        return entry;
+    }
 
-	if (entry->is_dir && strcmp(entry->filename, filename) == 0)
-	{
-		g_free(filename);
-		return entry;
-	}
-
-	g_free(filename);
-
-  return xa_find_directory_entry(entry->next, name);
+    g_free(entry_name);
+    g_free(search_name);
+    return xa_find_directory_entry_in_list(entry->next, name);
 }
 
 static gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive, XEntry *entry, gpointer *items)
@@ -378,6 +376,12 @@ XArchive *xa_init_archive_structure (ArchiveType xa)
 	entry->filename = "";
 	archive->root_entry = entry;
 
+	// Initialize entry_table as a hash table
+	archive->entry_table = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+	
+	// Insert the root entry with an empty path as its key
+	g_hash_table_insert(archive->entry_table, g_strdup(""), entry);	
+
 	archive->archiver = &archiver[xa.type];
 
 	if (archive_dir_treestore)
@@ -489,6 +493,10 @@ void xa_clean_archive_structure (XArchive *archive)
 	g_free(archive->password);
 	g_free(archive->child_dir);
 	g_free(archive->command);
+
+	if (archive->entry_table)
+		g_hash_table_destroy(archive->entry_table);
+
 	g_free(archive);
 }
 
@@ -709,6 +717,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 {
 	XEntry *entry = NULL, *last = archive->root_entry;
 	gchar **components;
+	gchar *fullpath = NULL;
 	guint n = 0;
 
 	components = g_strsplit(filename, "/", -1);
@@ -716,23 +725,43 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 	if (*filename == '/')
 	{
 		gchar *slashdir;
-
 		n = 1;
 		slashdir = g_strconcat("/", components[n], NULL);
 		g_free(components[n]);
 		components[n] = slashdir;
 	}
 
+	fullpath = g_strdup(""); // start with empty path
+
 	while (components[n] && *components[n])
 	{
-		entry = xa_find_directory_entry(last->child, components[n]);
+		gchar *current_path;
+		XEntry *found = NULL;
 
-		if (entry == NULL)
+		// Build fullpath step-by-step
+		if (*fullpath)
+			current_path = g_strjoin("/", fullpath, components[n], NULL);
+		else
+			current_path = g_strdup(components[n]);
+
+		g_free(fullpath);
+		fullpath = current_path;
+
+		found = g_hash_table_lookup(archive->entry_table, fullpath);
+
+		if (found)
+		{
+			entry = found;
+		}
+		else
 		{
 			entry = xa_alloc_memory_for_each_row(archive->columns, archive->column_types);
-
 			if (entry == NULL)
+			{
+				g_free(fullpath);
+				g_strfreev(components);
 				return NULL;
+			}
 
 			entry->filename = g_strdup(components[n]);
 
@@ -742,6 +771,9 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 			entry->next = last->child;
 			last->child = entry;
 			entry->prev = last;
+
+			// Insert the fullpath -> entry mapping. Do I need to check if g_hash_table_insert fails?
+			g_hash_table_insert(archive->entry_table, g_strdup(fullpath), entry);
 		}
 
 		if (components[n + 1] == NULL || *components[n + 1] == 0)
@@ -751,6 +783,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 		n++;
 	}
 
+	g_free(fullpath);
 	g_strfreev(components);
 
 	return entry;
@@ -758,10 +791,15 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 
 XEntry* xa_find_entry_from_dirpath (XArchive *archive, const gchar *dirpath)
 {
-	XEntry *root = archive->root_entry, *entry = NULL;
+	XEntry *entry = NULL;
 	gchar **components;
 	guint n = 0;
 
+	// Fast lookup from the hash table
+	entry = g_hash_table_lookup(archive->entry_table, dirpath);
+	if (entry)
+		return entry;
+			
 	components = g_strsplit(dirpath, "/", -1);
 
 	if (*dirpath == '/')
@@ -774,10 +812,14 @@ XEntry* xa_find_entry_from_dirpath (XArchive *archive, const gchar *dirpath)
 		components[n] = slashdir;
 	}
 
+	entry = archive->root_entry;
+
 	while (components[n] && *components[n])
 	{
-		entry = xa_find_directory_entry(root->child, components[n]);
-		root = entry;
+		entry = xa_find_directory_entry_in_list(entry->child, components[n]);
+
+		if (!entry)
+			break;
 		n++;
 	}
 
