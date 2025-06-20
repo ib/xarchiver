@@ -2117,7 +2117,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	path = gtk_tree_path_new_first();
 	if (! GTK_IS_TREE_MODEL(archive->model) || gtk_tree_model_get_iter (archive->model,&iter,path) == FALSE)
 	{
-			gtk_label_set_text(GTK_LABEL(total_label), _("The archive is empty."));
+		gtk_label_set_text(GTK_LABEL(total_label), _("The archive is empty."));
 		gtk_tree_path_free(path);
 		return;
 	}
