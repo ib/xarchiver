@@ -433,10 +433,12 @@ void xa_rar_list (XArchive *archive)
 	guint i;
 
 	if (!archive->has_password)
+	{
 		archive->has_password = is_rar_hp(archive->path[0]);
 
 	if (archive->has_password && !xa_check_password(archive))
 		return;
+	}
 
 	header_line = FALSE;
 	data_line = FALSE;
