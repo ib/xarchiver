@@ -532,6 +532,12 @@ void xa_7zip_delete (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *password_str, *command;
 
+	/* necessary if there are still files in the archive */
+	/* wouldn't be necessary for the last file, though */
+	if (archive->type == XARCHIVETYPE_7ZIP)
+		if (archive->has_password && !xa_check_password(archive))
+			return;
+
 	files = xa_quote_filenames(file_list, NULL, DIR_WITH_SLASH);
 	password_str = xa_7zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0], " d", password_str, " -bd -spd -y ", archive->path[1], " --", files->str, NULL);
