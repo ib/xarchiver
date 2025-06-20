@@ -396,12 +396,13 @@ void xa_7zip_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Date"), _("Time"), _("Attributes")};
-	gboolean header_encryption = FALSE;
 	gchar *password_str, *command;
 	guint i;
 
 	if (!archive->has_password)
 	{
+		gboolean header_encryption = FALSE;
+
 		if (archive->type == XARCHIVETYPE_7ZIP)
 		{
 			archive->has_password = is_7zip_mhe(archive->path[0]);
@@ -418,10 +419,10 @@ void xa_7zip_list (XArchive *archive)
 			 * or none of the files are encrypted (although some may be unencrypted).
 			 */
 			archive->has_password = is_encrypted(archive);
-	}
 
 	if (header_encryption && !xa_check_password(archive))
 		return;
+	}
 
 	/* a single file compressor archive is no longer new and empty now */
 	archive->can_add = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive) && !READ_ONLY);
