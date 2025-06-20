@@ -420,8 +420,8 @@ void xa_7zip_list (XArchive *archive)
 			 */
 			archive->has_password = is_encrypted(archive);
 
-	if (header_encryption && !xa_check_password(archive))
-		return;
+		if (header_encryption && !xa_check_password(archive))
+			return;
 	}
 
 	/* a single file compressor archive is no longer new and empty now */
