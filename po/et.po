@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-06-18 09:53+0200\n"
-"PO-Revision-Date: 2025-02-10 21:40+0000\n"
+"PO-Revision-Date: 2025-06-21 01:01+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/xarchiver/"
 "translations/et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -471,10 +471,8 @@ msgid "Edit"
 msgstr "Muuda"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Encryption"
 msgid "Encrypt filenames"
-msgstr "Krüptimine"
+msgstr "Krüpti failinimed"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -508,7 +506,7 @@ msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
-msgstr ""
+msgstr "Parem lohistamise tugi (eeldab uuesti käivitamist)"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1048,10 +1046,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Arhiivifail nimega „%s“ on juba olemas!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "The archive is okay."
 msgid "The archive is empty."
-msgstr "Arhiivifail on korras."
+msgstr "See arhiivifail on tühi."
 
 #: ../src/window.c
 msgid "The archive is okay."
@@ -1122,6 +1118,11 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"See eelistus võimaldab kasutada „text/uri-list“ MIME-tüübiga failide "
+"lohistamist rakendusse ning on vajalik vaid siis, kui sa ei kasuta X-i "
+"põhist aknahaldust või kui sihtobjektid ei toeta XDirectSave meetodit.\n"
+"Kui sa kasutad X-i põhist aknahaldust ja lohistamine töötab ilma selle "
+"valikuta ilusti, siis pigem väldi probleeme ja jäta ta sisse lülitamata."
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
