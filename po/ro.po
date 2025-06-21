@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-06-18 09:53+0200\n"
-"PO-Revision-Date: 2024-09-27 08:03+0000\n"
+"PO-Revision-Date: 2025-06-21 01:01+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/xarchiver/"
 "translations/ro/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -475,14 +475,12 @@ msgid "Edit"
 msgstr "Editare"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "filenames"
 msgid "Encrypt filenames"
-msgstr "nume fișiere"
+msgstr "Criptează numele fișierelor"
 
 #: ../src/interface.c
 msgid "Encrypted:"
-msgstr "Criptare:"
+msgstr "Criptat:"
 
 #: ../src/add_dialog.c
 msgid "Encryption"
@@ -516,6 +514,7 @@ msgstr ""
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
 msgstr ""
+"Suport pentru funcția „trage-și-plasează” îmbunătățit (necesită repornire)"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1055,10 +1054,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Arhiva „%s” există deja!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "The archive is okay."
 msgid "The archive is empty."
-msgstr "Această arhivă este ok!"
+msgstr "Arhiva este goală."
 
 #: ../src/window.c
 msgid "The archive is okay."
@@ -1132,6 +1129,11 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"Aceasta activează transferurile „trage-și-plasează” de tip „text/uri-list”, "
+"ceea ce este necesar numai dacă nu utilizați sistemul X Window sau dacă "
+"țintele nu acceptă XDirectSave.\n"
+"Dacă utilizați sistemul X Window și funcția „trage-și-plasează” funcționează "
+"fără această extensie, nu o activați pentru a evita dezavantajele."
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1453,9 +1455,9 @@ msgstr "mică/medie"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr ""
-"Ionuț Ovejanu <ovejanu@yahoo.com>\n"
-"Mișu Moldovan <dumol@xfce.org>\n"
-"Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>"
+"Ionuț Ovejanu <ovejanu@yahoo.com>, 2010\n"
+"Mișu Moldovan <dumol@xfce.org>, 2010\n"
+"Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024, 2025"
 
 #: ../src/pref_dialog.c
 msgid "very large"
