@@ -406,7 +406,7 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 		item[6] = NULL;
 	}
 	else
-	NEXT_ITEM(item[6]);
+		NEXT_ITEM(item[6]);
 
 	/* name (follows with two characters spacing instead of one) */
 	LAST_ITEM(filename);
