@@ -393,6 +393,19 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 	NEXT_ITEM(item[4]);
 
 	/* checksum */
+
+	LINE_PEEK(8);
+
+	if (line[peek] == ' ')
+	{
+		line += peek + 1;
+
+		if (*line)
+			*line++ = 0;
+
+		item[6] = NULL;
+	}
+	else
 	NEXT_ITEM(item[6]);
 
 	/* name (follows with two characters spacing instead of one) */
