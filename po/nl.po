@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-06-18 09:53+0200\n"
-"PO-Revision-Date: 2024-09-30 12:14+0000\n"
+"PO-Revision-Date: 2025-06-30 21:01+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/xarchiver/"
 "translations/nl/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -477,10 +477,8 @@ msgid "Edit"
 msgstr "Bewerken"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "filenames"
 msgid "Encrypt filenames"
-msgstr "bestandnamen"
+msgstr "Bestandnamen versleutelen"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -514,7 +512,7 @@ msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
-msgstr ""
+msgstr "Uitgebreide ondersteuning voor slepen-en-neerzetten (herstart vereist)"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1056,10 +1054,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr "‘%s’ bestaat al."
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "The archive is okay."
 msgid "The archive is empty."
-msgstr "Dit archief is in orde."
+msgstr "Dit archief is leeg."
 
 #: ../src/window.c
 msgid "The archive is okay."
@@ -1135,6 +1131,11 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"Schakel slepen-en-neerzetten in voor overdrachten van het type ‘text/uri-"
+"list’, hetgeen alleen nodig is als u geen gebruikmaakt van het X Window "
+"System of als het doel niet over XDirectSave beschikt.\n"
+"Als u het X Window System gebruikt en slepen-en-neerzetten zonder deze "
+"instelling werkt, schakel hem dan niet in."
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
