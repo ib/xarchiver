@@ -50,7 +50,7 @@ static void xa_zpaq_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[4];
 	gchar *filename;
-	gboolean dir;
+	gboolean dir = FALSE;
 
 	USE_PARSER;
 
@@ -87,12 +87,22 @@ static void xa_zpaq_parse_output (gchar *line, XArchive *archive)
 	NEXT_ITEM(item[0]);
 
 	/* permissions */
+
+	if (strcmp(item[0], "-1") == 0)
+	{
+		item[0]++;        // size can't be negative
+		item[3] = NULL;   // there aren't permissions
+		LINE_SKIP(6);
+	}
+	else
+	{
 	NEXT_ITEM(item[3]);
 
 	dir = (*(char *) item[3] == 'd');
 
 	if (dir)
 		item[3]++;
+	}
 
 	/* name */
 	LAST_ITEM(filename);
