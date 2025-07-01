@@ -50,6 +50,7 @@ static void xa_zpaq_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[4];
 	gchar *filename;
+	gboolean dir;
 
 	USE_PARSER;
 
@@ -88,7 +89,9 @@ static void xa_zpaq_parse_output (gchar *line, XArchive *archive)
 	/* permissions */
 	NEXT_ITEM(item[3]);
 
-	if (*(char *) item[3] == 'd')
+	dir = (*(char *) item[3] == 'd');
+
+	if (dir)
 		item[3]++;
 
 	/* name */
@@ -98,6 +101,9 @@ static void xa_zpaq_parse_output (gchar *line, XArchive *archive)
 
 	if (entry)
 	{
+		if (dir)
+			entry->is_dir = TRUE;
+
 		if (!entry->is_dir)
 			archive->files++;
 
