@@ -96,12 +96,12 @@ static void xa_zpaq_parse_output (gchar *line, XArchive *archive)
 	}
 	else
 	{
-	NEXT_ITEM(item[3]);
+		NEXT_ITEM(item[3]);
 
-	dir = (*(char *) item[3] == 'd');
+		dir = (*(char *) item[3] == 'd');
 
-	if (dir)
-		item[3]++;
+		if (dir)
+			item[3]++;
 	}
 
 	/* name */
