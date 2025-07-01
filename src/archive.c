@@ -732,7 +732,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 			entry = xa_alloc_memory_for_each_row(archive->columns, archive->column_types);
 
 			if (entry == NULL)
-				return NULL;
+				goto done;
 
 			entry->filename = g_strdup(components[n]);
 
@@ -751,6 +751,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 		n++;
 	}
 
+done:
 	g_strfreev(components);
 
 	return entry;
