@@ -1946,6 +1946,8 @@ void xa_create_liststore (XArchive *archive, const gchar *titles[])
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->sort_by_filenames)))
 		archive->sorted = TRUE;
 
+	gtk_menu_item_set_label(GTK_MENU_ITEM(unsort_menu), xa_label_sort(archive));
+
 	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(archive->liststore), 1, (GtkTreeIterCompareFunc) xa_sort_dirs_before_files, archive, NULL);
 
 	g_object_ref(archive->model);
@@ -3276,8 +3278,8 @@ void xa_unsort (GtkMenuItem *menu_item, gpointer user_data)
 		return;
 
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive[idx]->model), GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID, (GtkSortType) 0);
-	gtk_widget_set_sensitive(unsort_menu, FALSE);
-	archive[idx]->sorted = FALSE;
+	archive[idx]->sorted = !archive[idx]->sorted;
+	gtk_menu_item_set_label(GTK_MENU_ITEM(unsort_menu), xa_label_sort(archive[idx]));
 
 	status = archive[idx]->status;
 	archive[idx]->status = XARCHIVESTATUS_RELOAD;

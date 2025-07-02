@@ -465,6 +465,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 	xa_set_window_title(xa_main_window, archive[idx]->path[0]);
 	xa_restore_navigation(idx);
+	gtk_menu_item_set_label(GTK_MENU_ITEM(unsort_menu), xa_label_sort(archive[idx]));
 	xa_set_statusbar_message_for_displayed_rows(archive[idx]);
 
 	if (archive[idx]->treeview != NULL)
@@ -737,6 +738,18 @@ static void xa_icon_theme_changed (GtkIconTheme *icon_theme, gpointer data)
  * time as the filenames currently displayed. What of the other tabs then?
 }*/
 
+gchar *xa_label_sort (XArchive *archive)
+{
+	gboolean sorted;
+
+	if (archive)
+		sorted = archive->sorted;
+	else
+		sorted = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->sort_by_filenames));
+
+	return sorted ? _("Uns_ort") : _("S_ort");
+}
+
 void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, gboolean show_sidebar, gboolean show_toolbar)
 {
 	GTK_COMPAT_TOOLTIPS;
@@ -895,7 +908,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename_menu),tmp_image);
 
-	unsort_menu = gtk_image_menu_item_new_with_mnemonic(_("Uns_ort"));
+	unsort_menu = gtk_image_menu_item_new_with_mnemonic(xa_label_sort(NULL));
 	gtk_widget_set_sensitive(unsort_menu, FALSE);
 	gtk_widget_show(unsort_menu);
 	gtk_container_add(GTK_CONTAINER(menuitem2_menu), unsort_menu);
@@ -1674,7 +1687,7 @@ void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean s
 	gtk_widget_set_sensitive(AddFile_button, add);
 	gtk_widget_set_sensitive(extract_menu, extract);
 	gtk_widget_set_sensitive(Extract_button, extract);
-	gtk_widget_set_sensitive(unsort_menu, sorted && close);
+	gtk_widget_set_sensitive(unsort_menu, close);
 	gtk_widget_set_sensitive(exe_menu, sfx);
 	gtk_widget_set_sensitive(comment_menu, comment);
 	gtk_widget_set_sensitive(select_all, close);

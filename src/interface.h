@@ -101,6 +101,7 @@ void xa_disable_delete_buttons(gboolean);
 GSList *xa_file_filter_add_archiver_pattern_sort(GtkFileFilter *);
 gboolean xa_flash_led_indicator(XArchive *);
 void xa_increase_progress_bar(Progress *, gchar *, double);
+gchar *xa_label_sort(XArchive *);
 gboolean xa_pulse_progress_bar(XArchive *);
 void xa_set_button_state(gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, GSList *, gboolean);
 void xa_set_location_entry(XArchive *);
