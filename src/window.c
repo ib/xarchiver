@@ -1944,10 +1944,7 @@ void xa_create_liststore (XArchive *archive, const gchar *titles[])
 	archive->model = GTK_TREE_MODEL(archive->liststore);
 
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->sort_by_filenames)))
-	{
-		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive->model), 1, GTK_SORT_ASCENDING);
 		archive->sorted = TRUE;
-	}
 
 	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(archive->liststore), 1, (GtkTreeIterCompareFunc) xa_sort_dirs_before_files, archive, NULL);
 
@@ -3139,6 +3136,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	gint size;
 	gchar *entry_utf8;
 
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive->model), GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID, (GtkSortType) 0);
+
 	if (archive->status == XARCHIVESTATUS_RELOAD && archive->location_path != NULL)
 	{
 		entry = xa_find_entry_from_dirpath(archive, archive->location_path);
@@ -3251,6 +3250,9 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		xa_block_signal_dir_treeview_selection(FALSE);
 		g_free(location_path);
 	}
+
+	if (archive->sorted)
+		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive->model), 1, GTK_SORT_ASCENDING);
 
 	xa_set_statusbar_message_for_displayed_rows(archive);
 }
