@@ -275,13 +275,10 @@ static void xa_rar_v4_parse_output (gchar *line, XArchive *archive)
 		/* version */
 		NEXT_ITEM(item[8]);
 
-		entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+		entry = xa_set_archive_entries_for_each_row(archive, filename, item, dir);
 
 		if (entry)
 		{
-			if (dir)
-				entry->is_dir = TRUE;
-
 			entry->is_encrypted = encrypted;
 
 			if (!entry->is_dir)
@@ -424,13 +421,10 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 		}
 	}
 
-	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item, dir);
 
 	if (entry)
 	{
-		if (dir)
-			entry->is_dir = TRUE;
-
 		entry->is_encrypted = encrypted;
 
 		if (!entry->is_dir)

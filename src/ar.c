@@ -80,7 +80,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	/* name */
 	LAST_ITEM(filename);
 
-	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item, FALSE);
 
 	if (entry)
 	{

@@ -706,7 +706,7 @@ void xa_free_entry (XArchive *archive, XEntry *entry)
 	g_free(entry);
 }
 
-XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *filename, gpointer *items)
+XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *filename, gpointer *items, gboolean is_dir)
 {
 	XEntry *entry = NULL, *last = archive->root_entry;
 	gchar **components;
@@ -726,7 +726,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 
 	while (components[n] && *components[n])
 	{
-		if (components[n + 1])
+		if (components[n + 1] || is_dir)
 			entry = xa_find_directory_entry(last->child, components[n], TRUE);
 		else
 			entry = NULL;
@@ -739,9 +739,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 				goto done;
 
 			entry->filename = g_strdup(components[n]);
-
-			if (components[n + 1])
-				entry->is_dir = TRUE;
+			entry->is_dir = (components[n + 1] || is_dir);
 
 			entry->next = last->child;
 			last->child = entry;

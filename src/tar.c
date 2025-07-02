@@ -172,14 +172,11 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 		}
 	}
 
-	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item, dir);
 
 	if (entry)
 	{
 		entry->is_encrypted = archive->has_password;
-
-		if (dir)
-			 entry->is_dir = TRUE;
 
 		if (!entry->is_dir)
 			archive->files++;

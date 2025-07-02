@@ -364,7 +364,7 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 		filename = g_path_get_basename(filename);
 	}
 
-	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item, FALSE);
 
 	if (entry)
 	{
@@ -454,7 +454,7 @@ filename:
 	if (!last_line)
 		return;
 
-	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item, FALSE);
 
 	if (entry)
 	{
@@ -551,7 +551,7 @@ static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
 	if (!item[0])
 		item[0] = g_strdup("0");
 
-	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item, FALSE);
 
 	if (entry)
 	{
@@ -582,7 +582,7 @@ static void xa_gzip_et_al_prepared_items (gchar *line, XArchive *archive)
 	if (dot)
 		*dot = 0;
 
-	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item, FALSE);
 
 	if (entry)
 	{

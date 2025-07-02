@@ -281,7 +281,7 @@ gint xa_get_new_archive_index();
 gboolean xa_has_containing_directory(XArchive *);
 XArchive *xa_init_archive_structure(ArchiveType);
 gboolean xa_run_command(XArchive *, const gchar *);
-XEntry *xa_set_archive_entries_for_each_row(XArchive *, const gchar *, gpointer *);
+XEntry *xa_set_archive_entries_for_each_row(XArchive *, const gchar *, gpointer *, gboolean);
 void xa_dir_sidebar_row_selected(GtkTreeSelection *, gpointer);
 void xa_dir_sidebar_select_row(XEntry *);
 gint xa_sort_dirs_before_files(GtkTreeModel *, GtkTreeIter *, GtkTreeIter *, XArchive *);
