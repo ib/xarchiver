@@ -2118,6 +2118,8 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	{
 		if (archive->status == XARCHIVESTATUS_LIST || archive->status == XARCHIVESTATUS_RELOAD)
 			gtk_label_set_text(GTK_LABEL(total_label), _("The archive is empty."));
+		else
+			gtk_label_set_text(GTK_LABEL(total_label), "");
 
 		gtk_tree_path_free(path);
 		return;
