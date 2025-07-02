@@ -79,7 +79,7 @@ extern GtkWidget *toolbar1;
 extern GtkWidget *toolbar2;
 extern GtkWidget *total_label;
 extern GtkWidget *type_data;
-extern GtkWidget *unsort_menu;
+extern GtkWidget *sort_menu;
 extern GtkWidget *up_button;
 extern GtkWidget *view;
 extern GtkWidget *view_shell_output1;

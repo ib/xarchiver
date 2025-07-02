@@ -75,7 +75,7 @@ void xa_show_multi_extract_dialog(GtkMenuItem *, gpointer);
 void xa_show_prefs_dialog(GtkMenuItem *, gpointer);
 void xa_test_archive(GtkMenuItem *, gpointer);
 void xa_treeview_row_activated(GtkTreeView *, GtkTreePath *, GtkTreeViewColumn *, XArchive *);
-void xa_unsort(GtkMenuItem *, gpointer);
+void xa_sort_unsort(GtkMenuItem *, gpointer);
 void xa_update_window_with_archive_entries(XArchive *, XEntry *);
 void xa_view_from_popupmenu(GtkMenuItem *, gpointer);
 

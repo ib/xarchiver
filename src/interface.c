@@ -69,7 +69,7 @@ GtkWidget *toolbar1;
 GtkWidget *toolbar2;
 GtkWidget *total_label;
 GtkWidget *type_data;
-GtkWidget *unsort_menu;
+GtkWidget *sort_menu;
 GtkWidget *up_button;
 GtkWidget *view;
 GtkWidget *view_shell_output1;
@@ -465,7 +465,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 	xa_set_window_title(xa_main_window, archive[idx]->path[0]);
 	xa_restore_navigation(idx);
-	gtk_menu_item_set_label(GTK_MENU_ITEM(unsort_menu), xa_label_sort(archive[idx]));
+	gtk_menu_item_set_label(GTK_MENU_ITEM(sort_menu), xa_label_sort(archive[idx]));
 	xa_set_statusbar_message_for_displayed_rows(archive[idx]);
 
 	if (archive[idx]->treeview != NULL)
@@ -908,14 +908,14 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename_menu),tmp_image);
 
-	unsort_menu = gtk_image_menu_item_new_with_mnemonic(xa_label_sort(NULL));
-	gtk_widget_set_sensitive(unsort_menu, FALSE);
-	gtk_widget_show(unsort_menu);
-	gtk_container_add(GTK_CONTAINER(menuitem2_menu), unsort_menu);
+	sort_menu = gtk_image_menu_item_new_with_mnemonic(xa_label_sort(NULL));
+	gtk_widget_set_sensitive(sort_menu, FALSE);
+	gtk_widget_show(sort_menu);
+	gtk_container_add(GTK_CONTAINER(menuitem2_menu), sort_menu);
 
 	tmp_image = gtk_image_new_from_stock("gtk-undo", GTK_ICON_SIZE_MENU);
 	gtk_widget_show(tmp_image);
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(unsort_menu), tmp_image);
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(sort_menu), tmp_image);
 
 	separatormenuitem3 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem3);
@@ -1262,7 +1262,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	g_signal_connect(multi_extract_menu, "activate", G_CALLBACK(xa_show_multi_extract_dialog), NULL);
 	g_signal_connect(help1, "activate", G_CALLBACK(xa_show_help), NULL);
 	g_signal_connect(about1, "activate", G_CALLBACK(xa_about), NULL);
-	g_signal_connect(unsort_menu, "activate", G_CALLBACK(xa_unsort), NULL);
+	g_signal_connect(sort_menu, "activate", G_CALLBACK(xa_sort_unsort), NULL);
 
 	g_signal_connect(New_button, "clicked", G_CALLBACK(xa_new_archive), NULL);
 	g_signal_connect(Open_button, "clicked", G_CALLBACK(xa_open_archive), NULL);
@@ -1687,7 +1687,7 @@ void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean s
 	gtk_widget_set_sensitive(AddFile_button, add);
 	gtk_widget_set_sensitive(extract_menu, extract);
 	gtk_widget_set_sensitive(Extract_button, extract);
-	gtk_widget_set_sensitive(unsort_menu, close);
+	gtk_widget_set_sensitive(sort_menu, close);
 	gtk_widget_set_sensitive(exe_menu, sfx);
 	gtk_widget_set_sensitive(comment_menu, comment);
 	gtk_widget_set_sensitive(select_all, close);
