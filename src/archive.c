@@ -726,7 +726,10 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 
 	while (components[n] && *components[n])
 	{
+		if (components[n + 1])
 		entry = xa_find_directory_entry(last->child, components[n], TRUE);
+		else
+			entry = NULL;
 
 		if (entry == NULL)
 		{
