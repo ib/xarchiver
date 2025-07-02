@@ -197,18 +197,21 @@ static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name)
 	if (entry == NULL)
 		return NULL;
 
+	if (entry->is_dir)
+	{
 	if (g_utf8_validate(entry->filename, -1, NULL))
 		filename = g_filename_display_name(name);
 	else
 		filename = g_strdup(name);
 
-	if (entry->is_dir && strcmp(entry->filename, filename) == 0)
+	if (strcmp(entry->filename, filename) == 0)
 	{
 		g_free(filename);
 		return entry;
 	}
 
 	g_free(filename);
+	}
 
   return xa_find_directory_entry(entry->next, name);
 }
