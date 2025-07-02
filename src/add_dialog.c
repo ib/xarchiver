@@ -528,7 +528,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse,
 				return;
 			}
 		}
-		xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
+		xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	}
 
 	while (list)

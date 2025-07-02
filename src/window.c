@@ -800,7 +800,7 @@ void xa_child_processed (XAChildProcess process, guint8 exitstatus, XArchive *ar
 		if (xa_main_window)
 		{
 			gtk_widget_set_sensitive(Stop_button, FALSE);
-			xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->sorted, archive->can_sfx, archive->has_comment, archive->output, archive->has_password);
+			xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->has_comment, archive->output, archive->has_password);
 		}
 	}
 
@@ -1003,7 +1003,7 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 		return;
 
 	xa_add_page(archive[idx]);
-	xa_set_button_state(1, 1, 1, 1, archive[idx]->can_test, 1, archive[idx]->can_add, archive[idx]->can_extract, archive[idx]->sorted, archive[idx]->can_sfx, archive[idx]->has_comment, archive[idx]->output, archive[idx]->has_password);
+	xa_set_button_state(1, 1, 1, 1, archive[idx]->can_test, 1, archive[idx]->can_add, archive[idx]->can_extract, archive[idx]->can_sfx, archive[idx]->has_comment, archive[idx]->output, archive[idx]->has_password);
     xa_disable_delete_buttons(FALSE);
 
 	xa_set_window_title(xa_main_window, archive[idx]->path[0]);
@@ -1148,7 +1148,7 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 	xa_disable_delete_buttons (FALSE);
 	g_free (path);
 
-	xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
+	xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 
 	archive[idx]->status = XARCHIVESTATUS_LIST;
 	(*archive[idx]->archiver->list)(archive[idx]);
@@ -1330,7 +1330,7 @@ void xa_close_archive (GtkWidget *widget, gpointer page)
 		gtk_widget_set_sensitive (home_button,FALSE);
 		gtk_widget_set_sensitive (deselect_all,FALSE);
 		xa_disable_delete_buttons (FALSE);
-		xa_set_button_state(1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
+		xa_set_button_state(1, 1, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 		xa_set_window_title (xa_main_window,NULL);
 		gtk_tree_store_clear(archive_dir_treestore);
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");

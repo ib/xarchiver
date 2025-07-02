@@ -502,7 +502,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 		xa_block_signal_dir_treeview_selection(FALSE);
 	}
-	xa_set_button_state(1, 1, 1, 1, archive[idx]->can_test, 1, archive[idx]->can_add, archive[idx]->can_extract, archive[idx]->sorted, archive[idx]->can_sfx, archive[idx]->has_comment, archive[idx]->output, archive[idx]->has_password);
+	xa_set_button_state(1, 1, 1, 1, archive[idx]->can_test, 1, archive[idx]->can_add, archive[idx]->can_extract, archive[idx]->can_sfx, archive[idx]->has_comment, archive[idx]->output, archive[idx]->has_password);
 }
 
 static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_data)
@@ -1672,7 +1672,7 @@ GtkWidget *xa_create_archive_properties_window()
 	return archive_properties_window;
 }
 
-void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean save, gboolean test, gboolean close, gboolean add, gboolean extract, gboolean sorted, gboolean sfx, gboolean comment, GSList *output, gboolean password)
+void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean save, gboolean test, gboolean close, gboolean add, gboolean extract, gboolean sfx, gboolean comment, GSList *output, gboolean password)
 {
 	gtk_widget_set_sensitive(new1, new);
 	gtk_widget_set_sensitive(New_button, new);

@@ -688,7 +688,7 @@ void xa_parse_extract_dialog_options (XArchive *archive, ExtractDialog *extract_
 			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_dialog->selected_files)))
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc)xa_concat_selected_filenames,&names);
 			if (xa_main_window)
-				xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
+				xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 
 			xa_execute_extract_commands(archive, names, strip);
 		}
