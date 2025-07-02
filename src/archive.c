@@ -190,7 +190,7 @@ static XEntry *xa_alloc_memory_for_each_row (guint columns, GType column_types[]
 	return entry;
 }
 
-static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name)
+static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name, gboolean same_enc)
 {
 	gchar *filename = NULL;
 
@@ -199,7 +199,7 @@ static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name)
 
 	if (entry->is_dir)
 	{
-		if (g_utf8_validate(entry->filename, -1, NULL))
+		if (!same_enc && g_utf8_validate(entry->filename, -1, NULL) && !g_utf8_validate(name, -1, NULL))
 			filename = g_filename_display_name(name);
 
 		if (strcmp(entry->filename, filename ? filename : name) == 0)
@@ -211,7 +211,7 @@ static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name)
 		g_free(filename);
 	}
 
-  return xa_find_directory_entry(entry->next, name);
+  return xa_find_directory_entry(entry->next, name, same_enc);
 }
 
 static gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive, XEntry *entry, gpointer *items)
@@ -726,7 +726,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 
 	while (components[n] && *components[n])
 	{
-		entry = xa_find_directory_entry(last->child, components[n]);
+		entry = xa_find_directory_entry(last->child, components[n], TRUE);
 
 		if (entry == NULL)
 		{
@@ -778,7 +778,7 @@ XEntry* xa_find_entry_from_dirpath (XArchive *archive, const gchar *dirpath)
 
 	while (components[n] && *components[n])
 	{
-		entry = xa_find_directory_entry(root->child, components[n]);
+		entry = xa_find_directory_entry(root->child, components[n], FALSE);
 		root = entry;
 		n++;
 	}
