@@ -192,7 +192,7 @@ static XEntry *xa_alloc_memory_for_each_row (guint columns, GType column_types[]
 
 static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name)
 {
-	gchar *filename;
+	gchar *filename = NULL;
 
 	if (entry == NULL)
 		return NULL;
@@ -201,10 +201,8 @@ static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name)
 	{
 		if (g_utf8_validate(entry->filename, -1, NULL))
 			filename = g_filename_display_name(name);
-		else
-			filename = g_strdup(name);
 
-		if (strcmp(entry->filename, filename) == 0)
+		if (strcmp(entry->filename, filename ? filename : name) == 0)
 		{
 			g_free(filename);
 			return entry;
