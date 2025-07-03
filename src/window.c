@@ -2106,26 +2106,22 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 {
 	gchar *info = NULL;
-	GtkTreePath *path = NULL;
 	GtkTreeIter iter;
 	gint n_elem = 0, dirs = 0;
 	guint64 total_size = 0;
 	guint64 size = 0;
 	XEntry *entry = NULL;
 
-	path = gtk_tree_path_new_first();
-	if (! GTK_IS_TREE_MODEL(archive->model) || gtk_tree_model_get_iter (archive->model,&iter,path) == FALSE)
+	if (!GTK_IS_TREE_MODEL(archive->model) || !gtk_tree_model_get_iter_first(archive->model, &iter))
 	{
 		if (archive->status == XARCHIVESTATUS_LIST || archive->status == XARCHIVESTATUS_RELOAD)
 			gtk_label_set_text(GTK_LABEL(total_label), _("The archive is empty."));
 		else
 			gtk_label_set_text(GTK_LABEL(total_label), "");
 
-		gtk_tree_path_free(path);
 		return;
 	}
 
-	gtk_tree_path_free(path);
 	do
 	{
 		gtk_tree_model_get(archive->model, &iter, archive->size_column, &size, -1);
