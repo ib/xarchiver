@@ -313,7 +313,7 @@ failed:
 
 	/* add dragged files inside the determined archive location path */
 	g_free(archive[idx]->location_path);
-	archive[idx]->location_path = g_strdup(pathname->str);
+	archive[idx]->location_path = g_filename_from_utf8(pathname->str, -1, NULL, NULL, NULL);
 
 	archive[idx]->child_dir = g_path_get_dirname(list->data);
 
