@@ -100,8 +100,8 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	permissions[sizeof(permissions) -1] = 0;
 	g_strchomp(permissions);
 
-	dir = (*(char *) item[5] == 'd');
-	link = (*(char *) item[5] == 'l');
+	dir = (*permissions == 'd');
+	link = (*permissions == 'l');
 
 	LINE_SKIP(sizeof(permissions));
 
