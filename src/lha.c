@@ -122,10 +122,20 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 
 	LINE_PEEK(9);
 
-	/* date and time */
+	/* date and time (may be empty) */
+
+	if (line[peek] != ' ')
 	NEXT_ITEMS(3, item[3]);
+	else
+	{
+		item[3] = NULL;
+		item[4] = NULL;
+		LINE_SKIP(13);
+	}
 
 	/* time */
+	if (item[3])
+	{
 	if (((char *) item[3])[peek] == ':' && strlen(item[3]) >= 12)
 	{
 		memcpy(time, item[3] + 7, 5);
@@ -136,6 +146,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 
 	item[3] = date_MMM_dD_HourYear(item[3]);
 	item[4] = time;
+	}
 
 	/* name */
 	LAST_ITEM(filename);
