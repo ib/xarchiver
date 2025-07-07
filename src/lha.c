@@ -69,7 +69,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
 	gpointer item[7];
-	gchar *filename, time[6];
+	gchar *filename, permissions[11], time[6];
 	gboolean dir, link;
 
 	USE_PARSER;
@@ -94,11 +94,16 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 		return;
 	}
 
-	/* permissions */
-	NEXT_ITEM(item[5]);
+	/* permissions (may contain spaces) */
+
+	item[5] = strncpy(permissions, line, sizeof(permissions));
+	permissions[sizeof(permissions) -1] = 0;
+	g_strchomp(permissions);
 
 	dir = (*(char *) item[5] == 'd');
 	link = (*(char *) item[5] == 'l');
+
+	LINE_SKIP(sizeof(permissions));
 
 	/* uid/gid */
 	NEXT_ITEM(item[6]);
