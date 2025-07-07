@@ -156,8 +156,8 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 		}
 		else
 		{
-		item[3] = date_MMM_dD_HourYear(item[3]);
-		item[4] = time;
+			item[3] = date_MMM_dD_HourYear(item[3]);
+			item[4] = time;
 		}
 	}
 
