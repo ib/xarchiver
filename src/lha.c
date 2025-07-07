@@ -105,8 +105,14 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 
 	LINE_SKIP(sizeof(permissions));
 
-	/* uid/gid */
+	/* check for uid/gid (may be empty) */
+
+	LINE_PEEK(5);
+
+	if (line[peek] == '/')
 	NEXT_ITEM(item[6]);
+	else
+		item[6] = NULL;
 
 	/* size */
 	NEXT_ITEM(item[1]);
