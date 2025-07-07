@@ -149,8 +149,16 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 		else
 			strcpy(time, "-----");
 
+		if (((char *) item[3])[peek] == '*')   // lhasa, since v0.5.0
+		{
+			item[3] = NULL;
+			item[4] = NULL;
+		}
+		else
+		{
 		item[3] = date_MMM_dD_HourYear(item[3]);
 		item[4] = time;
+		}
 	}
 
 	/* name */
