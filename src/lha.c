@@ -110,7 +110,12 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	LINE_PEEK(5);
 
 	if (line[peek] == '/')
+	{
 		NEXT_ITEM(item[6]);
+
+		if (*(char *) item[6] == '*')   // lhasa, since v0.5.0
+			item[6] = NULL;
+	}
 	else
 		item[6] = NULL;
 
