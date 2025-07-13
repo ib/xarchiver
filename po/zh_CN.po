@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-06-18 09:53+0200\n"
-"PO-Revision-Date: 2024-12-07 16:00+0000\n"
-"Last-Translator: Loge Xu <wazolm5643@163.com>\n"
+"PO-Revision-Date: 2025-07-14 20:02+0000\n"
+"Last-Translator: Loge X <wazolm5643@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/xarchiver/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -466,10 +466,8 @@ msgid "Edit"
 msgstr "编辑"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "filenames"
 msgid "Encrypt filenames"
-msgstr "文件名"
+msgstr "加密文件名"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -501,7 +499,7 @@ msgstr "即使安装了其他更强大的压缩软件，软件仍然会使用传
 
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
-msgstr ""
+msgstr "增强型拖放操作支持（需重启）"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1024,10 +1022,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr "压缩文件“%s”已存在！"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "The archive is okay."
 msgid "The archive is empty."
-msgstr "压缩文件已完成。"
+msgstr "压缩文件已空。"
 
 #: ../src/window.c
 msgid "The archive is okay."
@@ -1091,6 +1087,9 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"该扩展启用“text/uri-list”格式的拖放传输——仅在未使用 X Window "
+"系统或目标设备不支持 XDirectSave 协议时需激活。\n"
+"若您已使用 X Window 系统且基础拖放功能正常，请勿启用此扩展以避免缺陷‌。"
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
