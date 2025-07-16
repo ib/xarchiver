@@ -585,7 +585,6 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 	GtkTextIter iter;
 	GtkWidget *file;
 	gchar *path = NULL;
-	gchar *utf8_data = NULL;
 	gchar *content = NULL;
 	GError *error = NULL;
 	gboolean response;
@@ -618,18 +617,20 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 		}
 		g_free(path);
 
-		if (g_utf8_validate(content, -1, NULL))
-			utf8_data = content;
-		else
+		if (!g_utf8_validate(content, -1, NULL))
 		{
-			utf8_data = g_locale_to_utf8(content, -1, NULL, &bytes, NULL);
-			g_free(content);
+			gchar *utf8 = g_locale_to_utf8(content, -1, NULL, &bytes, NULL);
+
+			if (utf8)
+			{
+				g_free(content);
+				content = utf8;
+			}
 		}
 
 		textmark = gtk_text_buffer_get_insert(buf);
 		gtk_text_buffer_get_iter_at_mark(buf,&iter,textmark);
-		gtk_text_buffer_insert_with_tags_by_name (buf,&iter,utf8_data,bytes,"font",NULL);
-		g_free (utf8_data);
+		gtk_text_buffer_insert_with_tags_by_name(buf, &iter, content, bytes, "font", NULL);
 	}
 }
 
@@ -2615,7 +2616,6 @@ void xa_enter_password (GtkMenuItem *menuitem ,gpointer user_data)
 
 void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gchar *utf8_line;
 	gsize len;
 	gint idx;
 	GtkWidget *textview;
@@ -2675,16 +2675,18 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 
 	if (archive[idx]->comment)
 	{
-		if (g_utf8_validate(archive[idx]->comment->str, -1, NULL))
+		if (!g_utf8_validate(archive[idx]->comment->str, -1, NULL))
 		{
-			utf8_line = g_strdup(archive[idx]->comment->str);
-			len = -1;
-		}
-		else
-			utf8_line = g_locale_to_utf8(archive[idx]->comment->str, -1, NULL, &len, NULL);
+			gchar *utf8 = g_locale_to_utf8(archive[idx]->comment->str, -1, NULL, &len, NULL);
 
-		gtk_text_buffer_insert_with_tags_by_name (textbuffer,&iter,utf8_line,len,"font",NULL);
-		g_free(utf8_line);
+			if (utf8)
+			{
+				g_string_free(archive[idx]->comment, TRUE);
+				archive[idx]->comment = g_string_new(utf8);
+			}
+		}
+
+		gtk_text_buffer_insert_with_tags_by_name(textbuffer, &iter, archive[idx]->comment->str, len, "font", NULL);
 	}
 	gtk_widget_show_all(comment_dialog);
 }
