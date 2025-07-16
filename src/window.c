@@ -1093,7 +1093,7 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 
 	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 	{
-		utf8_path = g_filename_to_utf8 (path,-1,NULL,NULL,NULL);
+		utf8_path = g_filename_display_name(path);
 		msg = g_strdup_printf (_("Can't open file \"%s\":"),utf8_path);
 		if (xa.type == XARCHIVETYPE_UNKNOWN)
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,_("Archive format is not recognized!"));
@@ -2272,7 +2272,7 @@ void xa_treeview_drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkS
 	{
 		gchar *dir_utf8, *msg;
 
-		dir_utf8 = g_filename_to_utf8(extraction_dir, -1, NULL, NULL, NULL);
+		dir_utf8 = g_filename_display_name(extraction_dir);
 		msg = g_strdup_printf(_("You don't have the right permissions to extract the files to the directory \"%s\"."), dir_utf8);
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform extraction!"), msg);
 		g_free(dir_utf8);

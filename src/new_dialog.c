@@ -259,7 +259,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 			gchar *utf8_path;
 			gchar  *msg;
 
-			utf8_path = g_filename_to_utf8 (my_path, -1, NULL, NULL, NULL);
+			utf8_path = g_filename_display_name(my_path);
 			msg = g_strdup_printf (_("The archive \"%s\" already exists!"), utf8_path);
 			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),
 							GTK_DIALOG_MODAL,

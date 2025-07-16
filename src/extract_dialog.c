@@ -612,7 +612,7 @@ void xa_parse_extract_dialog_options (XArchive *archive, ExtractDialog *extract_
 				gchar *utf8_path;
 				gchar  *msg;
 
-                utf8_path = g_filename_to_utf8 (destination_path,-1,NULL,NULL,NULL);
+                utf8_path = g_filename_display_name(destination_path);
                 msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."),utf8_path);
                 xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
                 g_free (utf8_path);
