@@ -2616,7 +2616,7 @@ void xa_enter_password (GtkMenuItem *menuitem ,gpointer user_data)
 
 void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gsize len;
+	gsize bytes;
 	gint idx;
 	GtkWidget *textview;
 	GtkWidget *dialog_vbox1;
@@ -2677,7 +2677,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	{
 		if (!g_utf8_validate(archive[idx]->comment->str, -1, NULL))
 		{
-			gchar *utf8 = g_locale_to_utf8(archive[idx]->comment->str, -1, NULL, &len, NULL);
+			gchar *utf8 = g_locale_to_utf8(archive[idx]->comment->str, -1, NULL, &bytes, NULL);
 
 			if (utf8)
 			{
@@ -2686,7 +2686,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 			}
 		}
 
-		gtk_text_buffer_insert_with_tags_by_name(textbuffer, &iter, archive[idx]->comment->str, len, "font", NULL);
+		gtk_text_buffer_insert_with_tags_by_name(textbuffer, &iter, archive[idx]->comment->str, bytes, "font", NULL);
 	}
 	gtk_widget_show_all(comment_dialog);
 }
