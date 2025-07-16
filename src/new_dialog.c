@@ -256,11 +256,11 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 
 		if ( g_file_test ( my_path , G_FILE_TEST_EXISTS ) )
 		{
-			gchar *utf8_path;
+			gchar *path_utf8;
 			gchar  *msg;
 
-			utf8_path = g_filename_display_name(my_path);
-			msg = g_strdup_printf (_("The archive \"%s\" already exists!"), utf8_path);
+			path_utf8 = g_filename_display_name(my_path);
+			msg = g_strdup_printf (_("The archive \"%s\" already exists!"), path_utf8);
 			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),
 							GTK_DIALOG_MODAL,
 							GTK_MESSAGE_QUESTION,
@@ -268,7 +268,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 							msg,
 							_("Do you want to overwrite it?")
 							);
-			g_free (utf8_path);
+			g_free (path_utf8);
 			g_free (msg);
 			if (response != GTK_RESPONSE_OK)
 			{

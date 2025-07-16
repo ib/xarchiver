@@ -609,13 +609,13 @@ void xa_parse_extract_dialog_options (XArchive *archive, ExtractDialog *extract_
 
 			if (g_file_test (destination_path,G_FILE_TEST_IS_DIR)&& access (destination_path,R_OK | W_OK | X_OK ))
 			{
-				gchar *utf8_path;
+				gchar *path_utf8;
 				gchar  *msg;
 
-                utf8_path = g_filename_display_name(destination_path);
-                msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."),utf8_path);
+                path_utf8 = g_filename_display_name(destination_path);
+                msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."),path_utf8);
                 xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
-                g_free (utf8_path);
+                g_free (path_utf8);
 				g_free (msg);
 				g_free (destination_path);
 				break;

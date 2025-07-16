@@ -1064,7 +1064,7 @@ void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 void xa_open_archive (GtkWidget *widget, gchar *path)
 {
-	gchar *utf8_path,*msg;
+	gchar *path_utf8,*msg;
 	gint idx;
 	gint n;
 	ArchiveType xa;
@@ -1093,14 +1093,14 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 
 	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 	{
-		utf8_path = g_filename_display_name(path);
-		msg = g_strdup_printf (_("Can't open file \"%s\":"),utf8_path);
+		path_utf8 = g_filename_display_name(path);
+		msg = g_strdup_printf (_("Can't open file \"%s\":"),path_utf8);
 		if (xa.type == XARCHIVETYPE_UNKNOWN)
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,_("Archive format is not recognized!"));
 		else
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno));
 
-		g_free (utf8_path);
+		g_free (path_utf8);
 		g_free (msg);
 		g_free (path);
 		return;
@@ -2030,7 +2030,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 {
 	GtkWidget *archive_properties_window;
 	struct stat my_stat;
-    gchar *utf8_string ,*dummy_string,*t;
+    gchar *text ,*dummy_string,*t;
     char date[64];
 	gint idx;
 	guint64 file_size;
@@ -2048,20 +2048,20 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     /* Path */
     dummy_string = xa_remove_level_from_path(archive[idx]->path[0]);
     if (strlen(dummy_string) == 0 || strcmp(dummy_string,"..") == 0 || strcmp(dummy_string,".") == 0)
-		utf8_string = g_filename_display_name (g_get_current_dir());
+		text = g_filename_display_name (g_get_current_dir());
     else
-		utf8_string = g_filename_display_name (dummy_string);
+		text = g_filename_display_name (dummy_string);
     g_free ( dummy_string);
 
-    gtk_label_set_text(GTK_LABEL(path_data),utf8_string);
-    g_free ( utf8_string);
+    gtk_label_set_text(GTK_LABEL(path_data),text);
+    g_free ( text);
 	/* Type */
 	gtk_label_set_text(GTK_LABEL(type_data), xa_get_archive_format(archive[idx]));
 	/* archiver */
 	t = g_strconcat(archiver[archive[idx]->type].program[0], archiver[archive[idx]->type].program[1] ? "\n" : "", archiver[archive[idx]->type].program[1], NULL);
-	utf8_string = g_filename_display_name(t);
-	gtk_label_set_text(GTK_LABEL(archiver_data), utf8_string);
-	g_free(utf8_string);
+	text = g_filename_display_name(t);
+	gtk_label_set_text(GTK_LABEL(archiver_data), text);
+	g_free(text);
 	g_free(t);
     /* Modified Date */
     strftime (date,64,"%c",localtime (&my_stat.st_mtime));
