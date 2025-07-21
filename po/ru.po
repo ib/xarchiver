@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-06-18 09:53+0200\n"
-"PO-Revision-Date: 2025-06-08 23:01+0000\n"
+"PO-Revision-Date: 2025-07-23 09:07+0000\n"
 "Last-Translator: Yurt Page <yurtpage@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/xarchiver/"
 "translations/ru/>\n"
@@ -24,9 +24,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12-dev\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -484,10 +484,8 @@ msgid "Edit"
 msgstr "Редактировать"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "filenames"
 msgid "Encrypt filenames"
-msgstr "имена файлов"
+msgstr "Шифровать названия файлов"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -521,7 +519,7 @@ msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
-msgstr ""
+msgstr "Расширенная поддержка перетаскивания (требуется перезагрузка)"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -1063,10 +1061,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Архив «%s» уже существует!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "The archive is okay."
 msgid "The archive is empty."
-msgstr "Этот архив в порядке."
+msgstr "Этот архив пуст."
 
 #: ../src/window.c
 msgid "The archive is okay."
@@ -1138,6 +1134,11 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"Это позволяет перетаскивать файлы типа «текст/uri-list», что необходимо "
+"только в том случае, если вы не используете X Window System или если цели не "
+"поддерживают XDirectSave.\n"
+"Если вы используете X Window System и перетаскивание работает без этого "
+"расширения, не включайте это чтобы избежать недостатков."
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
