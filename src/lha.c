@@ -100,8 +100,16 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	dir = (*(char *) item[5] == 'd');
 	link = (*(char *) item[5] == 'l');
 
-	/* uid/gid */
-	NEXT_ITEM(item[6]);
+	/* uid/gid. Only Unix archives have this field, so if we see a run of
+           whitespace it's because it's an archive from another system. */
+	if (!g_str_has_prefix(line, "           "))
+	{
+		NEXT_ITEM(item[6]);
+	}
+	else
+	{
+		item[6] = "";
+	}
 
 	/* size */
 	NEXT_ITEM(item[1]);
@@ -111,20 +119,28 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 
 	LINE_PEEK(9);
 
-	/* date and time */
-	NEXT_ITEMS(3, item[3]);
-
-	/* time */
-	if (((char *) item[3])[peek] == ':' && strlen(item[3]) >= 12)
+	/* date and time. As with uid/gid above, this is sometimes empty. */
+	if (!g_str_has_prefix(line, "             "))
 	{
-		memcpy(time, item[3] + 7, 5);
-		time[5] = 0;
+		NEXT_ITEMS(3, item[3]);
+
+		/* time */
+		if (((char *) item[3])[peek] == ':' && strlen(item[3]) >= 12)
+		{
+			memcpy(time, item[3] + 7, 5);
+			time[5] = 0;
+		}
+		else
+			strcpy(time, "-----");
+
+		item[3] = date_MMM_dD_HourYear(item[3]);
+		item[4] = time;
 	}
 	else
-		strcpy(time, "-----");
-
-	item[3] = date_MMM_dD_HourYear(item[3]);
-	item[4] = time;
+	{
+		item[3] = "";
+		item[4] = "";
+	}
 
 	/* name */
 	LAST_ITEM(filename);
