@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2025-06-18 09:53+0200\n"
+"POT-Creation-Date: 2025-08-01 17:51+0200\n"
 "PO-Revision-Date: 2019-02-26 03:12+0300\n"
 "Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -993,6 +993,10 @@ msgstr ""
 #: ../src/interface.c
 msgid "Root"
 msgstr "Корен"
+
+#: ../src/interface.c
+msgid "S_ort"
+msgstr ""
 
 #: ../src/window.c
 msgid "Save the archive as"

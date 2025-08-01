@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2025-06-18 09:53+0200\n"
+"POT-Creation-Date: 2025-08-01 17:51+0200\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -921,6 +921,10 @@ msgstr ""
 #: ../src/interface.c
 msgid "Root"
 msgstr "రూట్"
+
+#: ../src/interface.c
+msgid "S_ort"
+msgstr ""
 
 #: ../src/window.c
 msgid "Save the archive as"

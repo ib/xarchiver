@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2025-06-18 09:53+0200\n"
+"POT-Creation-Date: 2025-08-01 17:51+0200\n"
 "PO-Revision-Date: 2009-08-22 15:53+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: DANISH <dansk@dansk-gruppen.dk>\n"
@@ -971,6 +971,10 @@ msgstr ""
 #: ../src/interface.c
 msgid "Root"
 msgstr "Rod"
+
+#: ../src/interface.c
+msgid "S_ort"
+msgstr ""
 
 #: ../src/window.c
 msgid "Save the archive as"

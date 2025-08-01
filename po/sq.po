@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2025-06-18 09:53+0200\n"
+"POT-Creation-Date: 2025-08-01 17:51+0200\n"
 "PO-Revision-Date: 2008-11-11 00:15+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -970,6 +970,10 @@ msgstr ""
 #: ../src/interface.c
 msgid "Root"
 msgstr "Rrënjë"
+
+#: ../src/interface.c
+msgid "S_ort"
+msgstr ""
 
 #: ../src/window.c
 msgid "Save the archive as"

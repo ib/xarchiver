@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2025-06-18 09:53+0200\n"
+"POT-Creation-Date: 2025-08-01 17:51+0200\n"
 "PO-Revision-Date: 2025-07-14 20:02+0000\n"
 "Last-Translator: Loge X <wazolm5643@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -897,6 +897,12 @@ msgstr "替换"
 #: ../src/interface.c
 msgid "Root"
 msgstr "根目录"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Uns_ort"
+msgid "S_ort"
+msgstr "取消排序(_O)"
 
 #: ../src/window.c
 msgid "Save the archive as"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver git\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2025-06-18 09:53+0200\n"
+"POT-Creation-Date: 2025-08-01 17:51+0200\n"
 "PO-Revision-Date: 2025-04-24 04:12+0000\n"
 "Last-Translator: GiannosOB <giannos2105@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/xarchiver/"
@@ -929,6 +929,12 @@ msgstr "Αντικατάσταση"
 #: ../src/interface.c
 msgid "Root"
 msgstr "Ρίζα"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Uns_ort"
+msgid "S_ort"
+msgstr "Uns_ort"
 
 #: ../src/window.c
 msgid "Save the archive as"

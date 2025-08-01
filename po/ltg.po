@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2025-06-18 09:53+0200\n"
+"POT-Creation-Date: 2025-08-01 17:51+0200\n"
 "PO-Revision-Date: 2025-03-24 16:14+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Latgalian <https://hosted.weblate.org/projects/xarchiver/"
@@ -977,6 +977,12 @@ msgstr ""
 #: ../src/interface.c
 msgid "Root"
 msgstr ""
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Uns_ort"
+msgid "S_ort"
+msgstr "Nasakōrtōts"
 
 #: ../src/window.c
 msgid "Save the archive as"
