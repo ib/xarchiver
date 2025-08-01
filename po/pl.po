@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4.18\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-08-01 17:51+0200\n"
-"PO-Revision-Date: 2025-06-21 01:01+0000\n"
+"PO-Revision-Date: 2025-08-03 05:01+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/xarchiver/"
 "translations/pl/>\n"
@@ -932,10 +932,8 @@ msgid "Root"
 msgstr "Katalog główny"
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Uns_ort"
 msgid "S_ort"
-msgstr "Usuń s_ortowanie"
+msgstr "Sort_uj"
 
 #: ../src/window.c
 msgid "Save the archive as"
