@@ -588,7 +588,6 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 	gchar *content = NULL;
 	GError *error = NULL;
 	gboolean response;
-	gsize bytes;
 
 	file = gtk_file_chooser_dialog_new(_("Open a text file"),
 	                                   GTK_WINDOW(xa_main_window),
@@ -603,7 +602,7 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 	gtk_widget_destroy (file);
 	if (path != NULL)
 	{
-		response = g_file_get_contents(path, &content, &bytes, &error);
+		response = g_file_get_contents(path, &content, NULL, &error);
 
 		if (response == FALSE)
 		{
