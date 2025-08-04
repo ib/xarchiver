@@ -619,7 +619,7 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 
 		if (!g_utf8_validate(content, -1, NULL))
 		{
-			gchar *utf8 = g_locale_to_utf8(content, -1, NULL, &bytes, NULL);
+			gchar *utf8 = g_locale_to_utf8(content, -1, NULL, NULL, NULL);
 
 			if (utf8)
 			{
@@ -630,7 +630,7 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 
 		textmark = gtk_text_buffer_get_insert(buf);
 		gtk_text_buffer_get_iter_at_mark(buf,&iter,textmark);
-		gtk_text_buffer_insert_with_tags_by_name(buf, &iter, content, bytes, "font", NULL);
+		gtk_text_buffer_insert_with_tags_by_name(buf, &iter, content, -1, "font", NULL);
 	}
 }
 
