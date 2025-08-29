@@ -19,6 +19,7 @@
  */
 
 #include <errno.h>
+#include <signal.h>
 #include "rpm.h"
 #include "cpio.h"
 #include "main.h"

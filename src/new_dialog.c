@@ -19,6 +19,7 @@
  */
 
 #include <string.h>
+#include <unistd.h>
 #include <gtk/gtk.h>
 #include "new_dialog.h"
 #include "interface.h"
