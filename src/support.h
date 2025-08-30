@@ -155,7 +155,7 @@ static inline void gtk_icon_view_set_item_orientation (GtkIconView *icon_view, G
 #endif
 
 #if !GTK_CHECK_VERSION(2,24,0)
-#define GDK_COMPAT_SPAWN(p1, p2, p3, p4, p5, p6, p7, p8) gdk_spawn_on_screen(screen, p1, p2, p3, p4, NULL, NULL, p7, p8)
+#define GDK_COMPAT_SPAWN(p1, p2, p3, p4, p5, p6, p7, p8) gdk_spawn_on_screen(gdk_screen_get_default(), p1, p2, p3, p4, NULL, NULL, p7, p8)
 #define GTK_COMPAT_ABOUT_DIALOG_URI(about, func) \
 	gtk_about_dialog_set_email_hook(func, NULL, NULL); \
 	gtk_about_dialog_set_url_hook(func, NULL, NULL)
