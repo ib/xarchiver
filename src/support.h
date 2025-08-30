@@ -154,6 +154,7 @@ static inline void gtk_icon_view_set_item_orientation (GtkIconView *icon_view, G
 #define GTK_COMPAT_ABOUT_DIALOG_URI(about, func) \
 	gtk_about_dialog_set_email_hook(func, NULL, NULL); \
 	gtk_about_dialog_set_url_hook(func, NULL, NULL)
+#define GtkComboBoxText GtkWidget
 #define GTK_COMBO_BOX_TEXT
 #define gtk_combo_box_text_new gtk_combo_box_new_text
 static inline void gtk_combo_box_text_append_text (GtkWidget *combo_box, const gchar *text)

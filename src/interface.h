@@ -23,6 +23,7 @@
 
 #include <gtk/gtk.h>
 #include "archive.h"
+#include "support.h"
 
 enum
 {

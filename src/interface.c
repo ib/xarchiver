@@ -27,7 +27,6 @@
 #include "pref_dialog.h"
 #include "rar.h"
 #include "string_utils.h"
-#include "support.h"
 #include "window.h"
 #include "zip.h"
 
