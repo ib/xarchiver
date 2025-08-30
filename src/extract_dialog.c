@@ -698,7 +698,6 @@ void xa_parse_extract_dialog_options (XArchive *archive, ExtractDialog *extract_
 
 MultiExtractDialog *xa_create_multi_extract_dialog ()
 {
-	GTK_COMPAT_TOOLTIPS;
 	MultiExtractDialog *multi_extract;
 	GtkWidget *vbox, *window, *alignment, *hbox, *hbox2, *button, *frame, *image, *label;
 	GtkCellRenderer *renderer;
