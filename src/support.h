@@ -92,6 +92,11 @@ static inline void GTK_COMPAT_ENTRY_ICON (GtkWidget *entry, gpointer callback, g
 {
 	sexy_icon_entry_add_clear_button(SEXY_ICON_ENTRY(entry), user_data, callback);
 }
+static inline void gtk_menu_item_set_label (GtkMenuItem *menu_item, const gchar *label)
+{
+	if (GTK_IS_LABEL(GTK_BIN(menu_item)->child))
+		gtk_label_set_label(GTK_LABEL(GTK_BIN(menu_item)->child), label ? label : "");
+}
 #else
 #define GTK_COMPAT_ENTRY_ICON_TYPE GdkEvent *
 #define GTK_COMPAT_ENTRY_ICON_NEW gtk_entry_new
