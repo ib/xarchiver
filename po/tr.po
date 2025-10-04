@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-08-01 17:51+0200\n"
-"PO-Revision-Date: 2024-09-27 06:11+0000\n"
+"PO-Revision-Date: 2025-10-06 02:02+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/xarchiver/"
 "translations/tr/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 "X-Poedit-Language: Turkish\n"
 "X-Poedit-Country: TURKEY\n"
 
@@ -475,10 +475,8 @@ msgid "Edit"
 msgstr "Düzenle"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "filenames"
 msgid "Encrypt filenames"
-msgstr "dosya isimleri"
+msgstr "Dosya isimlerini şifrele"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -513,7 +511,7 @@ msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
-msgstr ""
+msgstr "Geliştirilmiş sürükle ve bırak desteği (yeniden başlatma gerektirir)"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -921,10 +919,8 @@ msgid "Root"
 msgstr "Kök"
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Uns_ort"
 msgid "S_ort"
-msgstr "Sıralamayı _kaldır"
+msgstr "_Sırala"
 
 #: ../src/window.c
 msgid "Save the archive as"
@@ -1052,10 +1048,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr "\"%s\" arşivi zaten var!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "The archive is okay."
 msgid "The archive is empty."
-msgstr "Arşiv tamam."
+msgstr "Arşiv boş."
 
 #: ../src/window.c
 msgid "The archive is okay."
@@ -1128,6 +1122,11 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"Bu, “text/uri-list” türünde sürükle ve bırak aktarımlarını etkinleştirir. "
+"Bu, yalnızca X Pencere Sistemi kullanmıyorsanız veya hedefler XDirectSave "
+"desteklemiyorsa gereklidir.\n"
+"X Pencere Sistemi kullanıyorsanız ve sürükle ve bırak bu uzantı olmadan "
+"çalışıyorsa, olumsuzluklardan kaçınmak için bu uzantıyı etkinleştirmeyin."
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
