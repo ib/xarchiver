@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-08-01 17:51+0200\n"
-"PO-Revision-Date: 2024-09-26 14:53+0000\n"
+"PO-Revision-Date: 2025-11-15 11:51+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "xarchiver/translations/pt_PT/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -475,10 +475,8 @@ msgid "Edit"
 msgstr "Editar"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "filenames"
 msgid "Encrypt filenames"
-msgstr "nomes dos ficheiros"
+msgstr "Encriptar nomes de ficheiros"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -515,7 +513,7 @@ msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
-msgstr ""
+msgstr "Suporte alargado para arrastar e largar (requer reinício)"
 
 #: ../src/interface.c
 msgid "Extract"
@@ -928,10 +926,8 @@ msgid "Root"
 msgstr "Root"
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Uns_ort"
 msgid "S_ort"
-msgstr "Des_ordenar"
+msgstr "_Ordenar"
 
 #: ../src/window.c
 msgid "Save the archive as"
@@ -1061,10 +1057,8 @@ msgid "The archive \"%s\" already exists!"
 msgstr "O arquivo \"%s\" já existe!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "The archive is okay."
 msgid "The archive is empty."
-msgstr "O arquivo está bom."
+msgstr "O arquivo está vazio."
 
 #: ../src/window.c
 msgid "The archive is okay."
@@ -1139,6 +1133,11 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"Isto ativa transferências arrastar e largar do tipo \"text/uri-list\", o que "
+"só é necessário se não estiver a utilizar o sistema de janelas X ou se os "
+"destinos não suportarem XDirectSave.\n"
+"Se estiver a utilizar o sistema de janelas X e o arrastar e largar funcionar "
+"sem esta extensão, não a ative para evitar inconvenientes."
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
