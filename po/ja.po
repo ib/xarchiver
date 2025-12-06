@@ -25,14 +25,16 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-08-01 17:51+0200\n"
-"PO-Revision-Date: 2024-09-27 22:38+0200\n"
-"Last-Translator: Ingo Brückl <ib@oddnet.de>\n"
-"Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
+"PO-Revision-Date: 2025-12-17 01:00+0000\n"
+"Last-Translator: Takeru Mikenu <mikenu-jp@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/xarchiver/"
+"translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.15.1-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -55,11 +57,10 @@ msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d フォルダ %s (%s)"
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Add files"
+#, c-format
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] "ファイルを追加します。"
+msgstr[0] "%d 個のファイル"
 
 #: ../src/window.c
 #, c-format
@@ -68,13 +69,15 @@ msgid_plural "%d files %s (%s)"
 msgstr[0] "%d ファイル %s (%s)"
 
 #: ../src/add_dialog.c
-#, fuzzy, c-format
-#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+#, c-format
 msgid ""
 "%hu is least compression\n"
 "%hu is default compression\n"
 "%hu is best compression"
-msgstr "0 = 圧縮なし、1 = デフォルト、4 = 最も速いが圧縮率は最も低い"
+msgstr ""
+"%hu は最小の圧縮です\n"
+"%hu は標準の圧縮です\n"
+"%hu は最高の圧縮です"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -121,15 +124,15 @@ msgstr "追加(_A)"
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Add files"
-msgstr "ファイルを追加します。"
+msgstr "ファイルを追加します"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
-msgstr "アーカイブ名を確認して指定されたファイルを追加し終了する。"
+msgstr ""
+"アーカイブ名を尋ねてから、\n"
+"                                     指定されたファイルを追加し終了する"
 
 #: ../src/main.c
 #, fuzzy
@@ -152,10 +155,8 @@ msgid "Advanced"
 msgstr "詳細"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
-msgstr "アイコンサイズ (再起動が必要)"
+msgstr "高度なインクリメンタル検索 (再起動が必要です)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
@@ -266,10 +267,8 @@ msgid "Can't create a new archive:"
 msgstr "新規アーカイブを作成できません:"
 
 #: ../src/extract_dialog.c ../src/main.c
-#, fuzzy
-#| msgid "Can't create temporary directory:"
 msgid "Can't create directory!"
-msgstr "作業ディレクトリを作成できません:"
+msgstr "ディレクトリを作成できません！"
 
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
@@ -302,10 +301,8 @@ msgid "Can't open file \"%s\":"
 msgstr "ファイル \"%s\" を開けません:"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Can't add files to the archive:"
 msgid "Can't open the archive!"
-msgstr "ファイルをアーカイブに追加できません:"
+msgstr "アーカイブを開けません！"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -345,7 +342,7 @@ msgstr "使用するアプリケーションを選択してください"
 
 #: ../src/new_dialog.c
 msgid "Choose the archive type to create"
-msgstr "作成するアーカイブの種類を選択してください。"
+msgstr "作成するアーカイブの種類を選択してください"
 
 #: ../src/pref_dialog.c
 msgid "Choose the directory to use"
@@ -395,7 +392,7 @@ msgstr "圧縮後のサイズ:"
 #: ../src/window.c
 #, c-format
 msgid "Compressed size: "
-msgstr "圧縮後のサイズ:"
+msgstr "圧縮後のサイズ: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -745,7 +742,7 @@ msgstr "ファイル数:"
 #: ../src/window.c
 #, c-format
 msgid "Number of files: "
-msgstr "ファイル数:"
+msgstr "ファイル数: "
 
 #: ../src/zip.c
 msgid "OS"
@@ -808,10 +805,8 @@ msgid "Opening archive, please wait..."
 msgstr "アーカイブを開いています、お待ちください..."
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Opening archive:"
-msgstr "アーカイブを開きます"
+msgstr "アーカイブを開きます:"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -878,7 +873,7 @@ msgstr "入力してください!"
 
 #: ../src/extract_dialog.c
 msgid "Please enter the extraction path."
-msgstr "展開先のパスを入力してください!"
+msgstr "展開先のパスを入力してください。"
 
 #: ../src/extract_dialog.c
 msgid "Please enter the password."
@@ -910,10 +905,8 @@ msgid "Please select the destination directory"
 msgstr "展開先フォルダを選択してください"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Please enter it!"
 msgid "Please wait..."
-msgstr "入力してください!"
+msgstr "お待ちください…"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c
@@ -921,10 +914,8 @@ msgid "Points to"
 msgstr "留意点"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
-msgstr "アイコンサイズ (再起動が必要)"
+msgstr "ZIP ファイルには unzip を優先する (再起動が必要です)"
 
 #: ../src/pref_dialog.c
 msgid "Preferences"
@@ -1058,10 +1049,8 @@ msgid "Show toolbar"
 msgstr ""
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Show version and exit"
 msgid "Show version and exit\n"
-msgstr "バージョン情報を表示して終了する"
+msgstr "バージョン情報を表示して終了する\n"
 
 #: ../src/extract_dialog.c
 msgid "Size"
@@ -1113,16 +1102,12 @@ msgid "The archive \"%s\" already exists!"
 msgstr "アーカイブ \"%s\" はすでに存在します!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "This archive is encrypted!"
 msgid "The archive is empty."
-msgstr "このアーカイブは暗号化されています!"
+msgstr "このアーカイブは空です。"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
-msgstr "このアーカイブは暗号化されています!"
+msgstr "アーカイブは正常です。"
 
 #: ../src/extract_dialog.c
 #, fuzzy
@@ -1177,10 +1162,9 @@ msgid ""
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy, c-format
-#| msgid "the proper archiver is not installed!"
+#, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
-msgstr "適切なアーカイブツールがインストールされていません!"
+msgstr "「%s」の適切なアーカイブツールがインストールされていません！"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
@@ -1278,7 +1262,7 @@ msgstr "復元後のサイズ:"
 #: ../src/window.c
 #, c-format
 msgid "Uncompressed size: "
-msgstr "復元後のサイズ:"
+msgstr "復元後のサイズ: "
 
 #: ../src/rpm.c
 msgid "Unknown compression type!"
