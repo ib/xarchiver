@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-08-01 17:51+0200\n"
-"PO-Revision-Date: 2025-11-06 09:51+0000\n"
-"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"PO-Revision-Date: 2025-12-24 15:00+0000\n"
+"Last-Translator: P Nahodil <prijemce@proton.me>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/xarchiver/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../src/window.c
 #, c-format
@@ -27,7 +27,7 @@ msgid ""
 "Name: "
 msgstr ""
 "\n"
-"Název:"
+"Název: "
 
 #: ../src/new_dialog.c
 #, c-format
@@ -59,15 +59,15 @@ msgstr[1] "%d soubory %s (%s)"
 msgstr[2] "%d souborů %s (%s)"
 
 #: ../src/add_dialog.c
-#, fuzzy, c-format
-#| msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+#, c-format
 msgid ""
 "%hu is least compression\n"
 "%hu is default compression\n"
 "%hu is best compression"
 msgstr ""
-"0 = bez komprese, 1 = standardní úroveň komprese, 4 = nejrychlejší komprese "
-"s nízkým kompresním poměrem"
+"%hu je minimální komprese\n"
+"%hu je výchozí úroveň komprese\n"
+"%hu je nejlepší komprese"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -116,20 +116,20 @@ msgid "Add files"
 msgstr "Přidat soubory"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
-msgstr "Zeptá se název archivu, přidá do něj soubory a ukončí se."
+msgstr ""
+"Zeptá se název archivu, přidá do něj soubory \n"
+"                                     a ukončí se"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Add files to archive by asking their filenames and quits."
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
-msgstr "Přidá soubory do určeného archivu dotazem na jejich názvy a ukončí se."
+msgstr ""
+"Přidá soubory do archivu dotazem na jejich názvy\n"
+"                                     a ukončí se"
 
 #: ../src/window.c
 msgid "Adding files to archive, please wait..."
@@ -144,18 +144,14 @@ msgid "Advanced"
 msgstr "Pokročilé"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
-msgstr "Velikost ikon (vyžaduje restart)"
+msgstr "Pokročilé inkrementální vyhledávání (vyžaduje restart)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
 msgstr "Všechny soubory"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Allow subdirs with drag and drop"
 msgid "Allow subdirs with clipboard and drag-and-drop"
 msgstr "Umožnit vytvoření podadresářů funkcí táhni a pusť"
 
@@ -180,8 +176,7 @@ msgid "Archive _comment"
 msgstr "_Komentář archivu"
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Archive contents:\n"
+#, c-format
 msgid "Archive content:\n"
 msgstr "Obsah archivu:\n"
 
@@ -195,23 +190,23 @@ msgstr "Správce archivů"
 
 #: ../src/interface.c
 msgid "Archive tree"
-msgstr "Strom archivu:"
+msgstr "Strom archivu"
 
 #: ../src/pref_dialog.c
 msgid ""
 "Archive tree nodes already expand when the node name is selected by mouse "
 "click or keyboard shortcut."
 msgstr ""
+"Uzly archivního stromu se rozbalí, jestliže je název uzlu vybrán kliknutím "
+"myši nebo klávesovou zkratkou."
 
 #: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Typ archivu:"
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Can't run the archiver executable:"
 msgid "Archiver executable:"
-msgstr "Nelze spustit program archivátoru:"
+msgstr "Program archivátoru:"
 
 #: ../src/window.c
 msgid "Archiver output"
@@ -227,7 +222,7 @@ msgstr "Atributy"
 
 #: ../src/pref_dialog.c
 msgid "Automatically expand archive tree nodes on selection"
-msgstr ""
+msgstr "Automaticky rozbalit uzly archivního stromu při výběru"
 
 #: ../src/interface.c
 msgid "Back"
@@ -239,7 +234,7 @@ msgstr "Procházet"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
-msgstr "Nelze přidat soubory do archivu"
+msgstr "Nelze přidat soubory do archivu:"
 
 #: ../src/main.c
 msgid "Can't allocate memory for the archive structure!"
@@ -258,10 +253,8 @@ msgid "Can't create a new archive:"
 msgstr "Nelze vytvořit nový archiv:"
 
 #: ../src/extract_dialog.c ../src/main.c
-#, fuzzy
-#| msgid "Can't create directory:"
 msgid "Can't create directory!"
-msgstr "Nelze vytvořit adresář"
+msgstr "Nelze vytvořit adresář."
 
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
@@ -294,10 +287,8 @@ msgid "Can't open file \"%s\":"
 msgstr "Nelze otevřít soubor \"%s\":"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Can't open archive \"%s\":"
 msgid "Can't open the archive!"
-msgstr "Nelze otevřít archiv \"%s\":"
+msgstr "Nelze otevřít archiv!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
@@ -325,7 +316,7 @@ msgstr "Zrušit aktuální operaci"
 
 #: ../src/gzip_et_al.c
 msgid "Check Type"
-msgstr ""
+msgstr "Typ kontroly"
 
 #: ../src/arj.c ../src/rar.c
 msgid "Checksum"
@@ -352,16 +343,16 @@ msgid "Cmd-line outp_ut"
 msgstr "Vý_stup příkazové řádky"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Comment"
 msgid "Command"
-msgstr "Komentář"
+msgstr "Příkaz"
 
 #: ../src/pref_dialog.c
 msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
 "additional memory."
 msgstr ""
+"Výstup z příkazového řádku je zachycen a lze jej zkontrolovat, ale "
+"spotřebovává se tím více paměti."
 
 #: ../src/window.c
 msgid "Comment"
@@ -387,7 +378,7 @@ msgstr "Velikost komprimovaného souboru:"
 #: ../src/window.c
 #, c-format
 msgid "Compressed size: "
-msgstr "Velikost komprimovaného:"
+msgstr "Komprimovaná velikost: "
 
 #: ../src/add_dialog.c
 msgid "Compression"
@@ -406,10 +397,8 @@ msgid "Confirm deletion of files"
 msgstr "Potvrzovat mazání souborů"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Testing archive, please wait..."
 msgid "Converting archive, please wait..."
-msgstr "Testování archivu, prosím čekejte..."
+msgstr "Konverze archivu, prosím čekejte..."
 
 #: ../src/interface.c
 msgid "Copy"
@@ -428,10 +417,8 @@ msgid "Create a solid archive"
 msgstr "Vytvořit archiv typu solid"
 
 #: ../xarchiver.desktop.in.h
-#, fuzzy
-#| msgid "Create a solid archive"
 msgid "Create, extract and modify archives"
-msgstr "Vytvořit archiv typu solid"
+msgstr "Vytváření, rozbalování a úprava archivů"
 
 #: ../src/interface.c
 msgid "Cut"
@@ -439,7 +426,7 @@ msgstr "Vyjmout"
 
 #: ../src/gzip_et_al.c
 msgid "Data Frames/Skippable Frames"
-msgstr ""
+msgstr "Datové struktury/Přeskočitelné struktury"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
@@ -448,10 +435,8 @@ msgid "Date"
 msgstr "Datum"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Use a custom command:"
 msgid "Default custom command:"
-msgstr "Použít vlastní příkaz:"
+msgstr "Výchozí vlastní příkaz:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -462,20 +447,16 @@ msgid "Delete files after adding"
 msgstr "Po přidání smazat soubory"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Extracting files from archive, please wait..."
 msgid "Deleting files from archive, please wait..."
-msgstr "Rozbalování souborů z archivu, prosím čekejte..."
+msgstr "Mazání souborů z archivu, prosím čekejte..."
 
 #: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "_Zrušit výběr"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "destination archive"
 msgid "Destination"
-msgstr "cílový archiv"
+msgstr "Cíl"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -491,13 +472,11 @@ msgstr "Touto akcí můžete poškodit archiv!"
 
 #: ../src/interface.c
 msgid "Edit"
-msgstr ""
+msgstr "Upravit"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "filenames"
 msgid "Encrypt filenames"
-msgstr "názvy souborů"
+msgstr "Zašifrovat názvy souborů"
 
 #: ../src/interface.c
 msgid "Encrypted:"
@@ -508,16 +487,15 @@ msgid "Encryption"
 msgstr "Šifrování"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Preferred extract directory:"
 msgid "Ensure a containing directory"
-msgstr "Upřednostňovaný adresář pro rozbalení:"
+msgstr "Zajištění obsahujícího adresáře"
 
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
 "directory."
 msgstr ""
+"Ujistit se, zdali obsah extrahovaného archivu je v obsahujícím adresáři."
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -528,50 +506,52 @@ msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
+"I když budou pro práci s zip archivy nainstalovány jiné, možná výkonnější "
+"programy, budou se stále používat tradiční příkazy „unzip“ a „zip“."
 
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
-msgstr ""
+msgstr "Rozšířená podpora »klikni a táhni« (vyžaduje restart)"
 
 #: ../src/interface.c
 msgid "Extract"
 msgstr "Rozbalit"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
-msgstr "Rozbalí archiv dotazem na cílový adresář a ukončí se."
+msgstr ""
+"Rozbalí archiv dotazem na cílový adresář\n"
+"                                     a ukončí se"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive to the destination directory and quits."
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
-msgstr "Rozbalí archiv do cílového adresáře a ukončí se."
+msgstr ""
+"Rozbalí archiv do cílového adresáře \n"
+"                                     a ukončí se"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive to the destination directory and quits."
 msgid ""
 "Extract archive to the destination\n"
 "                                     directory and quit"
-msgstr "Rozbalí archiv do cílového adresáře a ukončí se."
+msgstr ""
+"Rozbalí archiv do cílového adresáře\n"
+"                                      a ukončí se"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
 msgstr "Rozbalit soubory"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
-msgstr "Rozbalí archiv dotazem na cílový adresář a ukončí se."
+msgstr ""
+"Rozbalí vícero archivů dotazem na\n"
+"                                     cílový adresář a ukončí se"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -580,26 +560,21 @@ msgid ""
 msgstr "Rozbalit pouze ty soubory, jejichž starší kopie již existují na disku."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract to dir \"Archive Name\""
 msgid "Extract to directories with archive names"
-msgstr "Rozbalit do adresáře \"Název archivu\""
+msgstr "Rozbalit do adresářů s názvy archivů"
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "Rozbalit do:"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract files with full path"
 msgid "Extract with full path"
-msgstr "Rozbalit soubory s úplnou cestou"
+msgstr "Rozbalit s úplnou cestou"
 
 #: ../src/interface.c
-#, fuzzy, c-format
-#| msgid "Extract..."
+#, c-format
 msgid "Extracting \"%s\"..."
-msgstr "Rozbalit..."
+msgstr "Rozbalování \"%s\"..."
 
 #: ../src/window.c
 msgid "Extracting files from archive, please wait..."
@@ -627,7 +602,7 @@ msgstr "Soubory"
 
 #: ../src/zpaq.c
 msgid "Files with absolute pathnames cannot be deleted!"
-msgstr ""
+msgstr "Soubory s absolutní cestou nelze smazat!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
@@ -638,10 +613,8 @@ msgid "Forward"
 msgstr "Vpřed"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Freshen existing files"
 msgid "Freshen existing files only"
-msgstr "Aktualizovat existující soubory"
+msgstr "Aktualizovat pouze existující soubory"
 
 #: ../src/window.c
 msgid "From File"
@@ -664,12 +637,10 @@ msgid ""
 "If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
 "be opened with its default application."
 msgstr ""
+"Pokud nainstalujete „xdg-open“ z balíčku „xdg-utils“, každý soubor bude "
+"otevřen s asociovanou výchozí aplikací."
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid ""
-#| "In a solid archive the files are grouped together featuring a better "
-#| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
 "compression ratio."
@@ -688,7 +659,7 @@ msgstr "Umístění:"
 #: ../src/main.c
 #, c-format
 msgid "Maintained by "
-msgstr ""
+msgstr "Spravováno "
 
 #: ../src/interface.c
 msgid "Make SF_X"
@@ -719,14 +690,12 @@ msgid "No"
 msgstr "Ne"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Compression"
 msgid "No compression"
-msgstr "Úroveň komprese"
+msgstr "Bez komprese"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
-msgstr ""
+msgstr "Nullsoft instalátor"
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -735,7 +704,7 @@ msgstr "Počet souborů:"
 #: ../src/window.c
 #, c-format
 msgid "Number of files: "
-msgstr "Počet souborů:"
+msgstr "Počet souborů: "
 
 #: ../src/zip.c
 msgid "OS"
@@ -743,7 +712,7 @@ msgstr "OS"
 
 #: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
 msgid "Occupancy"
-msgstr ""
+msgstr "Obsazenost"
 
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
@@ -771,16 +740,12 @@ msgid "Open an archive"
 msgstr "Otevřít archiv"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Open image files with:"
 msgid "Open archive files with:"
-msgstr "Otevřít obrázky pomocí:"
+msgstr "Otevřít soubory archivů pomocí:"
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Open a text file"
 msgid "Open file"
-msgstr "Otevřít textový soubor"
+msgstr "Otevřít soubor"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -791,20 +756,16 @@ msgid "Open text files with:"
 msgstr "Otevřít textové soubory pomocí:"
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Open the selected files with"
 msgid "Open the selected files"
-msgstr "Otevřít vybrané soubory pomocí"
+msgstr "Otevřít vybrané soubory"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."
 msgstr "Otevírání archivu, prosím čekejte..."
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Opening archive:"
-msgstr "Otevřít archiv"
+msgstr "Otvírání archivu:"
 
 #: ../src/window.c
 msgid "Operation aborted!"
@@ -817,10 +778,8 @@ msgstr "Volby"
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c ../src/zpaq.c
-#, fuzzy
-#| msgid "Original"
 msgid "Original Size"
-msgstr "Původní"
+msgstr "Původní velikost"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
@@ -901,10 +860,8 @@ msgid "Please select the destination directory"
 msgstr "Vyberte cílový adresář"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Please enter it!"
 msgid "Please wait..."
-msgstr "Zadejte heslo!"
+msgstr "Prosím čekejte..."
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c
@@ -912,10 +869,8 @@ msgid "Points to"
 msgstr "Ukazuje na"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
-msgstr "Velikost ikon (vyžaduje restart)"
+msgstr "Upřednostnit balíček unzip pro zip soubory (vyžaduje restart)"
 
 #: ../src/pref_dialog.c
 msgid "Preferences"
@@ -926,8 +881,6 @@ msgid "Preferred archive format:"
 msgstr "Upřednostňovaný formát archivu:"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Preferred extract directory:"
 msgid "Preferred extraction directory:"
 msgstr "Upřednostňovaný adresář pro rozbalení:"
 
@@ -952,10 +905,8 @@ msgid "Re_name"
 msgstr "Přej_menovat"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Opening archive, please wait..."
 msgid "Reloading archive, please wait..."
-msgstr "Otevírání archivu, prosím čekejte..."
+msgstr "Znovu načítání archivu, prosím čekejte..."
 
 #: ../src/interface.c
 msgid "Rename"
@@ -963,7 +914,7 @@ msgstr "Přejmenovat"
 
 #: ../src/interface.c
 msgid "Replace"
-msgstr ""
+msgstr "Nahradit"
 
 #: ../src/interface.c
 msgid "Root"
@@ -971,7 +922,7 @@ msgstr "Kořenový adresář"
 
 #: ../src/interface.c
 msgid "S_ort"
-msgstr ""
+msgstr "S_eřadit"
 
 #: ../src/window.c
 msgid "Save the archive as"
@@ -987,7 +938,7 @@ msgstr "Uložit rozměry okna"
 
 #: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
 msgid "Saving"
-msgstr ""
+msgstr "Ukládání"
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -1030,28 +981,24 @@ msgid "Show archive tree sidebar"
 msgstr "Zobrazovat postranní panel se stromem archivu"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "_Show comment"
 msgid "Show command"
-msgstr "_Zobrazovat komentář"
+msgstr "Zobrazovat příkaz"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Show found command-line programs to be\n"
 "                                     used and exit"
-msgstr "Zeptá se název archivu, přidá do něj soubory a ukončí se."
+msgstr ""
+"Zobrazí nalezené programy příkazového řádku, které budou\n"
+"                                     použity a ukočí se"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
-msgstr ""
+msgstr "Zobrazit panel nástrojů"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Show version and exit"
 msgid "Show version and exit\n"
-msgstr "Zobrazí informace o verzi a ukončí se"
+msgstr "Zobrazí informace o verzi a ukončí se\n"
 
 #: ../src/extract_dialog.c
 msgid "Size"
@@ -1087,11 +1034,11 @@ msgstr "Ukládat výstup archivátoru"
 
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
-msgstr ""
+msgstr "Toky/Bloky/Vyplňování"
 
 #: ../src/window.c
 msgid "Test result:"
-msgstr ""
+msgstr "Výsledek testu:"
 
 #: ../src/window.c
 msgid "Testing archive, please wait..."
@@ -1103,66 +1050,49 @@ msgid "The archive \"%s\" already exists!"
 msgstr "Archiv \"%s\" již existuje!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "This archive is encrypted!"
 msgid "The archive is empty."
-msgstr "Tento archiv je šifrovaný!"
+msgstr "Tento archiv je prázdný."
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
-msgstr "Tento archiv je šifrovaný!"
+msgstr "Archiv je v pořádku."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
 "directory."
 msgstr ""
-"Adresářová struktura archivu bude opětovně vytvořena do adresáře určeného "
-"pro rozbalení."
+"Celá adresářová struktura archivu bude opětovně vytvořena do adresáře "
+"určeného pro rozbalení."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
 "the extraction directory."
 msgstr ""
-"Adresářová struktura archivu bude opětovně vytvořena do adresáře určeného "
-"pro rozbalení."
+"Adresářová struktura archivu není opětovně vytvořena; všechny soubory jsou "
+"umístěny do adresáře určeného pro rozbalení."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
 "but with the parent directories of the selected files removed."
 msgstr ""
 "Adresářová struktura archivu bude opětovně vytvořena do adresáře určeného "
-"pro rozbalení."
+"pro rozbalení, ale s odstraněnými nadřazenými adresáři vybraných souborů."
 
 #: ../src/add_dialog.c ../src/main.c
-#, fuzzy
-#| msgid "The archiver doesn't support this feature!"
 msgid ""
 "The archiver doesn't support compression of directories or multiple files!"
-msgstr "Archivátor tuto funkci nepodporuje."
+msgstr "Archivátor nepodporuje kompresi adresářů, nebo více souborů."
 
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "Archivátor tuto funkci nepodporuje."
 
 #: ../src/gzip_et_al.c
-#, fuzzy
-#| msgid "This archive contains password protected files"
 msgid "The archiver lacks necessary support for password protected decryption!"
-msgstr "Tento archiv obsahuje soubory chráněné heslem"
+msgstr "Archivátor postrádá podporu pro heslem chráněné dešifrování."
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive."
@@ -1173,12 +1103,13 @@ msgid ""
 "The incremental search is also performed within filenames rather than just "
 "at the beginning of them."
 msgstr ""
+"Inkrementální vyhledávání se provádí také v názvech souborů, nikoli pouze na "
+"jejich začátku."
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#, fuzzy, c-format
-#| msgid "the proper archiver is not installed!"
+#, c-format
 msgid "The proper archiver for \"%s\" is not installed!"
-msgstr "není nainstalován odpovídající archivátor!"
+msgstr "Není nainstalován archivátor pro \"%s\"!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
@@ -1192,26 +1123,25 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"To umožňuje přenosy typu „text/uri-list“ metodouklikni a táhni, což je nutné "
+"pouze v případě, že nepoužíváte X Window systém, nebo pokud cílové systémy "
+"nepodporují XDirectSave.\n"
+"Pokud používáte X Window systém a funkce klikni a táhni funguje bez tohoto "
+"rozšíření, nepovolujte jej, abyste jste se vyhnuli regresím."
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
 "Indikace stavu aplikace Xarchver. Pokud kontrolka bliká, je aplikace "
-"Xarchiver zaneprázdněna"
+"Xarchiver zaneprázdněna."
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid ""
-#| "This option includes the subdirectories when you add files with drag and "
-#| "drop"
 msgid ""
 "This option includes the subdirectories when you add files from the "
 "clipboard or with drag-and-drop."
 msgstr ""
-"Tato volba povolí zahrnutí podaresářů při přidávání souborů pomocí funkce "
-"táhni a pusť"
+"Tato volba zahrne podaresáře při přidávání souborů ze schránky, nebo pomocí "
+"funkce táhni a pusť."
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -1224,31 +1154,20 @@ msgstr ""
 "které na disku neexistují."
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid ""
-#| "This option will add any new files and update any files which have been "
-#| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
 "the archive but older there."
 msgstr ""
-"Tato volba přidá nové soubory a aktualizuje již obsažené soubory, které byly "
-"pozměněny od doby vytvoření nebo pozměnění archivu."
+"Tato volba přidá nové soubory a aktualizuje již obsažené soubory v archivu, "
+"které jsou starší změny."
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid ""
-#| "This option affects the archive only if it has been modified more "
-#| "recently than the version already in the archive; unlike the update "
-#| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
 "there; unlike the update option it will not add any new files."
 msgstr ""
-"Tato volba ovlivní archiv pouze pokud byla položka určená k aktualizaci "
-"modifikována později než verze obsažená v archivu. Na rozdíl od volby "
-"Aktualizovat a přidat tato akce nepřidá do archivu soubor, který v něm dosud "
-"není obsažen."
+"Tato možnost přidá pouze soubory, které už jsou v archivu, ale jsou starší "
+"změny; na rozdíl od možnosti aktualizace nepřidá žádné nové soubory."
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
@@ -1279,19 +1198,19 @@ msgstr "Velikost rozbaleného souboru:"
 #: ../src/window.c
 #, c-format
 msgid "Uncompressed size: "
-msgstr "Velikost po rozbalení:"
+msgstr "Velikost po rozbalení: "
 
 #: ../src/rpm.c
 msgid "Unknown compression type!"
-msgstr ""
+msgstr "Neznámý typ komprese."
 
 #: ../src/interface.c
 msgid "Uns_ort"
-msgstr ""
+msgstr "Zrušit s_eřazení"
 
 #: ../src/7zip.c
 msgid "Unsupported binary format!"
-msgstr ""
+msgstr "Nepodporovaný binární formát."
 
 #: ../src/interface.c
 msgid "Up"
@@ -1302,10 +1221,8 @@ msgid "Update existing files"
 msgstr "Doplnit existující soubory"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Update existing files"
 msgid "Update existing files and add new ones"
-msgstr "Doplnit existující soubory"
+msgstr "Doplnit existující soubory a přidat nové"
 
 #: ../src/open-with-dlg.c
 msgid "Use a custom command:"
@@ -1324,39 +1241,32 @@ msgid "Web browser to use:"
 msgstr "Webový prohlížeč:"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "When this option is used,tar leaves the data modification times of the "
-#| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
 "times of extraction instead of the times recorded in the archive."
 msgstr ""
-"Použijete-li tuto volbu, archivátor tar nastaví všem souborům po rozbalení "
+"Použijete-li tuto volbu, archivátor nastaví všem souborům po rozbalení "
 "aktuální čas doby rozbalení, namísto původního času uloženého v archivu."
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
-msgstr ""
+msgstr "Nezpracuje soubory s žolíkovými znaky!"
 
 #: ../src/pref_dialog.c
 msgid "Window"
 msgstr "Okno"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Store full paths"
 msgid "With full path"
-msgstr "Ukládat úplné cesty"
+msgstr "S Úplnýmy cestami"
 
 #: ../src/extract_dialog.c
 msgid "Without any path"
-msgstr ""
+msgstr "Bez jakékoli cesty"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Without parent path"
-msgstr ""
+msgstr "Bez nadřazené cesty"
 
 #: ../src/window.c
 msgid "Yes"
@@ -1371,12 +1281,12 @@ msgid ""
 "You can drop either archives to open or files to add. It is not possible to "
 "do both at the same time."
 msgstr ""
+"Můžete buď přetáhnout archivy k otevření, nebo soubory k přidání. Není možné "
+"provést obojí současně."
 
 #: ../src/interface.c ../src/window.c
-#, fuzzy
-#| msgid "You can't add content to deb packages!"
 msgid "You can't add content to this archive type!"
-msgstr "Do balíčků deb nemůžete přidávat další obsah!"
+msgstr "Do tohoto typu archivu nemůžete přidávat další obsah."
 
 #: ../src/window.c
 msgid "You didn't set which browser to use!"
@@ -1411,11 +1321,11 @@ msgstr "Neuvedli jste heslo!"
 
 #: ../src/extract_dialog.c
 msgid "You missed where to extract the files!"
-msgstr "Neuvedli jste, kam mají být soubory rozbaleny"
+msgstr "Neuvedli jste, kam mají být soubory rozbaleny."
 
 #: ../src/main.c
 msgid "[ARCHIVE]"
-msgstr ""
+msgstr "[ARCHIV]"
 
 #: ../src/add_dialog.c
 msgid "_Add"
@@ -1475,35 +1385,31 @@ msgstr "_Textový soubor"
 
 #: ../src/window.c
 msgid "and"
-msgstr ""
+msgstr "a"
 
 #: ../xarchiver.desktop.in.h
 msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
-msgstr ""
+msgstr "archivovat;komprimovat;dekomprimovat;extrahovat;zabalit;rozbalit;"
 
 #: ../src/add_dialog.c
 msgid "best"
-msgstr ""
+msgstr "nejlepší"
 
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "zvolit..."
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "destination archive"
 msgid "destination"
-msgstr "cílový archiv"
+msgstr "cíl"
 
 #: ../src/interface.c
 msgid "example: *.txt; ac*"
-msgstr "například:  *.txt; ac*"
+msgstr "například: *.txt; ac*"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "file1 file2 file3 ... fileN"
 msgid "file1 ... fileN"
-msgstr "soubor1 soubor2 soubor3 ... souborN"
+msgstr "soubor1 ... souborN"
 
 #: ../src/pref_dialog.c
 msgid "large"
@@ -1511,11 +1417,11 @@ msgstr "velký"
 
 #: ../src/add_dialog.c
 msgid "least"
-msgstr ""
+msgstr "nejméně"
 
 #: ../src/pref_dialog.c
 msgid "medium"
-msgstr ""
+msgstr "středně"
 
 #: ../src/window.c
 msgid "selected"
@@ -1527,20 +1433,18 @@ msgstr "malý"
 
 #: ../src/pref_dialog.c
 msgid "small/medium"
-msgstr ""
+msgstr "malý/střední"
 
 #. Do not translate this string.
 #. Instead, add your name here if you like.
 #. One translator per line!
 #: ../src/window.c
 msgid "translator-credits"
-msgstr ""
+msgstr "Nahodil P"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
 msgid "very large"
-msgstr "velký"
+msgstr "velmi velký"
 
 #: ../src/main.c
 #, c-format
