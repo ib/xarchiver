@@ -25,7 +25,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-08-01 17:51+0200\n"
-"PO-Revision-Date: 2025-12-17 01:00+0000\n"
+"PO-Revision-Date: 2026-01-01 07:01+0000\n"
 "Last-Translator: Takeru Mikenu <mikenu-jp@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/xarchiver/"
 "translations/ja/>\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../src/window.c
 #, c-format
@@ -357,10 +357,8 @@ msgid "Cmd-line outp_ut"
 msgstr "コマンド行出力(_U)"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Comment"
 msgid "Command"
-msgstr "コメント"
+msgstr "コマンド"
 
 #: ../src/pref_dialog.c
 msgid ""
@@ -597,10 +595,8 @@ msgid "Extract to:"
 msgstr "展開先:"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract files with full path"
 msgid "Extract with full path"
-msgstr "ファイルをフルパスで展開する"
+msgstr "フルパスで展開する"
 
 #: ../src/interface.c
 #, c-format
