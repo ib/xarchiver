@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-08-01 17:51+0200\n"
-"PO-Revision-Date: 2009-08-25 21:38+0700\n"
-"Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
-"Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2026-01-28 22:50+0000\n"
+"Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/xarchiver/"
+"translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: ../src/window.c
 #, c-format
@@ -48,7 +50,7 @@ msgstr[0] "Tambah berkas"
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
-msgstr[0] "%d berkas %s (%s)"
+msgstr[0] "%d file %s (%s)"
 
 #: ../src/add_dialog.c
 #, fuzzy, c-format
@@ -57,8 +59,7 @@ msgid ""
 "%hu is least compression\n"
 "%hu is default compression\n"
 "%hu is best compression"
-msgstr ""
-"0 = tak ada kompresi, 1 standarnya, 4 = tercepat tapi kompresi terburuk"
+msgstr "0 = tak ada kompresi, 1 standarnya, 4 = tercepat tapi kompresi terburuk"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -104,15 +105,15 @@ msgstr "Tambah"
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Add files"
-msgstr "Tambah berkas"
+msgstr "Tambahkan file"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
-msgstr "Tambah berkas yang diberikan dengan menanyakan nama arsip lalu keluar."
+msgstr ""
+"Tambahkan file yang diberikan dengan menanyakan nama\\\n"
+"               arsip lalu keluar"
 
 #: ../src/main.c
 #, fuzzy
@@ -132,21 +133,17 @@ msgstr "Menambah ke arsip:"
 
 #: ../src/pref_dialog.c
 msgid "Advanced"
-msgstr "Tingkat lanjut"
+msgstr "Lanjutan"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Icons size (requires restart):"
 msgid "Advanced incremental search (requires restart)"
 msgstr "Ukuran ikon (memerlukan start ulang)"
 
 #: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
 msgid "All files"
-msgstr "Semua berkas"
+msgstr "Semua file"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Allow subdirs with drag and drop"
 msgid "Allow subdirs with clipboard and drag-and-drop"
 msgstr "Izinkan subdirektori dengan tarik dan taruh"
 
@@ -171,8 +168,7 @@ msgid "Archive _comment"
 msgstr "Komentar _arsip"
 
 #: ../src/window.c
-#, fuzzy, c-format
-#| msgid "Archive contents:\n"
+#, c-format
 msgid "Archive content:\n"
 msgstr "Isi arsip:\n"
 
@@ -193,14 +189,14 @@ msgid ""
 "Archive tree nodes already expand when the node name is selected by mouse "
 "click or keyboard shortcut."
 msgstr ""
+"Node pohon arsip juga akan mengembang ketika nama node dipilih melalui klik "
+"mouse atau pintasan keyboard."
 
 #: ../src/new_dialog.c
 msgid "Archive type:"
-msgstr "Tipe arsip:"
+msgstr "Jenis arsip:"
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Can't run the archiver executable:"
 msgid "Archiver executable:"
 msgstr "Tak dapat menjalankan pengarsip yang dapat dieksekusi:"
 
@@ -218,7 +214,7 @@ msgstr "Atribut"
 
 #: ../src/pref_dialog.c
 msgid "Automatically expand archive tree nodes on selection"
-msgstr ""
+msgstr "Perluas node pohon arsip secara otomatis saat dipilih"
 
 #: ../src/interface.c
 msgid "Back"
@@ -246,7 +242,7 @@ msgstr "Tak dapat mengonversi arsip ke ekstrak-sendiri:"
 
 #: ../src/new_dialog.c
 msgid "Can't create a new archive:"
-msgstr "Tak dapat membuat arsip baru:"
+msgstr "Tidak dapat membuat arsip baru:"
 
 #: ../src/extract_dialog.c ../src/main.c
 #, fuzzy
@@ -282,7 +278,7 @@ msgstr "Tak dapat membuka berkas RPM \"%s\":"
 #: ../src/window.c
 #, c-format
 msgid "Can't open file \"%s\":"
-msgstr "Tak dapat membuka berkas \"%s\":"
+msgstr "Tidak dapat membuka file \\\"%s\\\":"
 
 #: ../src/main.c
 #, fuzzy
@@ -316,11 +312,11 @@ msgstr "Batalkan operasi saat ini"
 
 #: ../src/gzip_et_al.c
 msgid "Check Type"
-msgstr ""
+msgstr "Periksa jenis"
 
 #: ../src/arj.c ../src/rar.c
 msgid "Checksum"
-msgstr ""
+msgstr "Checksum"
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -340,11 +336,9 @@ msgstr "Tutup arsip"
 
 #: ../src/interface.c
 msgid "Cmd-line outp_ut"
-msgstr "Kel_uaran baris perintah"
+msgstr "Keluaran baris-_perintah"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Comment"
 msgid "Command"
 msgstr "Komentar"
 
@@ -353,6 +347,8 @@ msgid ""
 "Command-line output is captured and can be reviewed, but this consumes "
 "additional memory."
 msgstr ""
+"Keluaran baris perintah ditangkap dan dapat ditinjau, tetapi ini "
+"menghabiskan memori tambahan."
 
 #: ../src/window.c
 msgid "Comment"
@@ -394,11 +390,9 @@ msgstr "Rasio kompresi:"
 
 #: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
-msgstr "Konfirmasi penghapusan berkas"
+msgstr "Konfirmasi penghapusan file"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Testing archive, please wait..."
 msgid "Converting archive, please wait..."
 msgstr "Mengetes arsip,silakan tunggu..."
 
@@ -419,8 +413,6 @@ msgid "Create a solid archive"
 msgstr "Buat arsip solid"
 
 #: ../xarchiver.desktop.in.h
-#, fuzzy
-#| msgid "Create a solid archive"
 msgid "Create, extract and modify archives"
 msgstr "Buat arsip solid"
 
@@ -430,7 +422,7 @@ msgstr "Potong"
 
 #: ../src/gzip_et_al.c
 msgid "Data Frames/Skippable Frames"
-msgstr ""
+msgstr "Frame Data/Frame yang Dapat Dilewati"
 
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
@@ -439,8 +431,6 @@ msgid "Date"
 msgstr "Tanggal"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Use a custom command:"
 msgid "Default custom command:"
 msgstr "Gunakan perintah suai:"
 
@@ -450,21 +440,17 @@ msgstr "Hapus"
 
 #: ../src/add_dialog.c
 msgid "Delete files after adding"
-msgstr "Hapus berkas setelah menambahkan"
+msgstr "Hapus file setelah ditambahkan"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Extracting files from archive, please wait..."
 msgid "Deleting files from archive, please wait..."
 msgstr "Mengekstrak berkas dari arsip,silakan tunggu..."
 
 #: ../src/interface.c
 msgid "Dese_lect all"
-msgstr "Tak pi_lih semua"
+msgstr "Batal pi_lih semua"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "destination archive"
 msgid "Destination"
 msgstr "arsip tujuan"
 
@@ -482,11 +468,9 @@ msgstr "Melakukan ini mungkin dapat mengorupsi arsip anda!"
 
 #: ../src/interface.c
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "filenames"
 msgid "Encrypt filenames"
 msgstr "nama berkas"
 
@@ -499,8 +483,6 @@ msgid "Encryption"
 msgstr "Enkripsi"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Preferred extract directory:"
 msgid "Ensure a containing directory"
 msgstr "Direktori ekstrak kesukaan:"
 
@@ -509,6 +491,8 @@ msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
 "directory."
 msgstr ""
+"Pastikan bahwa isi arsip yang diekstrak selalu berada di dalam sebuah "
+"direktori induk."
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -519,31 +503,32 @@ msgid ""
 "Even if other, perhaps more powerful programs are installed to handle zip "
 "archives, the traditional \"unzip\" and \"zip\" will still be used."
 msgstr ""
+"Meskipun program lain yang mungkin lebih kuat terpasang untuk menangani "
+"arsip zip, \\\"unzip\\\" dan \\\"zip\\\" tradisional tetap akan digunakan."
 
 #: ../src/pref_dialog.c
 msgid "Extended drag-and-drop support (requires restart)"
-msgstr ""
+msgstr "Dukungan drag-and-drop yang diperluas (memerlukan mulai ulang)"
 
 #: ../src/interface.c
 msgid "Extract"
 msgstr "Ekstrak"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr ""
-"Ekstrak arsip dengan menanyakan direktori tempat ekstraksi lalu keluar."
+"Ekstrak arsip dengan menanyakan direktori\\\n"
+"                          ekstraksi lalu keluar"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive to the destination directory and quits."
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
-msgstr "Ekstrak arsip ke direktori tujuan lalu keluar."
+msgstr ""
+"Ekstrak arsip ke direktori induk\\\n"
+"                                   lalu keluar"
 
 #: ../src/main.c
 #, fuzzy
@@ -555,28 +540,23 @@ msgstr "Ekstrak arsip ke direktori tujuan lalu keluar."
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
-msgstr "Ekstrak berkas"
+msgstr "Ekstrak file"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
-msgstr ""
-"Ekstrak arsip dengan menanyakan direktori tempat ekstraksi lalu keluar."
+msgstr "Ekstrak arsip dengan menanyakan direktori tempat ekstraksi lalu keluar."
 
 #: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies."
 msgstr ""
-"Hanya ekstrak berkas yang telah ada di cakram dan yang lebih baru daripada "
-"salinan cakram."
+"Ekstrak hanya file yang sudah ada di disk dan yang lebih baru daripada "
+"salinan di disk."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract to dir \"Archive Name\""
 msgid "Extract to directories with archive names"
 msgstr "Ekstrak berkas ke direktori \"Nama Arsip\""
 
@@ -585,10 +565,8 @@ msgid "Extract to:"
 msgstr "Ekstrak ke:"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Extract files with full path"
 msgid "Extract with full path"
-msgstr "Ekstrak berkas dengan alamat penuh"
+msgstr "Ekstrak dengan path lengkap"
 
 #: ../src/interface.c
 #, fuzzy, c-format
@@ -622,7 +600,7 @@ msgstr "Berkas"
 
 #: ../src/zpaq.c
 msgid "Files with absolute pathnames cannot be deleted!"
-msgstr ""
+msgstr "File dengan nama path absolut tidak dapat dihapus!"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Files:"
@@ -633,8 +611,6 @@ msgid "Forward"
 msgstr "Maju"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Freshen existing files"
 msgid "Freshen existing files only"
 msgstr "Segarkan berkas yang ada"
 
@@ -659,12 +635,10 @@ msgid ""
 "If you install \"xdg-open\" from the \"xdg-utils\" package, each file will "
 "be opened with its default application."
 msgstr ""
+"Jika Anda memasang \\\"xdg-open\\\" dari paket \\\"xdg-utils\\\", setiap "
+"file akan dibuka dengan aplikasi default-nya."
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid ""
-#| "In a solid archive the files are grouped together featuring a better "
-#| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
 "compression ratio."
@@ -683,7 +657,7 @@ msgstr "Lokasi:"
 #: ../src/main.c
 #, c-format
 msgid "Maintained by "
-msgstr ""
+msgstr "Dipelihara oleh "
 
 #: ../src/interface.c
 msgid "Make SF_X"
@@ -714,14 +688,12 @@ msgid "No"
 msgstr "Tidak"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Compression"
 msgid "No compression"
 msgstr "Kompresi"
 
 #: ../src/main.c
 msgid "Nullsoft Installer"
-msgstr ""
+msgstr "Installer Nullsoft"
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -738,7 +710,7 @@ msgstr "OS"
 
 #: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
 msgid "Occupancy"
-msgstr ""
+msgstr "Okupansi"
 
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
@@ -766,10 +738,8 @@ msgid "Open an archive"
 msgstr "Buka arsip"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Open image files with:"
 msgid "Open archive files with:"
-msgstr "Buka berkas citra dengan:"
+msgstr "Buka file arsip dengan:"
 
 #: ../src/open-with-dlg.c
 #, fuzzy
@@ -783,21 +753,17 @@ msgstr "Buka berkas citra dengan:"
 
 #: ../src/pref_dialog.c
 msgid "Open text files with:"
-msgstr "Buka berkas teks dengan:"
+msgstr "Buka file teks dengan:"
 
 #: ../src/open-with-dlg.c
-#, fuzzy
-#| msgid "Open the selected files with"
 msgid "Open the selected files"
 msgstr "Buka berkas terpilih dengan"
 
 #: ../src/window.c
 msgid "Opening archive, please wait..."
-msgstr "Membuka arsip,silakan tunggu..."
+msgstr "Membuka arsip, harap tunggu..."
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "Open an archive"
 msgid "Opening archive:"
 msgstr "Buka arsip"
 
@@ -812,8 +778,6 @@ msgstr "Opsi"
 #: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c ../src/zpaq.c
-#, fuzzy
-#| msgid "Original"
 msgid "Original Size"
 msgstr "Asli"
 
@@ -896,19 +860,15 @@ msgid "Please select the destination directory"
 msgstr "Silakan pilih direktori tujuan"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Please enter it!"
 msgid "Please wait..."
 msgstr "Silakan masukkan!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/squashfs.c ../src/tar.c
 #: ../src/unar.c
 msgid "Points to"
-msgstr "Menunjuk ke"
+msgstr "Mengarah ke"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Icons size (requires restart):"
 msgid "Prefer unzip for zip files (requires restart)"
 msgstr "Ukuran ikon (memerlukan start ulang)"
 
@@ -918,11 +878,9 @@ msgstr "Pengaturan"
 
 #: ../src/pref_dialog.c
 msgid "Preferred archive format:"
-msgstr "Format arsip kesukaan:"
+msgstr "Format arsip pilihan:"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "Preferred extract directory:"
 msgid "Preferred extraction directory:"
 msgstr "Direktori ekstrak kesukaan:"
 
@@ -944,11 +902,9 @@ msgstr "Rasio"
 
 #: ../src/interface.c
 msgid "Re_name"
-msgstr "Ganti _nama"
+msgstr "Ubah _nama"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Opening archive, please wait..."
 msgid "Reloading archive, please wait..."
 msgstr "Membuka arsip,silakan tunggu..."
 
@@ -958,7 +914,7 @@ msgstr "Ganti nama"
 
 #: ../src/interface.c
 msgid "Replace"
-msgstr ""
+msgstr "Ganti"
 
 #: ../src/interface.c
 msgid "Root"
@@ -966,7 +922,7 @@ msgstr "Root"
 
 #: ../src/interface.c
 msgid "S_ort"
-msgstr ""
+msgstr "U_rutkan"
 
 #: ../src/window.c
 msgid "Save the archive as"
@@ -982,7 +938,7 @@ msgstr "Simpan geometri jendela"
 
 #: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
 msgid "Saving"
-msgstr ""
+msgstr "Menyimpan"
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -1022,13 +978,11 @@ msgstr "Tampilkan batang lokasi arsip"
 
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
-msgstr "Tampilkan batang sisi pohon arsip"
+msgstr "Tampilkan sidebar pohon arsip"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "_Show comment"
 msgid "Show command"
-msgstr "Tampilkan komentar (_S)"
+msgstr "Tampilkan perintah"
 
 #: ../src/main.c
 #, fuzzy
@@ -1040,13 +994,11 @@ msgstr "Tambah berkas yang diberikan dengan menanyakan nama arsip lalu keluar."
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
-msgstr ""
+msgstr "Tampilkan toolbar"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "Show version and exit"
 msgid "Show version and exit\n"
-msgstr "Tampilkan versi lalu keluar"
+msgstr "Tampilkan versi lalu keluar\n"
 
 #: ../src/extract_dialog.c
 msgid "Size"
@@ -1082,11 +1034,11 @@ msgstr "Simpan keluaran pengarsip"
 
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
-msgstr ""
+msgstr "Stream/Blok/Padding"
 
 #: ../src/window.c
 msgid "Test result:"
-msgstr ""
+msgstr "Hasil pengujian:"
 
 #: ../src/window.c
 msgid "Testing archive, please wait..."
@@ -1095,46 +1047,37 @@ msgstr "Mengetes arsip,silakan tunggu..."
 #: ../src/new_dialog.c
 #, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr "Arsip \"%s\" telah ada!"
+msgstr "Arsip \\\"%s\\\" sudah ada!"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "This archive is encrypted!"
 msgid "The archive is empty."
-msgstr "Arsip ini terenkripsi!"
+msgstr "Arsip kosong."
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
-msgstr "Arsip ini terenkripsi!"
+msgstr "Arsip tidak bermasalah."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's complete directory structure is recreated in the extraction "
 "directory."
-msgstr "Struktur direktori arsip dibuat ulang ketika mengekstrak direktori"
+msgstr "Struktur direktori lengkap arsip dibuat ulang di direktori ekstraksi."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is not recreated; all files are placed in "
 "the extraction directory."
-msgstr "Struktur direktori arsip dibuat ulang ketika mengekstrak direktori"
+msgstr ""
+"Struktur direktori arsip tidak dibuat ulang; semua file ditempatkan di "
+"direktori ekstraksi."
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "The archive's directory structure is recreated in the extraction directory"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory, "
 "but with the parent directories of the selected files removed."
-msgstr "Struktur direktori arsip dibuat ulang ketika mengekstrak direktori"
+msgstr ""
+"Struktur direktori arsip dibuat ulang di direktori ekstraksi, tetapi "
+"direktori induk dari file yang dipilih dihapus."
 
 #: ../src/add_dialog.c ../src/main.c
 #, fuzzy
@@ -1150,6 +1093,8 @@ msgstr "Pengarsip tidak mendukung fitur ini!"
 #: ../src/gzip_et_al.c
 msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
+"Pengarsip tidak memiliki dukungan yang diperlukan untuk dekripsi yang "
+"dilindungi kata sandi!"
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive."
@@ -1160,6 +1105,8 @@ msgid ""
 "The incremental search is also performed within filenames rather than just "
 "at the beginning of them."
 msgstr ""
+"Pencarian inkremental juga dilakukan di dalam nama file, bukan hanya pada "
+"awalnya."
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy, c-format
@@ -1179,15 +1126,15 @@ msgid ""
 "If you are using the X Window System and drag-and-drop works without this "
 "extension, do not enable it to avoid drawbacks."
 msgstr ""
+"Ini mengaktifkan transfer drag-and-drop bertipe \\\"text/uri-list\\\", yang "
+"hanya diperlukan jika Anda tidak menggunakan X Window System atau jika "
+"target tidak mendukung XDirectSave.\\\n"
+"Jika Anda menggunakan X Window System dan drag-and-drop berfungsi tanpa "
+"ekstensi ini, jangan aktifkan untuk menghindari kekurangannya."
 
 #: ../src/interface.c
-#, fuzzy
-#| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
-msgstr ""
-"Ini adalah status led Xarchiver. Jika berkedip maka Xarchiver sedang "
-"sibukIni adalah status led Xarchiver. Jika berkedip maka Xarchiver sedang "
-"sibuk"
+msgstr "Ini adalah status LED Xarchiver. Saat berkedip, Xarchiver sedang sibuk."
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -1207,21 +1154,17 @@ msgid ""
 "that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk."
 msgstr ""
-"Opsi ini melakukan fungsi yang sama dengan penyegaran,mengekstrak berkas "
-"yang lebih baru daripada berkas dengan nama yang sama di cakram,dan sebagai "
-"tambahan juga mengekstrak berkas yang belum ada di cakram."
+"Opsi ini menjalankan fungsi yang sama seperti freshen, mengekstrak file yang "
+"lebih baru daripada file dengan nama yang sama di disk, dan selain itu juga "
+"mengekstrak file yang belum ada di disk."
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid ""
-#| "This option will add any new files and update any files which have been "
-#| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
 "the archive but older there."
 msgstr ""
-"Opsi ini akan menambah berkas baru dan memutakhirkan berkas apapun yang "
-"telah dimodifikasi sejak arsip terakhir kali dibuat/dimodifikasi"
+"Opsi ini akan menambahkan file baru apa pun dan memperbarui file apa pun "
+"yang sudah ada di arsip tetapi versi di arsip lebih lama."
 
 #: ../src/add_dialog.c
 #, fuzzy
@@ -1270,15 +1213,15 @@ msgstr "Ukuran tak terkompresi: "
 
 #: ../src/rpm.c
 msgid "Unknown compression type!"
-msgstr ""
+msgstr "Jenis kompresi tidak dikenal!"
 
 #: ../src/interface.c
 msgid "Uns_ort"
-msgstr ""
+msgstr "Batal _urut"
 
 #: ../src/7zip.c
 msgid "Unsupported binary format!"
-msgstr ""
+msgstr "Format biner tidak didukung!"
 
 #: ../src/interface.c
 msgid "Up"
@@ -1286,11 +1229,9 @@ msgstr "Atas"
 
 #: ../src/extract_dialog.c
 msgid "Update existing files"
-msgstr "Mutakhirkan berkas yang ada"
+msgstr "Perbarui file yang ada"
 
 #: ../src/add_dialog.c
-#, fuzzy
-#| msgid "Update existing files"
 msgid "Update existing files and add new ones"
 msgstr "Mutakhirkan berkas yang ada"
 
@@ -1308,14 +1249,9 @@ msgstr "Tampilan"
 
 #: ../src/pref_dialog.c
 msgid "Web browser to use:"
-msgstr "Peramban web yang akan digunakan:"
+msgstr "Browser web yang digunakan:"
 
 #: ../src/extract_dialog.c
-#, fuzzy
-#| msgid ""
-#| "When this option is used,tar leaves the data modification times of the "
-#| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive."
 msgid ""
 "When this option is used, the modification times of the files will be the "
 "times of extraction instead of the times recorded in the archive."
@@ -1326,25 +1262,23 @@ msgstr ""
 
 #: ../src/zpaq.c
 msgid "Will not handle files with wildcard characters!"
-msgstr ""
+msgstr "Tidak akan menangani file dengan karakter wildcard!"
 
 #: ../src/pref_dialog.c
 msgid "Window"
 msgstr "Jendela"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
-#, fuzzy
-#| msgid "Store full paths"
 msgid "With full path"
 msgstr "Simpan alamat penuh"
 
 #: ../src/extract_dialog.c
 msgid "Without any path"
-msgstr ""
+msgstr "Tanpa path apa pun"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Without parent path"
-msgstr ""
+msgstr "Tanpa path induk"
 
 #: ../src/window.c
 msgid "Yes"
@@ -1359,10 +1293,10 @@ msgid ""
 "You can drop either archives to open or files to add. It is not possible to "
 "do both at the same time."
 msgstr ""
+"Anda dapat menjatuhkan (drop) arsip untuk dibuka atau file untuk "
+"ditambahkan. Tidak dimungkinkan melakukan keduanya pada saat yang sama."
 
 #: ../src/interface.c ../src/window.c
-#, fuzzy
-#| msgid "You can't add content to deb packages!"
 msgid "You can't add content to this archive type!"
 msgstr "Anda tak dapat menambah isi ke paket deb!"
 
@@ -1405,7 +1339,7 @@ msgstr "Anda melewatkan tempat untuk mengekstrak berkas!"
 
 #: ../src/main.c
 msgid "[ARCHIVE]"
-msgstr ""
+msgstr "[ARSIP]"
 
 #: ../src/add_dialog.c
 msgid "_Add"
@@ -1465,33 +1399,29 @@ msgstr "_Berkas teks"
 
 #: ../src/window.c
 msgid "and"
-msgstr ""
+msgstr "dan"
 
 #: ../xarchiver.desktop.in.h
 msgid "archive;compress;decompress;extract;pack;uncompress;unpack;"
-msgstr ""
+msgstr "arsip;kompres;dekompres;ekstrak;paket;batal kompres;buka paket;"
 
 #: ../src/add_dialog.c
 msgid "best"
-msgstr ""
+msgstr "terbaik"
 
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "pilih..."
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "destination archive"
 msgid "destination"
 msgstr "arsip tujuan"
 
 #: ../src/interface.c
 msgid "example: *.txt; ac*"
-msgstr "misalnya: *.txt; ac*"
+msgstr "contoh: *.txt; ac*"
 
 #: ../src/main.c
-#, fuzzy
-#| msgid "file1 file2 file3 ... fileN"
 msgid "file1 ... fileN"
 msgstr "berkas1 berkas2 berkas3 ... berkasN"
 
@@ -1501,11 +1431,11 @@ msgstr "besar"
 
 #: ../src/add_dialog.c
 msgid "least"
-msgstr ""
+msgstr "paling rendah"
 
 #: ../src/pref_dialog.c
 msgid "medium"
-msgstr ""
+msgstr "sedang"
 
 #: ../src/window.c
 msgid "selected"
@@ -1517,7 +1447,7 @@ msgstr "kecil"
 
 #: ../src/pref_dialog.c
 msgid "small/medium"
-msgstr ""
+msgstr "kecil/sedang"
 
 #. Do not translate this string.
 #. Instead, add your name here if you like.
@@ -1527,13 +1457,12 @@ msgid "translator-credits"
 msgstr ""
 "Ahmad Riza H Nst <rizahnst@gnome.org>\n"
 "http://id.gnome.org/\n"
-"Andhika Padmawan <andhika.padmawan@gmail.com>, 2008."
+"Andhika Padmawan <andhika.padmawan@gmail.com>, 2008.\n"
+"Arif Budiman <arifpedia@gmail.com>"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
 msgid "very large"
-msgstr "besar"
+msgstr "sangat besar"
 
 #: ../src/main.c
 #, c-format
@@ -1541,9 +1470,9 @@ msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command-line options.\n"
 msgstr ""
-"xarchiver: %s\n"
-"Coba xarchiver --help untuk melihat senarai lengkap opsi baris perintah yang "
-"tersedia.\n"
+"xarchiver: %s\\\n"
+"Coba xarchiver --help untuk melihat daftar lengkap opsi baris perintah yang "
+"tersedia.\\\n"
 
 #, c-format
 #~ msgid "Files:%*s%s"
