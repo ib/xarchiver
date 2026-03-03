@@ -82,8 +82,8 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 	}
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
-	datalen += (16 - (datalen % 16)) % 16;  // header section is aligned
-	offset = HDRSIG_ENTRY_INDEX_LEN * entries + datalen;
+	datalen += (8 - (datalen % 8)) % 8;  // header section is aligned
+	offset = HDRSIG_ENTRY_INDEX_LEN * entries + datalen + HDRSIG_LEAD_IN_LEN;
 
 	/* Header section */
 	if (fseek(stream, offset, SEEK_CUR))
