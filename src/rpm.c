@@ -32,7 +32,6 @@
 #define HEADER_VERSION_LEN 1
 #define HEADER_RESERVED_LEN 4
 #define HEADER_LEAD_IN_LEN (HEADER_MAGIC_LEN + HEADER_VERSION_LEN + HEADER_RESERVED_LEN)
-#define SIGNATURE_START (LEAD_LEN + HEADER_LEAD_IN_LEN)
 #define HEADER_ENTRY_INFO_LEN 8
 #define HEADER_ENTRY_INDEX_LEN 16
 
@@ -69,8 +68,8 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 		return err;
 	}
 
-	/* Signature section */
-	if (fseek(stream, SIGNATURE_START, SEEK_CUR) == -1)
+	/* Signature section info */
+	if (fseek(stream, LEAD_LEN + HEADER_LEAD_IN_LEN, SEEK_CUR) == -1)
 	{
 		fclose (stream);
 		return g_strconcat(_("Can't fseek to position 104:"), " ", g_strerror(errno), NULL);
@@ -83,10 +82,10 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
 	datalen += (8 - (datalen % 8)) % 8;  // header section is aligned to an 8 byte boundary
-	offset = HEADER_ENTRY_INDEX_LEN * entries + datalen + HEADER_LEAD_IN_LEN;
+	offset = HEADER_ENTRY_INDEX_LEN * entries + datalen;
 
-	/* Header section */
-	if (fseek(stream, offset, SEEK_CUR))
+	/* Header section info */
+	if (fseek(stream, offset + HEADER_LEAD_IN_LEN, SEEK_CUR))
 	{
 		fclose (stream);
 		return g_strconcat(_("Can't fseek in file:"), " ", g_strerror(errno), NULL);
