@@ -95,6 +95,7 @@ gboolean select_matched_rows(GtkTreeModel *, GtkTreePath *, GtkTreeIter *, gpoin
 void xa_add_page(XArchive *);
 void xa_block_signal_dir_treeview_selection(gboolean);
 void xa_combo_box_text_append_compressor_types(GtkComboBoxText *);
+gint xa_combo_box_text_find_compressor_type(GtkComboBoxText *, const gchar *);
 gboolean xa_check_password(XArchive *);
 GtkWidget *xa_create_archive_properties_window();
 void xa_create_main_window(GtkWidget *, gboolean, gboolean, gboolean);

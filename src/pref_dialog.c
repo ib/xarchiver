@@ -32,7 +32,7 @@
 gchar *config_file;
 GtkIconTheme *icon_theme;
 
-static gint preferred_format;
+static gchar *preferred_format;
 
 static gchar *xa_prefs_choose_program (gboolean flag)
 {
@@ -435,7 +435,14 @@ void xa_prefs_save_options (PrefsDialog *prefs_dialog, const char *filename)
 
 	GKeyFile *xa_key_file = g_key_file_new();
 
-	g_key_file_set_integer(xa_key_file, PACKAGE, "preferred_format", gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_dialog->preferred_format)));
+	value = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_format));
+
+	if (!value)
+		value = g_strdup("");
+
+	g_key_file_set_string(xa_key_file, PACKAGE, "preferred_format", value);
+	g_free(value);
+
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "prefer_unzip", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->prefer_unzip)));
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "confirm_deletion", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->confirm_deletion)));
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "sort_filename_content", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->sort_by_filenames)));
@@ -595,7 +602,7 @@ void xa_prefs_load_options (PrefsDialog *prefs_dialog)
 	}
 	else
 	{
-		preferred_format = g_key_file_get_integer(xa_key_file, PACKAGE, "preferred_format", NULL);
+		preferred_format = g_key_file_get_string(xa_key_file, PACKAGE, "preferred_format", NULL);
 		unzip = g_key_file_get_boolean(xa_key_file, PACKAGE, "prefer_unzip", &error);
 
 		if (error)
@@ -823,8 +830,27 @@ void xa_prefs_load_options (PrefsDialog *prefs_dialog)
 
 void xa_prefs_adapt_options (PrefsDialog *prefs_dialog)
 {
+	gint index = 0;
+
 	xa_combo_box_text_append_compressor_types(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_format));
-	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_dialog->preferred_format), preferred_format);
+
+	if (preferred_format)
+	{
+		gint64 value;
+		gchar *endptr;
+
+		value = g_ascii_strtoll(preferred_format, &endptr, 0);
+
+		if (*preferred_format && (*endptr == 0))
+			/* use numeric setting in existing, old config file */
+			index = value;
+		else
+			index = xa_combo_box_text_find_compressor_type(GTK_COMBO_BOX_TEXT(prefs_dialog->preferred_format), preferred_format);
+	}
+
+	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_dialog->preferred_format), index);
+
+	g_free(preferred_format);
 }
 
 void xa_prefs_apply_options (PrefsDialog *prefs_dialog)

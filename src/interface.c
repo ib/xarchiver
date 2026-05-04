@@ -1887,6 +1887,37 @@ next:
 	g_slist_free(sorted);
 }
 
+gint xa_combo_box_text_find_compressor_type (GtkComboBoxText *combo_box_text, const gchar *type)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean searching;
+	gint index = 0;
+
+	model = gtk_combo_box_get_model(GTK_COMBO_BOX(combo_box_text));
+	searching = gtk_tree_model_get_iter_first(model, &iter);
+
+	while (searching)
+	{
+		gchar *text = NULL;
+
+		gtk_tree_model_get(model, &iter, 0, &text, -1);
+
+		if (text && (strcmp(text, type) == 0))
+		{
+			g_free(text);
+			return index;
+		}
+
+		g_free(text);
+		index++;
+
+		searching = gtk_tree_model_iter_next(model, &iter);
+	}
+
+	return -1;
+}
+
 GSList *xa_file_filter_add_archiver_pattern_sort (GtkFileFilter *filter)
 {
 	int i;
