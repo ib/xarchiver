@@ -506,8 +506,8 @@ void xa_prefs_save_options (PrefsDialog *prefs_dialog, const char *filename)
 		g_key_file_set_string (xa_key_file,PACKAGE,"preferred_extract_dir",value);
 		g_free(value);
 	}
-	g_key_file_set_integer(xa_key_file, PACKAGE, "allow_sub_dir", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->allow_sub_dir)));
-	g_key_file_set_integer(xa_key_file, PACKAGE, "extended_dnd", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->extended_dnd)));
+	g_key_file_set_boolean(xa_key_file, PACKAGE, "allow_sub_dir", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->allow_sub_dir)));
+	g_key_file_set_boolean(xa_key_file, PACKAGE, "extended_dnd", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->extended_dnd)));
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->save_geometry)))
 	{
 		/* Main window coords */
