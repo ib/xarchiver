@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2025-08-01 17:51+0200\n"
-"PO-Revision-Date: 2025-11-15 11:51+0000\n"
+"PO-Revision-Date: 2026-05-13 10:47+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "xarchiver/translations/pt_PT/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 2026.5.dev0\n"
 
 #: ../src/window.c
 #, c-format
@@ -730,7 +730,7 @@ msgstr "Abrir"
 #: ../src/open-with-dlg.c
 #, c-format
 msgid "Open <i>%s</i> with:"
-msgstr "Abrir<i>%s</i> com:"
+msgstr "Abrir <i>%s</i> com:"
 
 #: ../src/interface.c
 msgid "Open With"
