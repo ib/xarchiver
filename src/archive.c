@@ -259,9 +259,10 @@ static void xa_build_dir_sidebar (XEntry *entry, GtkTreeStore *model, GtkTreeIte
 			}
 
 			gtk_tree_store_set(model, &child_iter, 0, "gtk-directory", 1, entry->filename, 2, entry, -1);
+
+			if (entry->child)
+				xa_build_dir_sidebar(entry->child, model, &child_iter);
 		}
-		if (entry->child)
-			xa_build_dir_sidebar(entry->child, model, &child_iter);
 
 		entry = entry->next;
 	}
