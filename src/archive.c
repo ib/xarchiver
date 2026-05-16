@@ -245,9 +245,8 @@ static void xa_build_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *pat
 {
 	GtkTreeIter child_iter;
 
-	if (!entry)
-		return;
-
+	while (entry)
+	{
 	if (strlen(entry->filename) == 0)
 		return xa_build_dir_sidebar(entry->child, model, path, containing_iter);
 
@@ -264,9 +263,12 @@ static void xa_build_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *pat
 
 		gtk_tree_store_set(model,&child_iter,0,"gtk-directory",1,entry->filename,2,entry,-1);
 	}
-	xa_build_dir_sidebar(entry->child, model, NULL, &child_iter);
-	xa_build_dir_sidebar(entry->next, model, NULL, containing_iter);
 
+	if (entry->child)
+	xa_build_dir_sidebar(entry->child, model, NULL, &child_iter);
+
+	entry = entry->next;
+	}
 }
 
 static gboolean xa_dir_sidebar_find_row (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer entry)
