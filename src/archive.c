@@ -243,10 +243,10 @@ static gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive, 
 
 static void xa_build_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *path, GtkTreeIter *containing_iter)
 {
-	GtkTreeIter child_iter;
-
 	while (entry)
 	{
+		GtkTreeIter child_iter;
+
 		if (strlen(entry->filename) == 0)
 			return xa_build_dir_sidebar(entry->child, model, path, containing_iter);
 
