@@ -247,9 +247,6 @@ static void xa_build_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *pat
 	{
 		GtkTreeIter child_iter;
 
-		if (strlen(entry->filename) == 0)
-			return xa_build_dir_sidebar(entry->child, model, path, containing_iter);
-
 		if (entry->is_dir)
 		{
 			gtk_tree_store_append(model, &child_iter, containing_iter);
@@ -846,7 +843,7 @@ void xa_fill_dir_sidebar(XArchive *archive,gboolean force_reload)
 		return;
 
 	gtk_tree_store_clear(archive_dir_treestore);
-	xa_build_dir_sidebar(archive->root_entry, archive_dir_treestore, NULL, NULL);
+	xa_build_dir_sidebar(archive->root_entry->child, archive_dir_treestore, NULL, NULL);
 }
 
 void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_data)
