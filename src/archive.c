@@ -670,11 +670,12 @@ void xa_free_entry (XArchive *archive, XEntry *entry)
 	gpointer current_column;
 	guint i;
 
+	while (entry)
+	{
+	XEntry *next;
+
 	if (entry->child)
 		xa_free_entry(archive, entry->child);
-
-	if (entry->next)
-		xa_free_entry(archive, entry->next);
 
 	if (entry->columns)
 	{
@@ -702,7 +703,10 @@ void xa_free_entry (XArchive *archive, XEntry *entry)
 		}
 	}
 
+	next = entry->next;
 	g_free(entry);
+	entry = next;
+	}
 }
 
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *filename, gpointer *items, gboolean is_dir)
