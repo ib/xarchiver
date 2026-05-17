@@ -883,7 +883,7 @@ void xa_reload_archive_content (XArchive *this_archive)
 	g_slist_free(this_archive->back);
 	this_archive->back = NULL;
 
-	xa_free_entry(this_archive, this_archive->root_entry);
+	xa_free_entries(this_archive, this_archive->root_entry);
 
 	g_free(this_archive->column_types);
 	xa_remove_columns(this_archive);

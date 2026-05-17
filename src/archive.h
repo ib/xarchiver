@@ -275,7 +275,7 @@ void xa_fill_dir_sidebar(XArchive *, gboolean);
 void xa_fill_list_with_recursed_entries(XEntry *, GSList **);
 gint xa_find_archive_index(gint);
 XEntry *xa_find_entry_from_dirpath(XArchive *, const gchar *);
-void xa_free_entry(XArchive *, XEntry *);
+void xa_free_entries(XArchive *, XEntry *);
 gboolean xa_get_compressed_tar_type(XArchiveType *);
 gint xa_get_new_archive_index();
 gboolean xa_has_containing_directory(XArchive *);

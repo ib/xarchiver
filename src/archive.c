@@ -463,7 +463,7 @@ void xa_spawn_async_process (XArchive *archive, const gchar *command)
 
 void xa_clean_archive_structure (XArchive *archive)
 {
-	xa_free_entry(archive, archive->root_entry);
+	xa_free_entries(archive, archive->root_entry);
 
 	if (archive->working_dir)
 	{
@@ -665,14 +665,14 @@ gint xa_get_new_archive_index ()
 	return -1;
 }
 
-void xa_free_entry (XArchive *archive, XEntry *entry)
+void xa_free_entries (XArchive *archive, XEntry *entry)
 {
 	while (entry)
 	{
 		XEntry *next;
 
 		if (entry->child)
-			xa_free_entry(archive, entry->child);
+			xa_free_entries(archive, entry->child);
 
 		if (entry->columns)
 		{
