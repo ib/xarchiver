@@ -672,40 +672,40 @@ void xa_free_entry (XArchive *archive, XEntry *entry)
 
 	while (entry)
 	{
-	XEntry *next;
+		XEntry *next;
 
-	if (entry->child)
-		xa_free_entry(archive, entry->child);
+		if (entry->child)
+			xa_free_entry(archive, entry->child);
 
-	if (entry->columns)
-	{
-		current_column = entry->columns;
-
-		if (*entry->filename)
+		if (entry->columns)
 		{
-			for (i = 2; i < archive->columns - 1; i++)
+			current_column = entry->columns;
+
+			if (*entry->filename)
 			{
-				switch (archive->column_types[i])
+				for (i = 2; i < archive->columns - 1; i++)
 				{
-					case G_TYPE_STRING:
-						g_free(*(gchar **) current_column);
-						current_column += sizeof(gchar *);
-						break;
+					switch (archive->column_types[i])
+					{
+						case G_TYPE_STRING:
+							g_free(*(gchar **) current_column);
+							current_column += sizeof(gchar *);
+							break;
 
-					case G_TYPE_UINT64:
-						current_column += sizeof(guint64);
-						break;
+						case G_TYPE_UINT64:
+							current_column += sizeof(guint64);
+							break;
+					}
 				}
+
+				g_free(entry->columns);
+				g_free(entry->filename);
 			}
-
-			g_free(entry->columns);
-			g_free(entry->filename);
 		}
-	}
 
-	next = entry->next;
-	g_free(entry);
-	entry = next;
+		next = entry->next;
+		g_free(entry);
+		entry = next;
 	}
 }
 
