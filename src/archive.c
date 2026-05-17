@@ -667,9 +667,6 @@ gint xa_get_new_archive_index ()
 
 void xa_free_entry (XArchive *archive, XEntry *entry)
 {
-	gpointer current_column;
-	guint i;
-
 	while (entry)
 	{
 		XEntry *next;
@@ -679,10 +676,12 @@ void xa_free_entry (XArchive *archive, XEntry *entry)
 
 		if (entry->columns)
 		{
-			current_column = entry->columns;
+			gpointer current_column = entry->columns;
 
 			if (*entry->filename)
 			{
+				guint i;
+
 				for (i = 2; i < archive->columns - 1; i++)
 				{
 					switch (archive->column_types[i])
