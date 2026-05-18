@@ -196,21 +196,21 @@ static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name, gboole
 
 	while (entry)
 	{
-	if (entry->is_dir)
-	{
-		if (!same_enc && g_utf8_validate(entry->filename, -1, NULL) && !g_utf8_validate(name, -1, NULL))
-			name_utf8 = g_filename_display_name(name);
-
-		if (strcmp(entry->filename, name_utf8 ? name_utf8 : name) == 0)
+		if (entry->is_dir)
 		{
+			if (!same_enc && g_utf8_validate(entry->filename, -1, NULL) && !g_utf8_validate(name, -1, NULL))
+				name_utf8 = g_filename_display_name(name);
+
+			if (strcmp(entry->filename, name_utf8 ? name_utf8 : name) == 0)
+			{
+				g_free(name_utf8);
+				return entry;
+			}
+
 			g_free(name_utf8);
-			return entry;
 		}
 
-		g_free(name_utf8);
-	}
-
-	entry = entry->next;
+		entry = entry->next;
 	}
 
 	return NULL;
