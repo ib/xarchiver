@@ -192,12 +192,12 @@ static XEntry *xa_alloc_memory_for_each_row (guint columns, GType column_types[]
 
 static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name, gboolean same_enc)
 {
-	gchar *name_utf8 = NULL;
-
 	while (entry)
 	{
 		if (entry->is_dir)
 		{
+			gchar *name_utf8 = NULL;
+
 			if (!same_enc && g_utf8_validate(entry->filename, -1, NULL) && !g_utf8_validate(name, -1, NULL))
 				name_utf8 = g_filename_display_name(name);
 
