@@ -194,9 +194,8 @@ static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name, gboole
 {
 	gchar *name_utf8 = NULL;
 
-	if (entry == NULL)
-		return NULL;
-
+	while (entry)
+	{
 	if (entry->is_dir)
 	{
 		if (!same_enc && g_utf8_validate(entry->filename, -1, NULL) && !g_utf8_validate(name, -1, NULL))
@@ -211,7 +210,10 @@ static XEntry *xa_find_directory_entry (XEntry *entry, const gchar *name, gboole
 		g_free(name_utf8);
 	}
 
-  return xa_find_directory_entry(entry->next, name, same_enc);
+	entry = entry->next;
+	}
+
+	return NULL;
 }
 
 static gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive, XEntry *entry, gpointer *items)
