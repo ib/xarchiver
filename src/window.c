@@ -304,16 +304,12 @@ static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, gbo
 
 		if (!entry->is_dir)
 		{
-			gchar *path, *path_utf8;
 			gpointer current_column;
 			guint i;
 			guint64 file_size = 0;
+			gchar *path, *path_utf8;
 
 			current_column = entry->columns;
-
-			path = xa_build_full_local_path_from_entry(entry);
-			path_utf8 = g_filename_display_name(path);
-			g_free(path);
 
 			for (i = 2; i < archive[idx]->columns - 1; i++)
 			{
@@ -329,6 +325,10 @@ static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, gbo
 						break;
 				}
 			}
+
+			path = xa_build_full_local_path_from_entry(entry);
+			path_utf8 = g_filename_display_name(path);
+			g_free(path);
 
 			if (html)
 			{
