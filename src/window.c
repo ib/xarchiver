@@ -293,14 +293,14 @@ static gchar *xa_set_size_string (guint64 file_size)
 	return message;
 }
 
-static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, int bp)
+static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, gboolean html)
 {
 	static int x = 1;
 
 	while (entry)
 	{
 		if (entry->child)
-			xa_write_entries_to_file(entry->child, idx, stream, bp);
+			xa_write_entries_to_file(entry->child, idx, stream, html);
 
 		if (entry->filename && !entry->is_dir)
 		{
@@ -337,7 +337,7 @@ static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, int
 				}
 			}
 
-			if (bp)
+			if (html)
 			{
 				g_fprintf(stream, "<tr class=\"row%d\">", x);
 				g_fprintf(stream, "<td>%s</td><td style=\"text-align: right\">%" G_GUINT64_FORMAT "</td></tr>", path_utf8, file_size);
