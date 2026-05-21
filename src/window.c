@@ -293,14 +293,14 @@ static gchar *xa_set_size_string (guint64 file_size)
 	return message;
 }
 
-static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int bp)
+static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, int bp)
 {
 	static int x = 1;
 
 	while (entry)
 	{
 		if (entry->child)
-			xa_print_entry_in_file(entry->child, idx, stream, bp);
+			xa_write_entries_to_file(entry->child, idx, stream, bp);
 
 		if (entry->filename && !entry->is_dir)
 		{
@@ -1311,7 +1311,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 			g_fprintf(stream, "</tr>");
 
 		}
-		xa_print_entry_in_file(archive[idx]->root_entry->child,idx,stream,bp);
+		xa_write_entries_to_file(archive[idx]->root_entry->child, idx, stream, bp);
 		if (bp)
 			g_fprintf (stream,"</table></body></html>");
 
