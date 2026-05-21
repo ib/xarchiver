@@ -295,11 +295,7 @@ static gchar *xa_set_size_string (guint64 file_size)
 
 static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int bp)
 {
-	gchar *path, *path_utf8;
 	static int x = 1;
-	guint i;
-	gpointer current_column;
-	guint64 file_size = 0;
 
 	while (entry)
 	{
@@ -308,6 +304,11 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 
 		if (entry->filename && !entry->is_dir)
 		{
+			gchar *path, *path_utf8;
+			gpointer current_column;
+			guint i;
+			guint64 file_size = 0;
+
 			current_column = entry->columns;
 
 			if (!g_utf8_validate(entry->filename, -1, NULL))
