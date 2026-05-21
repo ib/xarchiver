@@ -320,7 +320,7 @@ static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, gbo
 						break;
 
 					case G_TYPE_UINT64:
-						file_size = (*((guint64 *) current_column));
+						file_size = *((guint64 *) current_column);
 						current_column += sizeof(guint64);
 						break;
 				}
