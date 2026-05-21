@@ -3105,13 +3105,13 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		if (entry->is_encrypted && !xa_check_password(archive))
 			return;
 
-	   	g_free(archive->extraction_dir);
-	   	xa_create_working_directory(archive);
+		g_free(archive->extraction_dir);
+		xa_create_working_directory(archive);
 		archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);
-	   	item = xa_build_full_path_name_from_entry(entry);
-	   	names = g_slist_append(names,item);
-	   	archive->do_full_path = FALSE;
-	   	archive->do_overwrite = TRUE;
+		item = xa_build_full_path_name_from_entry(entry);
+		names = g_slist_append(names, item);
+		archive->do_full_path = FALSE;
+		archive->do_overwrite = TRUE;
 		archive->do_touch = FALSE;
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->archiver->extract) (archive,names);
