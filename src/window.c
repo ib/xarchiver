@@ -304,9 +304,9 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 	if (!entry)
 		return;
 
-    if (entry->filename && !entry->is_dir)
-    {
-			current_column = entry->columns;
+	if (entry->filename && !entry->is_dir)
+	{
+		current_column = entry->columns;
 		/* Let's retrieve the sizes of the entry from its column */
 		if (!g_utf8_validate(entry->filename, -1, NULL))
 		{
@@ -325,12 +325,12 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 			{
 				case G_TYPE_STRING:
 					current_column += sizeof(gchar *);
-				break;
+					break;
 
 				case G_TYPE_UINT64:
 					file_size = (*((guint64 *)current_column));
 					current_column += sizeof(guint64);
-				break;
+					break;
 			}
 		}
 		if (bp)
