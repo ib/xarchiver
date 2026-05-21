@@ -319,9 +319,6 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 		path_utf8 = g_filename_display_name(path);
 		g_free(path);
 
-		if (strlen(path_utf8) == 0)
-			goto here;
-
 		for (i = 2; i < archive[idx]->columns - 1; i++)
 		{
 			switch(archive[idx]->column_types[i])
@@ -353,7 +350,6 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 		g_free(path_utf8);
 	}
 
-here:
 	xa_print_entry_in_file(entry->child,idx,stream,bp);
 	xa_print_entry_in_file(entry->next,idx,stream,bp);
 }
@@ -1312,7 +1308,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 			g_fprintf(stream, "</tr>");
 
 		}
-		xa_print_entry_in_file(archive[idx]->root_entry,idx,stream,bp);
+		xa_print_entry_in_file(archive[idx]->root_entry->child,idx,stream,bp);
 		if (bp)
 			g_fprintf (stream,"</table></body></html>");
 
