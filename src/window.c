@@ -307,18 +307,21 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 	if (entry->filename && !entry->is_dir)
 	{
 		current_column = entry->columns;
-		/* Let's retrieve the sizes of the entry from its column */
+
 		if (!g_utf8_validate(entry->filename, -1, NULL))
 		{
 			gchar *entry_utf8 = g_filename_display_name(entry->filename);
 			g_free(entry->filename);
 			entry->filename = entry_utf8;
 		}
+
 		path = xa_build_full_path_name_from_entry(entry);
 		path_utf8 = g_filename_display_name(path);
 		g_free(path);
+
 		if (strlen(path_utf8) == 0)
 			goto here;
+
 		for (i = 2; i < archive[idx]->columns - 1; i++)
 		{
 			switch(archive[idx]->column_types[i])
@@ -333,10 +336,12 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 					break;
 			}
 		}
+
 		if (bp)
 		{
 			g_fprintf(stream,"<tr class=\"row%d\">",x);
 			g_fprintf(stream, "<td>%s</td><td style=\"text-align: right\">%" G_GUINT64_FORMAT "</td></tr>", path_utf8, file_size);
+
 			if (x == 2)
 				x = 1;
 			else
@@ -347,6 +352,7 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 
 		g_free(path_utf8);
 	}
+
 here:
 	xa_print_entry_in_file(entry->child,idx,stream,bp);
 	xa_print_entry_in_file(entry->next,idx,stream,bp);
