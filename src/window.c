@@ -302,7 +302,7 @@ static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, gbo
 		if (entry->child)
 			xa_write_entries_to_file(entry->child, idx, stream, html);
 
-		if (entry->filename && !entry->is_dir)
+		if (!entry->is_dir)
 		{
 			gchar *path, *path_utf8;
 			gpointer current_column;
