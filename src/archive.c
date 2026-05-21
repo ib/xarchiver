@@ -793,7 +793,7 @@ XEntry* xa_find_entry_from_dirpath (XArchive *archive, const gchar *dirpath)
 	return entry;
 }
 
-gchar *xa_build_full_path_name_from_entry (XEntry *entry)
+gchar *xa_build_full_local_path_from_entry (XEntry *entry)
 {
 	GString *path;
 	gchar *path_local;
@@ -827,7 +827,7 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
 
 	xa_fill_list_with_recursed_entries(entry->next ,p_file_list);
 	xa_fill_list_with_recursed_entries(entry->child,p_file_list);
-	*p_file_list = g_slist_prepend(*p_file_list, xa_build_full_path_name_from_entry(entry));
+	*p_file_list = g_slist_prepend(*p_file_list, xa_build_full_local_path_from_entry(entry));
 }
 
 void xa_detect_encrypted_archive (XArchive *archive)

@@ -265,7 +265,7 @@ typedef struct
 
 extern XAClipboard XA_Clipboard;
 
-gchar *xa_build_full_path_name_from_entry(XEntry *);
+gchar *xa_build_full_local_path_from_entry(XEntry *);
 void xa_clean_archive_structure(XArchive *);
 gchar *xa_create_containing_directory(XArchive *, const gchar *);
 gboolean xa_create_working_directory(XArchive *);

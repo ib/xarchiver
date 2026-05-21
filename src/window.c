@@ -311,7 +311,7 @@ static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, gbo
 
 			current_column = entry->columns;
 
-			path = xa_build_full_path_name_from_entry(entry);
+			path = xa_build_full_local_path_from_entry(entry);
 			path_utf8 = g_filename_display_name(path);
 			g_free(path);
 
@@ -419,7 +419,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		g_free(archive->extraction_dir);
 		xa_create_working_directory(archive);
 		archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);
-		old_name = xa_build_full_path_name_from_entry(entry);
+		old_name = xa_build_full_local_path_from_entry(entry);
 		q_old_name = g_shell_quote(old_name);
 		names = g_slist_append(names,old_name);
 
@@ -450,7 +450,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		g_free(q_new_name);
 
 		/* Delete the selected file from the archive */
-		old_name = xa_build_full_path_name_from_entry(entry);
+		old_name = xa_build_full_local_path_from_entry(entry);
 		file_list = g_slist_append(NULL, old_name);
 
 		archive->status = XARCHIVESTATUS_DELETE;
@@ -727,7 +727,7 @@ static void xa_clipboard_prepare (XArchive *archive, XAClipboardMode mode)
 		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
 		gtk_tree_path_free(rows->data);
 
-		name = xa_build_full_path_name_from_entry(entry);
+		name = xa_build_full_local_path_from_entry(entry);
 		xa_remove_slash_from_path(name);
 		paths = g_slist_append(paths, g_strconcat(archive->working_dir, "/", name, NULL));
 		g_free(name);
@@ -2197,7 +2197,7 @@ static void xa_concat_dragged_filenames (GtkTreeModel *model, GtkTreePath *path,
 			xa_fill_list_with_recursed_entries(entry->child, &data->names);
 	}
 
-	data->names = g_slist_prepend(data->names, xa_build_full_path_name_from_entry(entry));
+	data->names = g_slist_prepend(data->names, xa_build_full_local_path_from_entry(entry));
 }
 
 void xa_treeview_drag_begin (GtkWidget *widget, GdkDragContext *context, XArchive *archive)
@@ -2518,7 +2518,7 @@ void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,Gtk
 			xa_fill_list_with_recursed_entries(entry->child, data);
 	}
 
-	filename = xa_build_full_path_name_from_entry(entry);
+	filename = xa_build_full_local_path_from_entry(entry);
 	*data = g_slist_prepend (*data,filename);
 }
 
@@ -2792,7 +2792,7 @@ gboolean xa_treeview_mouse_button_press (GtkWidget *widget, GdkEventButton *even
 
 				if (replaceable)
 				{
-					file = xa_build_full_path_name_from_entry(entry);
+					file = xa_build_full_local_path_from_entry(entry);
 					replaceable = (strcmp(file, XA_Clipboard.files->data) == 0 && archive == XA_Clipboard.archive);
 					g_free(file);
 				}
@@ -2888,7 +2888,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	if (XA_Clipboard.target)
 	{
 		g_free(archive[idx]->location_path);
-		archive[idx]->location_path = xa_build_full_path_name_from_entry(XA_Clipboard.target);
+		archive[idx]->location_path = xa_build_full_local_path_from_entry(XA_Clipboard.target);
 	}
 
 	archive[idx]->child_dir = g_path_get_dirname(XA_Clipboard.paths->data);
@@ -2997,7 +2997,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 		if (entry->is_encrypted && !xa_check_password(archive[idx]))
 			return;
 
-		list = g_slist_append(list, xa_build_full_path_name_from_entry(entry));
+		list = g_slist_append(list, xa_build_full_local_path_from_entry(entry));
 		row_list = row_list->next;
 	}
 	g_list_free (row_list);
@@ -3051,7 +3051,7 @@ void xa_view_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	gtk_tree_model_get_iter(archive[idx]->model,&iter,row_list->data);
 	gtk_tree_model_get(archive[idx]->model, &iter, archive[idx]->columns - 1, &entry, -1);
 	gtk_tree_path_free(row_list->data);
-	list = g_slist_append(list, xa_build_full_path_name_from_entry(entry));
+	list = g_slist_append(list, xa_build_full_local_path_from_entry(entry));
 	g_list_free(row_list);
 
 	if (entry->is_encrypted && !xa_check_password(archive[idx]))
@@ -3108,7 +3108,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		g_free(archive->extraction_dir);
 		xa_create_working_directory(archive);
 		archive->extraction_dir = xa_escape_bad_chars(archive->working_dir, ESCAPES);
-		item = xa_build_full_path_name_from_entry(entry);
+		item = xa_build_full_local_path_from_entry(entry);
 		names = g_slist_append(names, item);
 		archive->do_full_path = FALSE;
 		archive->do_overwrite = TRUE;
@@ -3170,7 +3170,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		gtk_widget_set_sensitive(home_button,TRUE);
 
 		if (*entry->filename)
-			archive->location_path = xa_build_full_path_name_from_entry(entry);
+			archive->location_path = xa_build_full_local_path_from_entry(entry);
 
 		xa_set_location_entry(archive);
 
