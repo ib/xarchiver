@@ -303,56 +303,56 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 
 	while (entry)
 	{
-	if (entry->child)
-	xa_print_entry_in_file(entry->child,idx,stream,bp);
+		if (entry->child)
+			xa_print_entry_in_file(entry->child, idx, stream, bp);
 
-	if (entry->filename && !entry->is_dir)
-	{
-		current_column = entry->columns;
-
-		if (!g_utf8_validate(entry->filename, -1, NULL))
+		if (entry->filename && !entry->is_dir)
 		{
-			gchar *entry_utf8 = g_filename_display_name(entry->filename);
-			g_free(entry->filename);
-			entry->filename = entry_utf8;
-		}
+			current_column = entry->columns;
 
-		path = xa_build_full_path_name_from_entry(entry);
-		path_utf8 = g_filename_display_name(path);
-		g_free(path);
-
-		for (i = 2; i < archive[idx]->columns - 1; i++)
-		{
-			switch(archive[idx]->column_types[i])
+			if (!g_utf8_validate(entry->filename, -1, NULL))
 			{
-				case G_TYPE_STRING:
-					current_column += sizeof(gchar *);
-					break;
-
-				case G_TYPE_UINT64:
-					file_size = (*((guint64 *)current_column));
-					current_column += sizeof(guint64);
-					break;
+				gchar *entry_utf8 = g_filename_display_name(entry->filename);
+				g_free(entry->filename);
+				entry->filename = entry_utf8;
 			}
-		}
 
-		if (bp)
-		{
-			g_fprintf(stream,"<tr class=\"row%d\">",x);
-			g_fprintf(stream, "<td>%s</td><td style=\"text-align: right\">%" G_GUINT64_FORMAT "</td></tr>", path_utf8, file_size);
+			path = xa_build_full_path_name_from_entry(entry);
+			path_utf8 = g_filename_display_name(path);
+			g_free(path);
 
-			if (x == 2)
-				x = 1;
+			for (i = 2; i < archive[idx]->columns - 1; i++)
+			{
+				switch(archive[idx]->column_types[i])
+				{
+					case G_TYPE_STRING:
+						current_column += sizeof(gchar *);
+						break;
+
+					case G_TYPE_UINT64:
+						file_size = (*((guint64 *) current_column));
+						current_column += sizeof(guint64);
+						break;
+				}
+			}
+
+			if (bp)
+			{
+				g_fprintf(stream, "<tr class=\"row%d\">", x);
+				g_fprintf(stream, "<td>%s</td><td style=\"text-align: right\">%" G_GUINT64_FORMAT "</td></tr>", path_utf8, file_size);
+
+				if (x == 2)
+					x = 1;
+				else
+					x = 2;
+			}
 			else
-				x = 2;
+				g_fprintf(stream, "%-90s %20" G_GUINT64_FORMAT "\n", path_utf8, file_size);
+
+			g_free(path_utf8);
 		}
-		else
-			g_fprintf(stream, "%-90s %20" G_GUINT64_FORMAT "\n", path_utf8, file_size);
 
-		g_free(path_utf8);
-	}
-
-	entry = entry -> next;
+		entry = entry -> next;
 	}
 }
 
