@@ -301,8 +301,10 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 	gpointer current_column;
 	guint64 file_size = 0;
 
-	if (!entry)
-		return;
+	while (entry)
+	{
+	if (entry->child)
+	xa_print_entry_in_file(entry->child,idx,stream,bp);
 
 	if (entry->filename && !entry->is_dir)
 	{
@@ -350,8 +352,8 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 		g_free(path_utf8);
 	}
 
-	xa_print_entry_in_file(entry->child,idx,stream,bp);
-	xa_print_entry_in_file(entry->next,idx,stream,bp);
+	entry = entry -> next;
+	}
 }
 
 static gchar *xa_open_sfx_file_selector ()
