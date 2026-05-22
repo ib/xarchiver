@@ -2498,7 +2498,6 @@ failed:
 void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,GtkTreeIter *iter,GSList **data)
 {
 	XEntry *entry = NULL;
-	gchar *filename = NULL;
 	gint idx;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
@@ -2513,8 +2512,7 @@ void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,Gtk
 			xa_fill_list_with_recursed_entries(entry->child, data);
 	}
 
-	filename = xa_build_full_local_path_from_entry(entry);
-	*data = g_slist_prepend (*data,filename);
+	*data = g_slist_prepend(*data, xa_build_full_local_path_from_entry(entry));
 }
 
 void xa_select_all(GtkMenuItem *menuitem,gpointer user_data)
