@@ -1239,7 +1239,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		if (bp)
 		{
 			g_fprintf(stream, "<html><head><meta charset=\"UTF-8\"><meta name=GENERATOR content=\"" PACKAGE_NAME " " VERSION "\"><title>%s</title>\n", filename);
-			g_fprintf (stream,"<style>\ntd     { font: normal .7em ; }\nth     { font: bold 0.7em ; color: #FFFFFF; text-align: left; background: #42578A}\n.row1  { background-color: #DDDDDD; }\n.row2  { background-color: #EEEEEE; }\n</style>\n");
+			g_fprintf (stream,"<style>\ntd     { font: normal .7em ; }\nth     { font: bold 0.7em ; color: #FFFFFF; text-align: left; background: #4682B4}\n.row1  { background-color: #F8F8F8; }\n.row2  { background-color: #F0F0F0; }\n</style>\n");
 			g_fprintf(stream,"</head>");
 			g_fprintf (stream,"<body bgcolor=#FFFFFF>\n");
 			g_fprintf (stream,"<b><u>");
