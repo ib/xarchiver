@@ -295,7 +295,7 @@ static gchar *xa_set_size_string (guint64 file_size)
 
 static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, gboolean html)
 {
-	static int x = 1;
+	static int row = 1;
 
 	while (entry)
 	{
@@ -332,13 +332,8 @@ static void xa_write_entries_to_file (XEntry *entry, gint idx, FILE *stream, gbo
 
 			if (html)
 			{
-				g_fprintf(stream, "<tr class=\"row%d\">", x);
+				g_fprintf(stream, "<tr class=\"row%d\">", row ^= 1);
 				g_fprintf(stream, "<td>%s</td><td style=\"text-align: right\">%" G_GUINT64_FORMAT "</td></tr>", path_utf8, file_size);
-
-				if (x == 2)
-					x = 1;
-				else
-					x = 2;
 			}
 			else
 				g_fprintf(stream, "%-90s %20" G_GUINT64_FORMAT "\n", path_utf8, file_size);
@@ -1239,7 +1234,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		if (bp)
 		{
 			g_fprintf(stream, "<html><head><meta charset=\"UTF-8\"><meta name=GENERATOR content=\"" PACKAGE_NAME " " VERSION "\"><title>%s</title>\n", filename);
-			g_fprintf (stream,"<style>\ntd     { font: normal .7em ; }\nth     { font: bold 0.7em ; color: #FFFFFF; text-align: left; background: #4682B4}\n.row1  { background-color: #F8F8F8; }\n.row2  { background-color: #F0F0F0; }\n</style>\n");
+			g_fprintf (stream,"<style>\ntd     { font: normal .7em ; }\nth     { font: bold 0.7em ; color: #FFFFFF; text-align: left; background: #4682B4}\n.row0  { background-color: #F8F8F8; }\n.row1  { background-color: #F0F0F0; }\n</style>\n");
 			g_fprintf(stream,"</head>");
 			g_fprintf (stream,"<body bgcolor=#FFFFFF>\n");
 			g_fprintf (stream,"<b><u>");
