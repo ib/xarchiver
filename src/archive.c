@@ -822,12 +822,15 @@ gchar *xa_build_full_local_path_from_entry (XEntry *entry)
 
 void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
 {
-	if (entry == NULL)
-		return;
-
-	xa_fill_list_with_recursed_entries(entry->next ,p_file_list);
+	while (entry)
+	{
+	if (entry->child)
 	xa_fill_list_with_recursed_entries(entry->child,p_file_list);
+
 	*p_file_list = g_slist_prepend(*p_file_list, xa_build_full_local_path_from_entry(entry));
+
+	entry = entry->next;
+	}
 }
 
 void xa_detect_encrypted_archive (XArchive *archive)
