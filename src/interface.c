@@ -912,6 +912,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_set_sensitive(sort_menu, FALSE);
 	gtk_widget_show(sort_menu);
 	gtk_container_add(GTK_CONTAINER(menuitem2_menu), sort_menu);
+	gtk_widget_add_accelerator(sort_menu, "activate", accel_group, GDK_KEY_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock("gtk-undo", GTK_ICON_SIZE_MENU);
 	gtk_widget_show(tmp_image);
