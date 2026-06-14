@@ -941,7 +941,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_set_sensitive (comment_menu,FALSE);
 	gtk_widget_show (comment_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),comment_menu);
-	gtk_widget_add_accelerator(comment_menu, "activate", accel_group, GDK_KEY_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(comment_menu, "activate", accel_group, GDK_KEY_c, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-justify-left",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);

@@ -126,6 +126,7 @@ static inline void gtk_widget_set_can_focus (GtkWidget *widget, gboolean can_foc
 #if !GTK_CHECK_VERSION(2,22,0)
 #define GDK_KEY_a GDK_a
 #define GDK_KEY_b GDK_b
+#define GDK_KEY_c GDK_c
 #define GDK_KEY_d GDK_d
 #define GDK_KEY_e GDK_e
 #define GDK_KEY_f GDK_f
