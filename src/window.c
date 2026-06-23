@@ -2453,6 +2453,7 @@ failed:
 			{
 				xa_clean_archive_structure(archive[idx]);
 				archive[idx] = NULL;
+				goto cannot;
 			}
 		}
 
@@ -2460,6 +2461,7 @@ failed:
 
 		if (!archive[idx]->can_add)
 		{
+cannot:
 			xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform this action:"), _("You can't add content to this archive type!"));
 			goto failed;
 		}
