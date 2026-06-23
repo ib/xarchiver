@@ -278,6 +278,7 @@ failed:
 
 	if (!uris || archive[idx]->child_pid)
 	{
+no_uris:
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, I could not perform the operation!"), "");
 		g_strfreev(uris);
 		goto failed;
@@ -292,6 +293,9 @@ failed:
 
 		n++;
 	}
+
+	if (G_UNLIKELY(!list))
+		goto no_uris;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	gtk_tree_model_get_iter(model, &iter, path);
