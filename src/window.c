@@ -2717,10 +2717,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	if (archive[idx]->location_path)
 		prev_entry = xa_find_entry_from_dirpath(archive[idx], archive[idx]->location_path);
 
-	if (prev_entry != NULL)
-		archive[idx]->back = g_slist_prepend(archive[idx]->back,prev_entry);
-	else
-		archive[idx]->back = g_slist_prepend(archive[idx]->back,NULL);
+	archive[idx]->back = g_slist_prepend(archive[idx]->back, prev_entry);
 
 	xa_dir_sidebar_select_row(new_entry);
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
