@@ -658,6 +658,10 @@ static void xa_handle_navigation_buttons (GtkToolButton *button, gpointer data)
 				gtk_tree_selection_unselect_iter(selection,&iter);
 
 			new_entry = xa_find_entry_from_dirpath(archive[idx], archive[idx]->location_path);
+
+			if (G_UNLIKELY(!new_entry))
+				new_entry = archive[idx]->root_entry;
+
 			xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
 			xa_dir_sidebar_select_row(new_entry->prev);
 
