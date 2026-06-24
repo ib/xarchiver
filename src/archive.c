@@ -784,6 +784,13 @@ XEntry* xa_find_entry_from_dirpath (XArchive *archive, const gchar *dirpath)
 	while (components[n] && *components[n])
 	{
 		entry = xa_find_directory_entry(root->child, components[n], FALSE);
+
+		if (!entry)
+		{
+			g_strfreev(components);
+			return NULL;
+		}
+
 		root = entry;
 		n++;
 	}
