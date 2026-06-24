@@ -2373,6 +2373,7 @@ void xa_page_drag_data_received (GtkWidget *widget, GdkDragContext *context, gin
 
 	if (!uris)
 	{
+no_uris:
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, I could not perform the operation!"), "");
 
 failed:
@@ -2408,6 +2409,9 @@ failed:
 
 		n++;
 	}
+
+	if (G_UNLIKELY(!list))
+		goto no_uris;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
