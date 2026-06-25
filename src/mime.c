@@ -76,6 +76,7 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/java-archive") == 0 || /* legacy */ strcmp(mime,"application/x-java-archive") == 0 ||
 	         strcmp(mime,"application/vnd.android.package-archive") == 0 ||
 	         strcmp(mime,"application/vnd.appimage") == 0 ||
+	         strcmp(mime,"application/vnd.bzip3") == 0 || /* legacy */ strcmp(mime,"application/x-bzip3") == 0 ||
 	         strcmp(mime,"application/vnd.debian.binary-package") == 0 ||
 	         strcmp(mime,"application/vnd.efi.iso") == 0 ||
 	         strcmp(mime,"application/vnd.ms-cab-compressed") == 0 ||
@@ -91,7 +92,6 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/x-bzip1-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-bzip2") == 0 || /* legacy */ strcmp(mime,"application/x-bzip") == 0 ||
 	         strcmp(mime,"application/x-bzip2-compressed-tar") == 0 || /* legacy */ strcmp(mime,"application/x-bzip-compressed-tar") == 0 ||
-	         strcmp(mime,"application/x-bzip3") == 0 ||
 	         strcmp(mime,"application/x-bzip3-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-cd-image") == 0 ||
 	         strcmp(mime,"application/x-compress") == 0 ||
