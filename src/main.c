@@ -1059,6 +1059,11 @@ static void xa_check_available_archivers ()
 		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "zip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.zip");
+		/* Android application bundles */
+		archiver[type].type = g_slist_append(archiver[type].type, "aab");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.aab");
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('b'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		/* Android application package */
 		archiver[type].type = g_slist_append(archiver[type].type, "apk");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.apk");

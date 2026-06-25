@@ -1873,7 +1873,9 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	{
 		xa.type = XARCHIVETYPE_ZIP;
 
-		if (g_str_has_suffix(filename, ".apk"))
+		if (g_str_has_suffix(filename, ".aab"))
+			xa.tag = 'b';
+		else if (g_str_has_suffix(filename, ".apk"))
 			xa.tag = 'a';
 		else if (g_str_has_suffix(filename, ".cbz"))
 			xa.tag = 'c';
