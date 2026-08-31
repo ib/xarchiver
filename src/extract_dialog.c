@@ -541,20 +541,20 @@ void xa_set_extract_dialog_options (ExtractDialog *extract_dialog, gint selected
 		}
 		else
 		{
-		gchar *archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_extract_dir));
+			gchar *archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->preferred_extract_dir));
 
-		if (!archive_dir || !*archive_dir)
-		{
-			gchar *archive_dir_utf8;
+			if (!archive_dir || !*archive_dir)
+			{
+				gchar *archive_dir_utf8;
 
+				g_free(archive_dir);
+				archive_dir_utf8 = g_filename_display_name(archive->path[0]);
+				archive_dir = xa_remove_level_from_path(archive_dir_utf8);
+				g_free(archive_dir_utf8);
+			}
+
+			archive->destination_path = g_strdup(archive_dir);
 			g_free(archive_dir);
-			archive_dir_utf8 = g_filename_display_name(archive->path[0]);
-			archive_dir = xa_remove_level_from_path(archive_dir_utf8);
-			g_free(archive_dir_utf8);
-		}
-
-		archive->destination_path = g_strdup(archive_dir);
-		g_free(archive_dir);
 		}
 	}
 	gtk_entry_set_text(GTK_ENTRY(extract_dialog->destination_path_entry), archive->destination_path);
