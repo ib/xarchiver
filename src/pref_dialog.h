@@ -47,6 +47,7 @@ typedef struct PrefsDialog
 	GtkWidget *preferred_custom_cmd;
 	GtkWidget *preferred_temp_dir;
 	GtkWidget *preferred_extract_dir;
+	GtkWidget *extract_same_dir;
 	GtkWidget *save_geometry;
 	GtkWidget *allow_sub_dir;
 	GtkWidget *extended_dnd;

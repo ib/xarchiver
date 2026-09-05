@@ -74,6 +74,11 @@ static void xa_prefs_combo_changed (GtkComboBox *widget, gpointer data)
 	}
 }
 
+static void xa_prefs_extract_same_dir_toggle (GtkToggleButton *toggle_button, PrefsDialog *prefs_dialog)
+{
+	gtk_widget_set_sensitive(prefs_dialog->preferred_extract_dir, !gtk_toggle_button_get_active(toggle_button));
+}
+
 static void xa_prefs_dialog_set_default_options (PrefsDialog *prefs_dialog)
 {
 	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_dialog->preferred_format), 0);
@@ -100,6 +105,7 @@ static void xa_prefs_dialog_set_default_options (PrefsDialog *prefs_dialog)
 	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_dialog->preferred_extract_dir), 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->save_geometry), FALSE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->allow_sub_dir), FALSE);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->extract_same_dir), FALSE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->extended_dnd), g_getenv("WAYLAND_DISPLAY") != NULL);
 	/* Set the default options in the extract dialog */
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory), TRUE);
@@ -297,7 +303,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_notebook_append_page(GTK_NOTEBOOK(prefs_dialog->notebook), vbox, NULL);
 
-	table = gtk_table_new(10, 2, FALSE);
+	table = gtk_table_new(11, 2, FALSE);
 	gtk_box_pack_start(GTK_BOX(vbox), table, TRUE, TRUE, 0);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 1);
 
@@ -403,21 +409,27 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_extract_dir), FALSE);
 	g_signal_connect(prefs_dialog->preferred_extract_dir, "changed", G_CALLBACK(xa_prefs_combo_changed), GUINT_TO_POINTER(1));
 
+	prefs_dialog->extract_same_dir = gtk_check_button_new_with_mnemonic(_("To the archive directory"));
+	gtk_table_attach(GTK_TABLE(table), prefs_dialog->extract_same_dir,
+	                 1, 2, 7, 8, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->extract_same_dir), FALSE);
+	g_signal_connect(prefs_dialog->extract_same_dir, "toggled", G_CALLBACK(xa_prefs_extract_same_dir_toggle), prefs_dialog);
+
 	prefs_dialog->save_geometry = gtk_check_button_new_with_mnemonic(_("Save window geometry"));
 	gtk_table_attach(GTK_TABLE(table), prefs_dialog->save_geometry,
-	                 0, 2, 7, 8, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 4);
+	                 0, 2, 8, 9, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 4);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->save_geometry), FALSE);
 
 	prefs_dialog->allow_sub_dir = gtk_check_button_new_with_mnemonic(_("Allow subdirs with clipboard and drag-and-drop"));
 	gtk_widget_set_tooltip_text(prefs_dialog->allow_sub_dir, _("This option includes the subdirectories when you add files from the clipboard or with drag-and-drop."));
 	gtk_table_attach(GTK_TABLE(table), prefs_dialog->allow_sub_dir,
-	                 0, 2, 8, 9, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	                 0, 2, 9, 10, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->allow_sub_dir), FALSE);
 
 	prefs_dialog->extended_dnd = gtk_check_button_new_with_mnemonic(_("Extended drag-and-drop support (requires restart)"));
 	gtk_widget_set_tooltip_text(prefs_dialog->extended_dnd, _("This enables drag-and-drop transfers of type \"text/uri-list\", which is only necessary if you are not using the X Window System or if the targets do not support XDirectSave.\nIf you are using the X Window System and drag-and-drop works without this extension, do not enable it to avoid drawbacks."));
 	gtk_table_attach(GTK_TABLE(table), prefs_dialog->extended_dnd,
-	                 0, 2, 9, 10, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 4);
+	                 0, 2, 10, 11, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 4);
 	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->extended_dnd), FALSE);
 
 	return prefs_dialog;
@@ -507,7 +519,9 @@ void xa_prefs_save_options (PrefsDialog *prefs_dialog, const char *filename)
 		g_free(value);
 	}
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "allow_sub_dir", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->allow_sub_dir)));
+	g_key_file_set_boolean(xa_key_file, PACKAGE, "extract_same_dir", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->extract_same_dir)));
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "extended_dnd", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->extended_dnd)));
+
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->save_geometry)))
 	{
 		/* Main window coords */
@@ -670,6 +684,7 @@ void xa_prefs_load_options (PrefsDialog *prefs_dialog)
 		}
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->show_toolbar), toolbar);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->allow_sub_dir), g_key_file_get_boolean(xa_key_file, PACKAGE, "allow_sub_dir", NULL));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->extract_same_dir), g_key_file_get_boolean(xa_key_file, PACKAGE, "extract_same_dir", NULL));
 		extdnd = g_key_file_get_boolean(xa_key_file, PACKAGE, "extended_dnd", &error);
 		if (error)
 		{
