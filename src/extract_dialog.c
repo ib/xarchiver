@@ -533,11 +533,13 @@ void xa_set_extract_dialog_options (ExtractDialog *extract_dialog, gint selected
 
 	if (!archive->destination_path)
 	{
-		if (prefs_window->extract_same_dir)
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->extract_same_dir)))
 		{
-			gchar *dirname = g_path_get_dirname(archive->path[0]);
-			archive->destination_path = g_strdup_printf("%s", dirname);
+			gchar *dirname_utf8 = g_path_get_dirname(archive->path[0]);
+			gchar *dirname = g_filename_display_name(dirname_utf8);
+			archive->destination_path = g_strdup(dirname);
 			g_free(dirname);
+			g_free(dirname_utf8);
 		}
 		else
 		{
