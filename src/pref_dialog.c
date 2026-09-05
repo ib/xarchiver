@@ -74,9 +74,9 @@ static void xa_prefs_combo_changed (GtkComboBox *widget, gpointer data)
 	}
 }
 
-static void xa_prefs_extract_same_dir_toggle (GtkToggleButton *toggle_button, PrefsDialog *prefs_dialog)
+static void xa_prefs_extract_same_dir_toggle (GtkToggleButton *button, PrefsDialog *prefs_dialog)
 {
-	gtk_widget_set_sensitive(prefs_dialog->preferred_extract_dir, !gtk_toggle_button_get_active(toggle_button));
+	gtk_widget_set_sensitive(prefs_dialog->preferred_extract_dir, !gtk_toggle_button_get_active(button));
 }
 
 static void xa_prefs_dialog_set_default_options (PrefsDialog *prefs_dialog)
