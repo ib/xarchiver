@@ -74,6 +74,11 @@ static void xa_prefs_combo_changed (GtkComboBox *widget, gpointer data)
 	}
 }
 
+static void xa_prefs_extract_same_dir_toggle (GtkToggleButton *toggle_button, PrefsDialog *prefs_dialog)
+{
+	gtk_widget_set_sensitive(prefs_dialog->preferred_extract_dir, !gtk_toggle_button_get_active(toggle_button));
+}
+
 static void xa_prefs_dialog_set_default_options (PrefsDialog *prefs_dialog)
 {
 	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_dialog->preferred_format), 0);
@@ -100,7 +105,7 @@ static void xa_prefs_dialog_set_default_options (PrefsDialog *prefs_dialog)
 	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_dialog->preferred_extract_dir), 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->save_geometry), FALSE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->allow_sub_dir), FALSE);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->extract_same_folder), FALSE);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->extract_same_dir), FALSE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->extended_dnd), g_getenv("WAYLAND_DISPLAY") != NULL);
 	/* Set the default options in the extract dialog */
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory), TRUE);
@@ -131,12 +136,6 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, PrefsDialog *prefs_dialog
 	g_list_free (list);
 
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(prefs_dialog->notebook), column);
-}
-
-void xa_prefs_extract_same_folder_changed(GtkToggleButton *toggle_button, PrefsDialog *prefs_dialog)
-{
-    gboolean is_checked = gtk_toggle_button_get_active(toggle_button);
-	gtk_widget_set_sensitive(prefs_dialog->preferred_extract_dir, !is_checked);
 }
 
 PrefsDialog *xa_create_prefs_dialog ()
@@ -304,7 +303,7 @@ PrefsDialog *xa_create_prefs_dialog ()
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_notebook_append_page(GTK_NOTEBOOK(prefs_dialog->notebook), vbox, NULL);
 
-	table = gtk_table_new(10, 2, FALSE);
+	table = gtk_table_new(11, 2, FALSE);
 	gtk_box_pack_start(GTK_BOX(vbox), table, TRUE, TRUE, 0);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 1);
 
@@ -410,11 +409,11 @@ PrefsDialog *xa_create_prefs_dialog ()
 	gtk_combo_box_set_focus_on_click(GTK_COMBO_BOX(prefs_dialog->preferred_extract_dir), FALSE);
 	g_signal_connect(prefs_dialog->preferred_extract_dir, "changed", G_CALLBACK(xa_prefs_combo_changed), GUINT_TO_POINTER(1));
 
-	prefs_dialog->extract_same_folder = gtk_check_button_new_with_mnemonic(_("To the archive directory"));
-	gtk_table_attach(GTK_TABLE(table), prefs_dialog->extract_same_folder,
-	                 1, 2, 7, 8, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 4);
-	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->extract_same_folder), FALSE);
-	g_signal_connect(G_OBJECT(prefs_dialog->extract_same_folder), "toggled", G_CALLBACK(xa_prefs_extract_same_folder_changed), prefs_dialog);
+	prefs_dialog->extract_same_dir = gtk_check_button_new_with_mnemonic(_("To the archive directory"));
+	gtk_table_attach(GTK_TABLE(table), prefs_dialog->extract_same_dir,
+	                 1, 2, 7, 8, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_dialog->extract_same_dir), FALSE);
+	g_signal_connect(prefs_dialog->extract_same_dir, "toggled", G_CALLBACK(xa_prefs_extract_same_dir_toggle), prefs_dialog);
 
 	prefs_dialog->save_geometry = gtk_check_button_new_with_mnemonic(_("Save window geometry"));
 	gtk_table_attach(GTK_TABLE(table), prefs_dialog->save_geometry,
@@ -520,8 +519,8 @@ void xa_prefs_save_options (PrefsDialog *prefs_dialog, const char *filename)
 		g_free(value);
 	}
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "allow_sub_dir", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->allow_sub_dir)));
+	g_key_file_set_boolean(xa_key_file, PACKAGE, "extract_same_dir", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->extract_same_dir)));
 	g_key_file_set_boolean(xa_key_file, PACKAGE, "extended_dnd", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->extended_dnd)));
-	g_key_file_set_boolean(xa_key_file, PACKAGE, "extract_same_folder", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->extract_same_folder)));
 
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_dialog->save_geometry)))
 	{
@@ -685,7 +684,7 @@ void xa_prefs_load_options (PrefsDialog *prefs_dialog)
 		}
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->show_toolbar), toolbar);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->allow_sub_dir), g_key_file_get_boolean(xa_key_file, PACKAGE, "allow_sub_dir", NULL));
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->extract_same_folder), g_key_file_get_boolean(xa_key_file, PACKAGE, "extract_same_folder", NULL));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_dialog->extract_same_dir), g_key_file_get_boolean(xa_key_file, PACKAGE, "extract_same_dir", NULL));
 		extdnd = g_key_file_get_boolean(xa_key_file, PACKAGE, "extended_dnd", &error);
 		if (error)
 		{
